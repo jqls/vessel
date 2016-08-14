@@ -7,6 +7,7 @@ WORKDIR /vessel
 COPY . /vessel
 
 RUN npm install
+RUN npm install -g angularcli
 COPY build.sh /build.sh
 
 COPY docker-entrypoint.sh /vessel/docker-entrypoint.sh
