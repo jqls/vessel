@@ -1,4 +1,4 @@
-FROM node:4-onbuild
+FROM node
 
 MAINTAINER Weiqiang Tang <tangweiqiang@hotmail.com>
 
@@ -7,6 +7,7 @@ WORKDIR /vessel
 COPY . /vessel
 
 RUN npm install
-
+COPY docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh
 EXPOSE 4200
-RUN ng serve
+CMD /vessel/docker-entrypoint.sh
