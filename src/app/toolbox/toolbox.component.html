@@ -11,6 +11,6 @@
   <a class="list-group-item" *ngFor="let process of processes" (click)="itemClicked(process)"
      [class.active]="selectedNode===process">
     <h5 class="list-group-item-heading">{{ process.name }}</h5>
-    <p class="list-group-item-text">{{ "这是一种算法" }}</p>
+    <p class="list-group-item-text">{{ process.description||"这是一种算法" }}</p>
   </a>
 </div>

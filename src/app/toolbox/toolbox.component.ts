@@ -23,7 +23,8 @@ export class ToolboxComponent implements OnInit {
   processes: [{}] = [
     {
       'type': 'process',
-      'name': "朴素贝叶斯"
+      'name': "朴素贝叶斯",
+      'description': 'naive 的贝叶斯算法',
     },
     {
       'type': 'process',

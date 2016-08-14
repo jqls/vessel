@@ -23,5 +23,6 @@
   stroke-width: 0px;
 }
 .selected {
-  stroke: yellow;
+  stroke: #ffff66;
+  border: #ffff66;
 }

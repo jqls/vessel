@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {DrawboardComponent} from "./drawboard/drawboard.component";
 import {ToolboxComponent} from "./toolbox/toolbox.component";
 import {DrawboardStatusService} from "./drawboard-status.service";
+import {ProcessService} from "./process.service";
 
 
 @Component({
@@ -10,7 +11,8 @@ import {DrawboardStatusService} from "./drawboard-status.service";
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   providers: [
-    DrawboardStatusService
+    DrawboardStatusService,
+    ProcessService
   ],
   directives: [
     DrawboardComponent,

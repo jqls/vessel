@@ -27,5 +27,7 @@
 }
 
 .selected {
-  stroke: yellow;
+  @color: lighten(yellow, 20%);
+  stroke: @color;
+  border: @color;
 }
