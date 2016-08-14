@@ -11,8 +11,8 @@ import {ProcessService} from "../process.service";
 })
 export class ToolboxComponent implements OnInit {
   selectedNode: {} = null;
-  dataSources: [{}];
-  processes: [{}];
+  dataSources: Array<{}>;
+  processes: Array<{}>;
 
   constructor(private drawboadStatus: DrawboardStatusService,
               private processService: ProcessService) {
