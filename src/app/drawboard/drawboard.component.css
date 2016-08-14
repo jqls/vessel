@@ -1,0 +1,27 @@
+.path {
+  stroke: black;
+  stroke-width: 2px;
+}
+.drawboard {
+  border: 1px black solid;
+}
+.renderable {
+  stroke-width: 1px;
+  stroke: gray;
+}
+.data-source {
+  stroke-width: 1px;
+  stroke: gray;
+  fill: #8080ff;
+}
+.process {
+  stroke-width: 1px;
+  stroke: gray;
+  fill: #ff8080;
+}
+.hidden {
+  stroke-width: 0px;
+}
+.selected {
+  stroke: yellow;
+}
