@@ -1,4 +1,4 @@
-import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./DrawboardElement";
+import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
 /**
  * Created by tang on 7/18/16.

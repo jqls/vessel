@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {DrawboardStatusService} from "../drawboard-status.service";
+import {Node} from "../shared/node.class";
 
 @Component({
   moduleId: module.id,
@@ -8,26 +10,39 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ToolboxComponent implements OnInit {
 
-  dataSources: [{name: string, upload_date: string}] = [
+  selectedNode: {} = null;
+
+  dataSources: [{}] = [
     {
+      'type': 'data_source',
       'name': '鸢尾花数据集',
       'upload_date': '2016-2-3'
     }
   ];
 
-  processes: [{name: string}] = [
+  processes: [{}] = [
     {
+      'type': 'process',
       'name': "朴素贝叶斯"
     },
     {
+      'type': 'process',
       'name': "kNN聚类"
     },
     {
+      'type': 'process',
       'name': "感知器分类"
     }
   ];
 
-  constructor() {
+  constructor(private drawboadStatus: DrawboardStatusService) {
+
+  }
+
+  itemClicked(item: {}) {
+    this.selectedNode = item;
+    console.log(item);
+    this.drawboadStatus.setSelectedNode(item);
   }
 
   ngOnInit() {

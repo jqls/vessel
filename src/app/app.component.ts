@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {DrawboardComponent} from "./drawboard/drawboard.component";
 import {ToolboxComponent} from "./toolbox/toolbox.component";
+import {DrawboardStatusService} from "./drawboard-status.service";
 
 
 @Component({
@@ -8,6 +9,9 @@ import {ToolboxComponent} from "./toolbox/toolbox.component";
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
+  providers: [
+    DrawboardStatusService
+  ],
   directives: [
     DrawboardComponent,
     ToolboxComponent

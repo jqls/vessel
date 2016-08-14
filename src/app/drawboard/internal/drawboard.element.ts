@@ -1,7 +1,9 @@
+///<reference path="../../shared/d3.d.ts"/>
+
 /**
  * Created by tang on 7/16/16.
  */
-import {Relation} from "./Relation";
+import {Relation} from "./drawboard.relation";
 import {DrawboardComponent} from "../drawboard.component";
 
 export const ELEMENT_HEIGHT = 50;
@@ -15,9 +17,11 @@ export class DrawboardElement {
   cx: number;
   cy: number;
   groupContainer: any;
-  contextMenu: boolean = false;
-  relations: Relation[];
-  contextMenuItem: [any];
+  // contextMenu: boolean = false;
+  relations: Relation[ ];
+  // contextMenuItem: [any];
+  rendered: boolean = false;
+  node_info: {};
 
   setCenterPosition(d: {x: number; y: number}): void {
     this.cx = d['x'];
@@ -25,8 +29,9 @@ export class DrawboardElement {
     this.groupContainer.attr("transform", "translate(" + this.cx + "," + this.cy + ")");
   }
 
-  constructor(board: DrawboardComponent, centerPosition: {x: number, y: number}) {
+  constructor(board: DrawboardComponent, centerPosition: {x: number, y: number}, node_info: {}) {
     this.relations = [];
+    this.node_info = node_info;
 
     this.board = board;
     this.groupContainer = board.container.append("g");
@@ -91,6 +96,21 @@ export class DrawboardElement {
   }
 
   render() {
-
+    if (!this.rendered) {
+      this.groupContainer.append("rect")
+        .attr("rx", ELEMENT_ROUND_X)
+        .attr("ry", ELEMENT_ROUND_Y)
+        .attr("height", ELEMENT_HEIGHT)
+        .attr("width", ELEMENT_WIDTH)
+        .classed("data-source", true);
+      this.groupContainer
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", ELEMENT_HEIGHT / 2)
+        .attr("dx", ELEMENT_WIDTH / 2)
+        .append("tspan")
+        .html(this.node_info['name']);
+    }
+    this.rendered = true;
   }
 }

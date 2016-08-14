@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {DataSource} from "./internal/DataSource";
-import {Process} from "./internal/Process";
+import {DrawboardStatusService} from "../drawboard-status.service";
+import {DrawboardElement} from "./internal/drawboard.element";
 
 @Component({
   moduleId: module.id,
@@ -17,7 +17,6 @@ export class DrawboardComponent implements OnInit {
 
   selectedLine: any;
   selectedNode: any;
-  currentNewObject: any;
   mouseDownNode: any;
 
   justDragged: boolean;
@@ -40,7 +39,6 @@ export class DrawboardComponent implements OnInit {
   private initState() {
     this.selectedLine = null;
     this.selectedNode = null;
-    this.currentNewObject = null;
     this.mouseDownNode = null;
     this.justDragged = false;
     this.dragFrom = null;
@@ -112,15 +110,19 @@ export class DrawboardComponent implements OnInit {
       });
 
     self.svg.on("mousedown", function () {
-      if (self.currentNewObject != null) {
+      let selectedNode = self.drawBoardStatus.getSelectedNode();
+      if (selectedNode != null) {
         let coord = d3.mouse(self.container.node());
-        let newElement = new self.currentNewObject(self, {
+        //todo: 新的绘图方式
+        let newElement = new DrawboardElement(self, {
           'x': coord[0],
           'y': coord[1]
-        });
+        }, selectedNode);
+
         newElement.render();
       }
-      self.currentNewObject = null;
+
+      self.drawBoardStatus.cancelSelectedNode();
     });
 
     self.svg.call(d3.behavior.zoom()
@@ -148,7 +150,7 @@ export class DrawboardComponent implements OnInit {
     );
   }
 
-  constructor() {
+  constructor(private drawBoardStatus: DrawboardStatusService) {
   }
 
   public update() {
@@ -164,15 +166,5 @@ export class DrawboardComponent implements OnInit {
     self.initState();
     self.initSVG();    //初始化svg渲染和箭头图标等
     self.bindEventHandler();
-
-    d3.select("#data-source").on("click", function () {
-      self.currentNewObject = DataSource;
-    });
-    d3.select("#nothing").on("click", function () {
-      self.currentNewObject = null;
-    });
-    d3.select("#process").on("click", function () {
-      self.currentNewObject = Process;
-    });
   }
 }

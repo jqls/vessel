@@ -3,8 +3,10 @@
  */
 
 
-export interface Node{
+export class Node {
+  type: string;
   name: string;
   description: string;
   create_time: string;
+  parameters: {}
 }
