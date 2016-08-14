@@ -1,4 +1,4 @@
-FROM node:6.3.1-onbuild
+FROM node:4-onbuild
 
 MAINTAINER Weiqiang Tang <tangweiqiang@hotmail.com>
 
