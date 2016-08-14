@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class ProcessService {
@@ -13,15 +13,20 @@ export class ProcessService {
     {
       'type': 'process',
       'name': "朴素贝叶斯",
+      'tags': [
+        '分类',
+      ],
       'description': 'naive 的贝叶斯算法',
     },
     {
       'type': 'process',
-      'name': "kNN聚类"
+      'name': "kNN聚类",
+      'tags': ['分类', '多类']
     },
     {
       'type': 'process',
-      'name': "感知器分类"
+      'name': "感知器分类",
+      'tags': ['分类']
     }
   ];
 

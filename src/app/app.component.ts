@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {DrawboardComponent} from "./drawboard/drawboard.component";
-import {ToolboxComponent} from "./toolbox/toolbox.component";
+import {DrawboardComponent} from "./drawboard.component/drawboard.component";
+import {ToolboxComponent} from "./toolbox.component/toolbox.component";
 import {DrawboardStatusService} from "./drawboard-status.service";
 import {ProcessService} from "./process.service";
 
@@ -20,5 +20,5 @@ import {ProcessService} from "./process.service";
   ]
 })
 export class AppComponent {
-  title = 'It works well!';
+  title = 'Works!';
 }

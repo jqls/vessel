@@ -10,8 +10,9 @@ import {ProcessService} from "../process.service";
 })
 export class ToolboxComponent implements OnInit {
   selectedNode: {} = null;
-  dataSources: Array<{}>;
-  processes: Array<{}>;
+  dataSources: Array<{}> = [];
+  processes: Array<{}> = [];
+  displayInfomation: boolean = false;
 
   constructor(private drawboadStatus: DrawboardStatusService,
               private processService: ProcessService) {
@@ -31,6 +32,10 @@ export class ToolboxComponent implements OnInit {
       this.selectedNode = item;
       this.drawboadStatus.setSelectedNode(item);
     }
+  }
+
+  itemDbClicked(item: {}) {
+
   }
 
   ngOnInit() {
