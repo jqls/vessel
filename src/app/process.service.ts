@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class ProcessService {
-  private data_sources: [{}] = [
+  private data_sources: Array<{}> = [
     {
       'type': 'data_source',
       'name': '鸢尾花数据集',
       'upload_date': '2016-2-3'
     }
   ];
-  private processes: [{}] = [
+  private processes: Array<{}> = [
     {
       'type': 'process',
       'name': "朴素贝叶斯",
@@ -25,12 +25,12 @@ export class ProcessService {
     }
   ];
 
-  getDataSources(): {}[] {
+  getDataSources(): Array<{}> {
     //todo: change to $http
     return this.data_sources;
   }
 
-  getProcesses(): {}[] {
+  getProcesses(): Array<{}> {
     //todo: change to $http
     return this.processes;
   }

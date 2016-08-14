@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {DrawboardStatusService} from "../drawboard-status.service";
-import {Node} from "../shared/node.class";
 import {ProcessService} from "../process.service";
 
 @Component({
@@ -21,12 +20,17 @@ export class ToolboxComponent implements OnInit {
       self.selectedNode = node;
     });
     this.dataSources = processService.getDataSources();
-    this.selectedNode = processService.getProcesses();
+    this.processes = processService.getProcesses();
   }
 
   itemClicked(item: {}) {
-    this.selectedNode = item;
-    this.drawboadStatus.setSelectedNode(item);
+    if (this.selectedNode == item) {
+      this.selectedNode = null;
+      this.drawboadStatus.cancelSelectedNode();
+    } else {
+      this.selectedNode = item;
+      this.drawboadStatus.setSelectedNode(item);
+    }
   }
 
   ngOnInit() {
