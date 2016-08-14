@@ -1,13 +1,15 @@
 <h4>数据源</h4>
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let dataSource of dataSources" (click)="itemClicked(dataSource)">
+  <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNode===dataSource"
+     (click)="itemClicked(dataSource)">
     <h5 class="list-group-item-heading">{{ dataSource.name }}</h5>
     <p class="list-group-item-text">上传时间: {{ dataSource.upload_date }}</p>
   </a>
 </div>
 <h4>算法列表</h4>
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let process of processes" (click)="itemClicked(process)">
+  <a class="list-group-item" *ngFor="let process of processes" (click)="itemClicked(process)"
+     [class.active]="selectedNode===process">
     <h5 class="list-group-item-heading">{{ process.name }}</h5>
     <p class="list-group-item-text">{{ "这是一种算法" }}</p>
   </a>

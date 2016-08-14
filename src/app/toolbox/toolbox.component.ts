@@ -36,12 +36,14 @@ export class ToolboxComponent implements OnInit {
   ];
 
   constructor(private drawboadStatus: DrawboardStatusService) {
-
+    let self = this;
+    this.drawboadStatus.bookSelectedNode((node: {})=> {
+      self.selectedNode = node;
+    })
   }
 
   itemClicked(item: {}) {
     this.selectedNode = item;
-    console.log(item);
     this.drawboadStatus.setSelectedNode(item);
   }
 
