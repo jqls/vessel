@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 export class ProcessService {
   private data_sources: Array<{}> = [
     {
+      'id': 1,
       'type': 'data_source',
       'name': '鸢尾花数据集',
       'upload_date': '2016-2-3'
