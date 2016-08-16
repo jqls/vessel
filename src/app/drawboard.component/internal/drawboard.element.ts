@@ -1,10 +1,12 @@
 ///<reference path="../../shared/d3.d.ts"/>
+///<reference path="menu.ts"/>
 
 /**
  * Created by tang on 7/16/16.
  */
 import {Relation} from "./drawboard.relation";
 import {DrawboardComponent} from "../drawboard.component";
+import {Menu} from "./menu";
 
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;
@@ -23,22 +25,53 @@ export class DrawboardElement {
   rendered: boolean = false;
   node_info: {};
 
+  menu: any;
   setCenterPosition(d: {x: number; y: number}): void {
     this.cx = d['x'];
     this.cy = d['y'];
     this.groupContainer.attr("transform", "translate(" + this.cx + "," + this.cy + ")");
   }
+  initMenu(): void {
+    // let menucontent = document.getElementById("dashboard");
+    this.menu = new Menu();
+    let menu = this.menu;
+        // menu.addItem("删除",this.deleteElements(d3.select("#selected")));
+    menu.addItem("删除",this.deleteElements);
+    menu.addMenuTo(this.groupContainer.node());
 
+
+  }
+  // showMenu(menu: any, mouseCoords: number[]): void {
+  //   menu.style({'visibility' : 'visible','left':mouseCoords[0]+'px','top':mouseCoords[1]+'px'});
+  //   console.log(d3.select("div#context-menu"));
+  //   console.log("menu show1");
+  // }
+  // hideMenu(): void {
+  //   // menu.style({'visibility' : 'hidden'});
+  //   d3.select(".menu").style({'display': "none"});
+  //   console.log("menu hide");
+  // }
+  deleteElements(obj: any,self: any): void {
+    console.log("delete");
+    d3.select(obj).remove();
+    let mymenu = d3.select(self);
+    // console.log(mymenu);
+    mymenu.remove();
+  }
   constructor(board: DrawboardComponent, centerPosition: {x: number, y: number}, node_info: {}) {
+    let tem = this;
     this.relations = [];
     this.node_info = node_info;
-
     this.board = board;
     this.groupContainer = board.container.append("g");
     this.setCenterPosition(centerPosition);
     let currentObject = this;
+
+    this.initMenu();
     this.groupContainer
       .on("mousedown", function () {
+        console.log("mousedown");
+        console.log(d3.event);
         if ((<KeyboardEvent> d3.event).shiftKey) {
           console.log("shift");
           board.shiftDrag = true;
@@ -48,6 +81,14 @@ export class DrawboardElement {
           board.callParameter(node_info);
         }
       })
+      // .on("contextmenu", () => {
+      //       console.log("contextmenu");
+      //       console.log(d3.event);
+      //   let mouseCoords = [(<MouseEvent> d3.event).layerX,(<MouseEvent> d3.event).layerY];
+      //   this.showMenu(this.menu,mouseCoords);
+      // }
+      //
+      // )
       .on("mouseup", function () {
         if (board.justDragged) {
           if (board.dragFrom != currentObject && currentObject != null && board.dragFrom != null) {
@@ -60,6 +101,7 @@ export class DrawboardElement {
         }
         board.update();
       })
+      // .on("click",() => this.hideMenu())
       .on("mouseover", function () {
         if (board.shiftDrag) {
           currentObject.groupContainer.classed("selected", true);
