@@ -1,12 +1,12 @@
 ///<reference path="../../shared/d3.d.ts"/>
-///<reference path="menu.ts"/>
+///<reference path="drawboard.menu.ts"/>
 
 /**
  * Created by tang on 7/16/16.
  */
 import {Relation} from "./drawboard.relation";
 import {DrawboardComponent} from "../drawboard.component";
-import {Menu} from "./menu";
+import {Menu} from "./drawboard.menu";
 
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;

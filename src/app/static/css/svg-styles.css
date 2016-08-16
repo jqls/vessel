@@ -25,3 +25,25 @@
 .selected {
   stroke: yellow;
 }
+.menu-body {
+  list-style: none inside none;
+  margin: 0;
+  padding: 0;
+}
+.menu {
+  position: absolute;
+  display: none;
+  background: #6bdb6b;
+  width: 110px;
+  z-index: 9000;
+  border: 1px solid forestgreen;
+}
+.menuItems {
+  font-size: 12px;
+  height: 16px;
+  padding-left: 22px;
+  margin: 2px;
+  background: #6bdb6b;
+  opacity: 0.7;
+  cursor: default;
+}

@@ -1,6 +1,6 @@
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
-import {Menu} from "./menu";
+import {Menu} from "./drawboard.menu";
 
 /**
  * Created by tang on 7/18/16.

@@ -29,16 +29,7 @@ export class Menu {
         // console.log(this.obj);
         let self = this;
         subItem.innerHTML = itemText;
-        d3.select(subItem).attr("class", "menuItems")
-            .style({
-                'font-size': 12,
-                'height': "16px",
-                'paddingLeft': "22px",
-                'margin': "2px",
-                'background': "#cde6c7",
-                'opacity': "0.7",
-                'cursor': "default"
-            });
+        d3.select(subItem).attr("class", "menuItems");
 
         subItem.onmouseover = function () {
             console.log("onmouseover");
@@ -89,27 +80,11 @@ export class Menu {
         console.log("addMenuTo");
         // console.log(this.obj);
         let menubody = this.menuBody;
-        /*配合外部样式表，控制样式*/
-        d3.select(menubody).attr('class', "menuBody")
-            .style({
-                'listStyle': "none",
-                'listStylePosition': "inside",
-                'margin': "0px",
-                'padding': "0px"
-            });
+        /* 配合外部样式表，控制样式 */
+        d3.select(menubody).attr('class', "menuBody");
 
         /*设置div的样式*/
-        d3.select(this.menu).attr('class', "menu")
-            .style({
-                    'position': "absolute",
-                    'display': "none",
-                    'background': "#cde6c7",
-                    'width': "110px",
-                    'zindex': "9000",
-                    'border': "1px solid #1d953f"
-                }
-            )
-        ;
+        d3.select(this.menu).attr('class', "menu");
 
         this.menu.appendChild(this.menuBody);
         document.body.appendChild(this.menu);
@@ -120,7 +95,7 @@ export class Menu {
 
         obj.onblur = function () {
             d3.select(menu).style({'display': "none"});
-        }
+        };
         obj.oncontextmenu = function (ev) {
             console.log("oncontextmenu");
             d3.select(menu).style({'display': "block",
