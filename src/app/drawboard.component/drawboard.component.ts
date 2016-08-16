@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
+import {ParametersStatusService} from "../parameters-status.service";
 
 @Component({
   moduleId: module.id,
@@ -120,6 +121,8 @@ export class DrawboardComponent implements OnInit {
         }, selectedNode);
 
         newElement.render();
+      } else {
+        self.callParameter(null);
       }
 
       self.drawBoardStatus.cancelSelectedNode();
@@ -150,7 +153,13 @@ export class DrawboardComponent implements OnInit {
     );
   }
 
-  constructor(private drawBoardStatus: DrawboardStatusService) {
+  callParameter(node: {}) {
+    this.parametersStatus.setSelectedNode(node)
+  }
+
+  constructor(private drawBoardStatus: DrawboardStatusService,
+              private parametersStatus: ParametersStatusService) {
+
   }
 
   public update() {

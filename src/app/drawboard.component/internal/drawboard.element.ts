@@ -77,6 +77,8 @@ export class DrawboardElement {
           board.shiftDrag = true;
           board.dragline.classed('hidden', false);
           return;
+        } else {
+          board.callParameter(node_info);
         }
       })
       // .on("contextmenu", () => {

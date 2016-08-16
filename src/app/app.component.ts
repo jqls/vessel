@@ -3,6 +3,8 @@ import {DrawboardComponent} from "./drawboard.component/drawboard.component";
 import {ToolboxComponent} from "./toolbox.component/toolbox.component";
 import {DrawboardStatusService} from "./drawboard-status.service";
 import {ProcessService} from "./process.service";
+import {ParametersStatusService} from "./parameters-status.service";
+import {ParametersComponent} from "./parameters.component/parameters.component";
 
 
 @Component({
@@ -12,11 +14,13 @@ import {ProcessService} from "./process.service";
   styleUrls: ['app.component.css'],
   providers: [
     DrawboardStatusService,
-    ProcessService
+    ProcessService,
+    ParametersStatusService
   ],
   directives: [
     DrawboardComponent,
-    ToolboxComponent
+    ToolboxComponent,
+    ParametersComponent
   ]
 })
 export class AppComponent {
