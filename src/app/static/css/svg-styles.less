@@ -30,29 +30,16 @@
   stroke: yellow;
 }
 
-.menu-body {
-  list-style: none inside none;
-  margin: 0;
-  padding: 0;
-}
-
 @menu-background: lighten(forestgreen, 30%);
 
 .menu {
   position: absolute;
   display: none;
-  background: @menu-background;
-  width: 110px;
+  width: 100px;
   z-index: 9000;
-  border: 1px solid forestgreen;
 }
 
-.menuItems {
-  font-size: 12px;
-  height: 16px;
-  padding-left: 22px;
-  margin: 2px;
-  background: @menu-background;
-  opacity: 0.7;
-  cursor: default;
+.menu-item {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
