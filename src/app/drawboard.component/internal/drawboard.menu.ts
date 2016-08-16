@@ -78,7 +78,7 @@ export class Menu {
     // console.log(this.obj);
     let menubody = this.menuBody;
     /* 配合外部样式表，控制样式 */
-    d3.select(menubody).attr('class', "list-group");
+    d3.select(menubody).classed("list-group", true).classed("menu-body", true);
 
     /*设置div的样式*/
     d3.select(this.menu).attr('class', "menu");
