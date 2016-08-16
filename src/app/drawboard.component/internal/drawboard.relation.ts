@@ -1,5 +1,7 @@
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
+import {Menu} from "./menu";
+
 /**
  * Created by tang on 7/18/16.
  */
@@ -10,6 +12,27 @@ export class Relation {
   to: DrawboardElement;
   path: any;
 
+  menu: any;
+
+  initMenu(): void {
+    this.menu = new Menu();
+    // let menu1 = this.menu;
+    this.menu.addItem("删除",this.deleteElements);
+    this.menu.addMenuTo(this.path.node());
+    console.log("relation-init");
+
+    console.log(this.menu);
+  }
+
+  deleteElements(obj: any,self: any): void {
+    console.log("delete");
+    d3.select(obj).remove();
+    // console.log(self);
+    let menu = d3.select(self);
+    // console.log(menu);
+    menu.remove();
+  }
+
   constructor(drawboard: DrawboardComponent, from: DrawboardElement, to: DrawboardElement) {
     this.path = drawboard.relationLayer.append('path');
     this.from = from;
@@ -17,6 +40,7 @@ export class Relation {
     this.path.classed('path', true)
       .style('marker-end', 'url(#mark-end-arrow)');
     this.update();
+    this.initMenu();
   }
 
   getToPosition(): {x: number, y: number} {
