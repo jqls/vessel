@@ -19,9 +19,7 @@ export class DrawboardElement {
   cx: number;
   cy: number;
   groupContainer: any;
-  // contextMenu: boolean = false;
   relations: Relation[ ];
-  // contextMenuItem: [any];
   rendered: boolean = false;
   node_info: {};
 
@@ -32,25 +30,13 @@ export class DrawboardElement {
     this.groupContainer.attr("transform", "translate(" + this.cx + "," + this.cy + ")");
   }
   initMenu(): void {
-    // let menucontent = document.getElementById("dashboard");
     this.menu = new Menu();
     let menu = this.menu;
-        // menu.addItem("删除",this.deleteElements(d3.select("#selected")));
     menu.addItem("删除",this.deleteElements);
     menu.addMenuTo(this.groupContainer.node());
 
 
   }
-  // showMenu(menu: any, mouseCoords: number[]): void {
-  //   menu.style({'visibility' : 'visible','left':mouseCoords[0]+'px','top':mouseCoords[1]+'px'});
-  //   console.log(d3.select("div#context-menu"));
-  //   console.log("menu show1");
-  // }
-  // hideMenu(): void {
-  //   // menu.style({'visibility' : 'hidden'});
-  //   d3.select(".menu").style({'display': "none"});
-  //   console.log("menu hide");
-  // }
   deleteElements(obj: any,self: any): void {
     console.log("delete");
     d3.select(obj).remove();
@@ -81,14 +67,6 @@ export class DrawboardElement {
           board.callParameter(node_info);
         }
       })
-      // .on("contextmenu", () => {
-      //       console.log("contextmenu");
-      //       console.log(d3.event);
-      //   let mouseCoords = [(<MouseEvent> d3.event).layerX,(<MouseEvent> d3.event).layerY];
-      //   this.showMenu(this.menu,mouseCoords);
-      // }
-      //
-      // )
       .on("mouseup", function () {
         if (board.justDragged) {
           if (board.dragFrom != currentObject && currentObject != null && board.dragFrom != null) {
@@ -101,7 +79,6 @@ export class DrawboardElement {
         }
         board.update();
       })
-      // .on("click",() => this.hideMenu())
       .on("mouseover", function () {
         if (board.shiftDrag) {
           currentObject.groupContainer.classed("selected", true);

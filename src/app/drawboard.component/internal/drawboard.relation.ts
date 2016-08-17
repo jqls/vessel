@@ -16,7 +16,6 @@ export class Relation {
 
   initMenu(): void {
     this.menu = new Menu();
-    // let menu1 = this.menu;
     this.menu.addItem("删除",this.deleteElements);
     this.menu.addMenuTo(this.path.node());
     console.log("relation-init");
