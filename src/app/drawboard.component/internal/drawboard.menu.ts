@@ -49,20 +49,7 @@ export class Menu {
         };
         subItem.onmousedown = function () {
             console.log("subItem.onclick");
-            d3.select(menu).style({
-                // 'cursor': "default",
-                // 'display': "none"
-            });
-            /*
-             * 特别提醒：此处如果你把以下这句写成"menu.style.cssText = 'display:none;'"
-             * 会出现一个很奇怪的现象。那就是当menu每改变一个或多个样式时，
-             * 其余未改动的样式会全部丧失，不得不把其他样式再次重设。这问
-             * 题浪费了我3~4个钟，后来不得已，一句一句代码看了几遍，再次
-             * 看到这时，隐约想起在网上有文章说过，cssText设置样式会有
-             * “一改全无”的现象。这才搞定。
-             */
-            // console.log(self.obj);
-            event(self.obj);
+            event();
             //return false;
         };
         // console.log(subItem);
