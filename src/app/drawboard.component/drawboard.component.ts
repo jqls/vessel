@@ -10,6 +10,7 @@ import {ParametersStatusService} from "../parameters-status.service";
   styleUrls: ['drawboard.component.css']
 })
 export class DrawboardComponent implements OnInit {
+  drawboradElements : DrawboardElement[];
   svg: any; //页面svg对象
   def: any;
   container: any;
@@ -38,6 +39,7 @@ export class DrawboardComponent implements OnInit {
   };
 
   private initState() {
+    this.drawboradElements = [];
     this.selectedLine = null;
     this.selectedNode = null;
     this.mouseDownNode = null;
@@ -100,7 +102,7 @@ export class DrawboardComponent implements OnInit {
           'x': coord[0],
           'y': coord[1]
         }, selectedNode);
-
+        self.drawboradElements.push(newElement);
         newElement.render();
       } else {
         self.callParameter(null);
@@ -133,7 +135,11 @@ export class DrawboardComponent implements OnInit {
       })
     );
   }
-
+  clean(): void {
+    this.drawboradElements.forEach((drawboradElement)=>{
+      drawboradElement.deleteElements()();
+    })
+  }
   callParameter(node: {}) {
     this.parametersStatus.setSelectedNode(node)
   }
