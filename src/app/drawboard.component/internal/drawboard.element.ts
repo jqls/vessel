@@ -7,7 +7,7 @@
 import {Relation} from "./drawboard.relation";
 import {DrawboardComponent} from "../drawboard.component";
 import {DrawboardMenu} from "./drawboard.menu";
-import {DataSourceNode, ProcessNode} from "../../shared/json-typedef";
+import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
 
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;
@@ -22,9 +22,9 @@ export class DrawboardElement {
   groupContainer: any;
   relations: Relation[ ];
   rendered: boolean = false;
-  node_info: ProcessNode|DataSourceNode;
+  nodeInfo: ProcessNode|DataSourceNode;
 
-    menu:DrawboardMenu;
+  menu: DrawboardMenu;
 
   setCenterPosition(d: {x: number; y: number}): void {
     this.cx = d['x'];
@@ -32,44 +32,43 @@ export class DrawboardElement {
     this.groupContainer.attr("transform", "translate(" + this.cx + "," + this.cy + ")");
   }
 
-    initMenu():void {
-      //todo: 有些冗余
-        this.menu = new DrawboardMenu();
-        let menu = this.menu;
-        menu.addItem("删除", this.deleteElements());
-        menu.addMenuTo(this);
-    }
+  initMenu(): void {
+    //todo: 有些冗余
+    this.menu = new DrawboardMenu();
+    let menu = this.menu;
+    menu.addItem("删除", this.deleteElements());
+    menu.addMenuTo(this);
+  }
 
-    //node:any, menuElement:any
-    deleteElements():(()=>void) {
-        let self = this;
-        return ()=> {
-            console.log("delete");
-            self.relations.forEach((relation)=> {
-                if (relation.from === self) {
-                    relation.to.relations = relation.to.relations.filter((toRelation)=> {
-                        return !(toRelation === relation);
-                    });
-                } else if (relation.to === self) {
-                    relation.from.relations = relation.from.relations.filter((fromRelation)=> {
-                        return !(fromRelation === relation);
-                    });
-                }
-                relation.deleteElement();
-            });
-
+  //node:any, menuElement:any
+  deleteElements(): (()=>void) {
+    let self = this;
+    return ()=> {
+      console.log("delete");
+      self.relations.forEach((relation)=> {
+        if (relation.from === self) {
+          relation.to.relations = relation.to.relations.filter((toRelation)=> {
+            return !(toRelation === relation);
+          });
+        } else if (relation.to === self) {
+          relation.from.relations = relation.from.relations.filter((fromRelation)=> {
+            return !(fromRelation === relation);
+          });
+        }
+        relation.deleteElement();
+      });
       self.groupContainer.remove();
-      d3.select(self.menu.menu).remove();
+      d3.select(self.menu.menuNode).remove();
     }
   }
 
-    constructor(board:DrawboardComponent, centerPosition:{x:number, y:number}, node_info:{}) {
-        this.relations = [];
-        this.node_info = node_info;
-        this.board = board;
-        this.groupContainer = board.container.append("g");
-        this.setCenterPosition(centerPosition);
-        let currentObject = this;
+  constructor(board: DrawboardComponent, centerPosition: {x: number, y: number}, nodeInfo: ProcessNode|DataSourceNode) {
+    this.relations = [];
+    this.nodeInfo = nodeInfo;
+    this.board = board;
+    this.groupContainer = board.container.append("g");
+    this.setCenterPosition(centerPosition);
+    let currentObject = this;
 
     this.initMenu();
     this.groupContainer
@@ -146,7 +145,7 @@ export class DrawboardElement {
         .attr("dy", ELEMENT_HEIGHT / 2)
         .attr("dx", ELEMENT_WIDTH / 2)
         .append("tspan")
-        .html(this.node_info.label);
+        .html(this.nodeInfo.label);
     }
     this.rendered = true;
   }
