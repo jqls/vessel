@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component} from "@angular/core";
 import {DrawboardComponent} from "./drawboard.component/drawboard.component";
 import {ToolboxComponent} from "./toolbox.component/toolbox.component";
 import {DrawboardStatusService} from "./drawboard-status.service";
@@ -25,4 +25,10 @@ import {ParametersComponent} from "./parameters.component/parameters.component";
 })
 export class AppComponent {
   title = 'Works!';
+  showParameters = false;
+
+  showParametersBtnClick() {
+    this.showParameters = !this.showParameters;
+  }
+
 }

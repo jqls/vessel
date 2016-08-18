@@ -5,7 +5,7 @@
 <div class="list-group">
   <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNode===dataSource"
      (click)="itemClicked(dataSource)">
-    <h5 class="list-group-item-heading">{{ dataSource.name }}</h5>
+    <h5 class="list-group-item-heading">{{ dataSource.label }}</h5>
     <p class="list-group-item-text">上传时间: {{ dataSource.upload_date }}</p>
   </a>
 </div>
@@ -16,7 +16,7 @@
 <div class="list-group">
   <a class="list-group-item" *ngFor="let process of processes" (click)="itemClicked(process)"
      [class.active]="selectedNode===process" (dblclick)="itemDbClicked(process)">
-    <h5 class="list-group-item-heading">{{ process.name }}
+    <h5 class="list-group-item-heading">{{ process.label }}
       <span style="margin-right: 5px;" class="label label-info pull-right"
             *ngFor="let tag of process.tags">{{tag}}</span>
     </h5>

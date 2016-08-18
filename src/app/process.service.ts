@@ -1,48 +1,43 @@
 import {Injectable} from "@angular/core";
+import {DataSourceJSON, ProcessJSON} from "./shared/json-typedef";
 
 @Injectable()
 export class ProcessService {
-  private data_sources: Array<{}> = [
+  private data_sources: Array<DataSourceJSON> = [
     {
-      'id': 1,
-      'type': 'data_source',
-      'name': '鸢尾花数据集',
-      'upload_date': '2016-2-3'
+      'id': "1",
+      'description': "鸢尾花数据集",
+      'label': '鸢尾花数据集',
+      'upload_date': '2016-06-20'
     }
   ];
-  private processes: Array<{}> = [
+  private processes: Array<ProcessJSON> = [
     {
-      'id': 1,
-      'type': 'process',
-      'name': "朴素贝叶斯",
-      'tags': [
-        '分类',
-      ],
+      'id': '1',
+      'label': "朴素贝叶斯",
+      'tags': ['分类'],
+      'description': 'naive 的贝叶斯算法',
       "algorithm_parameters": [
         {
-          "name": "特征数",
-          "type": "int",
-          "default": 500000,
-          "description": ""
+          "label": "特征数",
+          "controlType": "int",
+          "defaultVal": "500000",
         },
         {
-          "name": "学习率",
-          "type": "float",
-          "default": 1.0,
-          "description": ""
+          "label": "学习率",
+          "controlType": "float",
+          "defaultVal": "1.0",
         },
         {
-          "name": "模型类型",
-          "type": "select",
-          "default": 0,
+          "label": "模型类型",
+          "controlType": "select",
+          "defaultVal": "0",
           "options": [
             "multinomial",
             "bernoulli"
           ],
-          "description": ""
         }
       ],
-      'description': 'naive 的贝叶斯算法',
     }
   ];
 

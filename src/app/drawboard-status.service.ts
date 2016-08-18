@@ -1,26 +1,26 @@
-import {Injectable} from '@angular/core';
-import {Node} from './shared/node.class'
+import {Injectable} from "@angular/core";
+import {ProcessNode} from "./shared/json-typedef";
 
 @Injectable()
 export class DrawboardStatusService {
-  private selectedNode: {};
-  private subscribers: Array<(node: {})=>void>;
+  private selectedNode: ProcessNode;
+  private subscribers: Array<(node: ProcessNode)=>void>;
 
   constructor() {
-    this.subscribers = Array<(node: {})=>void>();
+    this.subscribers = Array<(node: ProcessNode)=>void>();
     this.selectedNode = null;
   }
 
-  bookSelectedNode(update: (node: {})=>void) {
+  bookSelectedNode(update: (node: ProcessNode)=>void) {
     this.subscribers.push(update);
   }
 
-  setSelectedNode(node: {}) {
+  setSelectedNode(node: ProcessNode) {
     this.selectedNode = node;
     this.subscribers.forEach(s=>s(node));
   }
 
-  getSelectedNode(): {} {
+  getSelectedNode(): ProcessNode {
     return this.selectedNode;
   }
 

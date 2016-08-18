@@ -1,20 +1,26 @@
 <div class="container-fluid">
 
   <div class="page-header">
-    <h1>{{title}}</h1>
+    <h1>
+      {{title}}
+      <span class="pull-right">
+        <button class="btn btn-primary" (click)="showParametersBtnClick()">
+          <i class="glyphicon glyphicon-cog"></i></button>
+      </span>
+    </h1>
   </div>
 
   <div class="row">
     <div class="col-md-3">
       <app-toolbox></app-toolbox>
     </div>
-    <div class="col-md-9">
+    <!--todo: 显示不正确-->
+    <div [ngClass]="{'col-md-9': !showParameters, 'col-md-6': showParameters}">
       <app-drawboard></app-drawboard>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-3" [hidden]="!showParameters">
       <app-parameters></app-parameters>
     </div>
   </div>
+
 </div>

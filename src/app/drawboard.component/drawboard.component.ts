@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
+import {ProcessNode, NodeInfo} from "../shared/json-typedef";
 
 @Component({
   moduleId: module.id,
@@ -95,7 +96,6 @@ export class DrawboardComponent implements OnInit {
       let selectedNode = self.drawBoardStatus.getSelectedNode();
       if (selectedNode != null) {
         let coord = d3.mouse(self.container.node());
-        //todo: 新的绘图方式
         let newElement = new DrawboardElement(self, {
           'x': coord[0],
           'y': coord[1]
@@ -134,8 +134,10 @@ export class DrawboardComponent implements OnInit {
     );
   }
 
-  callParameter(node: {}) {
-    this.parametersStatus.setSelectedNode(node)
+  callParameter(node: NodeInfo) {
+    if (node instanceof ProcessNode) {
+      this.parametersStatus.setSelectedNode(node)
+    }
   }
 
   constructor(private drawBoardStatus: DrawboardStatusService,
