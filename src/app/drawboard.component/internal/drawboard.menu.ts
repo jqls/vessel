@@ -3,57 +3,50 @@ import {Relation} from "./drawboard.relation";
 /**
  * Created by qwk on 16-8-15.
  **********************************
- * 成员变量menu
+ * 成员变量
+ * menuNode：menu所在DIV标签
+ * menuBodyNode：menu所在UL标签
+ * obj：要添加菜单的对象
  */
 
-export class Menu {
-    menu:any;
-    menuBody:any;
+export class DrawboardMenu {
+    menuNode:any;
+    menuBodyNode:any;
     obj:any;
 
     constructor() {
-        this.menu = document.createElement("div");
-        this.menuBody = document.createElement("ul");
-        // d3.select(this.menu).style({'visibility' : 'visible'});
-    }
-
-    getselecter():any {
-        console.log("getselecter");
-        console.log(this.menu);
-        console.log(d3.select(this.menu));
-        return d3.select(this.menu);
+        this.menuNode = document.createElement("div");
+        this.menuBodyNode = document.createElement("ul");
     }
 
     /*
      * addItem方法给右键菜单添加功能项。
      */
     addItem(itemText:string, event:any):any {
-        let subItem = document.createElement("li");
-        let menu = this.menu;
+        let menuItem = document.createElement("li");
+
         console.log("addItem");
-        // console.log(this.obj);
-        let self = this;
-        subItem.innerHTML = itemText;
-        d3.select(subItem)
+
+        menuItem.innerHTML = itemText;
+        d3.select(menuItem)
             .classed("list-group-item", true)
-            .classed("menu-item", true);
+            .classed("menuNode-item", true);
 
-        subItem.onmouseover = function () {
+        menuItem.onmouseover = function () {
             console.log("onmouseover");
-            d3.select(subItem).classed("active", true);
+            d3.select(menuItem).classed("active", true);
         };
 
-        subItem.onmouseout = function () {
+        menuItem.onmouseout = function () {
             console.log("onmouseout");
-            d3.select(subItem).classed("active", false);
+            d3.select(menuItem).classed("active", false);
         };
-        subItem.onmousedown = function () {
-            console.log("subItem.onclick");
+        menuItem.onmousedown = function () {
+            console.log("menuItem.onclick");
             event();
-            //return false;
         };
-        // console.log(subItem);
-        this.menuBody.appendChild(subItem);
+
+        this.menuBodyNode.appendChild(menuItem);
     };
 
     /**
@@ -61,44 +54,42 @@ export class Menu {
      * obj : 应用该右键菜单的元素
      */
     addMenuTo(obj:any):void {
-        /*设置ul的样式*/
+
         this.obj = obj;
 
-        let nodeElement;
+        let objNode;
 
+        //根据类型进行赋值
         if(obj instanceof DrawboardElement){
-            nodeElement = obj.groupContainer.node();
+            objNode = obj.groupContainer.node();
         } else if(obj instanceof Relation){
-            nodeElement = obj.path.node();
+            objNode = obj.path.node();
         }
 
         console.log("addMenuTo");
-        // console.log(this.obj);
-        let menubody = this.menuBody;
-        /* 配合外部样式表，控制样式 */
-        d3.select(menubody).classed("list-group", true).classed("menu-body", true);
 
-        /*设置div的样式*/
-        d3.select(this.menu).attr('class', "menu");
+        let menuBody = this.menuBodyNode;
+        let menu = this.menuNode;
+        /* 设置ul的类属性 */
+        d3.select(menuBody).classed("list-group", true).classed("menuNode-body", true);
 
-        this.menu.appendChild(this.menuBody);
-        document.body.appendChild(this.menu);
-        /*由于在事件函数内，this指代的对象不再是本类的对象，
-         * 所以为以下函数定义一个全局变量menu
-         */
-        let menu = this.menu;
+        /*设置div的类属性*/
+        d3.select(menu).attr('class', "menuNode");
 
-        nodeElement.onblur = function () {
+        menu.appendChild(menuBody);
+        document.body.appendChild(menu);
+
+        //向目标添加事件响应
+        objNode.onblur = function () {
             d3.select(menu).style({'display': "none"});
         };
-        nodeElement.oncontextmenu = function (ev) {
+        objNode.oncontextmenu = function (ev) {
             console.log("oncontextmenu");
             d3.select(menu).style({
                 'display': "block",
                 'top': ev.pageY + 'px',
                 'left': ev.pageX + 'px'
             });
-            return false;
         }
     }
 }
