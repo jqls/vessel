@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
+import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
 
 @Component({
   moduleId: module.id,
@@ -10,6 +11,7 @@ import {ParametersStatusService} from "../parameters-status.service";
   styleUrls: ['drawboard.component.css']
 })
 export class DrawboardComponent implements OnInit {
+  drawboradElements = Array<DrawboardElement>();
   svg: any; //页面svg对象
   def: any;
   container: any;
@@ -91,19 +93,19 @@ export class DrawboardComponent implements OnInit {
         self.keyUp();
       });
 
-        self.svg.on("mousedown", function () {
-            let selectedNode = self.drawBoardStatus.getSelectedNode();
-            if (selectedNode != null) {
-                let coord = d3.mouse(self.container.node());
-                let newElement = new DrawboardElement(self, {
-                    'x': coord[0],
-                    'y': coord[1]
-                }, selectedNode);
-                self.drawboradElements.push(newElement);
-                newElement.render();
-            } else {
-                self.callParameter(null);
-            }
+    self.svg.on("mousedown", function () {
+      let selectedNode = self.drawBoardStatus.getSelectedNode();
+      if (selectedNode != null) {
+        let coord = d3.mouse(self.container.node());
+        let newElement = new DrawboardElement(self, {
+          'x': coord[0],
+          'y': coord[1]
+        }, selectedNode);
+        self.drawboradElements.push(newElement);
+        newElement.render();
+      } else {
+        self.callParameter(null);
+      }
 
       self.drawBoardStatus.cancelSelectedNode();
     });
@@ -133,13 +135,13 @@ export class DrawboardComponent implements OnInit {
     );
   }
 
-    clean():void {
-        this.drawboradElements.forEach((drawboradElement)=> {
-            drawboradElement.deleteElements()();
-        })
-    }
+  clean(): void {
+    this.drawboradElements.forEach((drawboradElement)=> {
+      drawboradElement.deleteElements()();
+    })
+  }
 
-  callParameter(node: NodeInfo) {
+  callParameter(node: ProcessNode|DataSourceNode) {
     if (node instanceof ProcessNode) {
       this.parametersStatus.setSelectedNode(node)
     }
