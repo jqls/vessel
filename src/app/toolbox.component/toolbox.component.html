@@ -1,4 +1,7 @@
-<h4>数据源</h4>
+<h4>
+  <span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>
+  数据源
+</h4>
 <div class="list-group">
   <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNode===dataSource"
      (click)="itemClicked(dataSource)">
@@ -6,12 +9,16 @@
     <p class="list-group-item-text">上传时间: {{ dataSource.upload_date }}</p>
   </a>
 </div>
-<h4>算法列表</h4>
+<h4>
+  <span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>
+  算法列表
+</h4>
 <div class="list-group">
   <a class="list-group-item" *ngFor="let process of processes" (click)="itemClicked(process)"
      [class.active]="selectedNode===process" (dblclick)="itemDbClicked(process)">
     <h5 class="list-group-item-heading">{{ process.name }}
-      <span style="margin-right: 5px;" class="label label-info pull-right" *ngFor="let tag of process.tags">{{tag}}</span>
+      <span style="margin-right: 5px;" class="label label-info pull-right"
+            *ngFor="let tag of process.tags">{{tag}}</span>
     </h5>
     <p class="list-group-item-text">{{ process.description||"这是一种算法" }}</p>
   </a>
