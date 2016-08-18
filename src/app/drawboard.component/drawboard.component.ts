@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode, NodeInfo} from "../shared/json-typedef";
 
 @Component({
   moduleId: module.id,
@@ -92,19 +91,19 @@ export class DrawboardComponent implements OnInit {
         self.keyUp();
       });
 
-    self.svg.on("mousedown", function () {
-      let selectedNode = self.drawBoardStatus.getSelectedNode();
-      if (selectedNode != null) {
-        let coord = d3.mouse(self.container.node());
-        let newElement = new DrawboardElement(self, {
-          'x': coord[0],
-          'y': coord[1]
-        }, selectedNode);
-
-        newElement.render();
-      } else {
-        self.callParameter(null);
-      }
+        self.svg.on("mousedown", function () {
+            let selectedNode = self.drawBoardStatus.getSelectedNode();
+            if (selectedNode != null) {
+                let coord = d3.mouse(self.container.node());
+                let newElement = new DrawboardElement(self, {
+                    'x': coord[0],
+                    'y': coord[1]
+                }, selectedNode);
+                self.drawboradElements.push(newElement);
+                newElement.render();
+            } else {
+                self.callParameter(null);
+            }
 
       self.drawBoardStatus.cancelSelectedNode();
     });
@@ -133,6 +132,12 @@ export class DrawboardComponent implements OnInit {
       })
     );
   }
+
+    clean():void {
+        this.drawboradElements.forEach((drawboradElement)=> {
+            drawboradElement.deleteElements()();
+        })
+    }
 
   callParameter(node: NodeInfo) {
     if (node instanceof ProcessNode) {
