@@ -1,0 +1,48 @@
+{
+  "source": [
+    {
+      "id": 1,
+      "flow_id": 1,
+      "limitation": {
+      }
+    }
+  ],
+  "process": [
+    {
+      "id": 1,
+      "flow_id": 2,
+      "algorithm_parameters": [
+        {
+          "name": "特征数",
+          "type": "int",
+          "default": 500000,
+          "description": ""
+        },
+        {
+          "name": "学习率",
+          "type": "float",
+          "default": 1.0,
+          "description": ""
+        },
+        {
+          "name": "模型类型",
+          "type": "select",
+          "default": 0,
+          "options": [
+            "multinomial",
+            "bernoulli"
+          ],
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "relation": [
+    {
+      "id": 1,
+      "to": [
+        2
+      ]
+    }
+  ]
+}
