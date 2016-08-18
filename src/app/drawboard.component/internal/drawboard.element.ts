@@ -7,7 +7,7 @@
 import {Relation} from "./drawboard.relation";
 import {DrawboardComponent} from "../drawboard.component";
 import {DrawboardMenu} from "./drawboard.menu";
-import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
+import {DataSourceNode, ProcessNode} from "../../shared/json-typedef";
 
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;
@@ -22,49 +22,50 @@ export class DrawboardElement {
   groupContainer: any;
   relations: Relation[ ];
   rendered: boolean = false;
-  nodeInfo: ProcessNode|DataSourceNode;
+  node_info: ProcessNode|DataSourceNode;
 
-  menu: DrawboardMenu;
+    menu:DrawboardMenu;
 
-  setCenterPosition(d: {x: number; y: number}): void {
-    this.cx = d['x'];
-    this.cy = d['y'];
-    this.groupContainer.attr("transform", "translate(" + this.cx + "," + this.cy + ")");
-  }
+    setCenterPosition(d:{x:number; y:number}):void {
+        this.cx = d['x'];
+        this.cy = d['y'];
+        this.groupContainer.attr("transform", "translate(" + this.cx + "," + this.cy + ")");
+    }
 
-  initMenu(): void {
-    //todo: 有些冗余
-    this.menu = new DrawboardMenu();
-    let menu = this.menu;
-    menu.addItem("删除", this.deleteElements());
-    menu.addMenuTo(this);
-  }
+    initMenu():void {
+      //todo: 像是绕口令？
+      this.menu = new DrawboardMenu();
+        let menu = this.menu;
+        menu.addItem("删除", this.deleteElements());
+        menu.addMenuTo(this);
+    }
 
-  //node:any, menuElement:any
-  deleteElements(): (()=>void) {
-    let self = this;
-    return ()=> {
-      console.log("delete");
-      self.relations.forEach((relation)=> {
-        if (relation.from === self) {
-          relation.to.relations = relation.to.relations.filter((toRelation)=> {
-            return !(toRelation === relation);
-          });
-        } else if (relation.to === self) {
-          relation.from.relations = relation.from.relations.filter((fromRelation)=> {
-            return !(fromRelation === relation);
-          });
-        }
-        relation.deleteElement();
-      });
+    //node:any, menuElement:any
+    deleteElements():(()=>void) {
+        let self = this;
+        return ()=> {
+            console.log("delete");
+            self.relations.forEach((relation)=> {
+                if (relation.from === self) {
+                    relation.to.relations = relation.to.relations.filter((toRelation)=> {
+                        return !(toRelation === relation);
+                    });
+                } else if (relation.to === self) {
+                    relation.from.relations = relation.from.relations.filter((fromRelation)=> {
+                        return !(fromRelation === relation);
+                    });
+                }
+                relation.deleteElement();
+            });
+
       self.groupContainer.remove();
       d3.select(self.menu.menuNode).remove();
     }
   }
 
-  constructor(board: DrawboardComponent, centerPosition: {x: number, y: number}, nodeInfo: ProcessNode|DataSourceNode) {
+  constructor(board:DrawboardComponent, centerPosition: {x: number, y: number}, nodeInfo: ProcessNode|DataSourceNode) {
     this.relations = [];
-    this.nodeInfo = nodeInfo;
+    this.node_info = nodeInfo;
     this.board = board;
     this.groupContainer = board.container.append("g");
     this.setCenterPosition(centerPosition);
@@ -80,7 +81,6 @@ export class DrawboardElement {
           board.dragline.classed('hidden', false);
           return;
         } else {
-          //todo: 函数名字不是太合适
           board.callParameter(nodeInfo);
         }
       })
@@ -91,6 +91,8 @@ export class DrawboardElement {
             currentObject.relations.push(relation);
             board.dragFrom.relations.push(relation);
           }
+        } else {
+          //todo: context menu
         }
         board.update();
       })
@@ -145,7 +147,7 @@ export class DrawboardElement {
         .attr("dy", ELEMENT_HEIGHT / 2)
         .attr("dx", ELEMENT_WIDTH / 2)
         .append("tspan")
-        .html(this.nodeInfo.label);
+        .html(this.node_info.label);
     }
     this.rendered = true;
   }

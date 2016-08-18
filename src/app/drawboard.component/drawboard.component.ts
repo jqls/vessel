@@ -2,25 +2,25 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode, NodeInfo} from "../shared/json-typedef";
+import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
 
 @Component({
-    moduleId: module.id,
-    selector: 'app-drawboard',
-    templateUrl: 'drawboard.component.html',
-    styleUrls: ['drawboard.component.css']
+  moduleId: module.id,
+  selector: 'app-drawboard',
+  templateUrl: 'drawboard.component.html',
+  styleUrls: ['drawboard.component.css']
 })
 export class DrawboardComponent implements OnInit {
-    drawboradElements:DrawboardElement[];
-    svg:any; //页面svg对象
-    def:any;
-    container:any;
-    relationLayer:any;
-    dragline:any;
+  drawboradElements = Array<DrawboardElement>();
+  svg: any; //页面svg对象
+  def: any;
+  container: any;
+  relationLayer: any;
+  dragline: any;
 
-    selectedLine:any;
-    selectedNode:any;
-    mouseDownNode:any;
+  selectedLine: any;
+  selectedNode: any;
+  mouseDownNode: any;
 
   justDragged: boolean;
   dragFrom: any;
@@ -93,19 +93,19 @@ export class DrawboardComponent implements OnInit {
         self.keyUp();
       });
 
-        self.svg.on("mousedown", function () {
-            let selectedNode = self.drawBoardStatus.getSelectedNode();
-            if (selectedNode != null) {
-                let coord = d3.mouse(self.container.node());
-                let newElement = new DrawboardElement(self, {
-                    'x': coord[0],
-                    'y': coord[1]
-                }, selectedNode);
-                self.drawboradElements.push(newElement);
-                newElement.render();
-            } else {
-                self.callParameter(null);
-            }
+    self.svg.on("mousedown", function () {
+      let selectedNode = self.drawBoardStatus.getSelectedNode();
+      if (selectedNode != null) {
+        let coord = d3.mouse(self.container.node());
+        let newElement = new DrawboardElement(self, {
+          'x': coord[0],
+          'y': coord[1]
+        }, selectedNode);
+        self.drawboradElements.push(newElement);
+        newElement.render();
+      } else {
+        self.callParameter(null);
+      }
 
       self.drawBoardStatus.cancelSelectedNode();
     });
@@ -135,16 +135,17 @@ export class DrawboardComponent implements OnInit {
     );
   }
 
-  callParameter(node: NodeInfo) {
+  clean(): void {
+    this.drawboradElements.forEach((drawboradElement)=> {
+      drawboradElement.deleteElements()();
+    })
+  }
+
+  callParameter(node: ProcessNode|DataSourceNode) {
     if (node instanceof ProcessNode) {
       this.parametersStatus.setSelectedNode(node)
     }
   }
-    clean():void {
-        this.drawboradElements.forEach((drawboradElement)=> {
-            drawboradElement.deleteElements()();
-        })
-    }
 
   constructor(private drawBoardStatus: DrawboardStatusService,
               private parametersStatus: ParametersStatusService) {
