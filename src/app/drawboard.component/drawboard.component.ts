@@ -29,11 +29,6 @@ export class DrawboardComponent implements OnInit {
   shiftDrag: boolean;
 
   constants = {
-    selectedClass: "selected",
-    connectClass: "connect-node",
-    circleGClass: "conceptG",
-    graphClass: "graph",
-    activeEditId: "active-editing",
     BACKSPACE_KEY: 8,
     DELETE_KEY: 46,
     ENTER_KEY: 13
