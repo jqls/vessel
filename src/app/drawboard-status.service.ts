@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
-import {ProcessNode} from "./shared/json-typedef";
+import {ProcessNode, DataSourceNode} from "./shared/json-typedef";
 
 @Injectable()
 export class DrawboardStatusService {
-  private selectedNode: ProcessNode;
-  private subscribers: Array<(node: ProcessNode)=>void>;
+  private selectedNode: DataSourceNode|ProcessNode;
+  private subscribers: Array<(node: DataSourceNode|ProcessNode)=>void>;
 
   constructor() {
     this.subscribers = Array<(node: ProcessNode)=>void>();
@@ -15,12 +15,12 @@ export class DrawboardStatusService {
     this.subscribers.push(update);
   }
 
-  setSelectedNode(node: ProcessNode) {
+  setSelectedNode(node: DataSourceNode|ProcessNode) {
     this.selectedNode = node;
     this.subscribers.forEach(s=>s(node));
   }
 
-  getSelectedNode(): ProcessNode {
+  getSelectedNode(): DataSourceNode|ProcessNode {
     return this.selectedNode;
   }
 
