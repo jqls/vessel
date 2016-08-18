@@ -3,7 +3,7 @@ import {DataSourceJSON, ProcessJSON, DataSourceNode, ProcessNode} from "./shared
 
 @Injectable()
 export class ProcessService {
-  private dataSources: Array<DataSourceJSON> = [
+  private dataSources: DataSourceJSON[] = [
     {
       'id': "1",
       'description': "鸢尾花数据集",
@@ -11,7 +11,7 @@ export class ProcessService {
       'upload_date': '2016-06-20'
     }
   ];
-  private processes: Array<ProcessJSON> = [
+  private processes: ProcessJSON[] = [
     {
       'id': '1',
       'label': "朴素贝叶斯",
@@ -20,8 +20,8 @@ export class ProcessService {
       "algorithm_parameters": [
         {
           "label": "特征数",
-          "controlType": "int",
-          "defaultVal": "500000",
+          "controlType": "text",
+          "defaultVal": "5",
         },
         {
           "label": "学习率",

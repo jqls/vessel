@@ -1,0 +1,16 @@
+<div [formGroup]="form" class="form-group">
+  <label class="col-md-4 control-label" [attr.for]="parameter.label" style="padding-left: 5px; padding-right: 5px;">
+    <small>{{parameter.label}}</small>
+  </label>
+  <div class="col-md-8" [ngSwitch]="parameter.controlType">
+    <input class="form-control" *ngSwitchCase="'text'" [formControlName]="parameter.label"
+           [id]="parameter.label">
+    <input class="form-control col-md-9" *ngSwitchCase="'float'" [formControlName]="parameter.label"
+           [id]="parameter.label" type="number">
+    <select class="form-control col-md-9" [id]="parameter.label" *ngSwitchCase="'select'"
+            [formControlName]="parameter.label">
+      <option *ngFor="let opt of parameter.options; let i = index" [value]="i">{{opt}}</option>
+    </select>
+  </div>
+  <div class="errorMessage" *ngIf="!isValid">{{parameter.label}} is required</div>
+</div>

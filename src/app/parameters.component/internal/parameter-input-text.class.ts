@@ -5,6 +5,7 @@ import {ParameterJSON} from "../../shared/json-typedef";
  */
 
 export class ParameterInputText extends ParameterInputBase<string> {
+
   constructor(parameter: ParameterJSON) {
     super(parameter);
   }

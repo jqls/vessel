@@ -5,6 +5,8 @@ import {DrawboardStatusService} from "./drawboard-status.service";
 import {ProcessService} from "./process.service";
 import {ParametersStatusService} from "./parameters-status.service";
 import {ParametersComponent} from "./parameters.component/parameters.component";
+import {InputsComponent} from "./inputs.component/inputs.component";
+import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 
 @Component({
@@ -18,9 +20,12 @@ import {ParametersComponent} from "./parameters.component/parameters.component";
     ParametersStatusService
   ],
   directives: [
+    FORM_DIRECTIVES,
+    REACTIVE_FORM_DIRECTIVES,
     DrawboardComponent,
     ToolboxComponent,
-    ParametersComponent
+    ParametersComponent,
+    InputsComponent
   ]
 })
 export class AppComponent {

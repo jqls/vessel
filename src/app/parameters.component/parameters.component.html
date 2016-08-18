@@ -1,4 +1,12 @@
 <div *ngIf="open">
-  <p>名称: {{openedNode.label}}</p>
-  <p>简介: {{openedNode.description}}</p>
+  <h4>{{openedNode.label}}参数配置</h4>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-horizontal">
+    <app-inputs *ngFor="let parameter of openedNode.algorithm_parameters" [parameter]="parameter"
+                [form]="form"></app-inputs>
+    <div class="form-group">
+      <div class="col-md-offset-4 col-sm-8">
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Save</button>
+      </div>
+    </div>
+  </form>
 </div>

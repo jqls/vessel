@@ -15,12 +15,17 @@
       <app-toolbox></app-toolbox>
     </div>
     <!--todo: 显示不正确-->
-    <div [ngClass]="{'col-md-9': !showParameters, 'col-md-6': showParameters}">
+    <div [ngClass]="{'col-md-9': !showParameters, 'col-md-7': showParameters}">
       <app-drawboard></app-drawboard>
     </div>
-    <div class="col-md-3" [hidden]="!showParameters">
+    <div class="col-md-2" [hidden]="!showParameters">
       <app-parameters></app-parameters>
     </div>
+  </div>
+  <hr/>
+  <div class="pull-right">
+    <button class="btn btn-danger" (click)="clean()">清空</button>
+    <button class="btn btn-primary">提交运行</button>
   </div>
 
 </div>
