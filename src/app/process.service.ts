@@ -33,9 +33,27 @@ export class ProcessService {
           "controlType": "select",
           "defaultVal": "0",
           "options": [
-            "multinomial",
+            "multi-nominal",
             "bernoulli"
           ],
+        }
+      ],
+    },
+    {
+      'id': '2',
+      'label': "tf-idf",
+      'tags': ['分类'],
+      'description': '',
+      "algorithm_parameters": [
+        {
+          "label": "参数A",
+          "controlType": "text",
+          "defaultVal": "5",
+        },
+        {
+          "label": "参数B",
+          "controlType": "float",
+          "defaultVal": "1.0",
         }
       ],
     }

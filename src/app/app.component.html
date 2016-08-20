@@ -1,31 +1,60 @@
 <div class="container-fluid">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+             aria-expanded="false"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+          <ul class="dropdown-menu">
+            <li class="active"><a href="#">工作区</a></li>
+            <li><a href="#">上传数据</a></li>
+            <li><a href="#">新增算法</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header" style="padding-left: 30px;">
+        <a class="navbar-brand" href="#">{{title}}</a>
+      </div>
 
-  <div class="page-header">
-    <h1>
-      {{title}}
-      <span class="pull-right">
-        <button class="btn btn-primary" (click)="showParametersBtnClick()">
-          <i class="glyphicon glyphicon-cog"></i></button>
-      </span>
-    </h1>
-  </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <!--<li><a href="#" (click)="showParametersBtnClick"><i class="glyphicon glyphicon-cog"></i></a></li>-->
 
-  <div class="row">
-    <div class="col-md-3">
-      <app-toolbox></app-toolbox>
-    </div>
-    <!--todo: 显示不正确-->
-    <div [ngClass]="{'col-md-9': !showParameters, 'col-md-7': showParameters}">
-      <app-drawboard></app-drawboard>
-    </div>
-    <div class="col-md-2" [hidden]="!showParameters">
-      <app-parameters></app-parameters>
-    </div>
-  </div>
-  <hr/>
-  <div class="pull-right">
-    <button class="btn btn-danger" (click)="clean()">清空</button>
-    <button class="btn btn-primary">提交运行</button>
-  </div>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">{{currentUser?currentUser.username:"登陆"}} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
+  <div id="page-body">
+    <div class="row">
+      <div class="col-md-3">
+        <app-toolbox></app-toolbox>
+      </div>
+      <!--todo: 显示不正确-->
+      <div [ngClass]="{'col-md-9': !ifNeedShowParameter(), 'col-md-7': ifNeedShowParameter()}">
+        <app-drawboard></app-drawboard>
+      </div>
+      <div class="col-md-2" [hidden]="!ifNeedShowParameter()">
+        <app-parameters></app-parameters>
+      </div>
+    </div>
+    <hr/>
+    <div class="pull-right">
+      <!--<button class="btn btn-danger" (click)="clean()">清空</button>-->
+      <button class="btn btn-primary">提交运行</button>
+    </div>
+  </div>
 </div>

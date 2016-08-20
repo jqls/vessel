@@ -24,8 +24,9 @@ export class ParametersComponent implements OnInit {
     });
   }
 
-  onSubmit(){
+  onSubmit() {
     //todo: 更新参数
+    alert(JSON.stringify(this.form.value));
   }
 
   ngOnInit() {

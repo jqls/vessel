@@ -44,7 +44,7 @@ export class DrawboardComponent implements OnInit {
     this.lastKeyDown = -1;
     this.shiftDrag = false;
 
-    this.svg = d3.select("svg#dashboard");    //绑定svg
+    this.svg = d3.select("svg#drawboard");    //绑定svg
     this.def = this.svg.append("svg:def");    //绑定样式区
     this.container = this.svg.append("g");    //绑定绘图区
     this.relationLayer = this.container.append("g");  //绑定关系连线区
@@ -58,7 +58,7 @@ export class DrawboardComponent implements OnInit {
       .style('marker-end', 'url(#mark-end-arrow)');
 
     this.svg
-      .attr("viewBox", "0 0 1000 500")
+      .attr("viewBox", "0 0 800 600")
       .classed("drawboard", true);
   }
 

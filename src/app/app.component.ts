@@ -7,6 +7,7 @@ import {ParametersStatusService} from "./parameters-status.service";
 import {ParametersComponent} from "./parameters.component/parameters.component";
 import {InputsComponent} from "./inputs.component/inputs.component";
 import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
+import {NavbarService} from "./navbar.service";
 
 
 @Component({
@@ -17,7 +18,8 @@ import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
   providers: [
     DrawboardStatusService,
     ProcessService,
-    ParametersStatusService
+    ParametersStatusService,
+    NavbarService
   ],
   directives: [
     FORM_DIRECTIVES,
@@ -29,11 +31,17 @@ import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
   ]
 })
 export class AppComponent {
-  title = 'Works!';
-  showParameters = false;
+  title = 'Vessel';
+
+  constructor(private privateNavbarService: NavbarService) {
+  }
+
+  ifNeedShowParameter(): boolean {
+    return this.privateNavbarService.showParameterBox;
+  }
 
   showParametersBtnClick() {
-    this.showParameters = !this.showParameters;
+    this.privateNavbarService.showParameterBox = !this.privateNavbarService.showParameterBox;
   }
 
 }

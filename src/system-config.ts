@@ -40,6 +40,7 @@ const barrels: string[] = [
   'app/toolbox.component',
   'app/parameters.component',
   'app/inputs.component',
+  'app/navbar',
   /** @cli-barrel */
 ];
 

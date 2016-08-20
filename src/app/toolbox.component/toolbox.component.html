@@ -1,7 +1,9 @@
 <h4>
   <span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>
   数据源
+  <input type="text" class="form-control">
 </h4>
+
 <div class="list-group">
   <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNode===dataSource"
      (click)="itemClicked(dataSource)">
