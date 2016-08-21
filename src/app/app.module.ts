@@ -6,26 +6,23 @@ import {BrowserModule} from "@angular/platform-browser";
 import {ReactiveFormsModule} from "@angular/forms";
 import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
-import {InputsComponent} from "./inputs.component/inputs.component";
-import {ParametersComponent} from "./parameters.component/parameters.component";
-import {DrawboardComponent} from "./drawboard.component/drawboard.component";
-import {ToolboxComponent} from "./toolbox.component/toolbox.component";
+import {routing, appRoutingProvider} from "./app.routing";
+import {CraftComponent} from "./craft/craft.component";
 
 @NgModule({
   imports: [
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    routing
   ],
   declarations: [
     AppComponent,
-    ParametersComponent,
-    DrawboardComponent,
-    ToolboxComponent,
-    InputsComponent
+    CraftComponent
+  ],
+  providers: [
+    appRoutingProvider
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-  }
 }

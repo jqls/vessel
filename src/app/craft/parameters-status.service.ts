@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ProcessNode} from "./shared/json-typedef";
+import {ProcessNode} from "../shared/json-typedef";
 import {ParameterInputBase} from "./parameters.component/internal/parameter-input-base.class";
 import {Validators, FormGroup, FormControl} from "@angular/forms";
 

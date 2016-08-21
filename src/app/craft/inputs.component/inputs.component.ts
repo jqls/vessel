@@ -1,5 +1,5 @@
 import {Component, Input} from "@angular/core";
-import {ParameterJSON} from "../shared/json-typedef";
+import {ParameterJSON} from "../../shared/json-typedef";
 import {FormGroup} from "@angular/forms";
 
 @Component({

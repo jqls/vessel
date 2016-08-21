@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav navbar-left">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+           aria-expanded="false"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="craft" routerLinkActive="active">工作区</a></li>
+          <li><a href="#">上传数据</a></li>
+          <li><a href="#">新增算法</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="navbar-header" style="padding-left: 30px;">
+      <a class="navbar-brand" href="#">{{navbarTitle}}</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+             aria-expanded="false">{{currentUser?currentUser.username:"登陆"}} <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

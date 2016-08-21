@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ProcessNode, DataSourceNode} from "./shared/json-typedef";
+import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
 
 @Injectable()
 export class DrawboardStatusService {

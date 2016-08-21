@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {ProcessService} from "../process.service";
-import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
+import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
 
 @Component({
   moduleId: module.id,

@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {DataSourceJSON, ProcessJSON, DataSourceNode, ProcessNode} from "./shared/json-typedef";
+import {DataSourceJSON, ProcessJSON, DataSourceNode, ProcessNode} from "../shared/json-typedef";
 
 @Injectable()
 export class ProcessService {

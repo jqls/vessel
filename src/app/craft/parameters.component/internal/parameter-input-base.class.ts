@@ -1,4 +1,4 @@
-import {ParameterJSON} from "../../shared/json-typedef";
+import {ParameterJSON} from "../../../shared/json-typedef";
 /**
  * Created by tang on 2016/8/18.
  */

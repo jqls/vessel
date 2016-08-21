@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode} from "../shared/json-typedef";
+import {ProcessNode} from "../../shared/json-typedef";
 import {FormGroup} from "@angular/forms";
 
 @Component({

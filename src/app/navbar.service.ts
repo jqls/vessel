@@ -6,6 +6,11 @@ export class NavbarService {
 
   currentUser: User;
   showParameterBox = true;
+  title = "Vessel";
+
+  setTitle(title: string) {
+    this.title = title;
+  };
 
   constructor() {
   }

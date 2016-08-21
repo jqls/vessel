@@ -1,4 +1,4 @@
-///<reference path="../../shared/d3.d.ts"/>
+///<reference path="../../../shared/d3.d.ts"/>
 ///<reference path="drawboard.menu.ts"/>
 
 /**
@@ -7,7 +7,7 @@
 import {Relation} from "./drawboard.relation";
 import {DrawboardComponent} from "../drawboard.component";
 import {DrawboardMenu} from "./drawboard.menu";
-import {DataSourceNode, ProcessNode} from "../../shared/json-typedef";
+import {DataSourceNode, ProcessNode} from "../../../shared/json-typedef.ts";
 
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;

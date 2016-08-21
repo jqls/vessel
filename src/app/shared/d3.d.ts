@@ -1446,7 +1446,7 @@ declare namespace d3 {
 
         (l: number, a: number, b: number): Lab;
         (color: string): Lab;
-    }
+    };
 
     interface Lab extends Color {
         l: number;

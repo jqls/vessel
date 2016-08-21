@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
+import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
 
 @Component({
   moduleId: module.id,
@@ -31,7 +31,9 @@ export class DrawboardComponent implements OnInit {
   constants = {
     BACKSPACE_KEY: 8,
     DELETE_KEY: 46,
-    ENTER_KEY: 13
+    ENTER_KEY: 13,
+    RESOLUTION_WIDTH: 1600,
+    RESOLUTION_HEIGHT: 900
   };
 
   private initState() {
@@ -51,14 +53,14 @@ export class DrawboardComponent implements OnInit {
   }
 
   private initSVG() {
-
+    let self = this;
     this.dragline = this.container.append('svg:path')
       .attr('class', 'hidden path')
       .attr('d', 'M0,0 L0,0')
       .style('marker-end', 'url(#mark-end-arrow)');
 
     this.svg
-      .attr("viewBox", "0 0 800 600")
+      .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)
       .classed("drawboard", true);
   }
 
