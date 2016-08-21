@@ -14,7 +14,7 @@ import {CraftComponent} from "./craft/craft.component";
   ],
   directives: [
     NavbarComponent,
-    CraftComponent,
+    CraftComponent
   ]
 })
 export class AppComponent {

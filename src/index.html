@@ -14,19 +14,18 @@
   <link rel="stylesheet" href="app/static/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="app/static/css/page-styles.css">
   <script src="app/static/js/d3.min.js"></script>
+  <script src="app/static/js/jquery-3.1.0.min.js"></script>
+  <script src="app/static/js/bootstrap.min.js"></script>
+  {{#each scripts.polyfills}}
+  <script src="{{.}}"></script>
+  {{/each}}
+  <script>
+    System.import('system-config.js').then(function () {
+      System.import('main');
+    }).catch(console.error.bind(console));
+  </script>
 </head>
 <body>
 <app-root>Loading...</app-root>
-<script src="app/static/js/jquery-3.1.0.min.js"></script>
-<script src="app/static/js/bootstrap.min.js"></script>
-{{#each scripts.polyfills}}
-<script src="{{.}}"></script>
-{{/each}}
-<script>
-  System.import('system-config.js').then(function () {
-    System.import('main');
-  }).catch(console.error.bind(console));
-</script>
-
 </body>
 </html>

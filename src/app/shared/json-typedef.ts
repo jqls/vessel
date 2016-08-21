@@ -2,6 +2,38 @@
  * Created by tang on 2016/8/18.
  */
 
+export interface FlowElementParameter {
+  //流程图参数
+  key: string;
+  label: string;
+  val: string;
+}
+
+export interface FlowElement {
+  //流程图元素
+  id: string;
+  flowID: string;
+  label: string;
+
+  parameters?: FlowElementParameter[];
+  description?: string;
+}
+
+export class FlowRelation {
+  //流程图关系
+  fromID: string;
+  fromPort: string;
+  toID: string;
+  toPort: string;
+}
+
+export class Workflow {
+  //流程图
+  sources: FlowElement[] = [];
+  processes: FlowElement[] = [];
+  relation: FlowRelation[] = [];
+}
+
 export type ParameterJSON = {
   label: string,
   required?: boolean,
@@ -13,9 +45,11 @@ export type ParameterJSON = {
 
 export type DataSourceJSON = {
   id: string,
+  //todo: 添加流内ID号
+  flowID: string,
   label: string,
-  description: string,
-  upload_date: string
+  description?: string,
+  upload_date?: string
 }
 
 export type ProcessJSON = {
@@ -31,7 +65,7 @@ export class NodeInfo {
   label: string;
   description: string;
 
-  constructor(json: {id: string, label: string, description: string}) {
+  constructor(json: {id: string, label: string, description: string}|{}) {
     this.id = json['id'];
     this.label = json['label'];
     this.description = json['description'] || "";

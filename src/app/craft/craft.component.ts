@@ -8,6 +8,7 @@ import {REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES} from "@angular/forms";
 import {ParametersStatusService} from "./parameters-status.service";
 import {ProcessService} from "./process.service";
 import {DrawboardStatusService} from "./drawboard-status.service";
+import {SubmitService} from "./submit.service";
 
 @Component({
   moduleId: module.id,
@@ -23,14 +24,15 @@ import {DrawboardStatusService} from "./drawboard-status.service";
   providers: [
     DrawboardStatusService,
     ProcessService,
-    ParametersStatusService
+    ParametersStatusService,
+    SubmitService
   ],
   templateUrl: 'craft.component.html',
   styleUrls: ['craft.component.css']
 })
 export class CraftComponent implements OnInit {
 
-  constructor(private privateNavbarService: NavbarService) {
+  constructor(private privateNavbarService: NavbarService, private submitService: SubmitService) {
   }
 
   ngOnInit() {
@@ -42,6 +44,10 @@ export class CraftComponent implements OnInit {
 
   showParametersBtnClick() {
     this.privateNavbarService.showParameterBox = !this.privateNavbarService.showParameterBox;
+  }
+
+  submit() {
+    this.submitService.submit();
   }
 
 }

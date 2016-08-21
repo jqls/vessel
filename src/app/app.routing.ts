@@ -3,14 +3,11 @@
  */
 
 import {Routes, RouterModule} from "@angular/router";
-import {CraftComponent} from "./craft/craft.component";
+import {CraftComponent} from "./craft";
 
 
 const appRoutes: Routes = [
-  {
-    path: 'craft',
-    component: CraftComponent
-  }
+  {path: 'craft', component: CraftComponent}
 ];
 
 
