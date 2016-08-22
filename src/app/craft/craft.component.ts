@@ -32,7 +32,8 @@ import {SubmitService} from "./submit.service";
 })
 export class CraftComponent implements OnInit {
 
-  constructor(private privateNavbarService: NavbarService, private submitService: SubmitService) {
+  constructor(private privateNavbarService: NavbarService,
+              private drawboardStatus: DrawboardStatusService) {
   }
 
   ngOnInit() {
@@ -46,8 +47,7 @@ export class CraftComponent implements OnInit {
     this.privateNavbarService.showParameterBox = !this.privateNavbarService.showParameterBox;
   }
 
-  submit() {
-    this.submitService.submit();
+  onSubmitClick(){
+    this.drawboardStatus.onSubmitClick();
   }
-
 }

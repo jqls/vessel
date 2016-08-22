@@ -8,11 +8,14 @@ import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {routing, appRoutingProvider} from "./app.routing";
 import {CraftComponent} from "./craft/craft.component";
+import {HttpModule, JsonpModule} from "@angular/http";
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    HttpModule,
+    JsonpModule,
     routing
   ],
   declarations: [

@@ -7,6 +7,7 @@ import {CraftComponent} from "./craft";
 
 
 const appRoutes: Routes = [
+  {path: '', component: CraftComponent},
   {path: 'craft', component: CraftComponent}
 ];
 

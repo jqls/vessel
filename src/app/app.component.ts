@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {NavbarService} from "./navbar.service";
 import {NavbarComponent} from "./navbar.component/navbar.component";
 import {CraftComponent} from "./craft/craft.component";
+import {Http, HTTP_PROVIDERS} from "@angular/http";
 
 
 @Component({
@@ -10,7 +11,7 @@ import {CraftComponent} from "./craft/craft.component";
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   providers: [
-    NavbarService
+    NavbarService,
   ],
   directives: [
     NavbarComponent,

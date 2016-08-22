@@ -78,7 +78,7 @@ export class DrawboardElement {
         if ((<KeyboardEvent> d3.event).shiftKey) {
           console.log("shift");
           board.shiftDrag = true;
-          board.dragline.classed('hidden', false);
+          board.dragLine.classed('hidden', false);
           return;
         } else {
           board.callParameter(nodeInfo);
@@ -112,8 +112,8 @@ export class DrawboardElement {
             board.dragFrom = currentObject;
             if (board.shiftDrag) {
               let mouseCoords = d3.mouse(board.container.node());
-              board.dragline.classed("hidden", false);
-              board.dragline.attr('d', 'M' + (currentObject.cx + ELEMENT_WIDTH / 2) + ',' + (currentObject.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
+              board.dragLine.classed("hidden", false);
+              board.dragLine.attr('d', 'M' + (currentObject.cx + ELEMENT_WIDTH / 2) + ',' + (currentObject.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
             } else {
               let dragEvent = <d3.DragEvent> d3.event;
               currentObject.setCenterPosition({

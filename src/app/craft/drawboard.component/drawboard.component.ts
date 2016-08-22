@@ -2,7 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
+import {ProcessNode, DataSourceNode, Workflow} from "../../shared/json-typedef";
+import {SubmitService} from "../submit.service";
 
 @Component({
   moduleId: module.id,
@@ -11,12 +12,12 @@ import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
   styleUrls: ['drawboard.component.css']
 })
 export class DrawboardComponent implements OnInit {
-  drawboradElements = Array<DrawboardElement>();
+  drawboradElements: DrawboardElement[] = [];
   svg: any; //页面svg对象
   def: any;
   container: any;
   relationLayer: any;
-  dragline: any;
+  dragLine: any;
 
   selectedLine: any;
   selectedNode: any;
@@ -32,9 +33,19 @@ export class DrawboardComponent implements OnInit {
     BACKSPACE_KEY: 8,
     DELETE_KEY: 46,
     ENTER_KEY: 13,
-    RESOLUTION_WIDTH: 1600,
-    RESOLUTION_HEIGHT: 900
+    RESOLUTION_WIDTH: 800,
+    RESOLUTION_HEIGHT: 600
   };
+
+  workflow: Workflow = new Workflow();
+
+  isValidWorkflow(): boolean {
+    return true;
+  }
+
+  getWorkflowJSON(): string {
+    return JSON.stringify(this.workflow);
+  }
 
   private initState() {
     this.selectedLine = null;
@@ -54,7 +65,7 @@ export class DrawboardComponent implements OnInit {
 
   private initSVG() {
     let self = this;
-    this.dragline = this.container.append('svg:path')
+    this.dragLine = this.container.append('svg:path')
       .attr('class', 'hidden path')
       .attr('d', 'M0,0 L0,0')
       .style('marker-end', 'url(#mark-end-arrow)');
@@ -145,13 +156,16 @@ export class DrawboardComponent implements OnInit {
   }
 
   constructor(private drawBoardStatus: DrawboardStatusService,
-              private parametersStatus: ParametersStatusService) {
+              private parametersStatus: ParametersStatusService,
+              private submitService: SubmitService) {
+
+    this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
 
   }
 
   public update() {
     this.justDragged = false;
-    this.dragline.attr("d", "M0,0L0,0").classed("hidden", true);
+    this.dragLine.attr("d", "M0,0L0,0").classed("hidden", true);
     this.shiftDrag = false;
     this.dragFrom = null;
   }
@@ -163,4 +177,12 @@ export class DrawboardComponent implements OnInit {
     self.initSVG();    //初始化svg渲染和箭头图标等
     self.bindEventHandler();
   }
+
+  getSubmitHandler(): (()=>void) {
+    let self = this;
+    return ()=> {
+      self.submitService.submit(self.getWorkflowJSON());
+    }
+  }
+
 }

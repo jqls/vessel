@@ -5,6 +5,7 @@ import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
 export class DrawboardStatusService {
   private selectedNode: DataSourceNode|ProcessNode;
   private subscribers: Array<(node: DataSourceNode|ProcessNode)=>void>;
+  private submitHooks: (()=>void) [] = [];
 
   constructor() {
     this.subscribers = Array<(node: ProcessNode)=>void>();
@@ -26,6 +27,16 @@ export class DrawboardStatusService {
 
   cancelSelectedNode() {
     this.setSelectedNode(null);
+  }
+
+  onSubmitClick() {
+    this.submitHooks.forEach((fn)=> {
+      fn();
+    })
+  }
+
+  setSubmitClickHook(fn: ()=>void) {
+    this.submitHooks.push(fn);
   }
 
 }
