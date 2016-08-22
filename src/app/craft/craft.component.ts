@@ -47,6 +47,7 @@ export class CraftComponent implements OnInit {
   }
 
   submit() {
+    this.submitService.submit(null);
   }
 
 }

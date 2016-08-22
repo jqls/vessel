@@ -46,7 +46,7 @@ export type ParameterJSON = {
 export type DataSourceJSON = {
   id: string,
   //todo: 添加流内ID号
-  flowID: string,
+  // flowID: string,
   label: string,
   description?: string,
   upload_date?: string
