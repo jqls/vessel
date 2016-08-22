@@ -3,10 +3,15 @@
  */
 
 import {Routes, RouterModule} from "@angular/router";
-import {CraftComponent} from "./craft";
+import {CraftComponent} from "./craft/craft.component";
 
 
 const appRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: '/craft',
+    pathMatch: 'full'
+  },
   {path: 'craft', component: CraftComponent}
 ];
 
