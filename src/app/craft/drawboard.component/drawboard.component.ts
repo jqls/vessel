@@ -68,7 +68,7 @@ export class DrawboardComponent implements OnInit {
     this.dragLine = this.container.append('svg:path')
       .attr('class', 'hidden path')
       .attr('d', 'M0,0 L0,0')
-      .style('marker-end', 'url(#mark-end-arrow)');
+      .style('marker-end', 'url(/craft#mark-end-arrow)');
 
     this.svg
       .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)

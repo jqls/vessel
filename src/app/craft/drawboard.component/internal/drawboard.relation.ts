@@ -46,7 +46,7 @@ export class Relation {
     this.from = from;
     this.to = to;
     this.path.classed('path', true)
-      .style('marker-end', 'url(#mark-end-arrow)');
+      .style('marker-end', 'url(/craft#mark-end-arrow)');
     this.update();
     this.initMenu();
   }
