@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {DataSourceJSON, ProcessJSON, DataSourceNode, ProcessNode} from "../shared/json-typedef";
-import {Http} from "@angular/http";
 
 @Injectable()
 export class ProcessService {
@@ -60,10 +59,11 @@ export class ProcessService {
 
   getDataSources(): DataSourceNode[] {
     //todo: change to $http
-    this.http.get(`${this.HOST}:${this.PORT}${this.ALL_SOURCES}`);
-    return this.dataSources.map((dataSource): DataSourceNode=> {
-      return new DataSourceNode(dataSource);
-    });
+    // this.http.get(`${this.HOST}:${this.PORT}${this.ALL_SOURCES}`);
+    // return this.dataSources.map((dataSource): DataSourceNode=> {
+    //   return new DataSourceNode(dataSource);
+    // });
+    return [];
   }
 
   getProcesses(): ProcessNode[] {
@@ -73,7 +73,7 @@ export class ProcessService {
     });
   }
 
-  constructor(private http: Http) {
+  constructor() {
   }
 
 }
