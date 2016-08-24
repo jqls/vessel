@@ -1,7 +1,7 @@
 <div *ngIf="open">
   <h4>{{openedNode.label}}参数配置</h4>
   <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-horizontal" *ngIf="openedNode!=null">
-    <app-inputs *ngFor="let parameter of openedNode.algorithm_parameters" [parameter]="parameter"
+    <app-inputs *ngFor="let parameter of openedNode.algorithmParameters" [parameter]="parameter"
                 [form]="form"></app-inputs>
     <div class="form-group">
       <div class="col-md-offset-4">

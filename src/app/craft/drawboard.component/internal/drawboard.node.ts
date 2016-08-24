@@ -29,6 +29,11 @@ export class ProcessNode extends DrawboardElement {
     return JSON.stringify(this.attributes) + JSON.stringify(this.algorithmParameters);
   }
 
+  updateAlgorithmParameters(algorithmParameters: ParameterJSON[]){
+    console.log("updateAlgorithmParameters in node");
+    this.algorithmParameters = JSON.parse(JSON.stringify(algorithmParameters));
+  }
+
   render() {
     if (!this.rendered) {
       this.groupContainer.append("rect")
@@ -36,7 +41,7 @@ export class ProcessNode extends DrawboardElement {
         .attr("ry", ELEMENT_ROUND_Y)
         .attr("height", ELEMENT_HEIGHT)
         .attr("width", ELEMENT_WIDTH)
-        .classed("data-source", true);
+        .classed("process", true);
       this.groupContainer
         .append("text")
         .attr("text-anchor", "middle")

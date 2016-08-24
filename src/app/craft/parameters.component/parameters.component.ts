@@ -1,7 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {ParametersStatusService} from "../parameters-status.service";
 import {FormGroup} from "@angular/forms";
-import {ProcessNode} from "../drawboard.component/internal/drawboard.node";
+import {DrawboardElement} from "../drawboard.component/internal/drawboard.element";
+import {DataSourceNode, ProcessNode} from "../drawboard.component/internal/drawboard.node";
 
 @Component({
   moduleId: module.id,
@@ -23,9 +24,16 @@ export class ParametersComponent implements OnInit {
       this.form = parametersStatus.toFormGroup();
     });
   }
-
+  // setOpen(node: DrawboardElement): void{
+  //   if(node instanceof ProcessNode)
+  //     this.open = true;
+  //   else if (node instanceof DataSourceNode)
+  //     this.open = false;
+  // }
   onSubmit() {
     //todo: 更新参数
+    console.log("update parameters");
+    this.openedNode.updateAlgorithmParameters(this.form.value);
     alert(JSON.stringify(this.form.value));
   }
 
