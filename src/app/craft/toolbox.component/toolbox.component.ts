@@ -2,9 +2,9 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {ProcessService} from "../process.service";
 import {
-  ProcessNodeType,
   DataSourceNodeType,
-  WorkflowNodeType
+  WorkflowNodeType,
+  ProcessNodeType
 } from "../drawboard.component/internal/drawboard.node-types";
 
 @Component({

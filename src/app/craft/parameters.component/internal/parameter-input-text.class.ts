@@ -1,5 +1,5 @@
 import {ParameterInputBase} from "./parameter-input-base.class";
-import {ParameterJSON} from "../../../shared/json-typedef";
+import {ParameterJSON} from "../../drawboard.component/internal/drawboard.node-types";
 /**
  * Created by tang on 2016/8/18.
  */

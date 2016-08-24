@@ -2,7 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
-import {ProcessNodeType, DataSourceNode, WorkflowNode, ProcessNode} from "./internal/drawboard.node";
+import {ProcessNode, DataSourceNode, WorkflowNode} from "./internal/drawboard.node";
+import {ProcessNodeType, DataSourceNodeType} from "./internal/drawboard.node-types";
 
 @Component({
   moduleId: module.id,
@@ -125,10 +126,11 @@ export class DrawboardComponent implements OnInit {
 
         let fn = (): WorkflowNode=> {
           if (selectedNodeType instanceof ProcessNodeType) {
-            return new ProcessNode(selectedNodeType, self.flowIDCounter, self, position);
+            return new ProcessNode(<ProcessNodeType>selectedNodeType, self.flowIDCounter, self, position);
+          } else if (selectedNodeType instanceof DataSourceNodeType) {
+            return new DataSourceNode(<DataSourceNodeType>selectedNodeType, self.flowIDCounter, self, position);
           } else {
-            // if (selectedNodeType instanceof DataSourceNode) {
-            return new DataSourceNode(selectedNodeType, self.flowIDCounter, self, position);
+            console.log("unknown type");
           }
         };
 
@@ -136,7 +138,9 @@ export class DrawboardComponent implements OnInit {
 
         self.flowIDCounter += 1;
         self.nodes.push(newElement);
+        console.log("before render");
         newElement.render();
+        console.log("end render");
       } else {
         self.setParameter(null);
       }
@@ -176,7 +180,7 @@ export class DrawboardComponent implements OnInit {
   }
 
   setParameter(node: WorkflowNode) {
-    if (node instanceof ProcessNodeType) {
+    if (node instanceof ProcessNode) {
       this.parametersStatus.setSelectedNode(node)
     }
   }

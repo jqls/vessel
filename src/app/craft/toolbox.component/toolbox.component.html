@@ -4,10 +4,11 @@
 </h4>
 
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNodeType===dataSource"
-     (click)="itemClicked(dataSource)">
-    <h5 class="list-group-item-heading">{{ dataSource.label }}</h5>
-    <p class="list-group-item-text">上传时间: {{ dataSource.upload_date }}</p>
+  <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
+     [class.active]="selectedNodeType===dataSource"
+     (click)="itemClicked(dataSourceType)">
+    <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
+    <p class="list-group-item-text">上传时间: {{ dataSourceType.upload_date||"2016-2-2" }}</p>
   </a>
 </div>
 <h4>
@@ -15,12 +16,12 @@
   算法列表
 </h4>
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let process of processesTypes" (click)="itemClicked(process)"
-     [class.active]="selectedNodeType===process" (dblclick)="itemDbClicked(process)">
-    <h5 class="list-group-item-heading">{{ process.label }}
+  <a class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(process)"
+     [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(process)">
+    <h5 class="list-group-item-heading">{{ processType.label }}
       <span style="margin-right: 5px;" class="label label-info pull-right"
-            *ngFor="let tag of process.tags">{{tag}}</span>
+            *ngFor="let tag of processType.tags">{{tag}}</span>
     </h5>
-    <p class="list-group-item-text">{{ process.description||"这是一种算法" }}</p>
+    <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
   </a>
 </div>

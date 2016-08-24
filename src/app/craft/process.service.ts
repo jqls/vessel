@@ -3,8 +3,8 @@ import {DataSourceNode} from "./drawboard.component/internal/drawboard.node";
 import {
   DataSourceNodeType,
   ProcessNodeTypeJSON,
-  ProcessNodeType,
-  DataSourceNodeTypeJSON
+  DataSourceNodeTypeJSON,
+  ProcessNodeType
 } from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
@@ -17,7 +17,6 @@ export class ProcessService {
   private dataSources: DataSourceNodeTypeJSON[] = [
     {
       "id": "1",
-      "flowID": "2",
       "description": "鸢尾花数据集",
       "label": "鸢尾花数据集",
     }
@@ -75,7 +74,7 @@ export class ProcessService {
     });
   }
 
-  getProcesses(): ProcessNodeTypeJSON[] {
+  getProcesses(): ProcessNodeType[] {
     //todo: change to $http
     return this.processes.map((processJSON): ProcessNodeType=> {
       return new ProcessNodeType(processJSON);

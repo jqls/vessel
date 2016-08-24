@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
-import {ParameterJSON} from "../../shared/json-typedef";
 import {FormGroup} from "@angular/forms";
+import {ParameterJSON} from "../drawboard.component/internal/drawboard.node-types";
 
 @Component({
   moduleId: module.id,

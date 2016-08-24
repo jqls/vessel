@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ProcessNodeType} from "./drawboard.component/internal/drawboard.node";
-import {WorkflowNodeType} from "./drawboard.component/internal/drawboard.node-types";
+import {WorkflowNodeType, ProcessNodeType} from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
 export class DrawboardStatusService {

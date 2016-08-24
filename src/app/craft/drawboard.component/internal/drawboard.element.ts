@@ -17,7 +17,7 @@ export const ELEMENT_ROUND_Y = 5;
 
 
 export class DrawboardElement {
-  attributes: BasicNode;
+  attributes = new BasicNode();
 
   board: DrawboardComponent;
   cx: number;
@@ -44,11 +44,11 @@ export class DrawboardElement {
     return ()=> {
       console.log("delete");
       self.relations.forEach((relation)=> {
-        if (relation.from === self) {
+        if (relation.from.attributes.id == self.attributes.id) {
           relation.to.relations = relation.to.relations.filter((toRelation)=> {
             return !(toRelation === relation);
           });
-        } else if (relation.to === self) {
+        } else if (relation.to.attributes.id == self.attributes.id) {
           relation.from.relations = relation.from.relations.filter((fromRelation)=> {
             return !(fromRelation === relation);
           });
@@ -58,7 +58,7 @@ export class DrawboardElement {
 
       self.groupContainer.remove();
       self.board.nodes = self.board.nodes.filter((drawElement)=> {
-        return !(drawElement === self);
+        return !(drawElement === <DrawboardElement>self);
       });
 
       d3.select(self.menu.menuNode).remove();
