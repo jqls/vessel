@@ -33,8 +33,9 @@ export class ParametersComponent implements OnInit {
   onSubmit() {
     //todo: 更新参数
     console.log("update parameters");
-    this.openedNode.updateAlgorithmParameters(JSON.stringify(this.form.value));
-    alert(JSON.stringify(this.form.value));
+    // this.openedNode.updateAlgorithmParameters(JSON.stringify(this.form.value));
+    // alert("0"+JSON.stringify(this.form.value));
+    this.parametersStatus.updatePatameters(this.form);
   }
 
   ngOnInit() {
