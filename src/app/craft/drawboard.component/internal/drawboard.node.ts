@@ -25,8 +25,14 @@ export class ProcessNode extends DrawboardElement {
     this.bindEventHandler();
   }
 
-  toJSON(): string {
-    return JSON.stringify(this.attributes) + JSON.stringify(this.algorithmParameters);
+  toJSON(): {} {
+    return {
+      id: this.attributes.id,
+      label: this.attributes.label,
+      description: this.attributes.description,
+      flowID: this.attributes.flowID,
+      algorithmParameters: this.algorithmParameters
+    };
   }
 
   render() {
@@ -122,8 +128,8 @@ export class DataSourceNode extends DrawboardElement {
     this.bindEventHandler();
   }
 
-  toJSON() {
-    return JSON.stringify(this.attributes);
+  toJSON(): {} {
+    return this.attributes;
   }
 
   render() {
