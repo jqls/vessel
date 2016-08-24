@@ -1,9 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
-import {DrawboardElement} from "./internal/drawboard.element";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode, DataSourceNode, Workflow} from "../../shared/json-typedef";
 import {SubmitService} from "../submit.service";
+import {ProcessNodeType, DataSourceNode, WorkflowNode, ProcessNode} from "./internal/drawboard.node";
 
 @Component({
   moduleId: module.id,
@@ -12,7 +11,7 @@ import {SubmitService} from "../submit.service";
   styleUrls: ['drawboard.component.css']
 })
 export class DrawboardComponent implements OnInit {
-  drawboradElements: DrawboardElement[] = [];
+  nodes: WorkflowNode[] = [];
   svg: any; //页面svg对象
   def: any;
   container: any;
@@ -28,6 +27,7 @@ export class DrawboardComponent implements OnInit {
   scale: boolean;
   lastKeyDown: number;
   shiftDrag: boolean;
+  flowIDCounter = 0;
 
   constants = {
     BACKSPACE_KEY: 8,
@@ -37,14 +37,30 @@ export class DrawboardComponent implements OnInit {
     RESOLUTION_HEIGHT: 600
   };
 
-  workflow: Workflow = new Workflow();
-
   isValidWorkflow(): boolean {
     return true;
   }
 
   getWorkflowJSON(): string {
-    return JSON.stringify(this.workflow);
+    let paths: string[] = [];
+
+    this.nodes.map((nodeElement)=> {
+      nodeElement.relations.map((relation)=> {
+        let path = relation.from.attributes.flowID + "->" + relation.to.attributes.flowID;
+        if (!paths.find((v)=> {
+            return (v == path);
+          })) {
+          paths.push(path);
+        }
+      });
+    });
+
+    return JSON.stringify(
+      {
+        nodes: this.nodes,
+        paths: paths
+      }
+    );
   }
 
   private initState() {
@@ -102,17 +118,27 @@ export class DrawboardComponent implements OnInit {
       });
 
     self.svg.on("mousedown", function () {
-      let selectedNode = self.drawBoardStatus.getSelectedNode();
-      if (selectedNode != null) {
-        let coord = d3.mouse(self.container.node());
-        let newElement = new DrawboardElement(self, {
-          'x': coord[0],
-          'y': coord[1]
-        }, selectedNode);
-        self.drawboradElements.push(newElement);
+      let selectedNodeType = self.drawBoardStatus.getSelectedNode();
+      if (selectedNodeType != null) {
+        let cord = d3.mouse(self.container.node());
+        let position = {'x': cord[0], 'y': cord[1]};
+
+        let fn = (): WorkflowNode=> {
+          if (selectedNodeType instanceof ProcessNodeType) {
+            return new ProcessNode(selectedNodeType, self.flowIDCounter, self, position);
+          } else {
+            // if (selectedNodeType instanceof DataSourceNode) {
+            return new DataSourceNode(selectedNodeType, self.flowIDCounter, self, position);
+          }
+        };
+
+        let newElement = fn();
+
+        self.flowIDCounter += 1;
+        self.nodes.push(newElement);
         newElement.render();
       } else {
-        self.callParameter(null);
+        self.setParameter(null);
       }
 
       self.drawBoardStatus.cancelSelectedNode();
@@ -144,13 +170,13 @@ export class DrawboardComponent implements OnInit {
   }
 
   clean(): void {
-    this.drawboradElements.forEach((drawboradElement)=> {
+    this.nodes.forEach((drawboradElement)=> {
       drawboradElement.deleteElements()();
     })
   }
 
-  callParameter(node: ProcessNode|DataSourceNode) {
-    if (node instanceof ProcessNode) {
+  setParameter(node: WorkflowNode) {
+    if (node instanceof ProcessNodeType) {
       this.parametersStatus.setSelectedNode(node)
     }
   }
@@ -158,9 +184,7 @@ export class DrawboardComponent implements OnInit {
   constructor(private drawBoardStatus: DrawboardStatusService,
               private parametersStatus: ParametersStatusService,
               private submitService: SubmitService) {
-
     this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
-
   }
 
   public update() {

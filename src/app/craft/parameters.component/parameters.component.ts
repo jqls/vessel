@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ParametersStatusService} from "../parameters-status.service";
-import {ProcessNode} from "../../shared/json-typedef";
 import {FormGroup} from "@angular/forms";
+import {ProcessNodeType} from "../drawboard.component/internal/drawboard.node";
 
 @Component({
   moduleId: module.id,
@@ -12,12 +12,13 @@ import {FormGroup} from "@angular/forms";
 export class ParametersComponent implements OnInit {
 
   open: boolean;
-  openedNode: ProcessNode;
+  openedNode: ProcessNodeType;
   form: FormGroup;
 
   constructor(private parametersStatus: ParametersStatusService) {
     this.open = false;
-    parametersStatus.bookService((node: ProcessNode)=> {
+    parametersStatus.bookService((node: ProcessNodeType)=> {
+      //todo: wired assign
       this.open = (node != null);
       this.openedNode = node;
       this.form = parametersStatus.toFormGroup();

@@ -4,7 +4,7 @@
 </h4>
 
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNode===dataSource"
+  <a class="list-group-item" *ngFor="let dataSource of dataSources" [class.active]="selectedNodeType===dataSource"
      (click)="itemClicked(dataSource)">
     <h5 class="list-group-item-heading">{{ dataSource.label }}</h5>
     <p class="list-group-item-text">上传时间: {{ dataSource.upload_date }}</p>
@@ -15,8 +15,8 @@
   算法列表
 </h4>
 <div class="list-group">
-  <a class="list-group-item" *ngFor="let process of processes" (click)="itemClicked(process)"
-     [class.active]="selectedNode===process" (dblclick)="itemDbClicked(process)">
+  <a class="list-group-item" *ngFor="let process of processesTypes" (click)="itemClicked(process)"
+     [class.active]="selectedNodeType===process" (dblclick)="itemDbClicked(process)">
     <h5 class="list-group-item-heading">{{ process.label }}
       <span style="margin-right: 5px;" class="label label-info pull-right"
             *ngFor="let tag of process.tags">{{tag}}</span>

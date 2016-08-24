@@ -1,32 +1,35 @@
 import {Injectable} from "@angular/core";
-import {ProcessNode, DataSourceNode} from "../shared/json-typedef";
+import {ProcessNodeType} from "./drawboard.component/internal/drawboard.node";
+import {WorkflowNodeType} from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
 export class DrawboardStatusService {
-  private selectedNode: DataSourceNode|ProcessNode;
-  private subscribers: Array<(node: DataSourceNode|ProcessNode)=>void>;
+  private selectedNodeType: WorkflowNodeType;
+  private subscribers: Array<(node: ProcessNodeType)=>void>;
   private submitHooks: (()=>void) [] = [];
 
   constructor() {
-    this.subscribers = Array<(node: ProcessNode)=>void>();
-    this.selectedNode = null;
+    this.subscribers = Array<(node: ProcessNodeType)=>void>();
+    this.selectedNodeType = null;
   }
 
-  bookSelectedNode(update: (node: ProcessNode)=>void) {
+  bookSelectedNodeType(update: (node: ProcessNodeType)=>void) {
     this.subscribers.push(update);
   }
 
-  setSelectedNode(node: DataSourceNode|ProcessNode) {
-    this.selectedNode = node;
-    this.subscribers.forEach(s=>s(node));
+  setSelectedNodeType(node: WorkflowNodeType) {
+    this.selectedNodeType = node;
+    if (node instanceof ProcessNodeType) {
+      this.subscribers.forEach(s=>s(node));
+    }
   }
 
-  getSelectedNode(): DataSourceNode|ProcessNode {
-    return this.selectedNode;
+  getSelectedNode(): WorkflowNodeType {
+    return this.selectedNodeType;
   }
 
   cancelSelectedNode() {
-    this.setSelectedNode(null);
+    this.setSelectedNodeType(null);
   }
 
   onSubmitClick() {

@@ -1,6 +1,7 @@
-import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./drawboard.element";
-import {DrawboardComponent} from "../drawboard.component";
+import {ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./drawboard.element";
 import {DrawboardMenu} from "./drawboard.menu";
+import {WorkflowNode} from "./drawboard.node";
+import {DrawboardComponent} from "../drawboard.component";
 
 /**
  * Created by tang on 7/18/16.
@@ -8,19 +9,15 @@ import {DrawboardMenu} from "./drawboard.menu";
 
 
 export class Relation {
-  from: DrawboardElement;
-  to: DrawboardElement;
+  from: WorkflowNode;
+  to: WorkflowNode;
+  menu = new DrawboardMenu();
   path: any;
 
-  menu: any;
-
   initMenu(): void {
-    this.menu = new DrawboardMenu();
     this.menu.addItem("删除", this.deleteElements());
     this.menu.addMenuTo(this);
     console.log("relation-init");
-
-    // console.log(this.menuNode);
   }
 
   deleteElements(): (()=>void) {
@@ -41,7 +38,7 @@ export class Relation {
     menu.remove();
   }
 
-  constructor(drawboard: DrawboardComponent, from: DrawboardElement, to: DrawboardElement) {
+  constructor(drawboard: DrawboardComponent, from: WorkflowNode, to: WorkflowNode) {
     this.path = drawboard.relationLayer.append('path');
     this.from = from;
     this.to = to;

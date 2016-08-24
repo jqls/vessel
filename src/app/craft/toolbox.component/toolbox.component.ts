@@ -1,7 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {ProcessService} from "../process.service";
-import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
+import {
+  ProcessNodeType,
+  DataSourceNodeType,
+  WorkflowNodeType
+} from "../drawboard.component/internal/drawboard.node-types";
 
 @Component({
   moduleId: module.id,
@@ -10,28 +14,27 @@ import {ProcessNode, DataSourceNode} from "../../shared/json-typedef";
   styleUrls: ['toolbox.component.css']
 })
 export class ToolboxComponent implements OnInit {
-  selectedNode: {} = null;
-  dataSources: Array<DataSourceNode> = [];
-  processes: Array<ProcessNode> = [];
-  displayInfomation: boolean = false;
+  selectedNodeType: WorkflowNodeType = null;
+  dataSourceTypes: DataSourceNodeType[];
+  processesTypes: ProcessNodeType[];
 
   constructor(private drawboadStatus: DrawboardStatusService,
               private processService: ProcessService) {
     let self = this;
-    this.drawboadStatus.bookSelectedNode((node: {})=> {
-      self.selectedNode = node;
+    this.drawboadStatus.bookSelectedNodeType((node: WorkflowNodeType)=> {
+      self.selectedNodeType = node;
     });
-    this.dataSources = processService.getDataSources();
-    this.processes = processService.getProcesses();
+    this.dataSourceTypes = processService.getDataSources();
+    this.processesTypes = processService.getProcesses();
   }
 
-  itemClicked(item: DataSourceNode|ProcessNode) {
-    if (this.selectedNode == item) {
-      this.selectedNode = null;
+  itemClicked(item: WorkflowNodeType) {
+    if (this.selectedNodeType == item) {
+      this.selectedNodeType = null;
       this.drawboadStatus.cancelSelectedNode();
     } else {
-      this.selectedNode = item;
-      this.drawboadStatus.setSelectedNode(item);
+      this.selectedNodeType = item;
+      this.drawboadStatus.setSelectedNodeType(item);
     }
   }
 

@@ -1,5 +1,11 @@
 import {Injectable} from "@angular/core";
-import {DataSourceJSON, ProcessJSON, DataSourceNode, ProcessNode} from "../shared/json-typedef";
+import {DataSourceNode} from "./drawboard.component/internal/drawboard.node";
+import {
+  DataSourceNodeType,
+  ProcessNodeTypeJSON,
+  ProcessNodeType,
+  DataSourceNodeTypeJSON
+} from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
 export class ProcessService {
@@ -8,28 +14,34 @@ export class ProcessService {
   private ALL_SOURCES = "/sources";
   private ALL_PROCESSES = "/processes";
 
-  private dataSources: DataSourceJSON[] = [];
-  private processes: ProcessJSON[] = [
+  private dataSources: DataSourceNodeTypeJSON[] = [
+    {
+      "id": "1",
+      "flowID": "2",
+      "description": "鸢尾花数据集",
+      "label": "鸢尾花数据集",
+    }
+  ];
+  private processes: ProcessNodeTypeJSON[] = [
     {
       'id': '1',
       'label': "朴素贝叶斯",
-      'tags': ['分类'],
       'description': 'naive 的贝叶斯算法',
-      "algorithm_parameters": [
+      "algorithmParameters": [
         {
           "label": "特征数",
           "controlType": "text",
-          "defaultVal": "5",
+          "val": "5",
         },
         {
           "label": "学习率",
           "controlType": "float",
-          "defaultVal": "1.0",
+          "val": "1.0",
         },
         {
           "label": "模型类型",
           "controlType": "select",
-          "defaultVal": "0",
+          "val": "0",
           "options": [
             "multi-nominal",
             "bernoulli"
@@ -40,37 +52,38 @@ export class ProcessService {
     {
       'id': '2',
       'label': "tf-idf",
-      'tags': ['分类'],
       'description': '',
-      "algorithm_parameters": [
+      "algorithmParameters": [
         {
           "label": "参数A",
           "controlType": "text",
-          "defaultVal": "5",
+          "val": "5",
         },
         {
           "label": "参数B",
           "controlType": "float",
-          "defaultVal": "1.0",
+          "val": "1.0",
         }
       ],
     }
   ];
 
-  getDataSources(): DataSourceNode[] {
+  getDataSources(): DataSourceNodeType[] {
     //todo: change to $http
-    // this.http.get(`${this.HOST}:${this.PORT}${this.ALL_SOURCES}`);
-    // return this.dataSources.map((dataSource): DataSourceNode=> {
-    //   return new DataSourceNode(dataSource);
-    // });
-    return [];
+    return this.dataSources.map((dataSourceJSON): DataSourceNodeType=> {
+      return new DataSourceNodeType(dataSourceJSON);
+    });
   }
 
-  getProcesses(): ProcessNode[] {
+  getProcesses(): ProcessNodeTypeJSON[] {
     //todo: change to $http
-    return this.processes.map((process): ProcessNode=> {
-      return new ProcessNode(process);
+    return this.processes.map((processJSON): ProcessNodeType=> {
+      return new ProcessNodeType(processJSON);
     });
+  }
+
+  newDataSource(): DataSourceNode {
+    return null;
   }
 
   constructor() {

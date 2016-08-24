@@ -1,35 +1,31 @@
 import {Injectable} from "@angular/core";
-import {ProcessNode} from "../shared/json-typedef";
-import {ParameterInputBase} from "./parameters.component/internal/parameter-input-base.class";
 import {Validators, FormGroup, FormControl} from "@angular/forms";
+import {ProcessNodeType} from "./drawboard.component/internal/drawboard.node";
 
 @Injectable()
 export class ParametersStatusService {
 
-  selectedNode: ProcessNode;
-  subscribers: Array<(node: ProcessNode)=>void>;
+  selectedNode: ProcessNodeType;
+  subscribers: Array<(node: ProcessNodeType)=>void>;
 
   constructor() {
-    this.subscribers = Array<(node: ProcessNode)=>void>();
+    this.subscribers = Array<(node: ProcessNodeType)=>void>();
   }
 
-  bookService(bookFunction: (node: ProcessNode)=>void) {
+  bookService(bookFunction: (node: ProcessNodeType)=>void) {
     this.subscribers.push(bookFunction);
   }
 
-  setSelectedNode(newNode: ProcessNode) {
+  setSelectedNode(newNode: ProcessNodeType) {
     this.selectedNode = newNode;
     this.subscribers.forEach((s)=>s(newNode))
   }
 
   toFormGroup() {
     let group: any = {};
-    this.selectedNode.algorithm_parameters.forEach(parameter => {
-      group[parameter.label] =
-        parameter.required ?
-          new FormControl(parameter.defaultVal || '', Validators.required)
-          :
-          new FormControl(parameter.defaultVal || '');
+    this.selectedNode.algorithmParameters.forEach(parameter => {
+      group[parameter.label] = parameter.required ?
+          new FormControl(parameter.val || '', Validators.required) : new FormControl(parameter.val || '');
     });
     return new FormGroup(group);
   }

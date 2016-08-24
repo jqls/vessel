@@ -2,104 +2,119 @@
  * Created by tang on 2016/8/18.
  */
 
-export interface FlowElementParameter {
-  //流程图参数
-  key: string;
-  label: string;
-  val: string;
-}
 
-export interface FlowElement {
-  //流程图元素
-  id: string;
-  flowID: string;
-  label: string;
-
-  parameters?: FlowElementParameter[];
-  description?: string;
-}
-
-export class FlowRelation {
-  //流程图关系
-  fromID: string;
-  fromPort: string;
-  toID: string;
-  toPort: string;
-}
-
-export class Workflow {
-  //流程图
-  sources: FlowElement[] = [];
-  processes: FlowElement[] = [];
-  relation: FlowRelation[] = [];
-}
-
-export type ParameterJSON = {
-  label: string,
-  required?: boolean,
-  controlType: string,
-  options?: string[],
-  description?: string,
-  defaultVal: any,
-}
-
-export type DataSourceJSON = {
-  id: string,
-  //todo: 添加流内ID号
-  // flowID: string,
-  label: string,
-  description?: string,
-  upload_date?: string
-}
-
-export type ProcessJSON = {
-  id: string,
-  label: string,
-  tags: string[],
-  description: string
-  algorithm_parameters: ParameterJSON[];
-}
-
-export class NodeInfo {
-  id: string;
-  label: string;
-  description: string;
-
-  constructor(json: {id: string, label: string, description: string}|{}) {
-    this.id = json['id'];
-    this.label = json['label'];
-    this.description = json['description'] || "";
-  }
-
-  getLabel(): string {
-    return this.label || "";
-  }
-
-  getID(): string {
-    return this.id || "";
-  }
-
-  getDescription(): string {
-    return this.description || "";
-  }
-}
-
-export class ProcessNode extends NodeInfo {
-  tags: string[];
-  algorithm_parameters: ParameterJSON[];
-
-  constructor(processJSON: ProcessJSON) {
-    super(processJSON);
-    this.algorithm_parameters = processJSON.algorithm_parameters;
-    this.tags = processJSON.tags || [];
-  }
-}
-
-export class DataSourceNode extends NodeInfo {
-  upload_date: string;
-
-  constructor(dataSourceJSON: DataSourceJSON) {
-    super(dataSourceJSON);
-    this.upload_date = dataSourceJSON.upload_date;
-  }
-}
+// export type ParameterJSON = {
+//   label: string,
+//   required?: boolean,
+//   controlType: string,
+//   options?: string[ ],
+//   description?: string,
+//   val: string,
+// }
+//
+// export type DataSourceJSON = {
+//   id: string,
+//   label: string,
+//   description?: string,
+//   uploadDate?: string
+// }
+//
+// export type ProcessJSON = {
+//   id: string,
+//   label: string,
+//   tags: string[],
+//   description: string
+//   algorithm_parameters: ParameterJSON[];
+// }
+//
+// export class BasicNode {
+//   id: string;
+//   label: string;
+//   description: string;
+//
+//   constructor(json: {}) {
+//     this.id = json['id'];
+//     this.label = json['label'];
+//     this.description = json['description'] || "";
+//   }
+// }
+//
+// export interface getNewNodeInfo<T> {
+//   newNodeInfo(flowID: number): T ;
+// }
+//
+// export class ProcessNodeType extends BasicNode implements getNewNodeInfo<ProcessNode> {
+//   newNodeInfo(flowID: number): ProcessNode {
+//     let nodeInfo = ProcessNode();
+//     nodeInfo.id = this.id;
+//     nodeInfo.label = this.label;
+//     nodeInfo.description = this.description;
+//     nodeInfo.flowID = "" + flowID;
+//     nodeInfo.algorithmParameters = this.algorithmParameters;
+//     nodeInfo.tags = this.tags;
+//     return nodeInfo;
+//   }
+//
+//   private initJSON: ProcessJSON;
+//   tags: string[];
+//   algorithmParameters: ParameterJSON[];
+//
+//   constructor(processJSON: ProcessJSON) {
+//     super(processJSON);
+//     this.initJSON = processJSON;
+//     this.algorithmParameters = processJSON.algorithm_parameters;
+//     this.tags = processJSON.tags || [];
+//   }
+// }
+//
+//
+// export class DataSourceNodeType extends BasicNode implements getNewNodeInfo<DataSourceNodeInfo> {
+//   newNodeInfo(flowID: number): DataSourceNodeInfo {
+//     var nodeInfo = new DataSourceNodeInfo();
+//     nodeInfo.id = this.id;
+//     nodeInfo.label = this.label;
+//     nodeInfo.description = this.description;
+//     nodeInfo.flowID = "" + flowID;
+//     nodeInfo.uploadDate = this.uploadDate;
+//     return nodeInfo;
+//   }
+//
+//   uploadDate: string;
+//
+//   constructor(dataSourceJSON: DataSourceJSON) {
+//     super(dataSourceJSON);
+//     this.uploadDate = dataSourceJSON.uploadDate | "2016-1-1";
+//   }
+// }
+//
+//
+// export interface GetJSON {
+//   getJSON(): string;
+// }
+//
+// export class DataSourceNodeInfo implements GetJSON {
+//   id: string;
+//   label: string;
+//   flowID: string;
+//   description: string;
+//   uploadDate: string;
+//
+//
+//   getJSON(): string {
+//     return JSON.stringify(this);
+//   }
+// }
+//
+// export class ProcessNode implements GetJSON {
+//   id: string;
+//   label: string;
+//   flowID: string;
+//   description: string;
+//   tags: string[];
+//   algorithmParameters: ParameterJSON[];
+//
+//
+//   getJSON(): string {
+//     return "";
+//   }
+// }
