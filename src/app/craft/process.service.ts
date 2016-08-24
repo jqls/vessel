@@ -1,10 +1,11 @@
 import {Injectable} from "@angular/core";
-import {DataSourceNode} from "./drawboard.component/internal/drawboard.node";
+import {DataSourceNode, ProcessNode} from "./drawboard.component/internal/drawboard.node";
 import {
   DataSourceNodeType,
+  ProcessNodeType,
   ProcessNodeTypeJSON,
   DataSourceNodeTypeJSON,
-  ProcessNodeType
+  WorkflowNodeType
 } from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()

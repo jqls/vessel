@@ -1,33 +1,31 @@
 import {Injectable} from "@angular/core";
-import {WorkflowNodeType, ProcessNodeType} from "./drawboard.component/internal/drawboard.node-types";
+import {WorkflowNodeType} from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
 export class DrawboardStatusService {
   private selectedNodeType: WorkflowNodeType;
-  private subscribers: Array<(node: ProcessNodeType)=>void>;
+  private subscribers: Array<(node: WorkflowNodeType)=>void>;
   private submitHooks: (()=>void) [] = [];
 
   constructor() {
-    this.subscribers = Array<(node: ProcessNodeType)=>void>();
+    this.subscribers = Array<(node: WorkflowNodeType)=>void>();
     this.selectedNodeType = null;
   }
 
-  bookSelectedNodeType(update: (node: ProcessNodeType)=>void) {
+  bookSelectedNodeType(update: (node: WorkflowNodeType)=>void) {
     this.subscribers.push(update);
   }
 
   setSelectedNodeType(node: WorkflowNodeType) {
     this.selectedNodeType = node;
-    if (node instanceof ProcessNodeType) {
-      this.subscribers.forEach(s=>s(node));
-    }
+    this.subscribers.forEach(s=>s(node));
   }
 
-  getSelectedNode(): WorkflowNodeType {
+  getSelectedNodeType(): WorkflowNodeType {
     return this.selectedNodeType;
   }
 
-  cancelSelectedNode() {
+  cancelSelectedNodeType() {
     this.setSelectedNodeType(null);
   }
 

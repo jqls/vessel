@@ -3,7 +3,7 @@ import {DrawboardStatusService} from "../drawboard-status.service";
 import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
 import {ProcessNode, DataSourceNode, WorkflowNode} from "./internal/drawboard.node";
-import {ProcessNodeType, DataSourceNodeType} from "./internal/drawboard.node-types";
+import {WorkflowNodeType, DataSourceNodeType, ProcessNodeType} from "./internal/drawboard.node-types";
 
 @Component({
   moduleId: module.id,
@@ -119,7 +119,7 @@ export class DrawboardComponent implements OnInit {
       });
 
     self.svg.on("mousedown", function () {
-      let selectedNodeType = self.drawBoardStatus.getSelectedNode();
+      let selectedNodeType = self.drawBoardStatus.getSelectedNodeType();
       if (selectedNodeType != null) {
         let cord = d3.mouse(self.container.node());
         let position = {'x': cord[0], 'y': cord[1]};
@@ -127,10 +127,9 @@ export class DrawboardComponent implements OnInit {
         let fn = (): WorkflowNode=> {
           if (selectedNodeType instanceof ProcessNodeType) {
             return new ProcessNode(<ProcessNodeType>selectedNodeType, self.flowIDCounter, self, position);
-          } else if (selectedNodeType instanceof DataSourceNodeType) {
-            return new DataSourceNode(<DataSourceNodeType>selectedNodeType, self.flowIDCounter, self, position);
           } else {
-            console.log("unknown type");
+            // if (selectedNodeType instanceof DataSourceNodeType) {
+            return new DataSourceNode(<DataSourceNodeType>selectedNodeType, self.flowIDCounter, self, position);
           }
         };
 
@@ -145,7 +144,7 @@ export class DrawboardComponent implements OnInit {
         self.setParameter(null);
       }
 
-      self.drawBoardStatus.cancelSelectedNode();
+      self.drawBoardStatus.cancelSelectedNodeType();
     });
 
     self.svg.call(d3.behavior.zoom()
@@ -173,11 +172,6 @@ export class DrawboardComponent implements OnInit {
     );
   }
 
-  clean(): void {
-    this.nodes.forEach((drawboradElement)=> {
-      drawboradElement.deleteElements()();
-    })
-  }
 
   setParameter(node: WorkflowNode) {
     if (node instanceof ProcessNode) {

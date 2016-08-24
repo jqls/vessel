@@ -3,8 +3,8 @@ import {DrawboardStatusService} from "../drawboard-status.service";
 import {ProcessService} from "../process.service";
 import {
   DataSourceNodeType,
-  WorkflowNodeType,
-  ProcessNodeType
+  ProcessNodeType,
+  WorkflowNodeType
 } from "../drawboard.component/internal/drawboard.node-types";
 
 @Component({
@@ -16,7 +16,7 @@ import {
 export class ToolboxComponent implements OnInit {
   selectedNodeType: WorkflowNodeType = null;
   dataSourceTypes: DataSourceNodeType[];
-  processesTypes: ProcessNodeType[];
+  processesTypes: WorkflowNodeType[];
 
   constructor(private drawboadStatus: DrawboardStatusService,
               private processService: ProcessService) {
@@ -31,7 +31,7 @@ export class ToolboxComponent implements OnInit {
   itemClicked(item: WorkflowNodeType) {
     if (this.selectedNodeType == item) {
       this.selectedNodeType = null;
-      this.drawboadStatus.cancelSelectedNode();
+      this.drawboadStatus.cancelSelectedNodeType();
     } else {
       this.selectedNodeType = item;
       this.drawboadStatus.setSelectedNodeType(item);

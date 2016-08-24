@@ -1,4 +1,4 @@
-import {ParameterJSON, DataSourceNodeType, ProcessNodeType} from "./drawboard.node-types";
+import {ParameterJSON, DataSourceNodeType, WorkflowNodeType, ProcessNodeType} from "./drawboard.node-types";
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT, ELEMENT_ROUND_X, ELEMENT_ROUND_Y} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./drawboard.relation";
@@ -58,7 +58,6 @@ export class ProcessNode extends DrawboardElement {
           console.log("shift");
           self.board.shiftDrag = true;
           self.board.dragLine.classed('hidden', false);
-          return;
         } else {
           self.board.setParameter(self);
         }
@@ -149,7 +148,7 @@ export class DataSourceNode extends DrawboardElement {
   bindEventHandler() {
     let self = this;
 
-    this.groupContainer
+    self.groupContainer
       .on("mousedown", function () {
         console.log("mousedown");
         if ((<KeyboardEvent> d3.event).shiftKey) {
