@@ -29,9 +29,9 @@ export class ProcessNode extends DrawboardElement {
     return JSON.stringify(this.attributes) + JSON.stringify(this.algorithmParameters);
   }
 
-  updateAlgorithmParameters(algorithmParameters: ParameterJSON[]){
+  updateAlgorithmParameters(algorithmParameters: string){
     console.log("updateAlgorithmParameters in node");
-    this.algorithmParameters = JSON.parse(JSON.stringify(algorithmParameters));
+    this.algorithmParameters = JSON.parse(algorithmParameters);
   }
 
   render() {
