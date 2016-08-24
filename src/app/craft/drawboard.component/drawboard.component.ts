@@ -48,9 +48,8 @@ export class DrawboardComponent implements OnInit {
     this.nodes.map((nodeElement)=> {
       nodeElement.relations.map((relation)=> {
         let path = relation.from.attributes.flowID + "->" + relation.to.attributes.flowID;
-        if (!paths.find((v)=> {
-            return (v == path);
-          })) {
+        if (paths.indexOf(path) == -1) {
+          let a:string[] = [];
           paths.push(path);
         }
       });
@@ -58,7 +57,7 @@ export class DrawboardComponent implements OnInit {
 
     return JSON.stringify(
       {
-        nodes: this.nodes,
+        nodes: this.nodes.map((node):{}=>{return node.toJSON()}),
         paths: paths
       }
     );

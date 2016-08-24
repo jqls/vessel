@@ -8,7 +8,7 @@
      [class.active]="selectedNodeType===dataSourceType"
      (click)="itemClicked(dataSourceType)">
     <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
-    <p class="list-group-item-text">上传时间: {{ dataSourceType.upload_date||"2016-2-2" }}</p>
+    <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
   </a>
 </div>
 <h4>
@@ -25,3 +25,4 @@
     <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
   </a>
 </div>
+
