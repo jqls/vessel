@@ -94,11 +94,14 @@ export class DrawboardComponent implements OnInit {
   private keyDown() {
     if (this.lastKeyDown !== -1) return;
     this.lastKeyDown = d3.event['keyCode'];
-    switch (d3.event['keyCode']) {
-      case this.constants.DELETE_KEY:
-      case this.constants.BACKSPACE_KEY:
-        (<Event> d3.event).preventDefault();
-    }
+    // switch (d3.event['keyCode']) {
+    //   case this.constants.DELETE_KEY:
+    //     (<Event> d3.event).preventDefault();
+    //     break;
+    //   case this.constants.BACKSPACE_KEY:
+    //     (<Event> d3.event).preventDefault();
+    //     break;
+    // }
   }
 
   private keyUp() {
