@@ -30,4 +30,13 @@ export class ParametersStatusService {
     return new FormGroup(group);
   }
 
+  updatePatameters(form: FormGroup) {
+    this.selectedNode.algorithmParameters.forEach(parameter => {
+      console.log(form.value[parameter.label]);
+      console.log(parameter.val);
+      parameter.val = form.value[parameter.label];
+    });
+    alert(JSON.stringify(this.selectedNode.algorithmParameters));
+  }
+
 }
