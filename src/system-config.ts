@@ -36,12 +36,13 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/drawboard.component',
-  'app/toolbox.component',
-  'app/parameters.component',
-  'app/inputs.component',
+  'app/craft/drawboard.component',
+  'app/craft/toolbox.component',
+  'app/craft/parameters.component',
+  'app/craft/inputs.component',
   'app/navbar.component',
   'app/craft',
+  'app/craft/result.component'
   /** @cli-barrel */
 ];
 

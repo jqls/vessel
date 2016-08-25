@@ -1,3 +1,8 @@
-/**
- * Created by qwk on 16-8-25.
- */
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class ResultService {
+
+  constructor() { }
+
+}
