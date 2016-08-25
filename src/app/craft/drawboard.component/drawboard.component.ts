@@ -3,7 +3,7 @@ import {DrawboardStatusService} from "../drawboard-status.service";
 import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
 import {ProcessNode, DataSourceNode, WorkflowNode} from "./internal/drawboard.node";
-import {WorkflowNodeType, DataSourceNodeType, ProcessNodeType} from "./internal/drawboard.node-types";
+import {DataSourceNodeType, ProcessNodeType} from "./internal/drawboard.node-types";
 
 @Component({
   moduleId: module.id,
@@ -38,18 +38,20 @@ export class DrawboardComponent implements OnInit {
     RESOLUTION_HEIGHT: 600
   };
 
+  /**
+   * @experimental
+   */
   isValidWorkflow(): boolean {
     return true;
   }
 
   getWorkflowJSON(): string {
     let paths: string[] = [];
-
     this.nodes.map((nodeElement)=> {
       nodeElement.relations.map((relation)=> {
         let path = relation.from.attributes.flowID + "->" + relation.to.attributes.flowID;
         if (paths.indexOf(path) == -1) {
-          let a:string[] = [];
+          let a: string[] = [];
           paths.push(path);
         }
       });
@@ -57,7 +59,16 @@ export class DrawboardComponent implements OnInit {
 
     return JSON.stringify(
       {
-        nodes: this.nodes.map((node):{}=>{return node.toJSON()}),
+        nodes: this.nodes.filter((node): boolean=> {
+          return (node instanceof DataSourceNode)
+        }).map((node): {}=> {
+          return node.toJSON()
+        }),
+        processes: this.nodes.filter((node): boolean=> {
+          return (node instanceof ProcessNode)
+        }).map((node): {}=> {
+          return node.toJSON()
+        }),
         paths: paths
       }
     );
