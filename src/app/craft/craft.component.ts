@@ -9,7 +9,7 @@ import {ParametersStatusService} from "./parameters-status.service";
 import {ProcessService} from "./process.service";
 import {DrawboardStatusService} from "./drawboard-status.service";
 import {SubmitService} from "./submit.service";
-
+import {ResultComponent} from "./result.component/result.component"
 @Component({
   moduleId: module.id,
   selector: 'app-craft',
@@ -18,6 +18,7 @@ import {SubmitService} from "./submit.service";
     InputsComponent,
     ParametersComponent,
     ToolboxComponent,
+    ResultComponent,
     FORM_DIRECTIVES,
     REACTIVE_FORM_DIRECTIVES,
   ],

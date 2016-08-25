@@ -7,7 +7,17 @@
     <app-drawboard></app-drawboard>
   </div>
   <div class="col-md-2" [hidden]="!ifNeedShowParameter()">
-    <app-parameters></app-parameters>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#parameters" aria-controls="parameters" role="tab" data-toggle="tab">Parameters</a></li>
+      <li role="presentation"><a href="#result" aria-controls="result" role="tab" data-toggle="tab">Result</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="parameters"><app-parameters></app-parameters></div>
+      <div role="tabpanel" class="tab-pane fade" id="result"><app-result></app-result></div>
+    </div>
+
   </div>
 </div>
 <hr/>
