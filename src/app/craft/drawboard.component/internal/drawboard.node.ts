@@ -35,14 +35,6 @@ export class ProcessNode extends DrawboardElement {
     };
   }
 
-  // updateAlgorithmParameters(algorithmParameters: string){
-  //   console.log("updateAlgorithmParameters in node");
-  //   console.log(typeof(algorithmParameters));
-  //   // this.algorithmParameters = JSON.parse(algorithmParameters);
-  //   alert("1"+algorithmParameters);
-  //   alert("2"+JSON.stringify(this.algorithmParameters));
-  // }
-
   render() {
     if (!this.rendered) {
       this.groupContainer.append("rect")
