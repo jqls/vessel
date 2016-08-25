@@ -62,6 +62,8 @@ export class DrawboardElement {
       });
 
       d3.select(self.menu.menuNode).remove();
+      //处理Parameters
+      self.board.setParameter(null);
     }
   }
 

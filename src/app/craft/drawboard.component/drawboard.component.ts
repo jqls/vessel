@@ -177,7 +177,9 @@ export class DrawboardComponent implements OnInit {
 
   setParameter(node: WorkflowNode) {
     if (node instanceof ProcessNode) {
-      this.parametersStatus.setSelectedNode(node)
+      this.parametersStatus.setSelectedNode(node);
+    } else {
+      this.parametersStatus.setSelectedNode(null);
     }
   }
 
