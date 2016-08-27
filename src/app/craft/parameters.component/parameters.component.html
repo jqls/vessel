@@ -1,13 +1,16 @@
 <div *ngIf="open">
-  <h4>{{openedNode.label}}参数配置</h4>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-horizontal" *ngIf="openedNode!=null">
-    <app-inputs *ngFor="let parameter of openedNode.algorithmParameters" [parameter]="parameter"
-                [form]="form"></app-inputs>
-    <div class="form-group">
-      <div class="col-md-offset-4">
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">保存</button>
-      </div>
-    </div>
-  </form>
-  <p *ngIf="openedNode==null">选中算法节点来调节参数</p>
+    <h4>{{openedNode.label}}参数配置</h4>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-horizontal" *ngIf="openedNode!=null">
+        <app-inputs *ngFor="let parameter of openedNode.algorithmParameters" [parameter]="parameter"
+                    [form]="form"></app-inputs>
+        <div class="form-group">
+            <div class="col-md-offset-4">
+                <button class="btn btn-primary" type="submit" [disabled]="!form.valid">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="openedNode==null">
+    <p>选中算法节点来调节参数</p>
 </div>

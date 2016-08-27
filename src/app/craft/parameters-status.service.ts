@@ -18,7 +18,7 @@ export class ParametersStatusService {
 
   setSelectedNode(newNode: ProcessNode) {
     this.selectedNode = newNode;
-    this.subscribers.forEach((s)=>s(newNode))
+    this.subscribers.forEach((s)=>s(newNode));
   }
 
   toFormGroup() {
