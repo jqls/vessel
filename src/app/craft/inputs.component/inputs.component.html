@@ -3,11 +3,11 @@
     <small>{{parameter.label}}</small>
   </label>
   <div class="col-md-8" [ngSwitch]="parameter.controlType">
-    <input class="form-control" *ngSwitchCase="'text'" [formControlName]="parameter.label"
+    <input class="form-control input-sm" *ngSwitchCase="'text'" [formControlName]="parameter.label"
            [id]="parameter.label">
-    <input class="form-control col-md-9" *ngSwitchCase="'float'" [formControlName]="parameter.label"
+    <input class="form-control input-sm" *ngSwitchCase="'float'" [formControlName]="parameter.label"
            [id]="parameter.label" type="number">
-    <select class="form-control col-md-9" [id]="parameter.label" *ngSwitchCase="'select'"
+    <select class="form-control input-sm" [id]="parameter.label" *ngSwitchCase="'select'"
             [formControlName]="parameter.label">
       <option *ngFor="let opt of parameter.options; let i = index" [value]="i">{{opt}}</option>
     </select>

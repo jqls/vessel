@@ -51,7 +51,6 @@ export class DrawboardComponent implements OnInit {
       nodeElement.relations.map((relation)=> {
         let path = relation.from.attributes.flowID + "->" + relation.to.attributes.flowID;
         if (paths.indexOf(path) == -1) {
-          let a: string[] = [];
           paths.push(path);
         }
       });
@@ -187,11 +186,7 @@ export class DrawboardComponent implements OnInit {
 
 
   setParameter(node: WorkflowNode) {
-    if (node instanceof ProcessNode) {
-      this.parametersStatus.setSelectedNode(node);
-    } else {
-      this.parametersStatus.setSelectedNode(null);
-    }
+    this.parametersStatus.setSelectedNode(node);
   }
 
   constructor(private drawBoardStatus: DrawboardStatusService,

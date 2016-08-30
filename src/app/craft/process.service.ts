@@ -1,11 +1,10 @@
 import {Injectable} from "@angular/core";
-import {DataSourceNode, ProcessNode} from "./drawboard.component/internal/drawboard.node";
+import {DataSourceNode} from "./drawboard.component/internal/drawboard.node";
 import {
   DataSourceNodeType,
   ProcessNodeType,
   ProcessNodeTypeJSON,
-  DataSourceNodeTypeJSON,
-  WorkflowNodeType
+  DataSourceNodeTypeJSON
 } from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
@@ -20,6 +19,82 @@ export class ProcessService {
       "id": "1",
       "description": "鸢尾花数据集",
       "label": "鸢尾花数据集",
+      "parameters": [
+        {
+          "label": "参数A",
+          "controlType": "text",
+          "val": "5",
+        },
+        {
+          "label": "参数B",
+          "controlType": "float",
+          "val": "1.0",
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "description": "MySQL数据库表",
+      "label": "MySQL数据库表",
+      "parameters": [
+        {
+          "label": "数据库地址",
+          "controlType": "text",
+          "val": "192.169.1.104",
+        },
+        {
+          "label": "数据库端口",
+          "controlType": "text",
+          "val": "3306",
+        },
+        {
+          "label": "数据库名称",
+          "controlType": "text",
+          "val": "DataSet",
+        },
+        {
+          "label": "表名",
+          "controlType": "text",
+          "val": "table1",
+        },
+        {
+          "label": "列号",
+          "controlType": "text",
+          "val": "1",
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "description": "Postgres数据库表",
+      "label": "Postgres数据库表",
+      "parameters": [
+        {
+          "label": "数据库地址",
+          "controlType": "text",
+          "val": "192.169.1.104",
+        },
+        {
+          "label": "数据库端口",
+          "controlType": "text",
+          "val": "3306",
+        },
+        {
+          "label": "数据库名称",
+          "controlType": "text",
+          "val": "DataSet",
+        },
+        {
+          "label": "表名",
+          "controlType": "text",
+          "val": "table1",
+        },
+        {
+          "label": "列号",
+          "controlType": "text",
+          "val": "1",
+        }
+      ]
     }
   ];
   private processes: ProcessNodeTypeJSON[] = [
@@ -27,7 +102,7 @@ export class ProcessService {
       'id': '1',
       'label': "朴素贝叶斯",
       'description': 'naive 的贝叶斯算法',
-      "algorithmParameters": [
+      "parameters": [
         {
           "label": "特征数",
           "controlType": "text",
@@ -53,7 +128,24 @@ export class ProcessService {
       'id': '2',
       'label': "tf-idf",
       'description': '',
-      "algorithmParameters": [
+      "parameters": [
+        {
+          "label": "参数A",
+          "controlType": "text",
+          "val": "5",
+        },
+        {
+          "label": "参数B",
+          "controlType": "float",
+          "val": "1.0",
+        }
+      ]
+    },
+    {
+      'id': '3',
+      'label': "关联分析",
+      'description': '',
+      "parameters": [
         {
           "label": "参数A",
           "controlType": "text",

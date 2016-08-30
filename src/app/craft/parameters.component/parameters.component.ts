@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {ParametersStatusService} from "../parameters-status.service";
 import {FormGroup} from "@angular/forms";
 import {DrawboardElement} from "../drawboard.component/internal/drawboard.element";
-import {DataSourceNode, ProcessNode} from "../drawboard.component/internal/drawboard.node";
+import {DataSourceNode, ProcessNode, WorkflowNode} from "../drawboard.component/internal/drawboard.node";
 
 @Component({
     moduleId: module.id,
@@ -13,12 +13,12 @@ import {DataSourceNode, ProcessNode} from "../drawboard.component/internal/drawb
 export class ParametersComponent implements OnInit {
 
     open: boolean;
-    openedNode: ProcessNode;
+    openedNode: WorkflowNode;
     form: FormGroup;
 
     constructor(private parametersStatus: ParametersStatusService) {
         this.open = false;
-        parametersStatus.bookService((node: ProcessNode): void=> {
+        parametersStatus.bookService((node: WorkflowNode): void=> {
             this.open = (node != null);
             this.openedNode = node;
             if (node != null)

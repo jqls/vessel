@@ -1,4 +1,4 @@
-import {ParameterJSON, DataSourceNodeType, WorkflowNodeType, ProcessNodeType} from "./drawboard.node-types";
+import {ParameterJSON, DataSourceNodeType, ProcessNodeType} from "./drawboard.node-types";
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT, ELEMENT_ROUND_X, ELEMENT_ROUND_Y} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./drawboard.relation";
@@ -14,14 +14,14 @@ export class BasicNode {
 }
 
 export class ProcessNode extends DrawboardElement {
-  algorithmParameters: ParameterJSON[];
+  parameters: ParameterJSON[];
 
   constructor(nodeType: ProcessNodeType,
               flowID: number,
               board: DrawboardComponent,
               position: {x: number, y: number}) {
     super(board, position, flowID, nodeType);
-    this.algorithmParameters = JSON.parse(JSON.stringify(nodeType.algorithmParameters));
+    this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
     this.bindEventHandler();
   }
 
@@ -31,7 +31,7 @@ export class ProcessNode extends DrawboardElement {
       label: this.attributes.label,
       description: this.attributes.description,
       flowID: this.attributes.flowID,
-      algorithmParameters: this.algorithmParameters
+      parameters: this.parameters
     };
   }
 
@@ -120,16 +120,25 @@ export class ProcessNode extends DrawboardElement {
 
 export class DataSourceNode extends DrawboardElement {
 
+  parameters: ParameterJSON[];
+
   constructor(nodeType: DataSourceNodeType,
               flowID: number,
               board: DrawboardComponent,
               position: {x: number, y: number}) {
     super(board, position, flowID, nodeType);
+    this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
     this.bindEventHandler();
   }
 
   toJSON(): {} {
-    return this.attributes;
+    return {
+      id: this.attributes.id,
+      label: this.attributes.label,
+      description: this.attributes.description,
+      flowID: this.attributes.flowID,
+      parameters: this.parameters
+    };
   }
 
   render() {
