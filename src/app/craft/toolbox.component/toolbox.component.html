@@ -1,28 +1,43 @@
-<h4>
-  <span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>
-  数据源
-</h4>
 
-<div class="list-group">
-  <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
-     [class.active]="selectedNodeType===dataSourceType"
-     (click)="itemClicked(dataSourceType)">
-    <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
-    <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
-  </a>
-</div>
-<h4>
-  <span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>
-  算法列表
-</h4>
-<div class="list-group">
-  <a class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
-     [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
-    <h5 class="list-group-item-heading">{{ processType.label }}
-      <span style="margin-right: 5px;" class="label label-info pull-right"
-            *ngFor="let tag of processType.tags">{{tag}}</span>
-    </h5>
-    <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
-  </a>
-</div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#dataSources" aria-controls="dataSources" role="tab" data-toggle="tab">数据源</a></li>
+    <li role="presentation"><a href="#algorithms" aria-controls="algorithms" role="tab" data-toggle="tab">算法列表</a></li>
+  </ul>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane fade in active" id="dataSources">
+        <div class="list-group">
+            <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
+               [class.active]="selectedNodeType===dataSourceType"
+               (click)="itemClicked(dataSourceType)">
+                <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
+                <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
+            </a>
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane fade" id="algorithms">
+        <div class="list-group">
+            <a class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
+               [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
+                <h5 class="list-group-item-heading">{{ processType.label }}
+                    <span style="margin-right: 5px;" class="label label-info pull-right"
+                          *ngFor="let tag of processType.tags">{{tag}}</span>
+                </h5>
+                <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
+            </a>
+        </div>
+    </div>
+  </div>
+<!--<h4>-->
+  <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
+  <!--数据源-->
+<!--</h4>-->
+
+
+<!--<h4>-->
+  <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
+  <!--算法列表-->
+<!--</h4>-->
+
 
