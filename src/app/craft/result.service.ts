@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ProcessNode, WorkflowNode} from "./drawboard.component/internal/drawboard.node";
+import {BasicNode, ProcessNode, WorkflowNode} from "./drawboard.component/internal/drawboard.node";
 
 @Injectable()
 export class ResultService {
@@ -19,7 +19,8 @@ export class ResultService {
     this.subscribers.forEach((s)=>s(newNode));
   }
 
-  getResult() {
-    return "Over";
+  getResult(attributes:BasicNode) {
+
+    return "Over" + attributes.flowID;
   }
 }
