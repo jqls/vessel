@@ -26,12 +26,6 @@ export class ParametersComponent implements OnInit {
         });
     }
 
-    // setOpen(node: DrawboardElement): void{
-    //   if(node instanceof ProcessNode)
-    //     this.open = true;
-    //   else if (node instanceof DataSourceNode)
-    //     this.open = false;
-    // }
     onSubmit() {
         //todo: 更新参数
         console.log("update parameters");

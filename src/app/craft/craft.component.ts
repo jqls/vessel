@@ -10,6 +10,7 @@ import {ProcessService} from "./process.service";
 import {DrawboardStatusService} from "./drawboard-status.service";
 import {SubmitService} from "./submit.service";
 import {ResultComponent} from "./result.component/result.component"
+import {ResultService} from "./result.service";
 @Component({
   moduleId: module.id,
   selector: 'app-craft',
@@ -26,7 +27,8 @@ import {ResultComponent} from "./result.component/result.component"
     DrawboardStatusService,
     ProcessService,
     ParametersStatusService,
-    SubmitService
+    SubmitService,
+    ResultService
   ],
   templateUrl: 'craft.component.html',
   styleUrls: ['craft.component.css']

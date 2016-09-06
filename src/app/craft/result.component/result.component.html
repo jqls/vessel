@@ -1,7 +1,11 @@
-<div>
+<div *ngIf="open">
   <br>
-  <p>
-    result works!
-  </p>
+  <div *ngIf="openedNode!=null">
+    {{result}}
+  </div>
+</div>
+
+<div *ngIf="!open">
+  <p>选中算法节点来获得结果</p>
 </div>
 

@@ -66,6 +66,7 @@ export class ProcessNode extends DrawboardElement {
           self.board.dragLine.classed('hidden', false);
         } else {
           self.board.setParameter(self);
+          self.board.setResult(self);
         }
       })
       .on("mouseup", function () {
@@ -173,6 +174,7 @@ export class DataSourceNode extends DrawboardElement {
           return;
         } else {
           self.board.setParameter(self);
+          self.board.setResult(null);
         }
       })
       .on("mouseup", function () {

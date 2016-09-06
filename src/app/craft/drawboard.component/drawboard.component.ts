@@ -4,6 +4,7 @@ import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
 import {ProcessNode, DataSourceNode, WorkflowNode} from "./internal/drawboard.node";
 import {DataSourceNodeType, ProcessNodeType} from "./internal/drawboard.node-types";
+import {ResultService} from "../result.service";
 
 @Component({
   moduleId: module.id,
@@ -154,6 +155,7 @@ export class DrawboardComponent implements OnInit {
         console.log("end render");
       } else {
         self.setParameter(null);
+        self.setResult(null);
       }
 
       self.drawBoardStatus.cancelSelectedNodeType();
@@ -188,9 +190,12 @@ export class DrawboardComponent implements OnInit {
   setParameter(node: WorkflowNode) {
     this.parametersStatus.setSelectedNode(node);
   }
-
+  setResult(node: WorkflowNode) {
+    this.resultsService.setSelectedNode(node);
+  }
   constructor(private drawBoardStatus: DrawboardStatusService,
               private parametersStatus: ParametersStatusService,
+              private resultsService: ResultService,
               private submitService: SubmitService) {
     this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
   }

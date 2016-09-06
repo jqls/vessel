@@ -1,5 +1,5 @@
-<br>
 <div *ngIf="open">
+  <br>
   <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-horizontal" *ngIf="openedNode!=null">
     <app-inputs *ngFor="let parameter of openedNode.parameters" [parameter]="parameter"
                 [form]="form"></app-inputs>
