@@ -10,13 +10,18 @@ import {routing, appRoutingProvider} from "./app.routing";
 import {CraftComponent} from "./craft/craft.component";
 import {HttpModule, JsonpModule} from "@angular/http";
 
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
     JsonpModule,
-    routing
+    routing,
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   declarations: [
     AppComponent,

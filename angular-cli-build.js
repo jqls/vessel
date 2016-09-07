@@ -18,7 +18,8 @@ module.exports = function (defaults) {
       '@angular/**/*.+(js|js.map)',
       'bootstrap/dist/**/*.+(js|css|eot|svg|ttf|woff|woff2|map)',
       "jquery/dist/jquery.min.js",
-      "d3/d3.min.js"
+      "d3/d3.min.js",
+      'angular2-in-memory-web-api/**/**/*.js'
     ]
   });
 };

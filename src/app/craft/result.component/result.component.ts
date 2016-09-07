@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {WorkflowNode} from "../drawboard.component/internal/drawboard.node";
+import {WorkflowNode, BasicNode} from "../drawboard.component/internal/drawboard.node";
 import {ResultService} from "../result.service";
 
 @Component({
@@ -12,15 +12,21 @@ export class ResultComponent implements OnInit {
   open: boolean;
   openedNode: WorkflowNode;
   result: string;
+  error: any;
   constructor(private resultService: ResultService) {
     this.open = false;
     resultService.bookService((node: WorkflowNode): void=> {
       this.open = (node != null);
       this.openedNode = node;
-      this.result = resultService.getResult(this.openedNode.attributes);
+      this.getResult(this.openedNode.attributes);
     });
   }
-
+  getResult(attributes:BasicNode): void {
+    this.resultService
+        .getResult(attributes)
+        .then(resultJson => this.result = resultJson.result)
+        .catch(error => this.error = error);
+  }
   ngOnInit() {
   }
 
