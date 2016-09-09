@@ -21,7 +21,7 @@ import { InMemoryDataService }  from './in-memory-data.service';
     HttpModule,
     JsonpModule,
     routing,
-    InMemoryWebApiModule.forRoot(InMemoryDataService)
+    // InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   declarations: [
     AppComponent,

@@ -16,7 +16,7 @@ import {
 export class ToolboxComponent implements OnInit {
   selectedNodeType: WorkflowNodeType = null;
   dataSourceTypes: DataSourceNodeType[];
-  processesTypes: WorkflowNodeType[];
+  processesTypes: any;
 
   constructor(private drawboadStatus: DrawboardStatusService,
               private processService: ProcessService) {
@@ -24,8 +24,14 @@ export class ToolboxComponent implements OnInit {
     this.drawboadStatus.bookSelectedNodeType((node: WorkflowNodeType)=> {
       self.selectedNodeType = node;
     });
-    this.dataSourceTypes = processService.getDataSources();
-    this.processesTypes = processService.getProcesses();
+    this.dataSourceTypes = this.processService.getDataSources();
+    console.log(1);
+    this.processService.getProcesses().then(processesTypes => {
+      this.processesTypes = processesTypes;
+      console.log(3);
+      console.log(processesTypes);
+      console.log(this.processesTypes);
+    });
   }
 
   itemClicked(item: WorkflowNodeType) {
@@ -43,6 +49,9 @@ export class ToolboxComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // console.log("toobox");
+    // console.log(this.processesTypes);
   }
 
 }

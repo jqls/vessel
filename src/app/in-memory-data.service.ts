@@ -1,4 +1,5 @@
 import {ResultJSON} from "./craft/result.component/internal/resultType";
+import {ProcessNodeTypeJSON} from "./craft/drawboard.component/internal/drawboard.node-types";
 export class InMemoryDataService {
     createDb() {
         let results:ResultJSON[] = [
@@ -13,6 +14,68 @@ export class InMemoryDataService {
             {id: '19', flowID: 9, result: 'Magma'},
             {id: '10', flowID: 0, result: 'Tornado'}
         ];
-        return {results};
+    let processes: ProcessNodeTypeJSON[] = [
+            {
+                'id': '1',
+                'label': "朴素贝叶斯",
+                'description': 'naive 的贝叶斯算法',
+                "parameters": [
+                    {
+                        "label": "特征数",
+                        "controlType": "text",
+                        "val": "5",
+                    },
+                    {
+                        "label": "学习率",
+                        "controlType": "float",
+                        "val": "1.0",
+                    },
+                    {
+                        "label": "模型类型",
+                        "controlType": "select",
+                        "val": "0",
+                        "options": [
+                            "multi-nominal",
+                            "bernoulli"
+                        ],
+                    }
+                ],
+            },
+            {
+                'id': '2',
+                'label': "tf-idf",
+                'description': '',
+                "parameters": [
+                    {
+                        "label": "参数A",
+                        "controlType": "text",
+                        "val": "5",
+                    },
+                    {
+                        "label": "参数B",
+                        "controlType": "float",
+                        "val": "1.0",
+                    }
+                ]
+            },
+            {
+                'id': '3',
+                'label': "关联分析",
+                'description': '',
+                "parameters": [
+                    {
+                        "label": "参数A",
+                        "controlType": "text",
+                        "val": "5",
+                    },
+                    {
+                        "label": "参数B",
+                        "controlType": "float",
+                        "val": "1.0",
+                    }
+                ],
+            }
+        ];
+        return {results,processes};
     }
 }
