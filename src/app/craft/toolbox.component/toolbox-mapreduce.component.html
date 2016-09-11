@@ -1,0 +1,23 @@
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation"><a href="#algorithms" aria-controls="algorithms" role="tab" data-toggle="tab">算法列表</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane fade" id="algorithms">
+    <div class="list-group">
+      <a class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
+         [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
+        <h5 class="list-group-item-heading">{{ processType.label }}
+          <span style="margin-right: 5px;" class="label label-info pull-right"
+                *ngFor="let tag of processType.tags">{{tag}}</span>
+        </h5>
+        <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+

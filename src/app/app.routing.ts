@@ -4,6 +4,7 @@
 
 import {Routes, RouterModule} from "@angular/router";
 import {CraftComponent} from "./craft/craft.component";
+import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 
 
 const appRoutes: Routes = [
@@ -12,7 +13,8 @@ const appRoutes: Routes = [
     redirectTo: '/craft',
     pathMatch: 'full'
   },
-  {path: 'craft', component: CraftComponent}
+  {path: 'craft', component: CraftComponent},
+  {path: 'craft-mapreduce', component: CraftMapreduceComponent}
 ];
 
 

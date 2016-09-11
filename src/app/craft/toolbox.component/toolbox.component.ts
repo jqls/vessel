@@ -26,7 +26,7 @@ export class ToolboxComponent implements OnInit {
     });
     this.dataSourceTypes = this.processService.getDataSources();
     console.log(1);
-    this.processService.getProcesses().then(processesTypes => {
+    this.processService.getProcesses("http://10.5.0.224:8080/sendinformation/").then(processesTypes => {
       this.processesTypes = processesTypes;
       console.log(3);
       console.log(processesTypes);

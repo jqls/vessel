@@ -13,6 +13,7 @@ export type ParameterJSON = {
 
 export type ProcessNodeTypeJSON = {
   id: string,
+  slug: string,
   label: string,
   description: string,
   parameters: ParameterJSON[];
@@ -21,6 +22,7 @@ export type ProcessNodeTypeJSON = {
 export type DataSourceNodeTypeJSON = {
   id: string,
   label: string,
+  slug: string,
   description: string,
   parameters: ParameterJSON[];
 }
@@ -29,6 +31,7 @@ export type DataSourceNodeTypeJSON = {
 export class ProcessNodeType {
   id: string;
   label: string;
+  slug: string;
   description: string;
   parameters: ParameterJSON[];
 
@@ -36,6 +39,7 @@ export class ProcessNodeType {
     //todo: 将构造函数相同代码抽出
     this.id = json.id;
     this.label = json.label;
+    this.slug = json.slug;
     this.description = json.description;
     this.parameters = json.parameters;
   }
@@ -44,12 +48,14 @@ export class ProcessNodeType {
 export class DataSourceNodeType {
   id: string;
   label: string;
+  slug: string;
   description: string;
   parameters: ParameterJSON[];
 
   constructor(json: DataSourceNodeTypeJSON) {
     this.id = json.id;
     this.label = json.label;
+    this.slug = json.slug;
     this.description = json.description;
     this.parameters = json.parameters;
   }

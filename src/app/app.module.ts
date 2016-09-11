@@ -13,6 +13,7 @@ import {HttpModule, JsonpModule} from "@angular/http";
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
+import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { InMemoryDataService }  from './in-memory-data.service';
   ],
   declarations: [
     AppComponent,
-    CraftComponent
+    CraftComponent,
+    CraftMapreduceComponent
   ],
   providers: [
     appRoutingProvider

@@ -10,8 +10,7 @@ import {Http} from "@angular/http";
 
 @Injectable()
 export class ProcessService {
-    private HOST = "10.5.10.215"//"127.0.0.1";
-    private PORT = "8080";
+    private URL;
     private ALL_SOURCES = "/sources";
     private ALL_PROCESSES = "/processes";
 
@@ -20,6 +19,7 @@ export class ProcessService {
             "id": "1",
             "description": "鸢尾花数据集",
             "label": "鸢尾花数据集",
+            'slug': "鸢尾花数据集",
             "parameters": [
                 {
                     "label": "参数A",
@@ -37,6 +37,7 @@ export class ProcessService {
             "id": "2",
             "description": "MySQL数据库表",
             "label": "MySQL数据库表",
+            'slug': "MySQL数据库表",
             "parameters": [
                 {
                     "label": "数据库地址",
@@ -69,6 +70,7 @@ export class ProcessService {
             "id": "3",
             "description": "Postgres数据库表",
             "label": "Postgres数据库表",
+            'slug': "Postgres数据库表",
             "parameters": [
                 {
                     "label": "数据库地址",
@@ -102,6 +104,7 @@ export class ProcessService {
         {
             'id': '1',
             'label': "朴素贝叶斯",
+            'slug': "朴素贝叶斯",
             'description': 'naive 的贝叶斯算法',
             "parameters": [
                 {
@@ -128,6 +131,7 @@ export class ProcessService {
         {
             'id': '2',
             'label': "tf-idf",
+            'slug': "tf-idf",
             'description': '',
             "parameters": [
                 {
@@ -145,6 +149,7 @@ export class ProcessService {
         {
             'id': '3',
             'label': "关联分析",
+            'slug': "关联分析",
             'description': '',
             "parameters": [
                 {
@@ -168,12 +173,12 @@ export class ProcessService {
         });
     }
 
-    getProcesses():Promise<ProcessNodeType[]> {
+    getProcesses(URL):Promise<ProcessNodeType[]> {
         //todo: change to $http
         // return this.processes.map((processJSON): ProcessNodeType=> {
         //   return new ProcessNodeType(processJSON);
         // });//this.HOST + ":" + this.PORT+"
-        return this.http.get("http://10.5.0.224:8080/sendinformation/")
+        return this.http.get(URL)
             .toPromise()
             .then(
                 response => {
