@@ -43,8 +43,7 @@ const barrels: string[] = [
   'app/craft/inputs.component',
   'app/navbar.component',
   'app/craft',
-  'app/craft/result.component'
-  'app/craft/toolbox.component/toolbox-mapreduce',
+  'app/craft/craft-data-analysis'
   /** @cli-barrel */
 ];
 

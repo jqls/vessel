@@ -11,14 +11,25 @@ export class SubmitService {
 
   submit(workflowJSON: string) {
     console.log(`submit: ${workflowJSON}`);
-    let headers = new Headers({
-      'Content-Type': 'application/json'});
-    console.log(JSON.stringify(workflowJSON));
-    return this.http
-        .post(this.submitUrl, JSON.stringify(workflowJSON), {headers: headers,method: RequestMethod.Post})
-        .toPromise()
-        .then(res => {console.log(res)})
-        .catch(this.handleError);
+    // let headers = new Headers({
+    //   'Content-Type': 'application/json'});
+    // console.log(JSON.stringify(workflowJSON));
+    // return this.http
+    //     .post(this.submitUrl, workflowJSON, {headers: headers,method: RequestMethod.Post})
+    //     .toPromise()
+    //     .then(res => {console.log(res)})
+    //     .catch(this.handleError);
+  }
+  submit4map(workflowJSON: string){
+      console.log(`submit: ${workflowJSON}`);
+      let headers = new Headers({
+          'Content-Type': 'application/json'});
+      console.log(JSON.parse(workflowJSON));
+      return this.http
+          .post(this.submitUrl, JSON.stringify(workflowJSON), {headers: headers,method: RequestMethod.Post})
+          .toPromise()
+          .then(res => {console.log(res)})
+          .catch(this.handleError);
   }
   private handleError(error: any) {
     console.error('An error occurred', error);

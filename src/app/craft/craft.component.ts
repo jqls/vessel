@@ -34,9 +34,10 @@ import {ResultService} from "./result.service";
   styleUrls: ['craft.component.css']
 })
 export class CraftComponent implements OnInit {
-
+  mytype:number;
   constructor(private privateNavbarService: NavbarService,
               private drawboardStatus: DrawboardStatusService) {
+    drawboardStatus.setType(0);
   }
 
   ngOnInit() {

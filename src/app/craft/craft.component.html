@@ -4,7 +4,7 @@
   </div>
   <!--todo: 显示不正确-->
   <div [ngClass]="{'col-md-9': !ifNeedShowParameter(), 'col-md-7': ifNeedShowParameter()}">
-    <app-drawboard></app-drawboard>
+    <app-drawboard [type]="mytype"></app-drawboard>
   </div>
   <div class="col-md-2" [hidden]="!ifNeedShowParameter()">
     <!-- Nav tabs -->

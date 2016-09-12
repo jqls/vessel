@@ -6,7 +6,7 @@ export class DrawboardStatusService {
   private selectedNodeType: WorkflowNodeType;
   private subscribers: Array<(node: WorkflowNodeType)=>void>;
   private submitHooks: (()=>void) [] = [];
-
+  private mytype: number;
   constructor() {
     this.subscribers = Array<(node: WorkflowNodeType)=>void>();
     this.selectedNodeType = null;
@@ -34,7 +34,12 @@ export class DrawboardStatusService {
       fn();
     })
   }
-
+  setType(type: number){
+    this.mytype = type;
+  }
+  getType(){
+    return this.mytype;
+  }
   setSubmitClickHook(fn: ()=>void) {
     this.submitHooks.push(fn);
   }

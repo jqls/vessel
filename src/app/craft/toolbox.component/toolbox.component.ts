@@ -16,7 +16,7 @@ import {
 export class ToolboxComponent implements OnInit {
   selectedNodeType: WorkflowNodeType = null;
   dataSourceTypes: DataSourceNodeType[];
-  processesTypes: any;
+  processesTypes: ProcessNodeType[];
 
   constructor(private drawboadStatus: DrawboardStatusService,
               private processService: ProcessService) {
@@ -24,7 +24,11 @@ export class ToolboxComponent implements OnInit {
     this.drawboadStatus.bookSelectedNodeType((node: WorkflowNodeType)=> {
       self.selectedNodeType = node;
     });
-    this.dataSourceTypes = this.processService.getDataSources();
+    this.processService.getDataSources("http://10.5.0.224:8080/sendinformation/").then(dataSourceTypes => {
+      this.dataSourceTypes = dataSourceTypes;
+      console.log(4);
+      console.log(dataSourceTypes);
+    });
     console.log(1);
     this.processService.getProcesses("http://10.5.0.224:8080/sendinformation/").then(processesTypes => {
       this.processesTypes = processesTypes;

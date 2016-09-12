@@ -1,22 +1,26 @@
-<!--<div class="row">-->
-  <!--<div class="col-md-3">-->
-    <!--<app-toolbox></app-toolbox>-->
-  <!--</div>-->
-  <!--<div class="col-md-2" [hidden]="!ifNeedShowParameter()">-->
-    <!--&lt;!&ndash; Nav tabs &ndash;&gt;-->
-    <!--<ul class="nav nav-tabs" role="tablist">-->
-      <!--<li role="presentation" class="active"><a href="#parameters" aria-controls="parameters" role="tab" data-toggle="tab">参数配置</a></li>-->
-      <!--<li role="presentation"><a href="#result" aria-controls="result" role="tab" data-toggle="tab">运行结果</a></li>-->
-    <!--</ul>-->
-    <!--&lt;!&ndash; Tab panes &ndash;&gt;-->
-    <!--<div class="tab-content">-->
-      <!--<div role="tabpanel" class="tab-pane fade in active" id="parameters"><app-parameters></app-parameters></div>-->
-      <!--<div role="tabpanel" class="tab-pane fade" id="result"><app-result></app-result></div>-->
-    <!--</div>-->
+<div class="row">
+  <div class="col-md-3">
+    <app-toolbox-mapreduce></app-toolbox-mapreduce>
+  </div>
+  <!--todo: 显示不正确-->
+  <div [ngClass]="{'col-md-9': !ifNeedShowParameter(), 'col-md-7': ifNeedShowParameter()}">
+    <app-drawboard [type]="mytype"></app-drawboard>
+  </div>
+  <div class="col-md-2" [hidden]="!ifNeedShowParameter()">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#parameters" aria-controls="parameters" role="tab" data-toggle="tab">参数配置</a></li>
+      <li role="presentation"><a href="#result" aria-controls="result" role="tab" data-toggle="tab">运行结果</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane fade in active" id="parameters"><app-parameters></app-parameters></div>
+      <div role="tabpanel" class="tab-pane fade" id="result"><app-result></app-result></div>
+    </div>
 
-  <!--</div>-->
-<!--</div>-->
-<!--<hr/>-->
-<!--<div class="pull-right">-->
-  <!--<button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>-->
-<!--</div>-->
+  </div>
+</div>
+<hr/>
+<div class="pull-right">
+  <button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>
+</div>

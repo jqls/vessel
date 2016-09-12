@@ -53,6 +53,7 @@ export class DrawboardElement {
             return !(fromRelation === relation);
           });
         }
+        console.log("from: "+ relation.from.attributes.id + " to:"+ relation.to.attributes.id);
         relation.deleteElement();
       });
 

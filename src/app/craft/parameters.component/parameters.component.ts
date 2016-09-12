@@ -13,12 +13,12 @@ import {DataSourceNode, ProcessNode, WorkflowNode} from "../drawboard.component/
 export class ParametersComponent implements OnInit {
 
     open: boolean;
-    openedNode: WorkflowNode;
+    openedNode;//: WorkflowNode;
     form: FormGroup;
 
     constructor(private parametersStatus: ParametersStatusService) {
         this.open = false;
-        parametersStatus.bookService((node: WorkflowNode): void=> {
+        parametersStatus.bookService((node): void=> {
             this.open = (node != null);
             this.openedNode = node;
             if (node != null)

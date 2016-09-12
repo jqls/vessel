@@ -1,22 +1,23 @@
 import {Injectable} from "@angular/core";
 import {Validators, FormGroup, FormControl} from "@angular/forms";
 import {WorkflowNode} from "./drawboard.component/internal/drawboard.node";
+import {ProcessNodeType} from "./drawboard.component/internal/drawboard.node-types";
 
 @Injectable()
 export class ParametersStatusService {
 
-  selectedNode: WorkflowNode;
-  subscribers: Array<(node: WorkflowNode)=>void>;
+  selectedNode: ProcessNodeType;
+  subscribers: Array<(node: ProcessNodeType)=>void>;
 
   constructor() {
-    this.subscribers = Array<(node: WorkflowNode)=>void>();
+    this.subscribers = Array<(node: ProcessNodeType)=>void>();
   }
 
-  bookService(bookFunction: (node: WorkflowNode)=>void) {
+  bookService(bookFunction: (node: ProcessNodeType)=>void) {
     this.subscribers.push(bookFunction);
   }
 
-  setSelectedNode(newNode: WorkflowNode) {
+  setSelectedNode(newNode: ProcessNodeType) {
     this.selectedNode = newNode;
     this.subscribers.forEach((s)=>s(newNode));
   }

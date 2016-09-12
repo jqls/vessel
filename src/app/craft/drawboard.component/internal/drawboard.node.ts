@@ -30,7 +30,7 @@ export class ProcessNode extends DrawboardElement {
       id: this.attributes.id,
       label: this.attributes.label,
       description: this.attributes.description,
-      flowID: this.attributes.flowID,
+      flowID: ""+this.attributes.flowID,
       parameters: this.parameters
     };
   }
@@ -75,6 +75,8 @@ export class ProcessNode extends DrawboardElement {
             let relation = new Relation(self.board, self.board.dragFrom, self);
             self.relations.push(relation);
             self.board.dragFrom.relations.push(relation);
+            console.log(self.attributes.id);
+            console.log(self.board.dragFrom.attributes.id);
           }
         }
         self.board.update();
@@ -121,14 +123,14 @@ export class ProcessNode extends DrawboardElement {
 
 export class DataSourceNode extends DrawboardElement {
 
-  parameters: ParameterJSON[];
+  // parameters: ParameterJSON[];
 
   constructor(nodeType: DataSourceNodeType,
               flowID: number,
               board: DrawboardComponent,
               position: {x: number, y: number}) {
     super(board, position, flowID, nodeType);
-    this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
+    // this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
     this.bindEventHandler();
   }
 
@@ -137,8 +139,8 @@ export class DataSourceNode extends DrawboardElement {
       id: this.attributes.id,
       label: this.attributes.label,
       description: this.attributes.description,
-      flowID: this.attributes.flowID,
-      parameters: this.parameters
+      flowID: ""+this.attributes.flowID,
+      // parameters: this.parameters
     };
   }
 
@@ -173,8 +175,8 @@ export class DataSourceNode extends DrawboardElement {
           self.board.dragLine.classed('hidden', false);
           return;
         } else {
-          self.board.setParameter(self);
-          self.board.setResult(null);
+          // self.board.setParameter(self);
+          // self.board.setResult(null);
         }
       })
       .on("mouseup", function () {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
@@ -39,6 +39,9 @@ export class DrawboardComponent implements OnInit {
     RESOLUTION_HEIGHT: 600
   };
 
+  @Input()
+  type: number;
+
   /**
    * @experimental
    */
@@ -59,7 +62,7 @@ export class DrawboardComponent implements OnInit {
 
     return JSON.stringify(
       {
-        nodes: this.nodes.filter((node): boolean=> {
+        sources: this.nodes.filter((node): boolean=> {
           return (node instanceof DataSourceNode)
         }).map((node): {}=> {
           return node.toJSON()
@@ -187,10 +190,10 @@ export class DrawboardComponent implements OnInit {
   }
 
 
-  setParameter(node: WorkflowNode) {
+  setParameter(node) {
     this.parametersStatus.setSelectedNode(node);
   }
-  setResult(node: WorkflowNode) {
+  setResult(node: ProcessNode) {
     this.resultsService.setSelectedNode(node);
   }
   constructor(private drawBoardStatus: DrawboardStatusService,
@@ -217,6 +220,12 @@ export class DrawboardComponent implements OnInit {
 
   getSubmitHandler(): (()=>void) {
     let self = this;
+    this.type = this.drawBoardStatus.getType();
+    console.log(this.type);
+    if(this.type==1)
+      return()=> {
+        self.submitService.submit4map(self.getWorkflowJSON());
+      };
     return ()=> {
       self.submitService.submit(self.getWorkflowJSON());
     }
