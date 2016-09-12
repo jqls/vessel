@@ -9,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class CraftDataAnalysisComponent implements OnInit {
   myChart;
   constructor() {
-    this.myChart = echarts.init(document.getElementById('main') as HTMLDivElement);
 
-    d3.json('app/craft/data.json',function (json) {
+  }
+
+  ngOnInit() {
+    console.log(d3.select('#main').node());
+    this.myChart = echarts.init(d3.select('#main').node() as HTMLDivElement);
+    console.log(this.myChart);
+    d3.json('app/craft/data.json',(json) => {
       let option = {
         tooltip: {
           show: true
@@ -52,9 +57,6 @@ export class CraftDataAnalysisComponent implements OnInit {
       };
       this.myChart.setOption(option);
     });
-  }
-
-  ngOnInit() {
   }
 
 }
