@@ -11,22 +11,22 @@ export class SubmitService {
 
   submit(workflowJSON: string) {
     console.log(`submit: ${workflowJSON}`);
-    // let headers = new Headers({
-    //   'Content-Type': 'application/json'});
-    // console.log(JSON.stringify(workflowJSON));
-    // return this.http
-    //     .post(this.submitUrl, workflowJSON, {headers: headers,method: RequestMethod.Post})
-    //     .toPromise()
-    //     .then(res => {console.log(res)})
-    //     .catch(this.handleError);
+    let headers = new Headers({
+      'Content-Type': 'application/json'});
+    console.log(JSON.stringify(workflowJSON));
+    return this.http
+        .post(this.submitUrl, workflowJSON, {headers: headers,method: RequestMethod.Post})
+        .toPromise()
+        .then(res => {console.log(res)})
+        .catch(this.handleError);
   }
   submit4map(workflowJSON: string){
       console.log(`submit: ${workflowJSON}`);
       let headers = new Headers({
           'Content-Type': 'application/json'});
-      console.log(JSON.parse(workflowJSON));
+      console.log(JSON.parse(workflowJSON).processes[0]);
       return this.http
-          .post(this.submitUrl, JSON.stringify(workflowJSON), {headers: headers,method: RequestMethod.Post})
+          .post("http://10.5.0.224:8080/mapReduce/", JSON.parse(workflowJSON).processes[0].label, {headers: headers,method: RequestMethod.Post})
           .toPromise()
           .then(res => {console.log(res)})
           .catch(this.handleError);

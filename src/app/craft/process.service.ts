@@ -169,7 +169,7 @@ export class ProcessService {
 
     getAll(URL:string) {
         if(this.allData == null){
-            this.allData = this.http.get("app/json").toPromise();
+            this.allData = this.http.get("http://10.5.0.224:8080/sendinformation/").toPromise();
         }
         return this.allData;
     }
