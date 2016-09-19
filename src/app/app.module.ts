@@ -14,8 +14,8 @@ import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 import {CraftStormComponent} from "./craft/craft-storm.component";
 
 // Imports for loading & configuring the in-memory web api
-// import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-// import { InMemoryDataService }  from './in-memory-data.service';
+import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import {CraftStormComponent} from "./craft/craft-storm.component";
     HttpModule,
     JsonpModule,
     routing,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService)
+    InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   declarations: [
     AppComponent,

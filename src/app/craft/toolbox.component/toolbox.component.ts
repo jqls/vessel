@@ -26,15 +26,15 @@ export class ToolboxComponent implements OnInit {
     });
     this.processService.getDataSources(processService.SPARKTYPE).then(dataSourceTypes => {
       this.dataSourceTypes = dataSourceTypes;
-      console.log(4);
-      console.log(dataSourceTypes);
+      // console.log(4);
+      // console.log(dataSourceTypes);
     });
-    console.log(1);
+    // console.log(1);
     this.processService.getProcesses(processService.SPARKTYPE).then(processesTypes => {
       this.processesTypes = processesTypes;
-      console.log(3);
-      console.log(processesTypes);
-      console.log(this.processesTypes);
+      // console.log(3);
+      // console.log(processesTypes);
+      // console.log(this.processesTypes);
     });
   }
 

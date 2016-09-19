@@ -26,6 +26,7 @@ export class ProcessService {
     private isMock:boolean = true;
 
     getAll(): void {
+        console.log(this.URL_Spark);
         this.sparkData = this.http.get(this.URL_Spark).toPromise();
         console.log(this.sparkData.then(response => response.json()));
         //todo: 添加storm与mapreduce的数据获取
@@ -136,6 +137,7 @@ export class ProcessService {
         if(this.isMock){
             this.URL_Spark = "app/json";
         }
+        this.getAll();
     }
 
 }
