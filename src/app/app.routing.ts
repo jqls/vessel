@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   {path: 'craft', component: CraftComponent},
   {path: 'craft-mapreduce', component: CraftMapreduceComponent},
   {path: 'craft-storm', component: CraftStormComponent},
-  {path: 'craft-dataAnalysis', component: CraftDataAnalysisComponent}
+  {path: 'craft-dataAnalysis/:id', component: CraftDataAnalysisComponent}
 
 ];
 
