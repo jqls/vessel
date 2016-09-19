@@ -43,8 +43,8 @@ const barrels: string[] = [
   'app/craft/inputs.component',
   'app/navbar.component',
   'app/craft',
-  'app/craft/craft-data-analysis'
-  'app/craft/craft-strom',
+  'app/craft/craft-data-analysis',
+  'app/craft/craft-storm',
   /** @cli-barrel */
 ];
 

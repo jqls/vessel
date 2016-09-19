@@ -6,6 +6,7 @@ import {Routes, RouterModule} from "@angular/router";
 import {CraftComponent} from "./craft/craft.component";
 import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 import {CraftDataAnalysisComponent} from "./craft/craft-data-analysis.component";
+import {CraftStormComponent} from "./craft/craft-storm.component";
 
 const appRoutes: Routes = [
   {
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   },
   {path: 'craft', component: CraftComponent},
   {path: 'craft-mapreduce', component: CraftMapreduceComponent},
+  {path: 'craft-storm', component: CraftStormComponent},
   {path: 'craft-dataAnalysis', component: CraftDataAnalysisComponent}
 
 ];

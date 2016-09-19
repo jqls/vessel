@@ -10,10 +10,13 @@ import {routing, appRoutingProvider} from "./app.routing";
 import {CraftComponent} from "./craft/craft.component";
 import {HttpModule, JsonpModule} from "@angular/http";
 import {CraftDataAnalysisComponent} from "./craft/craft-data-analysis.component";
+import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
+import {CraftStormComponent} from "./craft/craft-storm.component";
+
 // Imports for loading & configuring the in-memory web api
 // import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 // import { InMemoryDataService }  from './in-memory-data.service';
-import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
+
 
 @NgModule({
   imports: [
@@ -28,6 +31,7 @@ import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
     AppComponent,
     CraftComponent,
     CraftMapreduceComponent,
+    CraftStormComponent,
     CraftDataAnalysisComponent
   ],
   providers: [
