@@ -24,13 +24,13 @@ export class ToolboxComponent implements OnInit {
     this.drawboadStatus.bookSelectedNodeType((node: WorkflowNodeType)=> {
       self.selectedNodeType = node;
     });
-    this.processService.getDataSources("http://10.5.0.224:8080/sendinformation/").then(dataSourceTypes => {
+    this.processService.getDataSources(processService.SPARKTYPE).then(dataSourceTypes => {
       this.dataSourceTypes = dataSourceTypes;
       console.log(4);
       console.log(dataSourceTypes);
     });
     console.log(1);
-    this.processService.getProcesses("http://10.5.0.224:8080/sendinformation/").then(processesTypes => {
+    this.processService.getProcesses(processService.SPARKTYPE).then(processesTypes => {
       this.processesTypes = processesTypes;
       console.log(3);
       console.log(processesTypes);
