@@ -44,6 +44,7 @@ const barrels: string[] = [
   'app/navbar.component',
   'app/craft',
   'app/craft/craft-data-analysis'
+  'app/craft/craft-strom',
   /** @cli-barrel */
 ];
 
