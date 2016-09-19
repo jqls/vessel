@@ -8,12 +8,10 @@
  * User Configuration.
  **********************************************************************************************/
 /** Map relative paths to URLs. */
-const map: any = {
-};
+const map: any = {};
 
 /** User packages configuration. */
-const packages: any = {
-};
+const packages: any = {};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************
@@ -43,13 +41,13 @@ const barrels: string[] = [
   'app/craft/inputs.component',
   'app/navbar.component',
   'app/craft',
-  'app/craft/craft-data-analysis'
+  'app/data-analysis.unit/data-analysis.unit',
   /** @cli-barrel */
 ];
 
 const cliSystemConfigPackages: any = {};
 barrels.forEach((barrelName: string) => {
-  cliSystemConfigPackages[barrelName] = { main: 'index' };
+  cliSystemConfigPackages[barrelName] = {main: 'index'};
 });
 
 /** Type declaration for ambient System. */
@@ -67,4 +65,4 @@ System.config({
 });
 
 // Apply the user's configuration.
-System.config({ map, packages });
+System.config({map, packages});

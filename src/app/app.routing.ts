@@ -5,7 +5,7 @@
 import {Routes, RouterModule} from "@angular/router";
 import {CraftComponent} from "./craft/craft.component";
 import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
-import {CraftDataAnalysisComponent} from "./craft/craft-data-analysis.component";
+import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
 
 const appRoutes: Routes = [
   {
@@ -15,7 +15,7 @@ const appRoutes: Routes = [
   },
   {path: 'craft', component: CraftComponent},
   {path: 'craft-mapreduce', component: CraftMapreduceComponent},
-  {path: 'craft-dataAnalysis', component: CraftDataAnalysisComponent}
+  {path: 'data-analysis', component: DataAnalysisComponent}
 
 ];
 

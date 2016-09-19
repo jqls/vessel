@@ -12,11 +12,11 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="app/static/page-styles.css">
   <script src="vendor/d3/d3.min.js"></script>
   <script src="vendor/jquery/dist/jquery.min.js"></script>
   <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="vendor/echarts/dist/echarts.min.js"></script>
+  <link rel="stylesheet" href="app/page-styles.css">
   {{#each scripts.polyfills}}
   <script src="{{.}}"></script>
   {{/each}}
@@ -27,6 +27,8 @@
   </script>
 </head>
 <body>
-<app-root><div class="loader">Loading</div></app-root>
+<app-root>
+  <div class="loader">Loading</div>
+</app-root>
 </body>
 </html>

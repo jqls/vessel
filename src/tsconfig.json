@@ -17,9 +17,6 @@
     "inlineSources": true
   },
   "files": [
-    "main.ts",
-    "typings.d.ts",
-    "echarts.d.ts",
-    "../node_modules/echarts/echarts.d.ts"
+    "main.ts"
   ]
 }

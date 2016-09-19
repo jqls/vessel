@@ -3,11 +3,11 @@
 import { By }           from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { addProviders, async, inject } from '@angular/core/testing';
-import { CraftDataAnalysisComponent } from './craft-data-analysis.component';
+import { DataAnalysisComponent } from './data-analysis.component';
 
-describe('Component: CraftDataAnalysis', () => {
+describe('Component: DataAnalysis', () => {
   it('should create an instance', () => {
-    let component = new CraftDataAnalysisComponent();
+    let component = new DataAnalysisComponent();
     expect(component).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
-///<reference path="../../../shared/d3.d.ts"/>
-///<reference path="drawboard.menu.ts"/>
+///<reference path="../../../../typings.d.ts"/>
+
 
 /**
  * Created by tang on 7/16/16.
@@ -53,7 +53,7 @@ export class DrawboardElement {
             return !(fromRelation === relation);
           });
         }
-        console.log("from: "+ relation.from.attributes.id + " to:"+ relation.to.attributes.id);
+        console.log("from: " + relation.from.attributes.id + " to:" + relation.to.attributes.id);
         relation.deleteElement();
       });
 
