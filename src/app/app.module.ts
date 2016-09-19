@@ -11,6 +11,8 @@ import {CraftComponent} from "./craft/craft.component";
 import {HttpModule, JsonpModule} from "@angular/http";
 import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
+import {MdButton} from "@angular2-material/button";
+import {MdCardModule} from "@angular2-material/card";
 
 
 @NgModule({
@@ -20,6 +22,8 @@ import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.componen
     HttpModule,
     JsonpModule,
     routing,
+    MdButton,
+    MdCardModule,
     // InMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   declarations: [
