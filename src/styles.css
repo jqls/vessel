@@ -1,3 +1,4 @@
+/* You can add global styles to this file, and also import other style files */
 .path {
   stroke: black;
   stroke-width: 4px;
@@ -88,5 +89,42 @@
   40% {
     box-shadow: 0 -2em;
     height: 5em; } }
+.path {
+  stroke: black;
+  stroke-width: 4px;
+  filter: drop-shadow(-5px -5px 5px #000); }
 
-/*# sourceMappingURL=page-styles.sass.map */
+.drawboard {
+  border: 1px black solid; }
+
+.renderable, .data-source, .process {
+  stroke-width: 1px;
+  stroke: gray; }
+
+.data-source {
+  fill: #ccccff; }
+
+.process {
+  fill: #ffcccc; }
+
+.hidden {
+  stroke-width: 0px; }
+
+.selected {
+  stroke: yellow; }
+
+.menu {
+  position: absolute;
+  display: none;
+  width: 100px;
+  z-index: 9000; }
+
+.menu-item {
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
+.menu-body {
+  box-shadow: 1px 1px 2px #0f0f0f;
+  border-radius: 5px; }
+
+/*# sourceMappingURL=styles.css.map */

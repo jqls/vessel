@@ -3,7 +3,7 @@ import {WorkflowNodeType, ProcessNodeType, ProcessNodeTypeJSON} from "../drawboa
 import {DrawboardStatusService} from "../drawboard-status.service";
 
 @Component({
-  moduleId: module.id,
+  // moduleId: module.id,
   selector: 'app-toolbox-mapreduce',
   templateUrl: 'toolbox-mapreduce.component.html',
   styleUrls: ['toolbox-mapreduce.component.css']

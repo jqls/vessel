@@ -5,23 +5,19 @@ import {CraftComponent} from "./craft/craft.component";
 import "./rxjs-extensions";
 
 @Component({
-  moduleId: module.id,
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
-  providers: [
-    NavbarService,
-  ],
-  directives: [
-    NavbarComponent,
-    CraftComponent
-  ]
+    // moduleId: module.id,
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.css'],
+    providers: [
+        NavbarService,
+    ]
 })
 export class AppComponent {
 
-  title = "Vessel";
+    title = "Vessel";
 
-  constructor() {
-  }
+    constructor() {
+    }
 
 }

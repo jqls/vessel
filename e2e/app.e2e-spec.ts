@@ -1,10 +1,10 @@
-import { VesselPage } from './app.po';
+import { MigrationProjectPage } from './app.po';
 
-describe('vessel App', function() {
-  let page: VesselPage;
+describe('migration-project App', function() {
+  let page: MigrationProjectPage;
 
   beforeEach(() => {
-    page = new VesselPage();
+    page = new MigrationProjectPage();
   });
 
   it('should display message saying app works', () => {
