@@ -1,7 +1,5 @@
-import {ResultJSON} from "./craft/result.component/internal/resultType";
-import {ProcessNodeTypeJSON} from "./craft/drawboard.component/internal/drawboard.node-types";
 export class InMemoryDataService {
-    createDb() {
+  createDb() {
     //     let results:ResultJSON[] = [
     //         {id: '11', flowID: 1, result: 'Mr. Nice'},
     //         {id: '12', flowID: 2, result: 'Narco'},
@@ -76,17 +74,43 @@ export class InMemoryDataService {
     //             ],
     //         }
     //     ];
-        let json = {
-            "sources":[
-                {"description":"","id":1,"label":"KDDCUP1999_10"},
-                {"description":"","id":2,"label":"KDDCUP1999"}
-            ],
-            "processes":[
-                {"description":"","id":1,"parameters":[{"controlType":"int","slug":"classNumber","val":"0","label":"classNumber"}],"label":"KDDCUPNormalization"},
-                {"description":"","id":2,"parameters":[{"controlType":"float","slug":"lambda","val":"1.0","label":"lambda"},{"options":["multi-nominal","bernoulli"],"controlType":"select","slug":"NBType","val":"0","label":"NBType"}],"label":"naiveBayes"},
-                {"description":"","id":3,"parameters":[{"controlType":"text","slug":"modelType","val":"None","label":"modelType"}],"label":"ModelEstimation"}
-            ]
-        };
-        return {json};
-    }
+    let json = {
+      "sources": [
+        {"description": "", "id": 1, "label": "KDDCUP1999_10"},
+        {"description": "", "id": 2, "label": "KDDCUP1999"}
+      ],
+      "processes": [
+        {
+          "description": "",
+          "id": 1,
+          "parameters": [{"controlType": "int", "slug": "classNumber", "val": "0", "label": "classNumber"}],
+          "label": "KDDCUPNormalization"
+        },
+        {
+          "description": "",
+          "id": 2,
+          "parameters": [{
+            "controlType": "float",
+            "slug": "lambda",
+            "val": "1.0",
+            "label": "lambda"
+          }, {
+            "options": ["multi-nominal", "bernoulli"],
+            "controlType": "select",
+            "slug": "NBType",
+            "val": "0",
+            "label": "NBType"
+          }],
+          "label": "naiveBayes"
+        },
+        {
+          "description": "",
+          "id": 3,
+          "parameters": [{"controlType": "text", "slug": "modelType", "val": "None", "label": "modelType"}],
+          "label": "ModelEstimation"
+        }
+      ]
+    };
+    return {json};
+  }
 }

@@ -3,7 +3,7 @@ import {WorkflowNode, BasicNode} from "../drawboard.component/internal/drawboard
 import {ResultService} from "../result.service";
 
 @Component({
-  moduleId: module.id,
+  // moduleId: module.id,
   selector: 'app-result',
   templateUrl: 'result.component.html',
   styleUrls: ['result.component.css']

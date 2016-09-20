@@ -3,7 +3,7 @@ import {NavbarService} from "../navbar.service";
 import {Router} from "@angular/router";
 
 @Component({
-  moduleId: module.id,
+  // moduleId: module.id,
   selector: 'app-navbar',
   templateUrl: 'navbar.component.html',
   styleUrls: ['navbar.component.css']

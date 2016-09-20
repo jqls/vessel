@@ -1,13 +1,13 @@
 /* tslint:disable:no-unused-variable */
 
-import { By }           from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { addProviders, async, inject } from '@angular/core/testing';
-import { InputsComponent } from './inputs.component';
+import {InputsComponent} from "./inputs.component";
 
+//noinspection TypeScriptUnresolvedFunction
 describe('Component: Inputs', () => {
-  it('should create an instance', () => {
-    let component = new InputsComponent();
-    expect(component).toBeTruthy();
-  });
+    //noinspection TypeScriptUnresolvedFunction
+    it('should create an instance', () => {
+        let component = new InputsComponent();
+        //noinspection TypeScriptUnresolvedFunction
+        expect(component).toBeTruthy();
+    });
 });

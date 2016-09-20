@@ -5,7 +5,7 @@ import {DrawboardElement} from "../drawboard.component/internal/drawboard.elemen
 import {DataSourceNode, ProcessNode, WorkflowNode} from "../drawboard.component/internal/drawboard.node";
 
 @Component({
-    moduleId: module.id,
+    // moduleId: module.id,
     selector: 'app-parameters',
     templateUrl: 'parameters.component.html',
     styleUrls: ['parameters.component.css'],

@@ -1,12 +1,15 @@
-
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#dataSources" aria-controls="dataSources" role="tab" data-toggle="tab">数据源</a></li>
-    <li role="presentation"><a href="#algorithms" aria-controls="algorithms" role="tab" data-toggle="tab">算法列表</a></li>
-  </ul>
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane fade in active" id="dataSources">
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" href="#dataSources" role="tab" data-toggle="tab">数据源</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#algorithms" role="tab" data-toggle="tab">算法列表</a>
+    </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="dataSources">
         <div class="list-group">
             <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
                [class.active]="selectedNodeType===dataSourceType"
@@ -16,7 +19,7 @@
             </a>
         </div>
     </div>
-    <div role="tabpanel" class="tab-pane fade" id="algorithms">
+    <div role="tabpanel" class="tab-pane" id="algorithms">
         <div class="list-group">
             <a class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
                [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
@@ -28,16 +31,17 @@
             </a>
         </div>
     </div>
-  </div>
+</div>
+
 <!--<h4>-->
-  <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
-  <!--数据源-->
+<!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
+<!--数据源-->
 <!--</h4>-->
 
 
 <!--<h4>-->
-  <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
-  <!--算法列表-->
+<!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
+<!--算法列表-->
 <!--</h4>-->
 
 
