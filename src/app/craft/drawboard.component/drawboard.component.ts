@@ -44,9 +44,6 @@ export class DrawboardComponent implements OnInit {
     @Input()
     type: number;
 
-    /**
-     * @experimental
-     */
     isValidWorkflow(): boolean {
         return true;
     }
@@ -110,6 +107,7 @@ export class DrawboardComponent implements OnInit {
     private keyDown() {
         if (this.lastKeyDown !== -1) return;
         this.lastKeyDown = d3.event['keyCode'];
+        //todo: 添加键盘事件
         // switch (d3.event['keyCode']) {
         //   case this.constants.DELETE_KEY:
         //     (<Event> d3.event).preventDefault();

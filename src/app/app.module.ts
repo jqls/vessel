@@ -8,7 +8,7 @@ import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {routing, appRoutingProvider} from "./app.routing";
 import {CraftComponent} from "./craft/craft.component";
-import {HttpModule, JsonpModule} from "@angular/http";
+import {HttpModule, JsonpModule, Response} from "@angular/http";
 import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
 import {MdButtonModule} from "@angular2-material/button";
@@ -20,6 +20,9 @@ import {ParametersComponent} from "./craft/parameters.component/parameters.compo
 import {ResultComponent} from "./craft/result.component/result.component";
 import {ToolboxMapreduceComponent} from "./craft/toolbox.component/toolbox-mapreduce.component";
 import {InputsComponent} from "./craft/inputs.component/inputs.component";
+import {DatabaseControlComponent} from "./data-analysis.unit/database-control/database-control.component";
+import {ResultPresentationComponent} from "./data-analysis.unit/result-presentation/result-presentation.component";
+import {SelectComponent} from "ng2-select";
 
 
 @NgModule({
@@ -45,6 +48,11 @@ import {InputsComponent} from "./craft/inputs.component/inputs.component";
         ResultComponent,
         ToolboxMapreduceComponent,
         InputsComponent,
+        DatabaseControlComponent,
+        ResultPresentationComponent,
+
+        DatabaseControlComponent,
+        ResultPresentationComponent,
     ],
     providers: [
         appRoutingProvider

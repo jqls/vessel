@@ -1,0 +1,45 @@
+<div class="card card-block">
+    <h4 class="card-title">数据库配置</h4>
+    <form  [formGroup]="controlForm">
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label ">可用数据库</label>
+            <div class="col-md-8">
+                <select class="form-control" formControlName="database">
+                    <option [value]="index" *ngFor="let db of allowedDatabase; let i = index">
+                        {{db.db_name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label ">可用数据表</label>
+            <div class="col-md-8">
+                <select name="" class="form-control">
+                    <option [value]="index" *ngFor="let table of allowedTable; let i = index">
+                        {{table}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label">可用列</label>
+            <div class="col-md-8">
+                <label class="form-check-inline">
+                    <input type="checkbox" class="form-check-input">
+                    id
+                </label>
+                <label class="form-check-inline">
+                    <input type="checkbox" class="form-check-input">
+                    name
+                </label>
+                <label class="form-check-inline">
+                    <input type="checkbox" class="form-check-input">
+                    grade
+                </label>
+            </div>
+        </div>
+
+    </form>
+</div>
