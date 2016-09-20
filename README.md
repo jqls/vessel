@@ -2,6 +2,18 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.14.
 
+## >> tl'nr
+
+What you need to do is JUST
+```shell
+npm uninstall -g angular-cli
+npm cache clean
+npm install -g angular-cli@latest
+```
+.then(start_coding());
+
+## >>[Check the migration process](https://github.com/angular/angular-cli/wiki/Upgrading-from-Beta.10-to-Beta.14)
+
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
