@@ -18,12 +18,12 @@ export class ResultComponent implements OnInit {
     resultService.bookService((node: WorkflowNode): void=> {
       this.open = (node != null);
       this.openedNode = node;
-      this.getResult(this.openedNode.attributes);
+      this.getResult(1, this.openedNode.attributes);
     });
   }
-  getResult(attributes:BasicNode): void {
+  getResult(type:number, attributes:BasicNode): void {
     this.resultService
-        .getResult(attributes)
+        .getResult(type, attributes)
         .then(resultJson => this.result = resultJson.result)
         .catch(error => this.error = error);
   }
