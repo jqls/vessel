@@ -7,9 +7,12 @@ import {
     DataSourceNodeTypeJSON
 } from "./drawboard.component/internal/drawboard.node-types";
 import {Http, Response} from "@angular/http";
+import "rxjs/operator";
+
 
 @Injectable()
 export class ProcessService {
+    //todo: @qiuwenkai 配置定义放到environment文件中去
     private URL_Spark = "http://10.5.0.224:8080/sendinformation/";
     private URL_Storm = null;
     private URL_Mapreduce = null;
@@ -17,13 +20,13 @@ export class ProcessService {
     private stormData: Promise<Response>;
     private mapreduceData: Promise<Response>;
 
-    public SPARKTYPE:number = 1;
-    public STORMTYPR:number = 2;
-    public MAPREDUCETYPE:number = 3;
+    public SPARKTYPE: number = 1;
+    public STORMTYPR: number = 2;
+    public MAPREDUCETYPE: number = 3;
 
     //测试用
     private DEBUG: boolean = true;
-    private isMock:boolean = true;
+    private isMock: boolean = true;
 
     getAll(): void {
         console.log(this.URL_Spark);
@@ -49,7 +52,7 @@ export class ProcessService {
                 console.error("Error type in getting dataSource!");
         }
         //todo: 若Storm与Mapreduce以后添加相应数据类型，则需对返回进行修改
-        if(this.isMock){
+        if (this.isMock) {
             return localData
                 .then(
                     response => {
@@ -79,6 +82,7 @@ export class ProcessService {
             .catch(this.handleError);
 
     }
+
     //todo： 暂时只有Spark数据获取用到此方法
     getProcesses(type: number): Promise<ProcessNodeType[]> {
         let localData: Promise<Response> = null;
@@ -96,7 +100,7 @@ export class ProcessService {
                 console.error("Error type in getting Processes!");
         }
         //todo: 若Storm与Mapreduce以后添加相应数据类型，则需对返回进行修改
-        if(this.isMock) {
+        if (this.isMock) {
             return localData
                 .then(
                     response => {
@@ -116,9 +120,7 @@ export class ProcessService {
                     if (this.DEBUG)
                         console.debug(JSON.stringify(response.json()));
                     return (response.json().processes as ProcessNodeTypeJSON[])
-                        .map(
-                            (processJSON): ProcessNodeTypeJSON=> new ProcessNodeType(processJSON)
-                        )
+                        .map((processJSON): ProcessNodeTypeJSON=> new ProcessNodeType(processJSON))
                 }
             )
             .catch(this.handleError);
@@ -134,7 +136,7 @@ export class ProcessService {
     }
 
     constructor(private http: Http) {
-        if(this.isMock){
+        if (this.isMock) {
             this.URL_Spark = "app/json";
         }
         this.getAll();
