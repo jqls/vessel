@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http, Response} from "@angular/http";
 import {environment} from "../environment";
-import {Operator} from "rxjs";
-import {Observable} from "rxjs";
+import {Operator,Observable} from "rxjs";
+import "rxjs/operator";
 
 export type DatabaseInfo = {
     db_name: string
