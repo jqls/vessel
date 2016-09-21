@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {DataAnalysisService, DatabaseInfo, TableInfo} from "../data-analysis.service";
-import "rxjs/operator";
+import {Operator} from "rxjs";
 import {FormGroup, FormBuilder} from "@angular/forms";
 
 
