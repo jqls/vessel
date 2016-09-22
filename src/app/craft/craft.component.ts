@@ -22,10 +22,10 @@ export class CraftComponent implements OnInit {
 
     constructor(private privateNavbarService: NavbarService,
                 private drawboardStatus: DrawboardStatusService) {
-        drawboardStatus.setType(0);
     }
 
     ngOnInit() {
+        this.drawboardStatus.setType(0);
     }
 
     ifNeedShowParameter(): boolean {

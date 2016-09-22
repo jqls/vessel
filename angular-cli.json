@@ -15,16 +15,15 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "styles.css",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-		"../node_modules/bootstrap/dist/css/bootstrap-theme.min.css"
+        "styles.css"
       ],
       "scripts": [
-        "../node_modules/d3/build/d3.min.js",
+        "../node_modules/d3/d3.js",
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/tether/dist/js/tether.js",
         "../node_modules/bootstrap/dist/js/bootstrap.js",
-		"../node_modules/echarts/dist/echarts.min.js"
+        "../node_modules/echarts/dist/echarts.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

@@ -8,6 +8,7 @@ import {ResultService} from "../result.service";
 import * as d3 from "d3";
 
 
+
 @Component({
     // moduleId: module.id,
     selector: 'app-drawboard',
@@ -85,7 +86,6 @@ export class DrawboardComponent implements OnInit {
         this.scale = false;
         this.lastKeyDown = -1;
         this.shiftDrag = false;
-
         this.svg = d3.select("svg#drawboard");    //绑定svg
         this.def = this.svg.append("svg:def");    //绑定样式区
         this.container = this.svg.append("g");    //绑定绘图区
@@ -202,7 +202,6 @@ export class DrawboardComponent implements OnInit {
                 private parametersStatus: ParametersStatusService,
                 private resultsService: ResultService,
                 private submitService: SubmitService) {
-        this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
     }
 
     public update() {
@@ -213,6 +212,7 @@ export class DrawboardComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
         let self = this;
 
         self.initState();
