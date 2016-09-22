@@ -2,8 +2,8 @@ import {Component, OnInit, Input} from "@angular/core";
 import {DrawboardStatusService} from "../drawboard-status.service";
 import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
-import {ProcessNode, DataSourceNode, WorkflowNode} from "./internal/drawboard.node";
-import {DataSourceNodeType, ProcessNodeType} from "./internal/drawboard.node-types";
+import {ProcessNode, DataSourceNode, WorkflowNode, StormNode} from "./internal/drawboard.node";
+import {DataSourceNodeType, ProcessNodeType, StormNodeType} from "./internal/drawboard.node-types";
 import {ResultService} from "../result.service";
 import * as d3 from "d3";
 
@@ -143,9 +143,10 @@ export class DrawboardComponent implements OnInit {
                 let fn = (): WorkflowNode=> {
                     if (selectedNodeType instanceof ProcessNodeType) {
                         return new ProcessNode(<ProcessNodeType>selectedNodeType, self.flowIDCounter, self, position);
-                    } else {
-                        // if (selectedNodeType instanceof DataSourceNodeType) {
+                    } else if (selectedNodeType instanceof DataSourceNodeType) {
                         return new DataSourceNode(<DataSourceNodeType>selectedNodeType, self.flowIDCounter, self, position);
+                    } else if (selectedNodeType instanceof StormNodeType) {
+                        return new StormNode(<StormNodeType>selectedNodeType, self.flowIDCounter, self, position);
                     }
                 };
 

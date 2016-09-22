@@ -1,19 +1,21 @@
-<nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
-    <a class="navbar-brand" style="margin-right: 30px;">{{navbarTitle}}</a>
-
-    <ul class="nav navbar-nav">
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/craft']">Spark</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/craft-mapreduce']">Mapreduce</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/craft-storm']">Storm</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/data-analysis']">DataAnalysis</a>
-        </li>
-    </ul>
-
+<nav class="navbar navbar-default bg-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header" style="padding-left: 30px;">
+            <a class="navbar-brand" style="margin-right: 30px;">{{navbarTitle}}</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" [routerLink]="['/craft']">Spark</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" [routerLink]="['/craft-mapreduce']">Mapreduce</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" [routerLink]="['/craft-storm']">Storm</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" [routerLink]="['/data-analysis']">DataAnalysis</a>
+            </li>
+        </ul>
+    </div><!-- /.container-fluid -->
 </nav>

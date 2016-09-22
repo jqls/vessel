@@ -28,6 +28,7 @@ import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.componen
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
+import { ToolboxStormComponent } from './craft/toolbox.component/toolbox-storm/toolbox-storm.component';
 
 @NgModule({
     imports: [
@@ -54,6 +55,7 @@ import { InMemoryDataService }  from './in-memory-data.service';
         ResultComponent,
         ToolboxMapreduceComponent,
         InputsComponent,
+        ToolboxStormComponent,
     ],
     providers: [
         appRoutingProvider

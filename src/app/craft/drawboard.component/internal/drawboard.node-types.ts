@@ -1,17 +1,23 @@
-/**
- * Created by tang on 2016/8/24.
- */
-
-export type ParameterJSON = {
-  label: string,
-  slug: string,
-  required?: boolean,
-  controlType: string,
-  options?: string[ ],
-  description?: string,
-  val: string,
+export type StormGlobal = {
+  workersNumber: number,
+  asckerNumber: number,
+  maxTaskParalleism: number
 }
 
+export type StormNodeTypeJSON = {
+  type: string,
+  label: string,
+  id: string,
+  parameters: StormParameterJSON[]
+}
+
+export type StormParameterJSON = {
+  label: string,
+  controlType: string,
+  required?: boolean,
+  options?: string[],
+  val: string
+}
 export type ProcessNodeTypeJSON = {
   id: string,
   label: string,
@@ -27,6 +33,15 @@ export type DataSourceNodeTypeJSON = {
 }
 
 
+export type ParameterJSON = {
+  label: string,
+  slug: string,
+  required?: boolean,
+  controlType: string,
+  options?: string[],
+  description?: string,
+  val: string
+}
 export class ProcessNodeType {
   id: string;
   label: string;
@@ -55,5 +70,19 @@ export class DataSourceNodeType {
     // this.parameters = json.parameters;
   }
 }
+export class StormNodeType {
+  id: string;
+  label: string;
+  type: string;
+  description: string;
+  parameters: StormParameterJSON[];
 
-export type WorkflowNodeType = ProcessNodeType|DataSourceNodeType;
+  constructor(json: StormNodeTypeJSON) {
+    this.id = json.id;
+    this.label = json.label;
+    this.type = json.type;
+    this.parameters = json.parameters;
+    // this.description = "";
+  }
+}
+export type WorkflowNodeType = ProcessNodeType|DataSourceNodeType|StormNodeType;

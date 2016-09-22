@@ -1,0 +1,47 @@
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" href="#nodes" role="tab" data-toggle="tab">Storm节点</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#global" role="tab" data-toggle="tab">全局属性</a>
+  </li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="nodes">
+    <div class="list-group">
+      <a class="list-group-item" *ngFor="let node of stormNodesTypes" (click)="itemClicked(node)"
+         [class.active]="selectedNodeType===node" (dblclick)="itemDbClicked(node)">
+        <h5 class="list-group-item-heading">{{ node.label }}</h5>
+        <p class="list-group-item-text">{{ node.description||"这是一种算法" }}</p>
+      </a>
+    </div>
+  </div>
+  <div role="tabpanel" class="tab-pane" id="global">
+    <div class="list-group">
+      <form>
+        <div class="list-group-item form-group">
+          <label class="list-group-item-heading" for="workersNumber">Workers Number</label>
+          <input type="text" class="form-control list-group-item-text" id="workersNumber" required
+                 [(ngModel)]="global.workersNumber" name="workersNumber">
+        </div>
+
+        <div class="list-group-item form-group">
+          <label for="asckerNumber">Asker Number</label>
+          <input type="text" class="form-control list-group-item-text" id="asckerNumber" required
+                 [(ngModel)]="global.asckerNumber" name="asckerNumber">
+        </div>
+
+        <div class="list-group-item form-group">
+          <label for="maxTaskParalleism">MaxTaskParalleism</label>
+          <input type="text" class="form-control list-group-item-text" id="maxTaskParalleism" required
+                 [(ngModel)]="global.maxTaskParalleism" name="maxTaskParalleism">
+        </div>
+
+        <button type="submit" class="btn btn-default">Save</button>
+
+      </form>
+    </div>
+  </div>
+</div>

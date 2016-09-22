@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {WorkflowNodeType} from "./drawboard.component/internal/drawboard.node-types";
+import {WorkflowNodeType, StormNodeType} from "./drawboard.component/internal/drawboard.node-types";
+import {StormNode} from "./drawboard.component/internal/drawboard.node";
 
 @Injectable()
 export class DrawboardStatusService {
@@ -17,6 +18,8 @@ export class DrawboardStatusService {
   }
 
   setSelectedNodeType(node: WorkflowNodeType) {
+    console.log("isStorm");
+    console.log(node instanceof StormNodeType);
     this.selectedNodeType = node;
     this.subscribers.forEach(s=>s(node));
   }
