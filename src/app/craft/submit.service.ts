@@ -4,7 +4,7 @@ import {Headers, Http, RequestMethod} from "@angular/http";
 
 @Injectable()
 export class SubmitService {
-    private DEBUG:boolean = true;
+    private DEBUG = true;
     private URL_Spark = "http://10.5.0.224:8080/submit/";
     private URL_Storm = null;
     private URL_Mapreduce = null;
@@ -13,7 +13,7 @@ export class SubmitService {
     }
 
     submit(workflowJSON: string) {
-        if(this.DEBUG)
+        if (this.DEBUG)
             console.debug(`submit: ${workflowJSON}`);
         let headers = new Headers({
             'Content-Type': 'application/json'

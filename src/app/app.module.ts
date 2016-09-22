@@ -24,8 +24,6 @@ import {ParametersComponent} from "./craft/parameters.component/parameters.compo
 import {ResultComponent} from "./craft/result.component/result.component";
 import {InputsComponent} from "./craft/inputs.component/inputs.component";
 import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
-import {DatabaseControlComponent} from "./data-analysis.unit/database-control/database-control.component";
-import {ResultPresentationComponent} from "./data-analysis.unit/result-presentation/result-presentation.component";
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -56,12 +54,6 @@ import { InMemoryDataService }  from './in-memory-data.service';
         ResultComponent,
         ToolboxMapreduceComponent,
         InputsComponent,
-        DatabaseControlComponent,
-        ResultPresentationComponent,
-
-        DatabaseControlComponent,
-        ResultPresentationComponent,
-
     ],
     providers: [
         appRoutingProvider
