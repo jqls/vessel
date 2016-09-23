@@ -34,8 +34,10 @@ export class SubmitService {
             'Content-Type': 'application/json'
         });
         console.log(JSON.parse(workflowJSON).processes[0]);
+        let request = {name:JSON.parse(workflowJSON).processes[0].label};
+        console.log(JSON.stringify(request));
         return this.http
-            .post("http://10.5.0.224:8080/mapReduce/", JSON.parse(workflowJSON).processes[0].label, {
+            .post("http://10.5.0.224:8080/submitMR/", JSON.stringify(request), {
                 headers: headers,
                 method: RequestMethod.Post
             })

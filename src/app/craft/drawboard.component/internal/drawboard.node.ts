@@ -33,7 +33,7 @@ export class ProcessNode extends DrawboardElement {
 
     toJSON(): {} {
         return {
-            id: this.attributes.id,
+            id: "" + this.attributes.id,
             label: this.attributes.label,
             description: this.attributes.description,
             flowID: "" + this.attributes.flowID,
@@ -141,7 +141,7 @@ export class StormNode extends DrawboardElement {
 
     toJSON(): {} {
         return {
-            id: this.attributes.id,
+            id: "" + this.attributes.id,
             label: this.attributes.label,
             description: this.attributes.description,
             flowID: "" + this.attributes.flowID,
@@ -249,7 +249,7 @@ export class DataSourceNode extends DrawboardElement {
 
     toJSON(): {} {
         return {
-            id: this.attributes.id,
+            id: "" + this.attributes.id,
             label: this.attributes.label,
             description: this.attributes.description,
             flowID: "" + this.attributes.flowID,
@@ -341,4 +341,4 @@ export class DataSourceNode extends DrawboardElement {
 
 }
 
-export type WorkflowNode = ProcessNode|DataSourceNode
+export type WorkflowNode = ProcessNode|DataSourceNode|StormNode

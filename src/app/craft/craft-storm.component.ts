@@ -26,7 +26,7 @@ export class CraftStormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.drawboardStatus.setType(0);
+    this.drawboardStatus.setType(2);
   }
 
   ifNeedShowParameter(): boolean {

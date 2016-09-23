@@ -24,11 +24,16 @@ import {ParametersComponent} from "./craft/parameters.component/parameters.compo
 import {ResultComponent} from "./craft/result.component/result.component";
 import {InputsComponent} from "./craft/inputs.component/inputs.component";
 import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
+import { ToolboxStormComponent } from './craft/toolbox.component/toolbox-storm/toolbox-storm.component';
+import { DataShowComponent } from './craft/data-show/data-show.component';
+import {GlobalService} from "./global.service";
+import { BarComponent } from './craft/data-show/bar/bar.component';
+import { PieComponent } from './craft/data-show/pie/pie.component';
 
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
-import { ToolboxStormComponent } from './craft/toolbox.component/toolbox-storm/toolbox-storm.component';
+// import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+// import { InMemoryDataService }  from './in-memory-data.service';
+
 
 @NgModule({
     imports: [
@@ -40,7 +45,7 @@ import { ToolboxStormComponent } from './craft/toolbox.component/toolbox-storm/t
         routing,
         MdButtonModule,
         MdCardModule,
-        InMemoryWebApiModule.forRoot(InMemoryDataService)
+        // InMemoryWebApiModule.forRoot(InMemoryDataService)
     ],
     declarations: [
         AppComponent,
@@ -56,9 +61,13 @@ import { ToolboxStormComponent } from './craft/toolbox.component/toolbox-storm/t
         ToolboxMapreduceComponent,
         InputsComponent,
         ToolboxStormComponent,
+        DataShowComponent,
+        BarComponent,
+        PieComponent,
     ],
     providers: [
-        appRoutingProvider
+        appRoutingProvider,
+        GlobalService
     ],
     bootstrap: [AppComponent]
 })

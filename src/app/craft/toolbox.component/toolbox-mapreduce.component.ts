@@ -14,8 +14,95 @@ export class ToolboxMapreduceComponent implements OnInit {
   private processes: ProcessNodeTypeJSON[] = [
     {
       'id': '1',
-      'label': "朴素贝叶斯",
-      'description': 'naive 的贝叶斯算法',
+      'label': "minMaxCount",
+      'description': 'minMaxCount',
+      "parameters": [
+        {
+          "label": "特征数",
+          'slug': "特征数",
+          "controlType": "text",
+          "val": "5",
+        },
+        {
+          "label": "学习率",
+          'slug': "学习率",
+          "controlType": "float",
+          "val": "1.0",
+        },
+        {
+          "label": "模型类型",
+          'slug': "模型类型",
+          "controlType": "select",
+          "val": "0",
+          "options": [
+            "multi-nominal",
+            "bernoulli"
+          ],
+        }
+      ],
+    },
+    {
+      'id': '2',
+      'label': "average",
+      'description': 'average',
+      "parameters": [
+        {
+          "label": "特征数",
+          'slug': "特征数",
+          "controlType": "text",
+          "val": "5",
+        },
+        {
+          "label": "学习率",
+          'slug': "学习率",
+          "controlType": "float",
+          "val": "1.0",
+        },
+        {
+          "label": "模型类型",
+          'slug': "模型类型",
+          "controlType": "select",
+          "val": "0",
+          "options": [
+            "multi-nominal",
+            "bernoulli"
+          ],
+        }
+      ],
+    },
+    {
+      'id': '3',
+      'label': "medianStdDev",
+      'description': 'medianStdDev',
+      "parameters": [
+        {
+          "label": "特征数",
+          'slug': "特征数",
+          "controlType": "text",
+          "val": "5",
+        },
+        {
+          "label": "学习率",
+          'slug': "学习率",
+          "controlType": "float",
+          "val": "1.0",
+        },
+        {
+          "label": "模型类型",
+          'slug': "模型类型",
+          "controlType": "select",
+          "val": "0",
+          "options": [
+            "multi-nominal",
+            "bernoulli"
+          ],
+        }
+      ],
+    },
+    {
+      'id': '4',
+      'label': "index",
+      'description': 'index',
       "parameters": [
         {
           "label": "特征数",

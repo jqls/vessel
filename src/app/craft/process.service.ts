@@ -26,7 +26,7 @@ export class ProcessService {
 
     //测试用
     private DEBUG: boolean = true;
-    private isMock: boolean = true;
+    private isMock: boolean = false;
 
     getAll(): void {
         console.log(this.URL_Spark);

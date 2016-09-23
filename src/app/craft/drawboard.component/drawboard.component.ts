@@ -6,6 +6,7 @@ import {ProcessNode, DataSourceNode, WorkflowNode, StormNode} from "./internal/d
 import {DataSourceNodeType, ProcessNodeType, StormNodeType} from "./internal/drawboard.node-types";
 import {ResultService} from "../result.service";
 import * as d3 from "d3";
+import {GlobalService} from "../../global.service";
 
 
 
@@ -202,7 +203,8 @@ export class DrawboardComponent implements OnInit {
     constructor(private drawBoardStatus: DrawboardStatusService,
                 private parametersStatus: ParametersStatusService,
                 private resultsService: ResultService,
-                private submitService: SubmitService) {
+                private submitService: SubmitService,
+                private globalService: GlobalService) {
     }
 
     public update() {
@@ -225,11 +227,17 @@ export class DrawboardComponent implements OnInit {
         let self = this;
         this.type = this.drawBoardStatus.getType();
         console.log(this.type);
+
         if (this.type == 1)
             return ()=> {
+
                 self.submitService.submit4map(self.getWorkflowJSON());
             };
         return ()=> {
+            let len = this.nodes.length-1;
+            console.log(JSON.stringify(self.nodes[len]));
+            self.globalService.setLastFLowID(+self.nodes[len].attributes.flowID);
+            self.globalService.setLastID(+self.nodes[len].attributes.id);
             self.submitService.submit(self.getWorkflowJSON());
         }
     }

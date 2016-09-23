@@ -6,9 +6,9 @@
     <input class="form-control input-sm" *ngSwitchCase="'text'" [formControlName]="parameter.label"
            [id]="parameter.label">
     <input class="form-control input-sm" *ngSwitchCase="'float'" [formControlName]="parameter.label"
-           [id]="parameter.label" type="number">
+           [id]="parameter.label">
     <input class="form-control input-sm" *ngSwitchCase="'int'" [formControlName]="parameter.label"
-           [id]="parameter.label" type="number">
+           [id]="parameter.label">
     <select class="form-control input-sm" [id]="parameter.label" *ngSwitchCase="'select'"
             [formControlName]="parameter.label">
       <option *ngFor="let opt of parameter.options; let i = index" [value]="i">{{opt}}</option>
