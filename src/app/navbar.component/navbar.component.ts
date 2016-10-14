@@ -24,8 +24,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     // 取消data-analys任务
     this.chartsList = [
-      {id: 1, name: 'Bar'},
-      {id: 2, name: 'Pie'}
+      {id: 1, name: '柱形图'},
+      {id: 2, name: '饼图'}
     ];
     for(let chart of this.chartsList){
       console.log(chart.id);
