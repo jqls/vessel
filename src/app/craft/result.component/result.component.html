@@ -1,11 +1,17 @@
-<div *ngIf="open">
-  <br>
-  <div *ngIf="openedNode!=null">
-    {{result}}
-  </div>
-</div>
+<!--<div *ngIf="open">-->
+  <!--<br>-->
+  <!--<div *ngIf="openedNode!=null">-->
+    <!--{{result}}-->
+  <!--</div>-->
+<!--</div>-->
 
-<div *ngIf="!open">
-  <p>选中算法节点来获得结果</p>
-</div>
+<!--<div *ngIf="!open">-->
+  <!--<p>选中算法节点来获得结果</p>-->
+<!--</div>-->
 
+
+<p>
+  <button id="request_btn" (click)="request()">request</button>
+</p>
+<textarea name="output" id="output" cols="30" rows="10">{{output}}
+</textarea>

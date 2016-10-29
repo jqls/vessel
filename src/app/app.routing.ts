@@ -19,7 +19,7 @@ const appRoutes: Routes = [
   {path: 'craft-mapreduce', component: CraftMapreduceComponent},
   {path: 'craft-storm', component: CraftStormComponent},
   {path: 'data-analysis', component: DataAnalysisComponent},
-  {path: 'result-show/:id', component: DataShowComponent}
+  {path: 'result-show', component: DataShowComponent}
 
 ];
 

@@ -11,6 +11,9 @@ import * as d3 from "d3";
 
 
 export class Relation {
+
+    board: DrawboardComponent;
+
     from: WorkflowNode;
     to: WorkflowNode;
     menu = new DrawboardMenu();
@@ -21,13 +24,24 @@ export class Relation {
         this.menu.addMenuTo(this);
         console.log("relation-init");
     }
+    bindEventHandler() {
+        let self = this;
 
+        this.path
+          .on("mousedown", function () {
+              console.log("Relation mousedown");
+              console.log(this);
+              self.board.setParameter(self);
+          });
+    }
     deleteElements(): (()=>void) {
         let self = this;
         return ()=> {
             self.path.remove();
             let menu = d3.select(self.menu.menuNode);
             menu.remove();
+            //处理Parameters
+            self.board.setParameter(null);
         }
     }
 
@@ -41,6 +55,7 @@ export class Relation {
     }
 
     constructor(drawboard: DrawboardComponent, from: WorkflowNode, to: WorkflowNode) {
+        this.board = drawboard;
         this.path = drawboard.relationLayer.append('path');
         this.from = from;
         this.to = to;
@@ -48,6 +63,7 @@ export class Relation {
             .style('marker-end', 'url(/craft#mark-end-arrow)');
         this.update();
         this.initMenu();
+        this.bindEventHandler();
     }
 
     getToPosition(): {x: number, y: number} {

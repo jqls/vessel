@@ -6,19 +6,20 @@ import {ProcessNodeType} from "./drawboard.component/internal/drawboard.node-typ
 @Injectable()
 export class ParametersStatusService {
 
-  selectedNode: ProcessNodeType;
-  subscribers: Array<(node: ProcessNodeType)=>void>;
+  selectedNode: any;
+  subscribers: Array<(node: any)=>void>;
 
   constructor() {
-    this.subscribers = Array<(node: ProcessNodeType)=>void>();
+    this.subscribers = Array<(node: any)=>void>();
   }
 
-  bookService(bookFunction: (node: ProcessNodeType)=>void) {
+  bookService(bookFunction: (node: any)=>void) {
     this.subscribers.push(bookFunction);
   }
 
-  setSelectedNode(newNode: ProcessNodeType) {
+  setSelectedNode(newNode: any) {
     this.selectedNode = newNode;
+    console.log("PS-setSelectedNode "+newNode);
     this.subscribers.forEach((s)=>s(newNode));
   }
 

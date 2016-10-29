@@ -13,7 +13,7 @@ import {Operator} from "rxjs";
 @Injectable()
 export class ProcessService {
     //todo: @qiuwenkai 配置定义放到environment文件中去
-    private URL_Spark = "http://10.5.0.224:8080/sendinformation/";
+    private URL_Spark = "http://10.5.0.222:8080/sendinformation/";
     private URL_Storm = null;
     private URL_Mapreduce = null;
     private sparkData: Promise<Response>;

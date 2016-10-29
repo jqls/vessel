@@ -1,4 +1,9 @@
 <div class="row">
+    <div class="taskname-wrap">
+        <span class="taskname" *ngIf="!editMode" (click)="click()">{{taskName}}</span>
+        <input #newName class="taskname filename-edit" type="text" *ngIf="editMode" [(ngModel)]="taskName"
+               (keyup.enter)="rename(newName.value)" (blur)="rename(newName.value)">
+    </div>
     <div class="col-md-2">
         <app-toolbox></app-toolbox>
     </div>

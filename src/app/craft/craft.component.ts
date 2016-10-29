@@ -19,15 +19,24 @@ import {ResultService} from "./result.service";
 })
 export class CraftComponent implements OnInit {
     mytype: number;
-
+    private editMode = false;
+    private taskName:string;
     constructor(private privateNavbarService: NavbarService,
                 private drawboardStatus: DrawboardStatusService) {
+        this.taskName = "新建任务";
     }
 
     ngOnInit() {
         this.drawboardStatus.setType(0);
     }
-
+    click(){
+        this.editMode = true;
+    }
+    rename(newName:string){
+        this.taskName = newName;
+        this.editMode = false;
+        this.drawboardStatus.setTaskName(this.taskName);
+    }
     ifNeedShowParameter(): boolean {
         return this.privateNavbarService.showParameterBox;
     }
