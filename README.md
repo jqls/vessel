@@ -2,6 +2,9 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.14.
 
+目前使用的cli版本基本都要高于15
+
+
 ## >> tl'nr
 
 What you need to do is JUST
