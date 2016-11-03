@@ -42,11 +42,20 @@ export class ResultService {
         this.selectedNode = newNode;
         this.subscribers.forEach((s)=>s(newNode));
     }
+    getSocketAddress(taskName:string, flowID:string) {
+      let baseURL = "http://10.5.0.222:8080/processinformation?";
 
+      return this.http.get(baseURL + "taskName=" + taskName + "&flowID=" + flowID).toPromise().then(response => {
+        console.log(response.json());
+        return response.json();
+      });
+    }
     getResults(type: number):Promise<ResultJSON[]> {
         //todo: 改为http
-        return Promise.resolve(this.RESULTS);
-
+        // return Promise.resolve(this.RESULTS);
+      return this.http.get("http://10.5.0.222:8080/processinformation").toPromise().then(response => {
+        console.log(response);
+      });
         // todo: 改为根据craft类型
         // let result = null;
         // switch (type){

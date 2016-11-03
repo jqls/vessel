@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {WorkflowNode, BasicNode} from "../drawboard.component/internal/drawboard.node";
 import {ResultService} from "../result.service";
+import {DrawboardStatusService} from "../drawboard-status.service";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ResultComponent implements OnInit {
   error: any;
   private output: string = "";
 
-  constructor(private resultService: ResultService) {
+  constructor(private resultService: ResultService,private drawboarstatService: DrawboardStatusService) {
     this.open = false;
     resultService.bookService((node: WorkflowNode): void=> {
       this.open = (node != null);
@@ -35,20 +36,27 @@ export class ResultComponent implements OnInit {
 
   request() {
     this.appendLineToOutput("try to connect file: test.log");
-    var fileSocket = new WebSocket('ws://localhost:8888/connect?request_path=test.log');
-    fileSocket.onerror = (evt)=> {
-      this.appendLineToOutput("cannot connect to file: test.log");
-    };
-    fileSocket.onopen = (event)=> {
-      fileSocket.onmessage = (evt)=> {
-        var message = evt.data;
-        this.appendLineToOutput(message);
+
+    this.resultService.getSocketAddress(this.drawboarstatService.getTaskName(),""+this.openedNode.attributes.flowID).then(response=>{
+      let url=response.url;
+      console.log(url);
+      var fileSocket = new WebSocket(url);
+      fileSocket.onerror = (evt)=> {
+        this.appendLineToOutput("cannot connect to file: test.log");
       };
-      this.appendLineToOutput("connected");
-    };
-    fileSocket.onclose = (evt) => {
-      this.appendLineToOutput("connection closed");
-    };
+
+      fileSocket.onopen = (event)=> {
+        fileSocket.onmessage = (evt)=> {
+          var message = evt.data;
+          this.appendLineToOutput(message);
+        };
+        this.appendLineToOutput("connected");
+      };
+      fileSocket.onclose = (evt) => {
+        this.appendLineToOutput("connection closed");
+      };
+    });
+
   }
 
 

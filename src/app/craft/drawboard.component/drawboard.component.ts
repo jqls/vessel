@@ -60,10 +60,10 @@ export class DrawboardComponent implements OnInit {
                 }
             });
         });
-
+        console.log(this.drawBoardStatus.getTaskName());
         return JSON.stringify(
             {
-                name: this.drawBoardStatus.getTaskName(),
+                taskName: this.drawBoardStatus.getTaskName(),
                 sources: this.nodes.filter((node): boolean=> {
                     return (node instanceof DataSourceNode)
                 }).map((node): {}=> {
