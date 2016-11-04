@@ -37,11 +37,11 @@
   },
   "devDependencies": {
     "@types/d3": "^3.5.36",
-    "@types/echarts": "0.0.4",
+    "@types/echarts": "^0.0.4",
     "@types/hammerjs": "^2.0.8",
     "@types/jasmine": "^2.2.30",
     "@types/jquery": "^2.0.33",
-    "angular-cli": "1.0.0-beta.15",
+    "angular-cli": "^1.0.0-beta.15",
     "codelyzer": "~0.0.26",
     "jasmine-core": "2.4.1",
     "jasmine-spec-reporter": "2.5.0",

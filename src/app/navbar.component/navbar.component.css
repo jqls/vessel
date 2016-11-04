@@ -1,0 +1,42 @@
+.bg-inverse1{
+    background-color: #1976D2;
+    /*background-image: url("app/navbar.component/logo2.jpg");*/
+
+}
+.navbar-fixed-top{
+    position: fixed;
+    bottom: 790px
+}
+.navbar-nav{
+    position: absolute;
+    left:240px;
+    list-style-type:none;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+}
+.navbar-nav li{
+    float:left;
+}
+.navbar-nav li a{
+    display:block;
+	width:100px;
+	font-weight:bold;
+	color:#FFFFFF;
+	background-color:#1976D2;
+	text-align:center;
+	text-decoration:none;
+}
+.navbar-nav li a:hover{
+    background-color: #2087E1;
+}
+.btn-group{
+	position: absolute;
+	left:700px;
+}
+.dropdown-toggle{
+	font-weight: bold;
+}
+.img1{
+	opacity: 1;
+}
