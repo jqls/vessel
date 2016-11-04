@@ -1,5 +1,10 @@
 <div id="data-show">
-    <h2>图的类型{{type}}</h2>
+    <h2>选择图的类型</h2>
+    <div>
+        <button class="btn" (click)="setType(1)">Bar</button>
+        <button class="btn" (click)="setType(2)">Pie</button>
+    </div>
+
     <div class="col-md-8" [ngSwitch]="type">
         <div id="main" style="height:600px;width: 1000px; margin-left: 0px;float: left;">
             <app-bar *ngSwitchCase="1"></app-bar>

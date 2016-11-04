@@ -19,10 +19,14 @@ export class DataShowComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.route.params.forEach((params: Params) => {
-            let id = +params['id'];
-            this.type = id;
-            console.log("charts typr is " + this.type);
-        });
+        // this.route.params.forEach((params: Params) => {
+        //     let id = +params['id'];
+        //     this.type = id;
+        //     console.log("charts typr is " + this.type);
+        // });
+    }
+    setType(type:number){
+        this.type = type;
+        console.log("show:"+this.type);
     }
 }

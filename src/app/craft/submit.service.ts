@@ -5,7 +5,7 @@ import {Headers, Http, RequestMethod} from "@angular/http";
 @Injectable()
 export class SubmitService {
     private DEBUG = true;
-    private URL_Spark = "http://10.5.0.224:8080/submit/";
+    private URL_Spark = "http://10.5.0.222:8080/submit/";
     private URL_Storm = null;
     private URL_Mapreduce = null;
 

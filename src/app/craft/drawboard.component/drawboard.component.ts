@@ -60,9 +60,10 @@ export class DrawboardComponent implements OnInit {
                 }
             });
         });
-
+        console.log(this.drawBoardStatus.getTaskName());
         return JSON.stringify(
             {
+                taskName: this.drawBoardStatus.getTaskName(),
                 sources: this.nodes.filter((node): boolean=> {
                     return (node instanceof DataSourceNode)
                 }).map((node): {}=> {
@@ -159,8 +160,9 @@ export class DrawboardComponent implements OnInit {
                 newElement.render();
                 console.log("end render");
             } else {
-                self.setParameter(null);
-                self.setResult(null);
+                // console.log("set null");
+                // self.setParameter(null);
+                // self.setResult(null);
             }
 
             self.drawBoardStatus.cancelSelectedNodeType();
@@ -193,6 +195,7 @@ export class DrawboardComponent implements OnInit {
 
 
     setParameter(node) {
+        console.log("drawboard Parameter"+node);
         this.parametersStatus.setSelectedNode(node);
     }
 

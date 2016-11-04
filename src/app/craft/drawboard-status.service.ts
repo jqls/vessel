@@ -8,6 +8,7 @@ export class DrawboardStatusService {
   private subscribers: Array<(node: WorkflowNodeType)=>void>;
   private submitHooks: (()=>void) [] = [];
   private mytype: number;
+  private taskName: string;
   constructor() {
     this.subscribers = Array<(node: WorkflowNodeType)=>void>();
     this.selectedNodeType = null;
@@ -46,5 +47,10 @@ export class DrawboardStatusService {
   setSubmitClickHook(fn: ()=>void) {
     this.submitHooks.push(fn);
   }
-
+  setTaskName(name:string){
+    this.taskName = name;
+  }
+  getTaskName(){
+    return this.taskName;
+  }
 }

@@ -11,7 +11,9 @@ import {Router} from "@angular/router";
 export class NavbarComponent implements OnInit {
 
   private chartsList:{id:number,name:string}[] = [];
+
   constructor(private navbarService: NavbarService,private router: Router) {
+
   }
 
   get navbarTitle(): string {
@@ -21,6 +23,7 @@ export class NavbarComponent implements OnInit {
     let link = ['/result-show', chart.id];
     this.router.navigate(link);
   }
+
   ngOnInit() {
     // 取消data-analys任务
     this.chartsList = [
