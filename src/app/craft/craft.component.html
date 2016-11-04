@@ -1,39 +1,42 @@
 <div class="row">
+  <div class="taskname-line">
+    <label>任务名：</label>
     <div class="taskname-wrap">
-        <span class="taskname" *ngIf="!editMode" (click)="click()">{{taskName}}</span>
-        <input #newName class="taskname filename-edit" type="text" *ngIf="editMode" [(ngModel)]="taskName"
-               (keyup.enter)="rename(newName.value)" (blur)="rename(newName.value)">
+      <span class="taskname" *ngIf="!editMode" (click)="click()">{{taskName}}</span>
+      <input #newName class="taskname-edit" type="text" *ngIf="editMode" [(ngModel)]="taskName"
+             (keyup.enter)="rename(newName.value)" (blur)="rename(newName.value)">
     </div>
-    <div class="col-md-2">
-        <app-toolbox></app-toolbox>
+  </div>
+  <div class="col-md-2">
+    <app-toolbox></app-toolbox>
+  </div>
+  <!--todo: 显示不正确-->
+  <div [ngClass]="{'col-md-10': !ifNeedShowParameter(), 'col-md-7': ifNeedShowParameter()}">
+    <app-drawboard [type]="mytype"></app-drawboard>
+  </div>
+  <div class="col-md-3" [hidden]="!ifNeedShowParameter()">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="nav-item">
+        <a class="nav-link active" href="#parameters" role="tab" data-toggle="tab">参数配置</a>
+      </li>
+      <li role="presentation" class="nav-item">
+        <a class="nav-link" href="#result" role="tab" data-toggle="tab">运行结果</a>
+      </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="parameters">
+        <app-parameters></app-parameters>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="result">
+        <app-result></app-result>
+      </div>
     </div>
-    <!--todo: 显示不正确-->
-    <div [ngClass]="{'col-md-10': !ifNeedShowParameter(), 'col-md-7': ifNeedShowParameter()}">
-        <app-drawboard [type]="mytype"></app-drawboard>
-    </div>
-    <div class="col-md-3" [hidden]="!ifNeedShowParameter()">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="nav-item">
-                <a class="nav-link active" href="#parameters" role="tab" data-toggle="tab">参数配置</a>
-            </li>
-            <li role="presentation" class="nav-item">
-                <a class="nav-link" href="#result" role="tab" data-toggle="tab">运行结果</a>
-            </li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="parameters">
-                <app-parameters></app-parameters>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="result">
-                <app-result></app-result>
-            </div>
-        </div>
 
-    </div>
+  </div>
 </div>
 <hr/>
 <div class="pull-md-right">
-    <button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>
+  <button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>
 </div>

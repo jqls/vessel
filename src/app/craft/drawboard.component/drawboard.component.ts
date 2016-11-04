@@ -40,7 +40,7 @@ export class DrawboardComponent implements OnInit {
         DELETE_KEY: 46,
         ENTER_KEY: 13,
         RESOLUTION_WIDTH: 800,
-        RESOLUTION_HEIGHT: 600
+        RESOLUTION_HEIGHT: 500
     };
 
     @Input()

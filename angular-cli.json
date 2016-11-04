@@ -16,7 +16,8 @@
       "mobile": false,
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "styles.css"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "styles.sass"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
@@ -43,7 +44,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "sass",
     "prefixInterfaces": false
   }
 }

@@ -4,8 +4,7 @@
 
 }
 .navbar-fixed-top{
-    position: fixed;
-    bottom: 790px
+    height: 50px
 }
 .navbar-nav{
     position: absolute;
