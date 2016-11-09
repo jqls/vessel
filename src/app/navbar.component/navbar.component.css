@@ -1,8 +1,9 @@
-.bg-inverse1 {
-.img1{
-	opacity: 1;
+
+.img1 {
+    opacity: 1;
 }
-.bg-inverse1{
+
+.bg-inverse1 {
     background-color: #1976D2;
     /*background-image: url("app/navbar.component/logo2.jpg");*/
 
@@ -42,9 +43,10 @@
 .btn-group {
     position: absolute;
     left: 700px;
+}
 
-#nav-menu.dropdown-toggle::after{
-	display: none;
+#nav-menu.dropdown-toggle::after {
+    display: none;
 }
 
 .dropdown-toggle {
@@ -53,14 +55,16 @@
 
 .img1 {
     opacity: 1;
-#nav-menu.btn{
-	padding: 0px 16px;
- }
-#nav-menu:hover,#nav-menu:focus{
-	background-color: #2087E1;
-	border-color: #2087E1;
 }
 
+#nav-menu.btn {
+    padding: 0 16px;
+}
+
+#nav-menu:hover, #nav-menu:focus {
+    background-color: #2087E1;
+    border-color: #2087E1;
+}
 
 .nav-item > .nav-link {
     border-radius: 4px;

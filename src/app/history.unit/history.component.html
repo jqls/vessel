@@ -1,0 +1,32 @@
+<h4>任务记录</h4>
+
+<table class="table table-bordered table-hovered">
+    <thead>
+    <tr>
+        <td>任务名称</td>
+        <td>提交时间</td>
+        <td>完成时间</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let record of history">
+        <td>{{record.name}}</td>
+        <td>{{record.submit_time}}</td>
+        <td>{{record.finish_time}}</td>
+        <td>
+            <button class="btn btn-outline-primary btn-sm"></button>
+        </td>
+    </tr>
+    <tr>
+        <td>测试任务1</td>
+        <td>2016 - 10 - 23</td>
+        <td>正在执行</td>
+        <td>
+            <button class="btn btn-outline-primary btn-sm">查看</button>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
