@@ -64,6 +64,7 @@ export class ResultComponent implements OnInit {
     this.resultService
       .getResult(type, attributes)
       .then(resultJson => this.result = resultJson.result)
+      .then(response => this.request())
       .catch(error => this.error = error);
   }
 

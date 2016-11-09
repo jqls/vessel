@@ -38,16 +38,10 @@
         </li>
     </ul>
 
-    <div class="pull-md-right nav">
-        <p><i class="fa fa-cog fa-2x" aria-hidden="true"></i></p>
+    <div class="pull-md-right nav btn-group">
+        <button id="nav-menu" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="#">新建任务</a>
+        </div>
     </div>
-    <!--<div class="btn-group">-->
-    <!--<a style="color: #fff" class="nav-link btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
-    <!--aria-expanded="false">-->
-    <!--结果可视化-->
-    <!--</a>-->
-    <!--<div class="dropdown-menu">-->
-    <!--<a class="dropdown-item" *ngFor="let chart of chartsList" (click)="gotoChart(chart)">{{chart.name}}</a>-->
-    <!--</div>-->
-    <!--</div>-->
 </nav>

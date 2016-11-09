@@ -37,6 +37,9 @@
   </div>
 </div>
 <hr/>
-<div class="pull-md-right">
-  <button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>
+<div id="bottom-btn">
+  <div class="pull-md-right">
+    <button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>
+    <button class="btn btn-primary" [routerLink]="['/result-show']">结果可视化</button>
+  </div>
 </div>
