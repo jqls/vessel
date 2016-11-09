@@ -15,7 +15,7 @@ import {ResultService} from "./result.service";
         ResultService
     ],
     templateUrl: 'craft.component.html',
-    styleUrls: ['craft.component.css']
+    styleUrls: ['craft.component.scss']
 })
 export class CraftComponent implements OnInit {
     mytype: number;

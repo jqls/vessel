@@ -7,7 +7,6 @@ import {
     DataSourceNodeTypeJSON
 } from "./drawboard.component/internal/drawboard.node-types";
 import {Http, Response} from "@angular/http";
-import {Operator} from "rxjs";
 
 
 @Injectable()

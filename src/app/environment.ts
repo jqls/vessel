@@ -6,8 +6,6 @@ const DATA_ANALYSIS_ADDRESS = "http://127.0.0.1:5000";
 
 export const environment = {
     production: false,
-    dataAnalysis: {
-        allDatabase: ()=>DATA_ANALYSIS_ADDRESS + "/all_database",
-        allTables: (dbIndex: number)=>DATA_ANALYSIS_ADDRESS + `/all_table/${dbIndex}`
-    }
+    dataAnalysisServer: "127.0.0.1:8000",
+    djangoServer: "127.0.0.1:8080",
 };

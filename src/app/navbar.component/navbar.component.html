@@ -1,36 +1,37 @@
 <nav class="navbar navbar-default bg-inverse1 navbar-fixed-top">
     <!--<div class="navbar-brand btn-group">-->
 
-        <!--<a style="padding-left: 0px;" class="nav-link btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
-           <!--aria-expanded="false">-->
-            <!--☰-->
-        <!--</a>-->
-        <!--<div class="dropdown-menu" id="dropdown-menu1">-->
-            <!--<a class="dropdown-item" href="#">新任务</a>-->
-            <!--&lt;!&ndash;<a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="dropdown-divider"></div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a class="dropdown-item" href="#">Separated link</a>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<a>{{navbarTitle}}</a>-->
+    <!--<a style="padding-left: 0px;" class="nav-link btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
+    <!--aria-expanded="false">-->
+    <!--☰-->
+    <!--</a>-->
+    <!--<div class="dropdown-menu" id="dropdown-menu1">-->
+    <!--<a class="dropdown-item" href="#">新任务</a>-->
+    <!--&lt;!&ndash;<a class="dropdown-item" href="#">Another action</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="dropdown-item" href="#">Something else here</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="dropdown-divider"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<a class="dropdown-item" href="#">Separated link</a>&ndash;&gt;-->
     <!--</div>-->
-    <a href="http://www.ict.ac.cn">
+    <!--<a>{{navbarTitle}}</a>-->
+    <!--</div>-->
+    <a href="/">
         <!--<img class="img1" src="app/navbar.component/4.jpg" width="100" height="60" style="position: absolute;left:0px;top:0px">-->
-        <img class="img1" src="app/navbar.component/logo1.jpg" width="220" height="50" style="position: absolute;left:0px;top:0px">
+        <img class="img1" src="app/navbar.component/logo1.jpg" width="220" height="50"
+             style="position: absolute;left:0px;top:0px">
     </a>
     <ul class="nav navbar-nav">
 
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/craft']">数据分析任务</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/craft-mapreduce']">测试范例</a>
+            <a class="nav-link" [routerLink]="['/craft']">数据分析</a>
         </li>
         <!--<li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">-->
-            <!--<a class="nav-link" [routerLink]="['/craft-storm']">Storm</a>-->
+            <!--<a class="nav-link" [routerLink]="['/craft-mapreduce']">测试范例</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">-->
+        <!--<a class="nav-link" [routerLink]="['/craft-storm']">Storm</a>-->
         <!--</li>-->
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/data-analysis']">数据分析</a>
+            <a class="nav-link" [routerLink]="['/data-analysis']">SQL分析</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
             <a class="nav-link" [routerLink]="['/etl']">数据抽取</a>
@@ -41,12 +42,12 @@
         <p><i class="fa fa-cog fa-2x" aria-hidden="true"></i></p>
     </div>
     <!--<div class="btn-group">-->
-        <!--<a style="color: #fff" class="nav-link btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
-           <!--aria-expanded="false">-->
-            <!--结果可视化-->
-        <!--</a>-->
-        <!--<div class="dropdown-menu">-->
-            <!--<a class="dropdown-item" *ngFor="let chart of chartsList" (click)="gotoChart(chart)">{{chart.name}}</a>-->
-        <!--</div>-->
+    <!--<a style="color: #fff" class="nav-link btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"-->
+    <!--aria-expanded="false">-->
+    <!--结果可视化-->
+    <!--</a>-->
+    <!--<div class="dropdown-menu">-->
+    <!--<a class="dropdown-item" *ngFor="let chart of chartsList" (click)="gotoChart(chart)">{{chart.name}}</a>-->
+    <!--</div>-->
     <!--</div>-->
 </nav>

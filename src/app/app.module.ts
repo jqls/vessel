@@ -31,6 +31,8 @@ import {GlobalService} from "./global.service";
 import { BarComponent } from './craft/data-show/bar/bar.component';
 import { PieComponent } from './craft/data-show/pie/pie.component';
 import { ETLComponent } from './etl/etl.component';
+import { ConnectionSelectComponent } from './data-analysis.unit/controllers/connection-select/connection-select.component';
+import { HistoryComponent } from './history.unit/history.component';
 
 // Imports for loading & configuring the in-memory web api
 // import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -67,6 +69,8 @@ import { ETLComponent } from './etl/etl.component';
         BarComponent,
         PieComponent,
         ETLComponent,
+        ConnectionSelectComponent,
+        HistoryComponent,
     ],
     providers: [
         appRoutingProvider,
