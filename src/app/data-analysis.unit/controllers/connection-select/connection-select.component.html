@@ -1,0 +1,11 @@
+<div class="list-group">
+    <a class="list-group-item list-group-item-action"
+       *ngFor="let connection of connections"
+       [class.active]="connection === selectedConnection"
+       (click)="!connected && selectConnection(connection)"
+       [class.disabled]="connected">{{connection.name}}</a>
+</div>
+<div id="button-wrapper">
+    <button class="btn btn-primary" (click)="connect()" [disabled]="connected">连接</button>
+    <button class="btn btn-warning" (click)="disconnect()" [disabled]="!connected">断开</button>
+</div>

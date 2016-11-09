@@ -1,0 +1,31 @@
+<h4 id="header">任务记录</h4>
+<table id="history-table" class="table table-striped table-hovered">
+    <thead>
+    <tr>
+        <td>任务名称</td>
+        <td>任务提交时间</td>
+        <td>任务完成时间</td>
+        <td>动作</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let mission of history">
+        <td>{{ mission.name }}</td>
+        <td>{{ mission.submit_time }}</td>
+        <td>{{ mission.end_time ? mission.end_time : "正在运行" }}</td>
+        <td>
+            <button class="btn btn-default">查看</button>
+        </td>
+    </tr>
+    <tr>
+        <td>测试任务1</td>
+        <td>2016 - 06 - 10</td>
+        <td>正在运行</td>
+        <td>
+            <button class="btn btn-outline-primary btn-sm">查看</button>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
