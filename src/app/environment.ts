@@ -2,10 +2,8 @@
 // Different environments can be found in config/environment.{dev|prod}.ts
 // The build system defaults to the dev environment
 
-const DATA_ANALYSIS_ADDRESS = "http://127.0.0.1:5000";
-
 export const environment = {
     production: false,
-    dataAnalysisServer: "127.0.0.1:8000",
-    djangoServer: "127.0.0.1:8080",
+    dataAnalysisServer: "10.5.0.224:5000",
+    djangoServer: "10.5.0.222:8080",
 };
