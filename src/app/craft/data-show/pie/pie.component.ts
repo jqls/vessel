@@ -7,9 +7,6 @@ import * as d3 from "d3";
   selector: 'app-pie',
   templateUrl: './pie.component.html',
   styleUrls: ['./pie.component.css'],
-  providers: [
-    DataService
-  ]
 })
 export class PieComponent implements OnInit {
   dataJSON:DataJSON[];
@@ -19,7 +16,7 @@ export class PieComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataService.getData().then((response: DataJSON[]) => {
+    this.dataService.requireData().then((response: DataJSON[]) => {
       this.dataJSON = response;
       this.pie()(this.dataJSON);
     }).catch(this.handleError);

@@ -7,9 +7,6 @@ import * as echarts from "echarts";
   selector: 'app-bar',
   templateUrl: './bar.component.html',
   styleUrls: ['./bar.component.css'],
-  providers: [
-    DataService
-  ]
 })
 export class BarComponent implements OnInit {
   dataJSON:DataJSON[];
@@ -18,7 +15,7 @@ export class BarComponent implements OnInit {
     this.myChart = echarts.init(document.getElementById('main') as HTMLDivElement);
   }
   ngOnInit() {
-    this.dataService.getData().then((response: DataJSON[]) => {
+    this.dataService.requireData().then((response: DataJSON[]) => {
       this.dataJSON = response;
       this.bar()(this.dataJSON);
     }).catch(this.handleError);
