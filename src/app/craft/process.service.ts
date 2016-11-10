@@ -7,12 +7,14 @@ import {
     DataSourceNodeTypeJSON
 } from "./drawboard.component/internal/drawboard.node-types";
 import {Http, Response} from "@angular/http";
+import {SubmitJson} from "./data-type";
 
 
 @Injectable()
 export class ProcessService {
     //todo: @qiuwenkai 配置定义放到environment文件中去
     private URL_Spark = "http://10.5.0.222:8080/sendinformation/";
+    private History_URL = "http://10.5.0.222:8080/redraw?";
     private URL_Storm = null;
     private URL_Mapreduce = null;
     private sparkData: Promise<Response>;
@@ -129,8 +131,20 @@ export class ProcessService {
         return null;
     }
 
+    getDataByTaskName(taskName: string):Promise<SubmitJson>{
+
+        console.log("taskName: "+ taskName);
+        return this.http.get(this.History_URL+"taskName="+ taskName).toPromise().then(
+            response => {
+                console.log("getDataByTaskName");
+                return response.json() as SubmitJson;
+            }
+        ).catch(this.handleError);
+
+    }
     private handleError(error: any) {
         console.error('An error occurred', error);
+        console.error('An error message', error.message);
         return Promise.reject(error.message || error);
     }
 

@@ -4,6 +4,6 @@
 
 export const environment = {
     production: false,
-    dataAnalysisServer: "10.5.0.224:5000",
-    djangoServer: "10.5.0.222:8080",
+    dataAnalysisServer: "http://10.5.0.224:5000",
+    djangoServer: "http://10.5.0.222:8080",
 };

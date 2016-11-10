@@ -10,7 +10,7 @@ export class HistoryService {
 
 
     getHistory(): Promise<Response> {
-        return this.http.get(`${environment.djangoServer}/getHistory/`).toPromise();
+        return this.http.get(`${environment.djangoServer}/get_history/`).toPromise();
     }
 
 }

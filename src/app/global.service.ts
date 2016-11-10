@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class GlobalService {
   private lastFlowID: number;
   private lastID: number;
+  private taskName: string;
   constructor() { }
   setLastFLowID(flowid: number){
     this.lastFlowID = flowid;
@@ -16,5 +17,11 @@ export class GlobalService {
   }
   getLastID(){
     return this.lastID;
+  }
+  setTaskName(name: string){
+    this.taskName = name;
+  }
+  getTaskName(){
+    return this.taskName;
   }
 }

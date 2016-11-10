@@ -2,7 +2,6 @@ import {Component} from "@angular/core";
 import {NavbarService} from "./navbar.service";
 
 @Component({
-    // moduleId: module.id,
     selector: 'app-root',
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.css'],

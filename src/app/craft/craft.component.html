@@ -12,7 +12,7 @@
     </div>
     <!--todo: 显示不正确-->
     <div [ngClass]="{'col-md-10': !ifNeedShowParameter(), 'col-md-6': ifNeedShowParameter()}">
-        <app-drawboard></app-drawboard>
+        <app-drawboard [isReload]="isReload"></app-drawboard>
     </div>
     <div class="col-md-3" [hidden]="!ifNeedShowParameter()">
         <!-- Nav tabs -->
@@ -21,7 +21,7 @@
                 <a class="nav-link active" href="#parameters" role="tab" data-toggle="tab">参数配置</a>
             </li>
             <li role="presentation" class="nav-item">
-                <a class="nav-link" href="#result" role="tab" data-toggle="tab">运行结果</a>
+                <a class="nav-link" href="#result" role="tab" data-toggle="tab">运行日志</a>
             </li>
         </ul>
         <!-- Tab panes -->

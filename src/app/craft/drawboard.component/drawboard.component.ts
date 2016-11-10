@@ -3,11 +3,16 @@ import {DrawboardStatusService} from "../drawboard-status.service";
 import {ParametersStatusService} from "../parameters-status.service";
 import {SubmitService} from "../submit.service";
 import {ProcessNode, DataSourceNode, WorkflowNode, StormNode} from "./internal/drawboard.node";
-import {DataSourceNodeType, ProcessNodeType, StormNodeType} from "./internal/drawboard.node-types";
+import {
+    DataSourceNodeType, ProcessNodeType, StormNodeType,
+    DataSourceNodeTypeJSON, ProcessNodeTypeJSON
+} from "./internal/drawboard.node-types";
 import {ResultService} from "../result.service";
 import * as d3 from "d3";
 import {GlobalService} from "../../global.service";
-
+import {ProcessService} from "../process.service";
+import {SubmitJson, DataSourceNodeTypeJSON2, ProcessNodeTypeJSON2} from "../data-type";
+import {Relation} from "./internal/drawboard.relation";
 
 
 @Component({
@@ -17,6 +22,7 @@ import {GlobalService} from "../../global.service";
     styleUrls: ['drawboard.component.css']
 })
 export class DrawboardComponent implements OnInit {
+    @Input() isReload: boolean;
     nodes: WorkflowNode[] = [];
     svg: any; //页面svg对象
     def: any;
@@ -195,7 +201,7 @@ export class DrawboardComponent implements OnInit {
 
 
     setParameter(node) {
-        console.log("drawboard Parameter"+node);
+        console.log("drawboard Parameter" + node);
         this.parametersStatus.setSelectedNode(node);
     }
 
@@ -207,7 +213,8 @@ export class DrawboardComponent implements OnInit {
                 private parametersStatus: ParametersStatusService,
                 private resultsService: ResultService,
                 private submitService: SubmitService,
-                private globalService: GlobalService) {
+                private globalService: GlobalService,
+                private processService: ProcessService) {
     }
 
     public update() {
@@ -224,8 +231,79 @@ export class DrawboardComponent implements OnInit {
         self.initState();
         self.initSVG();    //初始化svg渲染和箭头图标等
         self.bindEventHandler();
-    }
 
+        if (this.isReload) {
+            let taskName = this.drawBoardStatus.getTaskName();
+            this.processService.getDataByTaskName(taskName).then(
+                response => {
+                    let reRenderData:SubmitJson = response;
+                    this.reRender(reRenderData);
+                }
+            )
+        }
+    }
+    reRender(reRenderData: SubmitJson){
+        let self = this;
+        let position: {x: number; y: number}[] = [
+            {x: 245, y: 104},
+            {x: 476, y: 104},
+            {x: 225, y: 195},
+            {x: 467, y: 202},
+            {x: 491, y: 290},
+            {x: 300, y: 328},
+            {x: 312, y: 415},
+        ];
+        let count = 0;
+        console.log("ReRender");
+        let dataSourceNode: DataSourceNode[] = reRenderData.sources.map(
+            (dataSourceNodeType2):DataSourceNode => {
+                let flowID:number = +dataSourceNodeType2.flowID;
+                let dataSourceNodeTypeJSON: DataSourceNodeTypeJSON = {
+                    id: dataSourceNodeType2.id,
+                    label: dataSourceNodeType2.label,
+                    description: dataSourceNodeType2.description
+                }
+                let dataSourceNodeType: DataSourceNodeType = new DataSourceNodeType(dataSourceNodeTypeJSON);
+                let dataSourceNode: DataSourceNode = new DataSourceNode(dataSourceNodeType, flowID, self, position[count++]);
+                console.log(dataSourceNode);
+                return dataSourceNode;
+            }
+        );
+        let processNode: ProcessNode[] = reRenderData.processes.map(
+            (processNodeType2) =>{
+                let flowID:number = +processNodeType2.flowID;
+                let processNodeTypeJSON: ProcessNodeTypeJSON = {
+                    id: processNodeType2.id,
+                    label: processNodeType2.label,
+                    description: processNodeType2.description,
+                    parameters: processNodeType2.parameters
+                }
+                let processNodeType: ProcessNodeType = new ProcessNodeType(processNodeTypeJSON);
+                let processNode: ProcessNode = new ProcessNode(processNodeType, flowID, self, position[count++]);
+                console.log(processNode);
+                return processNode;
+            }
+        );
+
+        for(let dataSource of dataSourceNode){
+            self.nodes.push(dataSource);
+            dataSource.render();
+        }
+
+        for(let process of processNode){
+            self.nodes.push(process);
+            process.render();
+        }
+
+        let paths = reRenderData.paths;
+        for(let path of paths){
+            let [from, to] = path.split("->");
+            console.log("from: "+from + "\nto: "+to);
+            let relation = new Relation(self, this.nodes[from], this.nodes[to]);
+            this.nodes[from].relations.push(relation);
+            this.nodes[to].relations.push(relation);
+        }
+    }
     getSubmitHandler(): (()=>void) {
         let self = this;
         this.type = this.drawBoardStatus.getType();
@@ -237,7 +315,7 @@ export class DrawboardComponent implements OnInit {
                 self.submitService.submit4map(self.getWorkflowJSON());
             };
         return ()=> {
-            let len = this.nodes.length-1;
+            let len = this.nodes.length - 1;
             console.log(JSON.stringify(self.nodes[len]));
             self.globalService.setLastFLowID(+self.nodes[len].attributes.flowID);
             self.globalService.setLastID(+self.nodes[len].attributes.id);

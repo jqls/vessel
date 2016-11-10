@@ -1,4 +1,10 @@
 
+#img-logo{
+    position: fixed;
+    /*position: absolute;*/
+    left:0;
+    top:0;
+}
 .bg-inverse1 {
     background-color: #1976D2;
     /*background-image: url("app/navbar.component/logo2.jpg");*/

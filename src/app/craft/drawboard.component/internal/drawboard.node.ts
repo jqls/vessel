@@ -259,6 +259,7 @@ export class DataSourceNode extends DrawboardElement {
 
     render() {
         if (!this.rendered) {
+            console.log("start render");
             this.groupContainer.append("rect")
                 .attr("rx", ELEMENT_ROUND_X)
                 .attr("ry", ELEMENT_ROUND_Y)

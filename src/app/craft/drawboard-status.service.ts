@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {WorkflowNodeType, StormNodeType} from "./drawboard.component/internal/drawboard.node-types";
 import {StormNode} from "./drawboard.component/internal/drawboard.node";
+import {GlobalService} from "../global.service";
 
 @Injectable()
 export class DrawboardStatusService {
@@ -9,7 +10,7 @@ export class DrawboardStatusService {
   private submitHooks: (()=>void) [] = [];
   private mytype: number;
   private taskName: string;
-  constructor() {
+  constructor(private globalService: GlobalService) {
     this.subscribers = Array<(node: WorkflowNodeType)=>void>();
     this.selectedNodeType = null;
   }
@@ -49,6 +50,7 @@ export class DrawboardStatusService {
   }
   setTaskName(name:string){
     this.taskName = name;
+    this.globalService.setTaskName(name);
   }
   getTaskName(){
     return this.taskName;

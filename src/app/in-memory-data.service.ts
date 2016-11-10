@@ -1,4 +1,6 @@
-export class InMemoryDataService {
+import { InMemoryDbService } from 'angular2-in-memory-web-api';
+
+export class InMemoryDataService implements InMemoryDbService{
   createDb() {
     //     let results:ResultJSON[] = [
     //         {id: '11', flowID: 1, result: 'Mr. Nice'},
@@ -111,6 +113,106 @@ export class InMemoryDataService {
         }
       ]
     };
-    return {json};
+    let submitJson = {
+      "taskName": "1",
+      "sources": [
+        {
+          "id": "1",
+          "label": "KDDCUP1999_10",
+          "description": "",
+          "flowID": "0"
+        },
+        {
+          "id": "2",
+          "label": "KDDCUP1999",
+          "description": "",
+          "flowID": "1"
+        }
+      ],
+      "processes": [
+        {
+          "id": "1",
+          "label": "KDDCUPNormalization",
+          "description": "It is a preprocessing",
+          "flowID": "2",
+          "parameters": [
+            {
+              "controlType": "int",
+              "slug": "classNumber",
+              "val": "1",
+              "label": "classNumber"
+            }
+          ]
+        },
+        {
+          "id": "1",
+          "label": "KDDCUPNormalization",
+          "description": "It is a preprocessing",
+          "flowID": "3",
+          "parameters": [
+            {
+              "controlType": "int",
+              "slug": "classNumber",
+              "val": "1",
+              "label": "classNumber"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "label": "naiveBayes",
+          "description": "It is a classification algorithm",
+          "flowID": "4",
+          "parameters": [
+            {
+              "controlType": "float",
+              "slug": "lambda",
+              "val": "1.0",
+              "label": "lambda"
+            },
+            {
+              "options": [
+                "multinomial",
+                "bernoulli"
+              ],
+              "controlType": "select",
+              "slug": "NBType",
+              "val": "0",
+              "label": "NBType"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "label": "ModelEstimation",
+          "description": "It is a test module",
+          "flowID": "5",
+          "parameters": [
+            {
+              "controlType": "text",
+              "slug": "modelType",
+              "val": "naivebayes",
+              "label": "modelType"
+            }
+          ]
+        },
+        {
+          "id": "4",
+          "label": "Statistic",
+          "description": "It is a statistic module",
+          "flowID": "6",
+          "parameters": []
+        }
+      ],
+      "paths": [
+        "0->2",
+        "1->3",
+        "2->5",
+        "3->4",
+        "4->5",
+        "5->6"
+      ]
+    };
+    return {json, submitJson};
   }
 }
