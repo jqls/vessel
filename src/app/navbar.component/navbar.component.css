@@ -1,4 +1,3 @@
-
 .img1 {
     opacity: 1;
 }
@@ -38,11 +37,6 @@
 
 .navbar-nav li a:hover {
     background-color: #2087E1;
-}
-
-.btn-group {
-    position: absolute;
-    left: 700px;
 }
 
 #nav-menu.dropdown-toggle::after {

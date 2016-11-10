@@ -15,8 +15,6 @@ import {SelectComponent} from "ng2-select";
 import {AppComponent} from "./app.component";
 import {routing, appRoutingProvider} from "./app.routing";
 import {CraftComponent} from "./craft/craft.component";
-import { CraftStormComponent } from './craft/craft-storm.component';
-import {CraftMapreduceComponent} from "./craft/craft-mapreduce.component";
 import {NavbarComponent} from "./navbar.component/navbar.component";
 import {ToolboxComponent} from "./craft/toolbox.component/toolbox.component";
 import {ToolboxMapreduceComponent} from "./craft/toolbox.component/toolbox-mapreduce.component";
@@ -31,8 +29,6 @@ import {GlobalService} from "./global.service";
 import { BarComponent } from './craft/data-show/bar/bar.component';
 import { PieComponent } from './craft/data-show/pie/pie.component';
 import { ETLComponent } from './etl/etl.component';
-import { ConnectionSelectComponent } from './data-analysis.unit/controllers/connection-select/connection-select.component';
-import { HistoryComponent } from './history.unit/history.component';
 import { HistoryComponent } from './history.unit/history.component';
 
 // Imports for loading & configuring the in-memory web api
@@ -56,8 +52,6 @@ import { HistoryComponent } from './history.unit/history.component';
         AppComponent,
         NavbarComponent,
         CraftComponent,
-        CraftMapreduceComponent,
-        CraftStormComponent,
         DataAnalysisComponent,
         ToolboxComponent,
         DrawboardComponent,
@@ -70,7 +64,6 @@ import { HistoryComponent } from './history.unit/history.component';
         BarComponent,
         PieComponent,
         ETLComponent,
-        ConnectionSelectComponent,
         HistoryComponent,
         HistoryComponent,
     ],
