@@ -7,12 +7,12 @@
              (keyup.enter)="rename(newName.value)" (blur)="rename(newName.value)">
     </div>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <app-toolbox></app-toolbox>
   </div>
   <!--todo: 显示不正确-->
-  <div [ngClass]="{'col-md-10': !ifNeedShowParameter(), 'col-md-7': ifNeedShowParameter()}">
-    <app-drawboard [type]="mytype"></app-drawboard>
+  <div [ngClass]="{'col-md-10': !ifNeedShowParameter(), 'col-md-6': ifNeedShowParameter()}">
+    <app-drawboard></app-drawboard>
   </div>
   <div class="col-md-3" [hidden]="!ifNeedShowParameter()">
     <!-- Nav tabs -->

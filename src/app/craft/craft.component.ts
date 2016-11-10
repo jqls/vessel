@@ -18,7 +18,6 @@ import {ResultService} from "./result.service";
     styleUrls: ['craft.component.scss']
 })
 export class CraftComponent implements OnInit {
-    mytype: number;
     private editMode = false;
     private taskName:string;
     constructor(private privateNavbarService: NavbarService,
