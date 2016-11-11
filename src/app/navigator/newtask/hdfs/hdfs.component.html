@@ -1,0 +1,72 @@
+    	<div id="right" class="form-group">
+		<ul>
+			<li>HDFS URI: <br/>
+				<input class="form-control" type="text" id="hdfs_address" required
+				[(ngModel)]="hdfs_addr" name="hdfs_address" #hdfs_add="ngModel">
+				<button id="hdfs_button" (click)="connect_noSql(hdfs_addr.value)" [disabled]='!hdfs_add.valid' style="position:relative; left:10%;">
+						Connect</button>
+			</li>
+			<br/>	
+		</ul>
+
+		<HR align=center width="100%" SIZE=2>
+		
+		<ul>
+		
+			<li>Output Dir:<input class="form-control" type="text" required
+				[(ngModel)]="out_dir" [disabled]=false name="out_dir" style="position:relative; overflow-x:scroll;left:8%;">
+			<br/>
+			<br/>
+<div class="tree" style="width:85%; height:70px; border: 1px solid; overflow-y:scroll; background-color:white;">
+	<ul>
+	<li *ngFor="let level0 of hdfs_dir"  [ngClass]="{closed:!level0['closed']}">
+      <div >
+        <span class="glyphicon" (click)="level0['closed']=!level0['closed']" [ngClass]="level0['closed']?'glyphicon-plus':'glyphicon-minus'">{{level0['closed']?'+':'-'}}</span>       
+		<span (click)="out_dir=level0['name']">{{level0['name']}}</span>
+      </div>
+	  <ul [hidden]="level0['closed']">
+        <li *ngFor="let level1 of level0['content']" [ngClass]="{closed:!level1['closed']}">
+          <div >
+			<span class="glyphicon" (click)="level1['closed']=!level1['closed']">{{level1['closed']?'+':'-'}}</span>
+			<span (click)="out_dir=level0['name']+'/'+level1['name']">{{level1['name']}}</span>
+          </div>
+          <ul [hidden]= "level1['closed']">
+            <li *ngFor="let level2 of level1['content']" [ngClass]="{closed:!level2['closed']}">
+				<div >
+					<span class="glyphicon" (click)="level2['closed']=!level2['closed']">{{level2['closed']?'+':'-'}}</span>
+					<span (click)="out_dir=level0['name']+'/'+level1['name']+'/'+level2['name']">{{level2['name']}}</span>
+          		</div>			
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </li>
+	</ul>
+</div>	
+      		</li>
+
+			<br/>
+			<li>Output Format:<br/>
+        		<select class="form-control" required
+					[(ngModel)]="out_form" name="out_fromat">
+   	 				<option *ngFor="let format of out_formats" [value]="format">{{format}}</option>
+  				</select>
+      		</li>
+			<br/>
+			<li>Compression or Not: <br/>
+				<select class="form-control" id="to_compress"
+				[(ngModel)]="is_comp" name="to_compress" #to_comp="ngModel" >
+					<option *ngFor="let to_compress of to_compress" [value]="to_compress">{{to_compress}}</option>
+				</select>
+			</li>
+			<br/>
+			<li>Compression Type: <br/>
+				<select class="form-control" id="compression_type"
+				[(ngModel)]="comp_type" name="compression_type">
+					<option *ngFor="let com_type of compression_type" [value]="com_type" >{{com_type}}</option>
+				</select>
+			</li>
+
+		</ul>
+	</div>
