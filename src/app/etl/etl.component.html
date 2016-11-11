@@ -1,3 +1,11 @@
-<p>
-  etl works!
-</p>
+<div id="all">
+
+  <div id="nav">
+    <div id="nav-pad-top"></div>
+    <div class="nav-option"><a [routerLink]="['input-form']" routerLinkActive="active">新建任务</a></div>
+    <div class="nav-option"><a [routerLink]="['tasklist']" routerLinkActive="active">任务列表</a></div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+</div>

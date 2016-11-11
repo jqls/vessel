@@ -11,7 +11,7 @@ import {NavbarService} from "./navbar.service";
 })
 export class AppComponent {
 
-    title = "Vessel";
+    title = "中科院计算所大数据管理平台";
 
     constructor() {
     }

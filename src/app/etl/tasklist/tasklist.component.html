@@ -1,0 +1,27 @@
+<div id="content">
+<div id="task_list" class="task_div">
+    <div id="task_title">
+        任务列表
+    </div>
+    <div class="hint" *ngIf="!task_list">
+        当前没有任务
+    </div>
+    <div *ngIf="task_list">
+    <div class="task" *ngFor="let task of task_list" (click)="getCurTask(task)">
+        {{task['task_name']}}
+    </div>
+    </div>
+</div>
+
+<div id="task_info" class="task_div">
+    <div id="info_title">
+        {{cur_task?'任务信息: '+cur_task['task_name']:'任务信息'}}
+    </div>
+    <div class="hint" *ngIf="!cur_task">
+        选择一个任务查看任务信息
+    </div>
+    <div id="info" *ngIf="cur_task">
+        {{cur_task['status']}}
+    </div>
+</div>
+</div>

@@ -22,7 +22,8 @@ export class ResultComponent implements OnInit {
     resultService.bookService((node: WorkflowNode): void=> {
       this.open = (node != null);
       this.openedNode = node;
-      this.getResult(1, this.openedNode.attributes);
+      // this.getResult(1, this.openedNode.attributes);
+      this.request();
     });
 
   }

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './etl.component.html',
   styleUrls: ['./etl.component.sass']
 })
-export class ETLComponent implements OnInit {
+export class EtlComponent implements OnInit {
 
   constructor() { }
 

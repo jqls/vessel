@@ -10,10 +10,8 @@ import {HttpModule, JsonpModule, Response} from "@angular/http";
 import {MdButtonModule} from "@angular2-material/button";
 import {MdCardModule} from "@angular2-material/card";
 
-import {SelectComponent} from "ng2-select";
-
 import {AppComponent} from "./app.component";
-import {routing, appRoutingProvider} from "./app.routing";
+import { AppRoutingModule} from "./app.routing.module";
 import {CraftComponent} from "./craft/craft.component";
 import {NavbarComponent} from "./navbar.component/navbar.component";
 import {ToolboxComponent} from "./craft/toolbox.component/toolbox.component";
@@ -28,10 +26,10 @@ import { DataShowComponent } from './craft/data-show/data-show.component';
 import {GlobalService} from "./global.service";
 import { BarComponent } from './craft/data-show/bar/bar.component';
 import { PieComponent } from './craft/data-show/pie/pie.component';
-import { ETLComponent } from './etl/etl.component';
 import { HistoryComponent } from './history.unit/history.component';
 import {TaskShowComponent} from "./craft/data-show/task-show.component";
 import {AlgoriithmComponent} from "./algorithm-up/algorithm-up.component";
+import {ETLModule} from "./etl/etl.module";
 
 // Imports for loading & configuring the in-memory web api
 // import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -44,9 +42,11 @@ import {AlgoriithmComponent} from "./algorithm-up/algorithm-up.component";
         FormsModule,
         HttpModule,
         JsonpModule,
-        routing,
         MdButtonModule,
         MdCardModule,
+        ETLModule,
+        AppRoutingModule,
+
         // InMemoryWebApiModule.forRoot(InMemoryDataService)
     ],
     declarations: [
@@ -64,14 +64,12 @@ import {AlgoriithmComponent} from "./algorithm-up/algorithm-up.component";
         DataShowComponent,
         BarComponent,
         PieComponent,
-        ETLComponent,
         HistoryComponent,
         TaskShowComponent,
         AlgoriithmComponent,
 
     ],
     providers: [
-        appRoutingProvider,
         GlobalService
     ],
     bootstrap: [AppComponent]

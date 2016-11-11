@@ -1,9 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ParametersStatusService} from "../parameters-status.service";
 import {FormGroup} from "@angular/forms";
-import {DrawboardElement} from "../drawboard.component/internal/drawboard.element";
-import {DataSourceNode, ProcessNode, WorkflowNode} from "../drawboard.component/internal/drawboard.node";
-import {ProcessNodeTypeJSON, ProcessNodeType} from "../drawboard.component/internal/drawboard.node-types";
 import {RelationAttribute} from "./relation-attribute";
 import {Relation} from "../drawboard.component/internal/drawboard.relation";
 

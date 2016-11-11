@@ -1,0 +1,325 @@
+#content {
+  padding-left: 50px;
+  width: 85%;
+  height: 800px;
+  float: left;
+  border-left:2px solid;
+}
+
+#top{width:100%; height:10%; margin:0px auto;}
+
+#input{
+  width: 100%;
+  height: 65%;
+  margin-bottom: 10px;
+  border-bottom: 1px solid;
+}
+
+#left{
+  margin: 0;
+  width:40%;
+  height:90%;
+  border:0px solid;
+  float:left;
+}
+
+#middle{
+  width:15%;
+  height:30%;
+  margin-top: 20%;
+  border: 0px solid;
+  float: left;
+  font-size:60px;
+  text-align:center;
+}
+
+#right{
+  width:40%;
+  height:90%;
+  border:0px solid;
+  float:left;
+}
+
+#left_title{
+  width: 90%;
+  margin: 3% 5%;
+  border-bottom: 2px solid;
+  text-align: center;
+}
+
+#right_title{
+  width: 90%;
+  margin: 3% 5%;
+  border-bottom: 2px solid;
+  text-align: center;
+}
+
+#db_login{
+  margin: 5% 7.5%;
+  width: 85%;
+  height: 45%;
+  border-bottom: 1px solid;
+  position: relative;
+}
+#db_login .input_list{
+  margin: 3px 0;
+  width: 100%;
+  height: 25%;
+  border: 0px solid red;
+}
+#db_login .input_list .input_list_left{
+  width: 25%;
+  height: 100%;
+  float: left;
+  border: 0px solid blue;
+}
+
+#db_login .input_list .input_list_left span{
+  margin: 16% 0;
+  font: 18px;
+  float: right;
+}
+
+#db_login .input_list .input_list_right{
+  margin-left: 2%;
+  border: 0px solid blue;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+
+#db_login .input_list .input_list_right input{
+  margin-top: 5%;
+  size: 30;
+  height: 40%;
+}
+
+#db_button{
+  margin:0 40% 5px;
+  float: bottom;
+  padding: 0 6px;
+  font:16px black;
+}
+
+#table{
+  margin: 0 7.5%;
+  width: 85%;
+  height: 30%;
+  border: 0px solid;
+}
+
+#table_list_container{
+  margin: 10px 0;
+  width:100%;
+  border: 0px solid;
+  height: 30%;
+}
+
+#table_list_left {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+#table_list_left span{
+  margin: 8% 0;
+  font: 18px;
+  float: right;
+}
+#table_list_right{
+  margin-left: 2%;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+#table_list_right select{
+  height: 90%;
+  width: 90%;
+}
+
+#column_list_container{
+  width:100%;
+  height:40%;
+  border: 0px solid;
+}
+
+#column_list_left {
+  width: 25%;
+  height: 100%;
+  float: left;
+}
+#column_list_left span{
+  margin: 6% 0;
+  font: 18px;
+  float: right;
+}
+#column_list_right {
+  margin-left: 2%;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+
+#right_nav {
+  margin: 10px 7.5%;
+  width: 85%;
+  height: 7%;
+  border-bottom: 1px solid;
+}
+
+#right_nav .nav{
+  padding: 5px 10px;
+  font: 20px;
+  background-color: gainsboro;
+}
+
+#right_nav .nav:hover{
+  background-color: silver;
+  font: 16px;
+}
+
+#right_content{
+  width: 85%;
+  height: 80%;
+  margin: 0 7.5%;
+  border: 0px solid;
+}
+#hdfs{
+  width: 100%;
+  height: 100%;
+
+}
+#hbase{
+  width: 100%;
+  height: 100%;
+
+}
+#right_content #out_dir{
+  margin: 0;
+  width: 100%;
+  height: 12%;
+  border: 0px solid red;
+}
+#right_content #out_dir #out_dir_left{
+  width: 25%;
+  height: 100%;
+  float: left;
+  border: 0px solid blue;
+}
+#right_content #out_dir #out_dir_left span{
+  margin: 16% 0;
+  font: 18px;
+  float: right;
+}
+#right_content #out_dir #out_dir_right{
+  margin-left: 2%;
+  border: 0px solid blue;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+#right_content #out_dir #out_dir_right input{
+  margin-top: 3%;
+  size: 30;
+  height: 40%;
+  overflow-x:scroll;
+}
+
+#tree {
+  margin-left: 5%;
+  margin-bottom: 3%;
+  width:90%;
+  height:40%;
+  border: 1px solid;
+  overflow-y:scroll;
+  background-color:white;
+}
+
+.select_container{
+  margin: 0;
+  width: 100%;
+  height: 12%;
+  border: 0px solid red;
+}
+
+.select_container .select_left {
+  width: 25%;
+  height: 100%;
+  float: left;
+  border: 0px solid blue;
+}
+
+.select_container .select_left span{
+  margin: 16% 0;
+  font: 18px;
+  float: right;
+}
+.select_container .select_right {
+  margin-left: 2%;
+  border: 0px solid blue;
+  width: 70%;
+  height: 100%;
+  float: left;
+}
+.select_container .select_right select {
+  margin-top: 4%;
+}
+
+#submit_container{
+  margin-left: 20%;
+  border-top: 1px solid silver;
+  width:60%;
+  height: 10%;
+  float: left;
+}
+
+#submit{
+  margin-top: 10px;
+  margin-left: 40%;
+  padding: 0 6px;
+  font:16px black;
+}
+
+#log_container{
+  margin-top: 2%;
+  margin-left: 5%;
+  width: 90%;
+  height: 30%;
+}
+
+#log_title{
+  margin-top:15px;
+  width: 100%;
+  height: 10%;
+  border:0px solid;
+}
+
+#log_title span{
+  font-size: 18px;
+}
+
+#log{
+  margin:0 auto;
+  width: 100%;
+  height:80%;
+  border:1px solid;
+  overflow-y: scroll;
+}
+
+#log:hover{
+  background-color: #D1EEEE;
+}
+
+.alert-danger {
+  background-color: #eee;
+  color: #ff0000;
+  background-color: transparent;
+  text-align:center;
+  font-size: 15px;
+  width:20px;
+}
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+.alert-danger .alert-link {
+  color: #3e1919;
+}
