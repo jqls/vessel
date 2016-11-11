@@ -8,6 +8,7 @@ import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.componen
 import {DataShowComponent} from "./craft/data-show/data-show.component";
 import {ETLComponent} from "./etl/etl.component";
 import {HistoryComponent} from "./history.unit/history.component";
+import {AlgoriithmComponent} from "./algorithm-up/algorithm-up.component";
 
 const appRoutes: Routes = [
     {
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     {path: 'result-show', component: DataShowComponent},
     {path: 'etl', component: ETLComponent},
     {path: 'history', component: HistoryComponent},
+    {path: 'algo-up',component:AlgoriithmComponent}
 ];
 
 

@@ -21,14 +21,19 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="algorithms">
         <div class="list-group">
-            <a class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
-               [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
-                <h5 class="list-group-item-heading">{{ processType.label }}
-                    <span style="margin-right: 5px;" class="label label-info pull-right"
-                          *ngFor="let tag of processType.tags">{{tag}}</span>
-                </h5>
-                <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
-            </a>
+            <li>
+                <span id="top1" [hidden]='isHidden()'>聚类算法</span>
+                <ul class="second1">
+                    <li class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
+                        [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
+                        <h6 class="list-group-item-heading">{{ processType.label }}
+                            <span style="margin-right: 5px;" class="label label-info pull-right"
+                                  *ngFor="let tag of processType.tags">{{tag}}</span>
+                        </h6>
+                        <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
+                    </li>
+                </ul>
+            </li>
         </div>
     </div>
 </div>
@@ -37,7 +42,6 @@
 <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
 <!--数据源-->
 <!--</h4>-->
-
 
 <!--<h4>-->
 <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->

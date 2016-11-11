@@ -1,15 +1,28 @@
+
 <div id="data-show">
-    <h2>选择图的类型</h2>
+    <div class="col-md-3" >
+        <div id="task" >
+            <app-task></app-task>
+        </div>
+        <br>
+        <br>
+        <br>
+
+    <h5>选择图的类型:</h5>
+    <br>
     <div>
         <button class="btn" (click)="setType(1)">Bar</button>
         <button class="btn" (click)="setType(2)">Pie</button>
     </div>
+    </div>
 
     <div class="col-md-8" [ngSwitch]="type">
-        <div id="main" style="height:600px;width: 1000px; margin-left: 0px;float: left;">
+        <div id="main" style="height:600px;width: 1000px; margin-left: 20px;float: left;">
             <app-bar *ngSwitchCase="1"></app-bar>
             <app-pie *ngSwitchCase="2"></app-pie>
         </div>
-
     </div>
+
+
+
 </div>

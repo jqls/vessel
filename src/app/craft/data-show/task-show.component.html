@@ -1,0 +1,7 @@
+<div>
+  <h5>任务文件列表:</h5>
+  <select (change)="selectAttribute($event)">
+    <option value="" selected="selected"></option>
+    <option *ngFor="let taskdata of dataJSON" >{{taskdata.id}}-{{taskdata.label}}</option
+    ></select>
+</div>
