@@ -6,14 +6,14 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 
 ## >> tl'nr
-
-What you need to do is JUST
+怎样运行？ ->
 ```shell
-npm uninstall -g angular-cli
-npm cache clean
-npm install -g angular-cli@latest
+// 在vessel目录下
+// 安装所需依赖
+npm install -g angular-cli@latest typings
+npm install
+ng serve
 ```
-.then(start_coding());
 
 ## >>[Check the migration process](https://github.com/angular/angular-cli/wiki/Upgrading-from-Beta.10-to-Beta.14)
 
