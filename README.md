@@ -8,6 +8,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 ## >> tl'nr
 怎样运行？ ->
 ```shell
+// 需要安装nodejs
 // 在vessel目录下
 // 安装所需依赖
 npm install -g angular-cli@latest typings
