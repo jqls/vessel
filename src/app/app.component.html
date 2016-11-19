@@ -1,6 +1,18 @@
-<app-navbar></app-navbar>
 
 <div class="container-fluid">
-  <router-outlet></router-outlet>
+  <div class="row">
+    <div class="nav">
+
+    </div>
+  </div>
+ <div class="row">
+   <div class="col-md-1 sidebar">
+     <app-navbar></app-navbar>
+   </div>
+
+   <div class="offset-md-1 col-md-11">
+     <router-outlet></router-outlet>
+   </div>
+ </div>
 </div>
 
