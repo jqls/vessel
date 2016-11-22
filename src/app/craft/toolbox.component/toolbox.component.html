@@ -11,9 +11,8 @@
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="dataSources">
         <div class="list-group">
-            <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
-               [class.active]="selectedNodeType===dataSourceType"
-               (click)="itemClicked(dataSourceType)">
+            <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes" [class.active]="selectedNodeType===dataSourceType"
+                (click)="itemClicked(dataSourceType)">
                 <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
                 <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
             </a>
@@ -21,16 +20,15 @@
     </div>
     <div role="tabpanel" class="tab-pane" id="algorithms">
         <div class="list-group">
-            <li>
-                <span id="top1" [hidden]='isHidden()'>聚类算法</span>
+            <li id="tree" >
+                <div id="zhaoli" class="triangle-expanded icon-expand"></div>
+                <span id="top1" [hidden]='isHidden()' class="title expanded ">聚类算法</span>
                 <ul class="second1">
-                    <li class="list-group-item" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
-                        [class.active]="selectedNodeType===processType" (dblclick)="itemDbClicked(processType)">
+                    <li class="list-group-item xe-paletteItemText" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)" [class.active]="selectedNodeType===processType"
+                        (dblclick)="itemDbClicked(processType)" data-toggle="tooltip" title={{processType.description}}>
                         <h6 class="list-group-item-heading">{{ processType.label }}
-                            <span style="margin-right: 5px;" class="label label-info pull-right"
-                                  *ngFor="let tag of processType.tags">{{tag}}</span>
+                            <span style="margin-right: 5px;" class="label label-info pull-right" *ngFor="let tag of processType.tags">{{tag}}</span>
                         </h6>
-                        <p class="list-group-item-text">{{ processType.description||"这是一种算法" }}</p>
                     </li>
                 </ul>
             </li>
@@ -47,5 +45,3 @@
 <!--<span><button class="btn btn-default btn-sm"><i class="glyphicon glyphicon-refresh"></i></button></span>-->
 <!--算法列表-->
 <!--</h4>-->
-
-

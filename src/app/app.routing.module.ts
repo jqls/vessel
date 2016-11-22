@@ -7,7 +7,7 @@ import {CraftComponent} from "./craft/craft.component";
 import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
 import {DataShowComponent} from "./craft/data-show/data-show.component";
 import {HistoryComponent} from "./history.unit/history.component";
-import {AlgoriithmComponent} from "./algorithm-up/algorithm-up.component";
+import {AlgorithmComponent} from "./algorithm-up/algorithm-up.component";
 import {NgModule} from "@angular/core";
 
 @NgModule({
@@ -22,7 +22,7 @@ import {NgModule} from "@angular/core";
             {path: 'data-analysis', component: DataAnalysisComponent},
             {path: 'result-show', component: DataShowComponent},
             {path: 'history', component: HistoryComponent},
-            {path: 'algo-up',component:AlgoriithmComponent}
+            {path: 'algo-up',component:AlgorithmComponent}
         ]),
     ],
     exports: [
