@@ -11,14 +11,30 @@
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="dataSources">
         <div class="list-group">
-            <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
-               [class.active]="selectedNodeType===dataSourceType"
-               (click)="itemClicked(dataSourceType)">
-                <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
-                <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
-            </a>
+            <ul class="mainmenu">
+                <li> <span  id="top2" [hidden]='isHidden2()'>MySQL数据源</span> </li>
+                <ul class="submenu" >
+                    <li class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
+                        [class.active]="selectedNodeType===dataSourceType"
+                        (click)="itemClicked(dataSourceType)">
+                        <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
+                        <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
+                    </li>
+                </ul>
+
+                <li> <span  id="top3" [hidden]='isHidden3()'>NoSQL数据源</span> </li>
+                <ul class="submenu1" >
+                    <li class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
+                        [class.active]="selectedNodeType===dataSourceType"
+                        (click)="itemClicked(dataSourceType)">
+                        <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
+                        <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
+                    </li>
+                </ul>
+            </ul>
         </div>
     </div>
+
     <div role="tabpanel" class="tab-pane" id="algorithms">
         <div class="list-group">
             <li>
