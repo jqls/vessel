@@ -49,13 +49,26 @@ export class ProcessNode extends DrawboardElement {
                 .attr("height", ELEMENT_HEIGHT)
                 .attr("width", ELEMENT_WIDTH)
                 .classed("process", true);
-            this.groupContainer
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ELEMENT_HEIGHT / 2)
-                .attr("dx", ELEMENT_WIDTH / 2)
-                .append("tspan")
-                .html(this.attributes.label);
+            if(ELEMENT_WIDTH/this.attributes.label.length>15){
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",15)
+                    .html(this.attributes.label);
+            }else{
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",ELEMENT_WIDTH/this.attributes.label.length)
+                    .html(this.attributes.label);
+
+            }
         }
         this.rendered = true;
     }
@@ -157,13 +170,26 @@ export class StormNode extends DrawboardElement {
                 .attr("height", ELEMENT_HEIGHT)
                 .attr("width", ELEMENT_WIDTH)
                 .classed("process", true);
-            this.groupContainer
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ELEMENT_HEIGHT / 2)
-                .attr("dx", ELEMENT_WIDTH / 2)
-                .append("tspan")
-                .html(this.attributes.label);
+            if(ELEMENT_WIDTH/this.attributes.label.length>15){
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",15)
+                    .html(this.attributes.label);
+            }else{
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",ELEMENT_WIDTH/this.attributes.label.length)
+                    .html(this.attributes.label);
+
+            }
         }
         this.rendered = true;
     }
@@ -266,13 +292,26 @@ export class DataSourceNode extends DrawboardElement {
                 .attr("height", ELEMENT_HEIGHT)
                 .attr("width", ELEMENT_WIDTH)
                 .classed("data-source", true);
-            this.groupContainer
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ELEMENT_HEIGHT / 2)
-                .attr("dx", ELEMENT_WIDTH / 2)
-                .append("tspan")
-                .html(this.attributes.label);
+            if(ELEMENT_WIDTH/this.attributes.label.length>15){
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",15)
+                    .html(this.attributes.label);
+            }else{
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",ELEMENT_WIDTH/this.attributes.label.length)
+                    .html(this.attributes.label);
+
+            }
         }
         this.rendered = true;
     }

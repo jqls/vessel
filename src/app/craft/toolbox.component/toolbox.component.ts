@@ -64,6 +64,29 @@ export class ToolboxComponent implements OnInit {
     });
   }
 
+  isHidden2() {
+    $("#top2").click(function () {
+      var children = $(".submenu");
+      if (children.is(":visible")) {
+        children.hide();
+      } else {
+        children.show()
+      }
+
+    });
+  }
+
+  isHidden3() {
+    $("#top3").click(function () {
+      var children = $(".submenu1");
+      if (children.is(":visible")) {
+        children.hide();
+      } else {
+        children.show()
+      }
+
+    });
+  }
   ngOnInit() {
 
     // console.log("toobox");
