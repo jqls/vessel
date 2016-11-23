@@ -1,116 +1,57 @@
-ul {
-    list-style: none;
-    width: 276px;
+.triangle-expanded:before{
+    content: url(https://studio.azureml.net/Libraries/Images/sprite-triangle-expanded.png);
+    position: relative;
+    top:-30px;
+    background-repeat:no-repeat;
+}
+.icon-expand {
+    overflow-y: hidden;/*在y轴进行剪裁 */
+    float: left;
+    height: 10px;
+    width: 10px;
+    min-width: 10px;
+    margin: 6px 5px 3px 0;
+}
+.triangle-collapsed:before{
+    content: url(https://studio.azureml.net/Libraries/Images/sprite-triangle-collapsed.png);
+    position: relative;
+    top:-30px;
+    background-repeat:no-repeat;
+}
+.title{
+    margin-left: 0px;
+}
+.xe-palette{
+    overflow:hidden;/*是否有滚动条*/
+    cursor:pointer;/*显示鼠标类型*/
+    padding-left:10px;
+    padding-right:10px;
 }
 
-li {
-    cursor: pointer;
+#tree{
+    list-style-type:none;
 }
-/*------------ Main Menu ------------*/
-.mainmenu {
-    /* margin: 90px auto;*/
-    font-size: 20px;
-    position:relative;
-    padding:0;
+.expanded{
+    font-family:"Segoe UI";
+    font-weight:600;
+    color:#1a6082
 }
-
-.mainmenu > li {
-    background-color: #8080ff;
-    border-top: 1px solid #8080ff;
-    height: 48px;
-    color: #f7f1e3;
-    box-sizing: border-box;
-    position:relative;
-    padding:0 0 0 40px;
-}
-
-.mainmenu > li:first-child {
-    border-radius: 7px 7px 0 0;
-    border-top: 0;
-}
-
-.mainmenu > li:last-child {
-    border-radius: 0 0 7px 7px;
-}
-
-.mainmenu > li span {
-    display:block;
-    line-height: 48px;
-}
-
-
-/*------------ Sub Menu ------------*/
-.submenu {
-    box-sizing: border-box;
-    color: darkslategray;
-    font-size: 13px;
-
-    content: " ";
-    /*opacity: 0.5;*/
-}
-
-.submenu li {
-    line-height: 20px;
-    height: 60px;
-    padding-top: 11px;
-    margin-left: -40px;
-    background-color: lightblue;
-    border-left: solid 6px lightblue;
-    transition: border-left 220ms ease-in;
-}
-
-.submenu .chosen,
-.submenu .chosen:hover {
-    border-left: solid 6px #96d145;
-}
-
-.submenu li:hover {
-    border-left: solid 6px deepskyblue;
-}
-
-.submenu li span {
-    margin-left:30px;
-}
-
-.animate {
-    animation: flip 2000ms ease-in-out alternate;
-}
-
-@keyframes flip {
-    to {
-        transform: rotateY(360deg);
-    }
-}
-
-
-.submenu1 {
-    box-sizing: border-box;
-    color: darkslategray;
-    font-size: 13px;
-
-    content: " ";
-    /*opacity: 0.5;*/
-}
-
-.submenu1 li {
-    line-height: 20px;
-    height: 60px;
-    padding-top: 11px;
-    margin-left: -40px;
-    background-color: lightblue;
-    border-left: solid 6px lightblue;
-    transition: border-left 220ms ease-in;
-}
-
-.submenu1 .chosen,
-.submenu1 .chosen:hover {
-    border-left: solid 6px #96d145;
-}
-
-.submenu1 li:hover {
-    border-left: solid 6px deepskyblue;
-}
-
-.submenu1 li span {
-    margin-left:30px;
+.xe-paletteItemText{
+    font-family:"Segoe UI";
+    font-size:14px;
+    color:#333;
+    overflow:hidden;
+    -ms-text-overflow:ellipsis;-
+    o-text-overflow:ellipsis;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color:#000;
+    margin:1px;
+    fill-opacity:.5;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;
+    cursor:pointer;
+    margin:0 1px 2px 0
 }

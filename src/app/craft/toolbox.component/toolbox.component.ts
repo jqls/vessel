@@ -52,13 +52,18 @@ export class ToolboxComponent implements OnInit {
 
   }
 
-  isHidden() {
+  isHidden() {//下拉列表的收起和隐藏
+    var divid = document.getElementById("zhaoli");
     $("#top1").click(function () {
       var children = $(".second1");
+
       if (children.is(":visible")) {
         children.hide();
+        divid.className="triangle-collapsed icon-expand";
       } else {
         children.show()
+
+        divid.className="triangle-expanded icon-expand";
       }
 
     });

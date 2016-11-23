@@ -23,9 +23,9 @@ export class TaskShowComponent implements OnInit {
   selectAttribute(event:any){
     this.attributeName=event.target.value;
     let [first,last] = this.attributeName.split('-');
-    console.log(this.attributeName);
-    console.log(first);
-    console.log(last);
+    // console.log(this.attributeName);
+    // console.log(first);
+    // console.log(last);
     //  return this.attributeName as DataJSON[];
     this.dataService.setData(first,last);
   }
