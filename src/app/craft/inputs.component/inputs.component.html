@@ -9,6 +9,10 @@
            [id]="parameter.label">
     <input class="form-control input-sm" *ngSwitchCase="'int'" [formControlName]="parameter.label"
            [id]="parameter.label">
+    <input class="form-control input-sm" *ngSwitchCase="'string'" [formControlName]="parameter.label"
+           [id]="parameter.label">
+    <input class="form-control input-sm" *ngSwitchCase="'test'" [formControlName]="parameter.label"
+           [id]="parameter.label">
     <select class="form-control input-sm" [id]="parameter.label" *ngSwitchCase="'select'"
             [formControlName]="parameter.label">
       <option *ngFor="let opt of parameter.options; let i = index" [value]="i">{{opt}}</option>

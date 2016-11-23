@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Validators, FormGroup, FormControl} from "@angular/forms";
 import {WorkflowNode} from "./drawboard.component/internal/drawboard.node";
 import {ProcessNodeType} from "./drawboard.component/internal/drawboard.node-types";
-
+import {DataSourceNodeType} from "./drawboard.component/internal/drawboard.node-types";
 @Injectable()
 export class ParametersStatusService {
 
