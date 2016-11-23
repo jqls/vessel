@@ -11,7 +11,7 @@ import {ResultService} from "../result.service";
 import * as d3 from "d3";
 import {GlobalService} from "../../global.service";
 import {ProcessService} from "../process.service";
-import {SubmitJson, DataSourceNodeTypeJSON2, ProcessNodeTypeJSON2} from "../data-type";
+import {SubmitJson} from "../data-type";
 import {Relation} from "./internal/drawboard.relation";
 
 
@@ -167,7 +167,7 @@ export class DrawboardComponent implements OnInit {
                 console.log("end render");
             } else {
                 // console.log("set null");
-                // self.setParameter(null);
+                self.setParameter(null);
                 // self.setResult(null);
             }
 
@@ -179,6 +179,12 @@ export class DrawboardComponent implements OnInit {
                 self.container.attr(
                     "transform",
                     "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(" + (<d3.ZoomEvent> d3.event).scale + ")");
+                if ((<d3.ZoomEvent> d3.event).scale<1){
+                    self.container.attr(
+                        "transform",
+                        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1)");
+                }
+
                 return true;
             })
             .on("zoomstart", function () {
@@ -234,6 +240,7 @@ export class DrawboardComponent implements OnInit {
 
         if (this.isReload) {
             let taskName = this.drawBoardStatus.getTaskName();
+            //noinspection TypeScriptUnresolvedFunction
             this.processService.getDataByTaskName(taskName).then(
                 response => {
                     let reRenderData:SubmitJson = response;
@@ -256,12 +263,13 @@ export class DrawboardComponent implements OnInit {
         let count = 0;
         console.log("ReRender");
         let dataSourceNode: DataSourceNode[] = reRenderData.sources.map(
-            (dataSourceNodeType2):DataSourceNode => {
+            (dataSourceNodeType2) => {
                 let flowID:number = +dataSourceNodeType2.flowID;
                 let dataSourceNodeTypeJSON: DataSourceNodeTypeJSON = {
                     id: dataSourceNodeType2.id,
                     label: dataSourceNodeType2.label,
-                    description: dataSourceNodeType2.description
+                    description: dataSourceNodeType2.description,
+                    parameters:dataSourceNodeType2.parameters
                 }
                 let dataSourceNodeType: DataSourceNodeType = new DataSourceNodeType(dataSourceNodeTypeJSON);
                 let dataSourceNode: DataSourceNode = new DataSourceNode(dataSourceNodeType, flowID, self, position[count++]);

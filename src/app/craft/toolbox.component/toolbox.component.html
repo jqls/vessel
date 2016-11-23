@@ -1,7 +1,7 @@
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" href="#dataSources" role="tab" data-toggle="tab">数据源</a>
+        <a class="nav-link active" href="#dataSources" role="tab" data-toggle="tab"  >数据源</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#algorithms" role="tab" data-toggle="tab">算法列表</a>
@@ -11,8 +11,6 @@
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="dataSources">
         <div class="list-group">
-            <ul class="mainmenu">
-                <li> <span  id="top2" [hidden]='isHidden2()'>MySQL数据源</span> </li>
                 <ul class="submenu" >
                     <li class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
                         [class.active]="selectedNodeType===dataSourceType"
@@ -21,17 +19,6 @@
                         <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
                     </li>
                 </ul>
-
-                <li> <span  id="top3" [hidden]='isHidden3()'>NoSQL数据源</span> </li>
-                <ul class="submenu1" >
-                    <li class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes"
-                        [class.active]="selectedNodeType===dataSourceType"
-                        (click)="itemClicked(dataSourceType)">
-                        <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
-                        <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
-                    </li>
-                </ul>
-            </ul>
         </div>
     </div>
 
