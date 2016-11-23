@@ -263,13 +263,13 @@ export class StormNode extends DrawboardElement {
 
 export class DataSourceNode extends DrawboardElement {
 
-    // parameters: ParameterJSON[];
+     parameters: ParameterJSON[];
     constructor(nodeType: DataSourceNodeType,
                 flowID: number,
                 board: DrawboardComponent,
                 position: {x: number, y: number}) {
         super(board, position, flowID, nodeType);
-        // this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
+        this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
         this.bindEventHandler();
     }
 
@@ -279,7 +279,7 @@ export class DataSourceNode extends DrawboardElement {
             label: this.attributes.label,
             description: this.attributes.description,
             flowID: "" + this.attributes.flowID,
-            // parameters: this.parameters
+            parameters: this.parameters
         };
     }
 
@@ -328,7 +328,7 @@ export class DataSourceNode extends DrawboardElement {
                     self.board.dragLine.classed('hidden', false);
                     return;
                 } else {
-                    // self.board.setParameter(self);
+                    self.board.setParameter(self);
                     // self.board.setResult(null);
                 }
             })

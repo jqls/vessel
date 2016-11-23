@@ -3,6 +3,7 @@ import {ParametersStatusService} from "../parameters-status.service";
 import {FormGroup} from "@angular/forms";
 import {RelationAttribute} from "./relation-attribute";
 import {Relation} from "../drawboard.component/internal/drawboard.relation";
+import {WorkflowNode, DataSourceNode} from "../drawboard.component/internal/drawboard.node";
 
 @Component({
     // moduleId: module.id,
@@ -13,7 +14,7 @@ import {Relation} from "../drawboard.component/internal/drawboard.relation";
 export class ParametersComponent implements OnInit {
     isRelation: boolean;
     open: boolean;
-    openedNode;//: WorkflowNode;
+    openedNode;
     form: FormGroup;
 
     //用于storm
