@@ -102,10 +102,11 @@ export class DrawboardComponent implements OnInit {
 
     private initSVG() {
         let self = this;
+
         this.dragLine = this.container.append('svg:path')
             .attr('class', 'hidden path')
-            .attr('d', 'M0,0 L0,0')
-            .style('marker-end', 'url(/craft#mark-end-arrow)');
+           .attr('d', 'M0,0L0,0')
+            .style('marker-end', 'url(/craft#mark-end-arrow)').style("stroke","lightgray").style( "stroke-dasharray","10 2").attr("fill","none");
 
         this.svg
             .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)
@@ -179,10 +180,10 @@ export class DrawboardComponent implements OnInit {
                 self.container.attr(
                     "transform",
                     "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(" + (<d3.ZoomEvent> d3.event).scale + ")");
-                if ((<d3.ZoomEvent> d3.event).scale<1){
+                if ((<d3.ZoomEvent> d3.event).scale<1.1){
                     self.container.attr(
                         "transform",
-                        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1)");
+                        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1.1)");
                 }
 
                 return true;
@@ -225,7 +226,8 @@ export class DrawboardComponent implements OnInit {
 
     public update() {
         this.justDragged = false;
-        this.dragLine.attr("d", "M0,0L0,0").classed("hidden", true);
+        this.dragLine.attr("d", "M0,0L0,0")
+            .classed("hidden", true);
         this.shiftDrag = false;
         this.dragFrom = null;
     }
