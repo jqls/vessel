@@ -1,3 +1,5 @@
+import './rxjs-extensions';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +12,8 @@ import { InMemoryDataService }  from './in-memory-data.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { CraftModule } from "./craft/craft.module";
+import { GlobalService } from "./global.service";
+import { DataService } from "./data.service";
 
 @NgModule({
   declarations: [
@@ -24,7 +28,10 @@ import { CraftModule } from "./craft/craft.module";
     AppRoutingModule,
     CraftModule
   ],
-  providers: [],
+  providers: [
+    GlobalService,
+    DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,5 +6,7 @@
 export const environment = {
   production: false,
   isDebug: true,
-  isMock: true
+  isMock: true,
+  URL_Spark: "http://10.5.0.222:8080/sendinformation/",
+  URL_Spark_mock: "app/spark_data"
 };
