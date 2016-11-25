@@ -1,3 +1,50 @@
-<p>
-  toolbox works!
-</p>
+<!-- todo:toolbox 修改显示方式-->
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#datasets" role="tab">数据集</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#algorithms" role="tab">算法列表</a>
+  </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="datasets" role="tabpanel" >
+    <div class="list-group">
+      <a class="list-group-item" *ngFor="let dataset of datasets" [class.active]="selectedNodeType===dataset"
+         (click)="itemClicked(dataset)">
+        <h5 class="list-group-item-heading">{{ dataset.name }}</h5>
+        <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="algorithms" role="tabpanel" >
+    <div id="tree" class="list-group">
+        <div id="zhaoli" class="triangle-expanded icon-expand"></div>
+        <div id="top1" [hidden]='isHidden()' class="title expanded ">聚类算法</div>
+        <ul class="second1">
+          <li class="list-group-item xe-paletteItemText" *ngFor="let algorithm of algorithms" [class.active]="selectedNodeType===algorithm"
+              (click)="itemClicked(algorithm)"  data-toggle="tooltip" title={{algorithm.description}}>
+            <h5 class="list-group-item-heading">{{ algorithm.name }}</h5>
+          </li>
+        </ul>
+    </div>
+    <!--<ul class="list-group">-->
+      <!--<li class="list-group-item">Cras justo odio</li>-->
+      <!--<li class="list-group-item">Dapibus ac facilisis in</li>-->
+      <!--<li class="list-group-item">Morbi leo risus</li>-->
+      <!--<li class="list-group-item">Porta ac consectetur ac</li>-->
+      <!--<li class="list-group-item">Vestibulum at eros</li>-->
+      <!--<ul class="list-group">-->
+        <!--<li class="list-group-item">Cras justo odio</li>-->
+        <!--<li class="list-group-item">Dapibus ac facilisis in</li>-->
+        <!--<li class="list-group-item">Morbi leo risus</li>-->
+        <!--<li class="list-group-item">Porta ac consectetur ac</li>-->
+        <!--<li class="list-group-item">Vestibulum at eros</li>-->
+      <!--</ul>-->
+    <!--</ul>-->
+  </div>
+</div>
