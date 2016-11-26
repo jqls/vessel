@@ -1,4 +1,5 @@
 import {ParameterType, AlgorithmType, DatasetType} from "./json-types";
+//todo：需不需要一个父类？
 export class Algorithm {
   id: string;                   //数据库存储ID
   name: string;                 //名称
@@ -7,7 +8,6 @@ export class Algorithm {
   parameters: ParameterType[];  //算法参数
 
   constructor(json: AlgorithmType) {
-    //todo: 将构造函数相同代码抽出
     this.id = json.id;
     this.name = json.label;
     this.type = json.type;
@@ -27,4 +27,4 @@ export class Dataset {
     this.description = json.description;
   }
 }
-export type WorkflowUnit = Algorithm | Dataset;
+export type WorkflowNodeType = Algorithm | Dataset;
