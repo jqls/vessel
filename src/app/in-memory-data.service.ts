@@ -9,13 +9,13 @@ export class InMemoryDataService implements InMemoryDbService{
       ],
       "processes": [
         {
-          "description": "",
+          "description": "1",
           "id": 1,
           "parameters": [{"controlType": "int", "slug": "classNumber", "val": "0", "label": "classNumber"}],
           "label": "KDDCUPNormalization"
         },
         {
-          "description": "",
+          "description": "2",
           "id": 2,
           "parameters": [{
             "controlType": "float",
@@ -32,7 +32,7 @@ export class InMemoryDataService implements InMemoryDbService{
           "label": "naiveBayes"
         },
         {
-          "description": "",
+          "description": "3",
           "id": 3,
           "parameters": [{"controlType": "text", "slug": "modelType", "val": "None", "label": "modelType"}],
           "label": "ModelEstimation"

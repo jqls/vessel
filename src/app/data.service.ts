@@ -15,6 +15,8 @@ export class DataService {
   constructor(private http: Http) {
     this.spark_data_URL = environment.isMock ? environment.URL_Spark_mock : environment.URL_Spark;
     mydebug(this.debug_location, "constructor", this.spark_data_URL);
+
+    this.getAll();
   }
 
   getAll(): void {
@@ -23,11 +25,11 @@ export class DataService {
       this.http.get(this.spark_data_URL).toPromise().then(response => {
         mydebug(this.debug_location, "getAll", JSON.stringify(response.json().data));
         return response.json().data as SparkDataType
-      }) :
+      }).catch(handleError) :
       this.http.get(this.spark_data_URL).toPromise().then(response => {
         mydebug(this.debug_location, "getAll", JSON.stringify(response.json()));
         return response.json() as SparkDataType;
-      });
+      }).catch(handleError);
 
   }
 
@@ -43,7 +45,7 @@ export class DataService {
   getAlgorithms(): Promise<Algorithm[]> {
     return this.spark_data
       .then(response => {
-        mydebug(this.debug_location, "getAlgorithms", JSON.stringify(response.sources));
+        mydebug(this.debug_location, "getAlgorithms", JSON.stringify(response.processes));
         return (response.processes)
           .map((algorithmJSON: AlgorithmType): Algorithm => new Algorithm(algorithmJSON))
       })
