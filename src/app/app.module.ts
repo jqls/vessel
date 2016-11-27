@@ -2,7 +2,7 @@ import './rxjs-extensions';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
@@ -14,6 +14,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { CraftModule } from "./craft/craft.module";
 import { GlobalService } from "./global.service";
 import { DataService } from "./data.service";
+import {QuestionControlService} from "./share/dynamic-form/question-control.service";
+import {DynamicFormModule} from "./share/dynamic-form/dynamic-form.module";
 
 @NgModule({
   declarations: [
@@ -24,13 +26,16 @@ import { DataService } from "./data.service";
 
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-    CraftModule
+    CraftModule,
+    DynamicFormModule
   ],
   providers: [
     GlobalService,
-    DataService
+    DataService,
+    QuestionControlService
   ],
   bootstrap: [AppComponent]
 })

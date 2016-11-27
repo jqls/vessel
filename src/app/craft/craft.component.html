@@ -2,7 +2,10 @@
   <div class="col-md-3">
     <app-toolbox></app-toolbox>
   </div>
-  <div class="col-md-6">
+  <div [ngClass]="{'col-md-10': !isOpenRightPane, 'col-md-6': isOpenRightPane}">
     <app-drawboard></app-drawboard>
+  </div>
+  <div class="col-md-3" [hidden]="!isOpenRightPane">
+    <app-parameters></app-parameters>
   </div>
 </div>

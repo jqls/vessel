@@ -1,0 +1,19 @@
+<form *ngIf="selectedNode!=null" (ngSubmit)="onSubmit()" [formGroup]="form"
+      class="form-horizontal">
+  <app-df-question *ngFor="let question of questions" [question]="question"
+                   [form]="form"></app-df-question>
+  <div class="form-group">
+    <div class="md-offset-4">
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">保存</button>
+    </div>
+  </div>
+</form>
+<form *ngIf="selectedRelation!=null" (ngSubmit)="onSubmit()" [formGroup]="form"
+      class="form-horizontal">
+  <!--todo: 若需要对连线进行参数设置，在此进行-->
+</form>
+
+
+<div *ngIf="selectedNode==null&&selectedRelation==null">
+  <p>选中算法节点来调节参数</p>
+</div>

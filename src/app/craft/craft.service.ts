@@ -14,10 +14,13 @@ export class CraftService {
   private SN_subscribers: Array<(node: WorkflowNode)=>void>;
   private SR_subscribers: Array<(relation: Relation)=>void>;
 
+  private rightPaneStat: boolean;
   constructor() {
     this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();
     this.SN_subscribers = Array<(node: WorkflowNode)=>void>();
     this.SR_subscribers = Array<(relation: Relation)=>void>();
+
+    this.rightPaneStat = true;
   }
 
   bookSelectedNodeType(update: (nodeType: WorkflowNodeType)=>void): void {
@@ -53,4 +56,10 @@ export class CraftService {
     this.SR_subscribers.forEach(s => s(relation));
   }
 
+  getRightPaneStat(): boolean{
+    return this.rightPaneStat;
+  }
+  setRightPaneStat(stat: boolean): void{
+    this.rightPaneStat = stat;
+  }
 }

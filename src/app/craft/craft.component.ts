@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CraftService} from "./craft.service";
 
 @Component({
   selector: 'app-craft',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CraftComponent implements OnInit {
 
-  constructor() { }
+  constructor(private craftService:CraftService) { }
 
   ngOnInit() {
   }
-
+  get isOpenRightPane() {return this.craftService.getRightPaneStat();}
 }
