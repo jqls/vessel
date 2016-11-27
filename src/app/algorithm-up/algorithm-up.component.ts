@@ -1,7 +1,5 @@
-import { Component, Input} from "@angular/core";
-import {NgForm} from '@angular/forms';
-// import { NavbarService } from "../navbar.service";
-// import { Router } from "@angular/router";
+;
+import {Component, Input} from "@angular/core";
 import { Headers, Http, RequestMethod } from "@angular/http";
 import { AlgorithmPara,Parameters} from "./algorithmPara";
 import { ParaJSON } from "../craft/data-show/data-types"
@@ -15,18 +13,20 @@ import { ParaJSON } from "../craft/data-show/data-types"
 
 
 export class AlgorithmComponent {
-  paraJSON:ParaJSON;
+
+    paraJSON:ParaJSON;
    n=1;
   algorithmPara = new AlgorithmPara();
   
   formData = new FormData();
 
   //dong tai can shu list
- parameterList:Parameters[]=[
-     {"count":this.n,"label":null,"vals":null,"types":null,"tags":null,"description":null},
-     //{"count":1,"label":"ee","vals":"ee","types":"ee","tags":"ee","description":"ee"},
-     //{"count":2,"label":"zhai","vals":"zha","types":"zhli","tags":"zoli","description":"aoli"},
+   parameterList:Parameters[]=[
+     {"count":this.n,"label":null,"type":"int","val":"1111a","tags":"input类型","description":"111a"},
+     //{"count":1,"label":"ee","val":"ee","type":"ee","tags":"ee","description":"ee"},
+     //{"count":2,"label":"zhai","val":"zha","type":"zhli","tags":"zoli","description":"aoli"},
      ];
+
   constructor(private http: Http) {
   }
    get diagnostic() {
@@ -37,14 +37,16 @@ export class AlgorithmComponent {
   changeListener(event): void {
     this.postFile(event.target);
   }
-
   postFile(inputValue: any): void {
     this.formData.append("fname", inputValue.files[0]);
     console.log(this.formData);
   }
 
-
-
+// getType(value:string){
+//       this.parameterList[this.n-1].type=value;
+//       console.log("vaule-input:"+value);
+//
+// }
 
   onSubmit() {
     var URL_Parameter = "http://10.5.0.222:8080/uploadalgorithm/";
@@ -81,11 +83,14 @@ export class AlgorithmComponent {
   addPara() {
       this.n++;
   //this.parameters.push({"count":this.n,"label":"zhaoli","val":"zhaoli","type":"zhaoli","tags":"zhaoli","description":"zhaoli"});
-  this.parameterList.push({"count":this.n,"label":this.parameterList[this.n-2].label,"vals":this.parameterList[this.n-2].vals,
-  "types":this.parameterList[this.n-2].types,"tags":this.parameterList[this.n-2].tags,
-  "description":this.parameterList[this.n-2].description});
-   //this.parameterList.push({"count":this.n-1,"label":null,"vals":null,"types":null,"tags":null,"description":null})
-    //   console.log(this.parameters[this.n-2].label);
+  // this.parameterList.push({"count":this.n,"label":this.parameterList[this.n-2].label,"val":this.parameterList[this.n-2].val,
+  // "type":this.parameterList[this.n-2].type,"tags":this.parameterList[this.n-2].tags,
+  // "description":this.parameterList[this.n-2].description});
+   this.parameterList.push({"count":this.n,"label":null,"type":null,"val":null,"tags":null,"description":null});
+   for(let i=this.n-1;i>=0;i--) {
+       console.log(this.parameterList[i].label + "**" + this.parameterList[i].tags + "**" + this.parameterList[i].description
+           + "**" + this.parameterList[i].val+ "**" + this.parameterList[i].type );
+   }
     }
 
   planB(id: string) {//可以传文件
@@ -102,4 +107,43 @@ export class AlgorithmComponent {
 
 
   }
+
+    private tree = [
+    {
+        text: "Parent 1",
+        nodes: [
+            {
+                text: "Child 1",
+                nodes: [
+                    {
+                        text: "Grandchild 1"
+                    },
+                    {
+                        text: "Grandchild 2"
+                    }
+                ]
+            },
+            {
+                text: "Child 2"
+            }
+        ]
+    },
+    {
+        text: "Parent 2"
+    },
+    {
+        text: "Parent 3"
+    },
+    {
+        text: "Parent 4"
+    },
+    {
+        text: "Parent 5"
+    }
+];
+  getTree() {
+
+
+}
+
 }

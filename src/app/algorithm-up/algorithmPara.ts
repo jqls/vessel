@@ -18,8 +18,8 @@ export class AlgorithmPara {
 export type Parameters={
     count:number;
     label:string;
-    vals:string;
-    types:string;
+    val:string;
+    type:string;
     tags:string;
     description:string;
 
