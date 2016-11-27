@@ -21,7 +21,7 @@ export class ToolboxComponent implements OnInit {
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
       mydebug(this.debug_location, "craftService.bookSelectedNodeType", String(this.selectedNodeType == null));
-    })
+    });
     this.dataService.getDatasets().then(datasets => {
       this.datasets = datasets;
     });
