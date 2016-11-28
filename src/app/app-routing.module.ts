@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
+import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.component";
 
 @NgModule({
   imports: [
@@ -9,6 +10,7 @@ import { RouterModule } from "@angular/router";
         redirectTo: '/craft',
         pathMatch: 'full'
       },
+      {path: 'data-analysis', component: DataAnalysisComponent},
     ])
   ],
   exports: [

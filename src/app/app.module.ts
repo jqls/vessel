@@ -21,13 +21,15 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {DrawerComponent} from './drawer/drawer.component';
 import {ETLModule} from "./etl/etl.module";
 import {UploadModule} from "./upload/upload.module";
+import { DataAnalysisComponent } from './data-analysis.unit/data-analysis.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavpaneComponent,
     NavbarComponent,
-    DrawerComponent
+    DrawerComponent,
+    DataAnalysisComponent
   ],
   imports: [
     InMemoryWebApiModule.forRoot(InMemoryDataService),
