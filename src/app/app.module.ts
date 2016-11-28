@@ -20,6 +20,7 @@ import {NavpaneComponent} from './navpane/navpane.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {DrawerComponent} from './drawer/drawer.component';
 import {ETLModule} from "./etl/etl.module";
+import {UploadModule} from "./upload/upload.module";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import {ETLModule} from "./etl/etl.module";
     AppRoutingModule,
     CraftModule,
     DynamicFormModule,
-    ETLModule
+    ETLModule,
+    UploadModule
   ],
   providers: [
     GlobalService,
