@@ -16,10 +16,16 @@ import { GlobalService } from "./global.service";
 import { DataService } from "./data.service";
 import {QuestionControlService} from "./share/dynamic-form/question-control.service";
 import {DynamicFormModule} from "./share/dynamic-form/dynamic-form.module";
+import { NavpaneComponent } from './navpane/navpane.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { DrawerComponent } from './drawer/drawer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavpaneComponent,
+    NavbarComponent,
+    DrawerComponent
   ],
   imports: [
     InMemoryWebApiModule.forRoot(InMemoryDataService),

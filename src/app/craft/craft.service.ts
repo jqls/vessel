@@ -10,15 +10,19 @@ export class CraftService {
   private selectedNodeType: WorkflowNodeType;
   private selectedNode: WorkflowNode;
   private selectedRelation: Relation;
+  private taskName: string;
   private SNT_subscribers: Array<(nodeType: WorkflowNodeType)=>void>;
   private SN_subscribers: Array<(node: WorkflowNode)=>void>;
   private SR_subscribers: Array<(relation: Relation)=>void>;
+  private taskName_subscribers: Array<(taskName: string)=>void>;
 
   private rightPaneStat: boolean;
+
   constructor() {
     this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();
     this.SN_subscribers = Array<(node: WorkflowNode)=>void>();
     this.SR_subscribers = Array<(relation: Relation)=>void>();
+    this.taskName_subscribers = Array<(taskName: string)=>void>();
 
     this.rightPaneStat = true;
   }
@@ -52,14 +56,25 @@ export class CraftService {
 
   setSelectedRelation(relation: Relation): void {
     this.selectedRelation = relation;
-    mydebug(this.debug_location, "setSelectedRelation", this.selectedRelation ? ''+this.selectedRelation.id : 'null');
+    mydebug(this.debug_location, "setSelectedRelation", this.selectedRelation ? '' + this.selectedRelation.id : 'null');
     this.SR_subscribers.forEach(s => s(relation));
   }
 
-  getRightPaneStat(): boolean{
+  bookTaskName(update: (taskName: string)=>void): void {
+    mydebug(this.debug_location, "bookTaskName", 'book');
+    this.taskName_subscribers.push(update);
+  }
+
+  setTaskName(taskName: string): void {
+    this.taskName = taskName;
+    this.taskName_subscribers.forEach(fn => fn(taskName));
+  }
+
+  getRightPaneStat(): boolean {
     return this.rightPaneStat;
   }
-  setRightPaneStat(stat: boolean): void{
+
+  setRightPaneStat(stat: boolean): void {
     this.rightPaneStat = stat;
   }
 }

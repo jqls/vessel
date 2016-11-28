@@ -25,6 +25,11 @@ import {DynamicFormModule} from "../share/dynamic-form/dynamic-form.module";
   ],
   providers: [
     CraftService
+  ],
+  exports:[
+    ToolboxComponent,
+    DrawboardComponent,
+    ParametersComponent
   ]
 })
 export class CraftModule { }

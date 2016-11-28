@@ -13,7 +13,7 @@ import {mydebug} from "../../share/my-log";
 })
 export class DrawboardComponent implements OnInit {
   private debug_location: string = "DrawboardComponent";
-
+  private teskName: string;
   //svg相关
   private readonly constants = {
     BACKSPACE_KEY: 8,
@@ -56,9 +56,12 @@ export class DrawboardComponent implements OnInit {
       this.selectedRelation = relation;
       mydebug(this.debug_location, "craftService.bookSelectedRelation", String(this.selectedRelation == null));
     });
-
+    this.craftService.bookTaskName((taskName:string)=>{
+      this.teskName  = taskName;
+    });
     this.workflowNodes = [];
     this.relations = [];
+    this.craftService.setTaskName("新建任务");
   }
 
   ngOnInit() {

@@ -1,7 +1,14 @@
-<svg id="drawboard">
-  <defs>
-    <marker id="mark-end-arrow" viewBox="0 -5 10 10" refX="7" markerWidth="3.5" markerHeight="3.5" orient="auto">
-      <path d="M0,-5L10,0L0,5" style="fill:gray"></path>
-    </marker>
-  </defs>
-</svg>
+<div class="drawboard-wrapper">
+  <div class="drawboard-header row">
+    <input class="taskname-wrap" type="text" [(ngModel)]="taskName">
+  </div>
+  <div class="drawboard-body row">
+    <svg id="drawboard">
+      <defs>
+        <marker id="mark-end-arrow" viewBox="0 -5 10 10" refX="7" markerWidth="3.5" markerHeight="3.5" orient="auto">
+          <path d="M0,-5L10,0L0,5" style="fill:gray"></path>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>

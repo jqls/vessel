@@ -11,7 +11,7 @@ import {mydebug} from "../../share/my-log";
 })
 export class ToolboxComponent implements OnInit {
   private debug_location: string = "ToolboxComponent";
-  private selectedNodeType: WorkflowNodeType = null;
+  private selectedNodeType: WorkflowNodeType;
   private datasets: Dataset[];
   private algorithms: Algorithm[];
 
@@ -28,6 +28,8 @@ export class ToolboxComponent implements OnInit {
     this.dataService.getAlgorithms().then(algorithms => {
       this.algorithms = algorithms;
     });
+
+    this.craftService.setSelectedNodeType(null);
   }
 
   ngOnInit() {

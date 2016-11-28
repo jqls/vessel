@@ -1,0 +1,10 @@
+<div id="drawer" class="drawer">
+  <div class="drawer-inner" [style]="{height: drawerHeight}">
+    <div class="drawertaskbar" [ngClass]="{'drawer-inactive': drawerActive}">
+      <button (click)="activeDrawer()">active</button>
+    </div>
+    <div class="drawermenu" [ngClass]="{'drawer-inactive': !drawerActive}">
+      <button (click)="inactiveDrawer()">inactive</button>
+    </div>
+  </div>
+</div>

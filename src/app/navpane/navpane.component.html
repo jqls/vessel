@@ -1,0 +1,35 @@
+<div id="navpane" class="navpane-expanded">
+  <div id="navpane1">
+    <nav class="nav-sidebar">
+      <ul class="nav">
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/craft']">
+            <i class="fa fa-database fa-fw" aria-hidden="true"></i>&nbsp; 数据分析
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/data-analysis']">
+            <i class="fa fa-hourglass-half fa-fw" aria-hidden="true"></i>&nbsp; SQL分析
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="['/etl']">
+            <i class="fa fa-flask fa-fw" aria-hidden="true"></i>&nbsp; 数据抽取
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="">
+            <i class="fa fa-cubes fa-fw" aria-hidden="true"></i>&nbsp; Dataset
+          </a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" [routerLink]="">
+            <i class="fa fa-cube fa-fw" aria-hidden="true"></i>&nbsp; Model
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</div>
+
