@@ -14,6 +14,9 @@ import {UploadDatasetComponent} from './upload-dataset/upload-dataset.component'
     UploadComponent,
     UploadAlgorithmComponent,
     UploadDatasetComponent
+  ],
+  exports:[
+    UploadComponent
   ]
 })
 export class UploadModule {
