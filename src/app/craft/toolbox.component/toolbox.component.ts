@@ -53,7 +53,7 @@ export class ToolboxComponent implements OnInit {
   }
 
   isHidden() {//下拉列表的收起和隐藏
-    var divid = document.getElementById("zhaoli");
+    var divid = document.getElementById("triangle-icon");
     $("#top1").click(function () {
       var children = $(".second1");
 

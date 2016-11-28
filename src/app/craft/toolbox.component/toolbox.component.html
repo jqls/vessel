@@ -21,11 +21,11 @@
 
     <div role="tabpanel" class="tab-pane" id="algorithms">
         <div class="list-group">
-            <li id="tree" >
-                <div id="zhaoli" class="triangle-expanded icon-expand"></div>
-                <span id="top1" [hidden]='isHidden()' class="title expanded ">聚类算法</span>
-                <ul class="second1">
-                    <li class="list-group-item xe-paletteItemText" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)" [class.active]="selectedNodeType===processType"
+            <li id="tree" class="margin-li">
+                <div id="triangle-icon" class="triangle-expanded icon-expand "></div>
+                <span id="top1" [hidden]='isHidden()' class="title">聚类算法</span>
+                <ul class="second1 ul-left">
+                    <li class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)" [class.active]="selectedNodeType===processType"
                         (dblclick)="itemDbClicked(processType)" data-toggle="tooltip" title={{processType.description}}>
                         <h6 class="list-group-item-heading">{{ processType.label }}
                             <span style="margin-right: 5px;" class="label label-info pull-right" *ngFor="let tag of processType.tags">{{tag}}</span>
