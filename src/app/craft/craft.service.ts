@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {WorkflowNodeType} from "../share/data-types";
 import {mydebug} from "../share/my-log";
-import {WorkflowNode} from "./drawboard/internal/node";
+import {WorkflowNode} from "./drawboard/internal/node-basic";
 import {Relation} from "./drawboard/internal/relation";
 
 @Injectable()

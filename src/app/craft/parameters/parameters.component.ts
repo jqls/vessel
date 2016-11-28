@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {CraftService} from "../craft.service";
-import {WorkflowNode, AlgorithmNode} from "../drawboard/internal/node";
+import {WorkflowNode} from "../drawboard/internal/node-basic";
 import {Relation} from "../drawboard/internal/relation";
 import {mydebug} from "../../share/my-log";
 import {QuestionControlService} from "../../share/dynamic-form/question-control.service";
 import {QuestionBase} from "../../share/dynamic-form/questions";
 import {FormGroup} from "@angular/forms";
 import {ParameterType} from "../../share/json-types";
+import {AlgorithmNode} from "../drawboard/internal/node-algorithm";
 
 @Component({
   selector: 'app-parameters',

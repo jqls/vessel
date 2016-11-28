@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {WorkflowNode, AlgorithmNode, DatasetNode} from "./internal/node";
+import {WorkflowNode} from "./internal/node-basic";
 import * as d3 from "d3";
 import {Relation} from "./internal/relation";
 import {WorkflowNodeType, Algorithm, Dataset} from "../../share/data-types";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
+import {AlgorithmNode} from "./internal/node-algorithm";
+import {DatasetNode} from "./internal/node-dataset";
 
 @Component({
   selector: 'app-drawboard',

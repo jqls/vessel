@@ -1,5 +1,5 @@
 import {DrawboardComponent} from "../drawboard.component";
-import {WorkflowNode, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./node";
+import {WorkflowNode, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./node-basic";
 import {Contextmenu} from "./contextmenu";
 import {mydebug} from "../../../share/my-log";
 export class Relation {

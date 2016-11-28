@@ -1,5 +1,5 @@
 import * as d3 from "d3"
-import {BasicDrawboardNode} from "./node";
+import {BasicDrawboardNode} from "./node-basic";
 import {Relation} from "./relation";
 
 /**
