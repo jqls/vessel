@@ -1,0 +1,61 @@
+<!--
+<div id="content">
+<div id="task_list" class="task_div">
+    <div id="task_title">
+        任务列表
+    </div>
+    <div class="hint" *ngIf="!task_list">
+        当前没有任务
+    </div>
+    <div *ngIf="task_list">
+    <div class="task" *ngFor="let task of task_list" (click)="getCurTask(task)">
+        {{task['task_name']}}
+        <button class="delete" (click)="delete(task); $event.stopPropagation()">x</button>
+    </div>
+    </div>
+</div>
+
+<div id="task_info" class="task_div">
+    <div id="info_title">
+        {{cur_task?'任务信息: '+cur_task['task_name']:'任务信息'}}
+    </div>
+    <div class="hint" *ngIf="!cur_task">
+        选择一个任务查看任务信息
+    </div>
+    <div id="info" *ngIf="cur_task">
+        {{cur_task['status']}}
+    </div>
+</div>
+</div>
+-->
+
+<div class="row container">
+
+  <div class="row list-group-item" style="font-size: 20px; font-weight: bold; border-bottom: 2px solid;">
+    <div class="col-md-3" >任务名称</div>
+    <div class="col-md-3" >提交时间</div>
+    <div class="col-md-3" >执行状态</div>
+    <div class="col-md-2" >查看详情</div>
+  </div>
+
+  <ul class="list-group">
+    <li class="row list-group-item list-content" *ngFor="let job of job_list">
+      <div class="row list">
+        <div class="col-md-3">{{job['job_name']}}</div>
+        <div class="col-md-3">{{job['submit_time']}}</div>
+        <div class="col-md-3">{{job['job_status']=="1"? "执行完成":"正在执行"}}</div>
+        <div class="col-md-2" style="color: blue;">
+          <button type="button" class="btn btn-link" style="padding:0;" (click)="this.flat_job_id = (this.flat_job_id==job['job_id']) ? null : job['job_id']">展开</button>
+        </div>
+        <button class="btn del-label pull-right" (click)="delete(job); $event.stopPropagation()" data-toggle="tooltip" data-placement="right" title="删除此任务">x</button>
+      </div>
+      <div class="job-info row" [hidden]="flat_job_id !== job['job_id']">
+        {{job['job_name']}}
+      </div>
+    </li>
+  </ul>
+
+</div>
+
+
+

@@ -1,24 +1,25 @@
 import './rxjs-extensions';
 
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {HttpModule} from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-import { InMemoryDataService }  from './in-memory-data.service';
+import {InMemoryWebApiModule} from 'angular2-in-memory-web-api';
+import {InMemoryDataService}  from './in-memory-data.service';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from "./app-routing.module";
-import { CraftModule } from "./craft/craft.module";
-import { GlobalService } from "./global.service";
-import { DataService } from "./data.service";
+import {AppComponent} from './app.component';
+import {AppRoutingModule} from "./app-routing.module";
+import {CraftModule} from "./craft/craft.module";
+import {GlobalService} from "./global.service";
+import {DataService} from "./data.service";
 import {QuestionControlService} from "./share/dynamic-form/question-control.service";
 import {DynamicFormModule} from "./share/dynamic-form/dynamic-form.module";
-import { NavpaneComponent } from './navpane/navpane.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { DrawerComponent } from './drawer/drawer.component';
+import {NavpaneComponent} from './navpane/navpane.component';
+import {NavbarComponent} from './navbar/navbar.component';
+import {DrawerComponent} from './drawer/drawer.component';
+import {ETLModule} from "./etl/etl.module";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { DrawerComponent } from './drawer/drawer.component';
     HttpModule,
     AppRoutingModule,
     CraftModule,
-    DynamicFormModule
+    DynamicFormModule,
+    ETLModule
   ],
   providers: [
     GlobalService,
@@ -45,4 +47,5 @@ import { DrawerComponent } from './drawer/drawer.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
