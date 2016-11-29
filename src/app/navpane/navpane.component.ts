@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavpaneComponent implements OnInit {
 
-  constructor() { }
+  private isExpended:boolean;
+  constructor() {
+    this.isExpended = true;
+  }
 
   ngOnInit() {
   }
 
+  setIsExpended(p: boolean){
+    this.isExpended = p;
+  }
 }

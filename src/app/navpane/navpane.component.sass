@@ -7,8 +7,8 @@
     margin-left: 0
     z-index: 1000
     display: block
-    overflow: hidden
-    width: 150px
+    overflow-x: hidden
+    overflow-y: auto
 /*border-right: 1px solid #71b1d1*/
 
 #navpane1
@@ -16,7 +16,6 @@
   top: 0
   bottom: 0
   background-color: #71b1d1
-  width: 150px
 
 /*侧边导航栏*/
 .nav-sidebar
@@ -27,6 +26,7 @@
 
 .nav-sidebar li
   border-bottom: solid 1px #71b1d1
+  background-color: #71b1d1
 
 .nav-sidebar li a
   position: relative
@@ -56,4 +56,8 @@
 #nav-menu.dropdown-toggle::after
   display: none
 
+.navpane-expanded
+  width: 200px
 
+.navpane-collasped
+  width: 50px

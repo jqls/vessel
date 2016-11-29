@@ -8,5 +8,7 @@ export const environment = {
   isDebug: true,
   isMock: true,
   URL_Spark: "http://10.5.0.222:8080/sendinformation/",
-  URL_Spark_mock: "app/spark_data"
+  URL_Spark_mock: "app/spark_data",
+  dataAnalysisServer: "10.5.0.224:5000",
+  djangoServer: "http://10.5.0.222:8080",
 };

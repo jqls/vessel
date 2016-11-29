@@ -1,30 +1,31 @@
 <div id="navpane" class="navpane-expanded">
-  <div id="navpane1">
+  <div id="navpane1" [style]="{'width': isExpended?'200px':'50px'}">
+    <button (click)="setIsExpended(!isExpended)">set</button>
     <nav class="nav-sidebar">
       <ul class="nav">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/craft']">
-            <i class="fa fa-database fa-fw" aria-hidden="true"></i>&nbsp; 数据分析
+            <i class="fa fa-database fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">数据分析</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/data-analysis']">
-            <i class="fa fa-hourglass-half fa-fw" aria-hidden="true"></i>&nbsp; SQL分析
+            <i class="fa fa-hourglass-half fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">SQL分析</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/etl']">
-            <i class="fa fa-flask fa-fw" aria-hidden="true"></i>&nbsp; 数据抽取
+            <i class="fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">数据抽取</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/upload-dataset']">
-            <i class="fa fa-cubes fa-fw" aria-hidden="true"></i>&nbsp; Dataset
+            <i class="fa fa-cubes fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">Dataset</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/upload-algotithm']">
-            <i class="fa fa-cube fa-fw" aria-hidden="true"></i>&nbsp; Model
+            <i class="fa fa-cube fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">Model</span>
           </a>
         </li>
 
