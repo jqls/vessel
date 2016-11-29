@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-navpane',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavpaneComponent implements OnInit {
 
-  private isExpended:boolean;
+  private isExpended: boolean;
+
   constructor() {
     this.isExpended = true;
   }
@@ -15,7 +16,11 @@ export class NavpaneComponent implements OnInit {
   ngOnInit() {
   }
 
-  setIsExpended(p: boolean){
+  setIsExpended(p: boolean) {
     this.isExpended = p;
+  }
+
+  get panedWidth() {
+    return this.isExpended ? '200px' : '50px';
   }
 }

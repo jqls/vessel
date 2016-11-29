@@ -1,5 +1,5 @@
-<div id="navpane" class="navpane-expanded">
-  <div id="navpane1" [style]="{'width': isExpended?'200px':'50px'}">
+<div id="navpane" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
+  <div id="navpane1" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
     <button (click)="setIsExpended(!isExpended)">set</button>
     <nav class="nav-sidebar">
       <ul class="nav">
