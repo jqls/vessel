@@ -86,9 +86,6 @@ export class DrawboardElement {
 
     }
 
-    render(){
-
-    }
 
     constructor(board: DrawboardComponent,
                 centerPosition: {x: number, y: number},

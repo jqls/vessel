@@ -1,6 +1,6 @@
 import {
     ParameterJSON, DataSourceNodeType, ProcessNodeType, StormParameterJSON,
-    StormNodeType, WorkflowNodeType, ProcessNodeTypeJSON
+    StormNodeType
 } from "./drawboard.node-types";
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT, ELEMENT_ROUND_X, ELEMENT_ROUND_Y} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";

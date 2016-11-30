@@ -30,7 +30,6 @@ export class DrawboardComponent implements OnInit {
     container: any;
     relationLayer: any;
     dragLine: any;
-    ifcopy=false;
     selectedLine: any;
     selectedNode: any;
     mouseDownNode: any;
