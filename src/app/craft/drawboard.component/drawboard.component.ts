@@ -13,6 +13,7 @@ import {GlobalService} from "../../global.service";
 import {ProcessService} from "../process.service";
 import {SubmitJson} from "../data-type";
 import {Relation} from "./internal/drawboard.relation";
+import {DrawboardMenu} from "./internal/drawboard.menu";
 
 
 @Component({
@@ -29,7 +30,7 @@ export class DrawboardComponent implements OnInit {
     container: any;
     relationLayer: any;
     dragLine: any;
-
+    ifcopy=false;
     selectedLine: any;
     selectedNode: any;
     mouseDownNode: any;
@@ -40,6 +41,8 @@ export class DrawboardComponent implements OnInit {
     lastKeyDown: number;
     shiftDrag: boolean;
     flowIDCounter = 0;
+
+    menu: DrawboardMenu;
 
     constants = {
         BACKSPACE_KEY: 8,
@@ -164,6 +167,7 @@ export class DrawboardComponent implements OnInit {
                 self.flowIDCounter += 1;
                 self.nodes.push(newElement);
                 console.log("before render");
+                //noinspection TypeScriptValidateTypes
                 newElement.render();
                 console.log("end render");
             } else {
@@ -185,7 +189,11 @@ export class DrawboardComponent implements OnInit {
                         "transform",
                         "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1.1)");
                 }
-
+                if ((<d3.ZoomEvent> d3.event).scale>5){
+                    self.container.attr(
+                        "transform",
+                        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(5)");
+                }
                 return true;
             })
             .on("zoomstart", function () {
@@ -232,6 +240,7 @@ export class DrawboardComponent implements OnInit {
         this.dragFrom = null;
     }
 
+
     ngOnInit() {
         this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
         let self = this;
@@ -250,7 +259,11 @@ export class DrawboardComponent implements OnInit {
                 }
             )
         }
+
     }
+
+
+
     reRender(reRenderData: SubmitJson){
         let self = this;
         let position: {x: number; y: number}[] = [
