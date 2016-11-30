@@ -21,7 +21,8 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {DrawerComponent} from './drawer/drawer.component';
 import {ETLModule} from "./etl/etl.module";
 import {UploadModule} from "./upload/upload.module";
-import { DataAnalysisComponent } from './data-analysis.unit/data-analysis.component';
+import {DataAnalysisComponent} from './data-analysis.unit/data-analysis.component';
+import {DataShowModule} from "./share/data-show/data-show.module";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { DataAnalysisComponent } from './data-analysis.unit/data-analysis.compon
     NavpaneComponent,
     NavbarComponent,
     DrawerComponent,
-    DataAnalysisComponent
+    DataAnalysisComponent,
   ],
   imports: [
     // InMemoryWebApiModule.forRoot(InMemoryDataService),
@@ -42,7 +43,8 @@ import { DataAnalysisComponent } from './data-analysis.unit/data-analysis.compon
     CraftModule,
     DynamicFormModule,
     ETLModule,
-    UploadModule
+    UploadModule,
+    DataShowModule
   ],
   providers: [
     GlobalService,

@@ -6,6 +6,7 @@ import {Relation} from "./drawboard/internal/relation";
 import {Headers, RequestMethod, Http} from "@angular/http";
 import {environment} from "../../environments/environment";
 import {handleError} from "../share/my-handler";
+import {GlobalService} from "../global.service";
 
 @Injectable()
 export class CraftService {
@@ -24,7 +25,8 @@ export class CraftService {
   private rightPaneStat: boolean;
   private reload_flag: boolean;
 
-  constructor(private http: Http) {
+  constructor(private globalService: GlobalService,
+              private http: Http) {
     this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();
     this.SN_subscribers = Array<(node: WorkflowNode)=>void>();
     this.SR_subscribers = Array<(relation: Relation)=>void>();
@@ -75,6 +77,7 @@ export class CraftService {
 
   setTaskName(taskName: string): void {
     this.taskName = taskName;
+    this.globalService.setTaskName(taskName);
     this.taskName_subscribers.forEach(fn => fn(taskName));
   }
 
@@ -104,7 +107,6 @@ export class CraftService {
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
-    //todo:
     return this.http
       .post(environment.URL_Spark_submit, workflowJSON, {headers: headers, method: RequestMethod.Post})
       .toPromise()

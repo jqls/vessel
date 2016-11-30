@@ -1,3 +1,35 @@
-<p>
-  data-show works!
-</p>
+<div id="data-show">
+  <div class="col-md-3">
+    <div id="task">
+      <div>
+        <h5>任务文件列表:</h5>
+        <select (change)="selectAttribute($event)">
+          <option value="" selected="selected"></option>
+          <option *ngFor="let taskdata of dataJSON">{{taskdata.id}}-{{taskdata.label}}
+          </option
+          >
+        </select>
+      </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <h5>选择图的类型:</h5>
+    <br>
+    <div>
+      <button class="btn" (click)="setType(1)">Bar</button>
+      <button class="btn" (click)="setType(2)">Pie</button>
+    </div>
+  </div>
+
+  <div class="col-md-8" [ngSwitch]="type">
+    <div id="main" style="height:600px;width: 1000px; margin-left: 10px;float: left;">
+      <app-bar *ngSwitchCase="1"></app-bar>
+      <app-pie *ngSwitchCase="2"></app-pie>
+    </div>
+  </div>
+
+
+</div>
