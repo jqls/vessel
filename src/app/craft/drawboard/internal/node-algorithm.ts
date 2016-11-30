@@ -104,6 +104,7 @@ export class AlgorithmNode extends BasicDrawboardNode {
       copyElements.relations = [];
       copyElements.initMenu();
       copyElements.bindEventHandler();
+      this.board.workflowNodes.push(copyElements);
       copyElements.render();
     }
   }

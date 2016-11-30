@@ -50,16 +50,16 @@ export class DrawboardComponent implements OnInit {
               private dataService: DataService) {
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
-      mydebug(this.debug_location, "craftService.bookSelectedNodeType", String(this.selectedNodeType == null));
+      mydebug(this.debug_location, "craftService.bookSelectedNodeType", "isNull? "+String(this.selectedNodeType == null));
     });
 
     this.craftService.bookSelectedNode((node: WorkflowNode) => {
       this.selectedNode = node;
-      mydebug(this.debug_location, "craftService.bookSelectedNode", String(this.selectedNode == null));
+      mydebug(this.debug_location, "craftService.bookSelectedNode", "isNull? "+String(this.selectedNode == null));
     });
     this.craftService.bookSelectedRelation((relation: Relation) => {
       this.selectedRelation = relation;
-      mydebug(this.debug_location, "craftService.bookSelectedRelation", String(this.selectedRelation == null));
+      mydebug(this.debug_location, "craftService.bookSelectedRelation", "isNull? "+String(this.selectedRelation == null));
     });
     this.craftService.bookTaskName((taskName: string) => {
       this.taskName = taskName;
