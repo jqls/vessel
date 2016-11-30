@@ -3,6 +3,9 @@ import {WorkflowNodeType} from "../share/data-types";
 import {mydebug} from "../share/my-log";
 import {WorkflowNode} from "./drawboard/internal/node-basic";
 import {Relation} from "./drawboard/internal/relation";
+import {Headers, RequestMethod, Http} from "@angular/http";
+import {environment} from "../../environments/environment";
+import {handleError} from "../share/my-handler";
 
 @Injectable()
 export class CraftService {
@@ -16,10 +19,11 @@ export class CraftService {
   private SR_subscribers: Array<(relation: Relation)=>void>;
   private taskName_subscribers: Array<(taskName: string)=>void>;
 
+  private submit_hook: () =>void;
   private rightPaneStat: boolean;
   private reload_flag: boolean;
 
-  constructor() {
+  constructor(private http: Http) {
     this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();
     this.SN_subscribers = Array<(node: WorkflowNode)=>void>();
     this.SR_subscribers = Array<(relation: Relation)=>void>();
@@ -86,5 +90,25 @@ export class CraftService {
 
   isReload(){
     return this.reload_flag;
+  }
+
+  setSubmitHook(getSubmitPara:()=>void){
+    this.submit_hook = getSubmitPara;
+}
+  submit() {
+    let workflowJSON = this.submit_hook();
+    mydebug(this.debug_location,"submit",`${workflowJSON}`);
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    //todo:
+    return this.http
+      .post(environment.URL_Spark_submit, workflowJSON, {headers: headers, method: RequestMethod.Post})
+      .toPromise()
+      .then(res => {
+        console.log(res)
+      })
+      .catch(handleError);
   }
 }

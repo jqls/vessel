@@ -23,7 +23,7 @@ export class Relation {
 
     this.path = board.relationLayer.append('path');
     this.path.classed('path', true)
-      .style('marker-end', 'url(/craft#mark-end-arrow)');
+      .style('marker-end', 'url(/Experiment#mark-end-arrow)');
     this.initMenu();
     this.bindEventHandler();
 

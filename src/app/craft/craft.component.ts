@@ -17,4 +17,7 @@ export class CraftComponent implements OnInit {
   ngOnInit() {
   }
   get isOpenRightPane() {return this.craftService.getRightPaneStat();}
+  onSubmitClick() {
+    this.craftService.submit();
+  }
 }
