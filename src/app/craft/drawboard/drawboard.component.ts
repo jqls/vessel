@@ -58,14 +58,14 @@ export class DrawboardComponent implements OnInit {
       this.selectedRelation = relation;
       mydebug(this.debug_location, "craftService.bookSelectedRelation", String(this.selectedRelation == null));
     });
-    this.craftService.bookTaskName((taskName:string)=>{
-      this.taskName  = taskName;
+    this.craftService.bookTaskName((taskName: string) => {
+      this.taskName = taskName;
     });
     this.workflowNodes = [];
     this.relations = [];
     this.craftService.setTaskName("新建任务");
 
-    this.craftService.setSubmitHook(()=>{
+    this.craftService.setSubmitHook(() => {
       return this.getSubmitPara();
     })
   }
@@ -207,6 +207,10 @@ export class DrawboardComponent implements OnInit {
       this.container.attr(
         "transform",
         "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1)");
+    } else if ((<d3.ZoomEvent> d3.event).scale > 5) {
+      this.container.attr(
+        "transform",
+        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(5)");
     } else {
       this.container.attr(
         "transform",
@@ -254,30 +258,32 @@ export class DrawboardComponent implements OnInit {
   setSelectedNode(node: WorkflowNode) {
     this.craftService.setSelectedNode(node);
   }
-  setTaskName(name: string){
+
+  setTaskName(name: string) {
     this.craftService.setTaskName(name);
   }
-  getSubmitPara():string{
-    mydebug(this.debug_location,"getSubmitPara-taskName",this.taskName);
+
+  getSubmitPara(): string {
+    mydebug(this.debug_location, "getSubmitPara-taskName", this.taskName);
 
     let paths: string[] = [];
-    this.relations.map((relation)=> {
-        let path = relation.from.flowID + "->" + relation.to.flowID;
-        if (paths.indexOf(path) == -1) {
-          paths.push(path);
-        }
+    this.relations.map((relation) => {
+      let path = relation.from.flowID + "->" + relation.to.flowID;
+      if (paths.indexOf(path) == -1) {
+        paths.push(path);
+      }
     });
     return JSON.stringify(
       {
         taskName: this.taskName,
-        sources: this.workflowNodes.filter((node): boolean=> {
+        sources: this.workflowNodes.filter((node): boolean => {
           return (node instanceof DatasetNode)
-        }).map((node): {}=> {
+        }).map((node): {} => {
           return node.toJSON()
         }),
-        processes: this.workflowNodes.filter((node): boolean=> {
+        processes: this.workflowNodes.filter((node): boolean => {
           return (node instanceof AlgorithmNode)
-        }).map((node): {}=> {
+        }).map((node): {} => {
           return node.toJSON()
         }),
         paths: paths
