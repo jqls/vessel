@@ -11,6 +11,7 @@ import {WorkflowNodeType} from "./drawboard.node-types";
 import * as d3 from "d3";
 
 
+
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;
 export const ELEMENT_ROUND_X = 5;
@@ -19,7 +20,6 @@ export const ELEMENT_ROUND_Y = 5;
 
 export class DrawboardElement {
     attributes = new BasicNode();
-
     board: DrawboardComponent;
     cx: number;
     cy: number;
@@ -37,6 +37,7 @@ export class DrawboardElement {
     initMenu(): void {
         this.menu = new DrawboardMenu();
         this.menu.addItem("删除", this.deleteElements());
+        this.menu.addItem("复制",this.copyElements());
         this.menu.addMenuTo(this);
     }
 
@@ -71,6 +72,24 @@ export class DrawboardElement {
         }
     }
 
+    copyElements(): (()=>void ){
+        /*
+        let self=this;
+        //let copyElements=lodash_.cloneDeep(self) ;
+        let copyElements=Object.assign(self);
+        */
+        return()=>{
+           // console.log("复制"+copyElements.attributes.label);
+          //  copyElements.render();
+            //处理Parameters
+        };
+
+    }
+
+    render(){
+
+    }
+
     constructor(board: DrawboardComponent,
                 centerPosition: {x: number, y: number},
                 flowID: number,
@@ -80,7 +99,6 @@ export class DrawboardElement {
         this.attributes.label = nodeType.label;
         this.attributes.description = nodeType.description;
         this.attributes.flowID = flowID;
-
         this.relations = [];
         this.board = board;
         this.groupContainer = board.container.append("g");

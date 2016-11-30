@@ -1,11 +1,12 @@
 import {
     ParameterJSON, DataSourceNodeType, ProcessNodeType, StormParameterJSON,
-    StormNodeType
+    StormNodeType, WorkflowNodeType, ProcessNodeTypeJSON
 } from "./drawboard.node-types";
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT, ELEMENT_ROUND_X, ELEMENT_ROUND_Y} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./drawboard.relation";
 import * as d3 from  "d3";
+import * as _ from "lodash"
 
 
 /**
@@ -21,7 +22,6 @@ export class BasicNode {
 
 export class ProcessNode extends DrawboardElement {
     parameters: ParameterJSON[];
-
     constructor(nodeType: ProcessNodeType,
                 flowID: number,
                 board: DrawboardComponent,
@@ -40,6 +40,30 @@ export class ProcessNode extends DrawboardElement {
             parameters: this.parameters
         };
     }
+
+
+   copyElements(): (()=>void ){
+       let x=this.cx+20;
+       let y=this.cy+20;
+       let copyElements=_.cloneDeep(this);
+       //let copyElements=Object.assign(this);
+
+    return()=> {
+        copyElements.parameters=this.parameters;
+        copyElements.attributes=this.attributes;
+        copyElements.board=this.board;
+        copyElements.cx=x;
+        copyElements.cy=y;
+        copyElements.groupContainer=copyElements.board.container.append("g");
+        copyElements.relations=[];
+        copyElements.rendered=false;
+        copyElements.setCenterPosition({x,y});
+        copyElements.initMenu();
+        copyElements.render();
+        copyElements.bindEventHandler();
+
+     }
+   }
 
     render() {
         if (!this.rendered) {
@@ -86,6 +110,9 @@ export class ProcessNode extends DrawboardElement {
         }
         this.rendered = true;
     }
+
+
+
 
     bindEventHandler() {
         let self = this;
@@ -297,6 +324,29 @@ export class DataSourceNode extends DrawboardElement {
             flowID: "" + this.attributes.flowID,
             parameters: this.parameters
         };
+    }
+
+    copyElements(): (()=>void ){
+        let x=this.cx+20;
+        let y=this.cy+20;
+        let copyElements=_.cloneDeep(this);
+        //let copyElements=Object.assign(this);
+
+        return()=> {
+            copyElements.parameters=this.parameters;
+            copyElements.attributes=this.attributes;
+            copyElements.board=this.board;
+            copyElements.cx=x;
+            copyElements.cy=y;
+            copyElements.groupContainer=copyElements.board.container.append("g");
+            copyElements.relations=[];
+            copyElements.rendered=false;
+            copyElements.setCenterPosition({x,y});
+            copyElements.initMenu();
+            copyElements.render();
+            copyElements.bindEventHandler();
+
+        }
     }
 
     render() {
