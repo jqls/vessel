@@ -17,6 +17,7 @@ export class GlobalService {
     this.navepane_subscribers.push(update);
   }
   setNavpaneStat(stat: boolean): void{
+    this.navepaneStat = stat;
     this.navepane_subscribers.forEach(fn=>fn(stat));
   }
 

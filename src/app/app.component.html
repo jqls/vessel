@@ -8,7 +8,7 @@
       <app-navpane></app-navpane>
     </div>
 
-    <div class="col-md-11" style="margin-left: 75px">
+    <div class="col-md-11" [ngClass]="{'outlet-expended': !navpaneStat,'outlet-collaspe': navpaneStat}">
       <router-outlet></router-outlet>
     </div>
   </div>
