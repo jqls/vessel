@@ -24,15 +24,18 @@ export class ParametersComponent implements OnInit {
 
   constructor(private craftService: CraftService,
   private qcs: QuestionControlService) {
+
     //订阅selectedNode和selectedRelation
     this.craftService.bookSelectedNode((node: WorkflowNode) => {
       this.selectedNode = node;
       this.parameters = node instanceof AlgorithmNode ?
         (<AlgorithmNode>this.selectedNode).nodetype.parameters:
         [];
+      mydebug(this.debug_location,"bookSelectedNode",String(node instanceof AlgorithmNode));
       this.questions = this.qcs.toQuestions(this.parameters);
       this.form = this.qcs.toFormGroup(this.questions);
     });
+
     this.craftService.bookSelectedRelation((relation: Relation) => {
       this.selectedRelation = relation;
     });

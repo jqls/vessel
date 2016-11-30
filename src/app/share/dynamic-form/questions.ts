@@ -7,14 +7,14 @@ export class QuestionBase<T>{
   controlType: string;
 
   constructor(options: {
-    value?: T,
+    val?: T,
     key?: string,
     label?: string,
     required?: boolean,
     order?: number,
     controlType?: string
   } = {}) {
-    this.value = options.value;
+    this.value = options.val;
     this.key = options.key || '';
     this.label = options.label || '';
     this.required = !!options.required;
@@ -48,6 +48,7 @@ export class TextboxQuestion extends QuestionBase<string> {
  can be found in the LICENSE file at http://angular.io/license
  */
 
-export class PasswordQuestion extends QuestionBase<string> {
-
-}
+// export class PasswordQuestion extends QuestionBase<string> {
+//   controlType = 'password';
+//   typ
+// }

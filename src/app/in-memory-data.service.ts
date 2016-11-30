@@ -1,7 +1,6 @@
-import { InMemoryDbService } from "angular2-in-memory-web-api";
-export class InMemoryDataService implements InMemoryDbService{
+import {InMemoryDbService} from "angular2-in-memory-web-api";
+export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-
     let spark_data = {
       "sources": [
         {"description": "", "id": 1, "label": "KDDCUP1999_10"},
@@ -11,21 +10,22 @@ export class InMemoryDataService implements InMemoryDbService{
         {
           "description": "1",
           "id": 1,
-          "parameters": [{"controlType": "int", "slug": "classNumber", "val": "0", "label": "classNumber"}],
+          "parameters": [{"controlType": "textbox", "key": "classNumber", "val": "0", "label": "classNumber"}],
           "label": "KDDCUPNormalization"
         },
         {
           "description": "2",
           "id": 2,
           "parameters": [{
-            "controlType": "float",
-            "slug": "lambda",
+            "controlType": "textbox",
+            "type": "float",
+            "key": "lambda",
             "val": "1.0",
             "label": "lambda"
           }, {
-            "options": ["multi-nominal", "bernoulli"],
-            "controlType": "select",
-            "slug": "NBType",
+            "options": [{"key":"multi-nominal","value":"multi-nominal"},{"key":"bernoulli","value":"bernoulli"}],
+            "controlType": "dropdown",
+            "key": "NBType",
             "val": "0",
             "label": "NBType"
           }],
@@ -34,7 +34,7 @@ export class InMemoryDataService implements InMemoryDbService{
         {
           "description": "3",
           "id": 3,
-          "parameters": [{"controlType": "text", "slug": "modelType", "val": "None", "label": "modelType"}],
+          "parameters": [{"controlType": "textbox", "type": "text", "key": "modelType", "val": "None", "label": "modelType"}],
           "label": "ModelEstimation"
         }
       ]

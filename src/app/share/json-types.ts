@@ -14,11 +14,13 @@ export type DatasetType = {
 }
 
 export type ParameterType = {
+  key: string
   label: string,
+  val?: string,
   controlType: string,
-  val: string,
-  slug?: string,
   required?: boolean,
+  order?: number,
+  type?: string,
   options?: string[],
   description?: string,
 }
