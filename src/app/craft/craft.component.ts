@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CraftService} from "./craft.service";
+import {GlobalService} from "../global.service";
 
 @Component({
   selector: 'app-craft',
@@ -8,7 +9,10 @@ import {CraftService} from "./craft.service";
 })
 export class CraftComponent implements OnInit {
 
-  constructor(private craftService:CraftService) { }
+  constructor(private craftService:CraftService,
+              private globalService:GlobalService) {
+    this.globalService.setNavpaneStat(false);
+  }
 
   ngOnInit() {
   }

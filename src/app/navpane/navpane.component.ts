@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {GlobalService} from "../global.service";
 
 @Component({
   selector: 'app-navpane',
@@ -9,15 +10,14 @@ export class NavpaneComponent implements OnInit {
 
   private isExpended: boolean;
 
-  constructor() {
-    this.isExpended = true;
+  constructor(private globalService:GlobalService) {
+    this.globalService.bookNavpaneStat((stat:boolean)=>{
+      this.isExpended = stat;
+    });
+    this.globalService.setNavpaneStat(true);
   }
 
   ngOnInit() {
-  }
-
-  setIsExpended(p: boolean) {
-    this.isExpended = p;
   }
 
   get panedWidth() {
