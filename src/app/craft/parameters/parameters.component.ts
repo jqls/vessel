@@ -46,8 +46,14 @@ export class ParametersComponent implements OnInit {
   }
 
   onSubmit() {
-    //todo: 更新参数
     mydebug(this.debug_location,"onSubmit","update parameters");
-    // this.parametersStatus.updatePatameters(this.form);
+    let node = this.selectedNode;
+    node = node instanceof AlgorithmNode ?
+      (<AlgorithmNode>this.selectedNode):
+      null;
+    if(node != null)
+      node.nodetype.parameters.forEach(parameter => {
+        parameter.val = this.form.value[parameter.key];
+      });
   }
 }

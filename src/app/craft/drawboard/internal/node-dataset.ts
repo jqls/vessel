@@ -25,6 +25,7 @@ export class DatasetNode extends BasicDrawboardNode {
       id: "" + this.nodetype.id,
       label: this.nodetype.name,
       description: this.nodetype.description,
+      parameters: this.nodetype.parameters,
       flowID: "" + this.flowID
     };
   }

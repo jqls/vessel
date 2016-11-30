@@ -20,11 +20,13 @@ export class Dataset {
   id: string;
   name: string;
   description: string;
+  parameters: ParameterType[];
 
   constructor(json: DatasetType) {
     this.id = json.id;
     this.name = json.label;
     this.description = json.description;
+    this.parameters = json.parameters;
   }
 }
 export type WorkflowNodeType = Algorithm | Dataset;

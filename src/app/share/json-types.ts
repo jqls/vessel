@@ -13,6 +13,7 @@ export type DatasetType = {
   id: string,
   label: string,
   description: string,
+  parameters?: ParameterType[];
 }
 
 export type ParameterType = {
