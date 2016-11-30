@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from "@angular/http";
+import {Http, Response} from "@angular/http";
 import {environment} from "../environments/environment";
 import {SparkDataType, DatasetType, AlgorithmType} from "./share/json-types";
 import {mydebug} from "./share/my-log";
@@ -50,5 +50,9 @@ export class DataService {
           .map((algorithmJSON: AlgorithmType): Algorithm => new Algorithm(algorithmJSON))
       })
       .catch(handleError);
+  }
+
+  getExperimentsList(): Promise<Response> {
+    return this.http.get(`${environment.djangoServer}/get_history/`).toPromise();
   }
 }

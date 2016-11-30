@@ -17,6 +17,7 @@ export class CraftService {
   private taskName_subscribers: Array<(taskName: string)=>void>;
 
   private rightPaneStat: boolean;
+  private reload_flag: boolean;
 
   constructor() {
     this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();
@@ -25,6 +26,7 @@ export class CraftService {
     this.taskName_subscribers = Array<(taskName: string)=>void>();
 
     this.rightPaneStat = true;
+    this.reload_flag = false;
   }
 
   bookSelectedNodeType(update: (nodeType: WorkflowNodeType)=>void): void {
@@ -76,5 +78,13 @@ export class CraftService {
 
   setRightPaneStat(stat: boolean): void {
     this.rightPaneStat = stat;
+  }
+
+  setReload(reload: boolean){
+    this.reload_flag = reload;
+  }
+
+  isReload(){
+    return this.reload_flag;
   }
 }

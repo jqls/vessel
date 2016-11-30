@@ -7,7 +7,7 @@ import {DataAnalysisComponent} from "./data-analysis.unit/data-analysis.componen
     RouterModule.forRoot([
       {
         path: '',
-        redirectTo: '/craft',
+        redirectTo: '/ExperimentList',
         pathMatch: 'full'
       },
       {path: 'data-analysis', component: DataAnalysisComponent},
