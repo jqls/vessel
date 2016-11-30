@@ -2,7 +2,6 @@ import * as d3 from "d3";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./relation";
 import {Contextmenu} from "./contextmenu";
-import {Dataset, Algorithm} from "../../../share/data-types";
 import {mydebug} from "../../../share/my-log";
 import {AlgorithmNode} from "./node-algorithm";
 import {DatasetNode} from "./node-dataset";

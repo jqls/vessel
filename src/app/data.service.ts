@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {environment} from "../environments/environment";
-import {SparkDataType, DatasetType, AlgorithmType} from "./share/json-types";
+import {SparkDataType, DatasetType, AlgorithmType, SubmitJson} from "./share/json-types";
 import {mydebug} from "./share/my-log";
 import {Dataset, Algorithm} from "./share/data-types";
 import {handleError} from "./share/my-handler";
@@ -54,5 +54,17 @@ export class DataService {
 
   getExperimentsList(): Promise<Response> {
     return this.http.get(`${environment.djangoServer}/get_history/`).toPromise();
+  }
+
+  getDataByTaskName(taskName: string):Promise<SubmitJson>{
+
+    console.log("taskName: "+ taskName);
+    return this.http.get(environment.URL_Spark_redraw+"taskName="+ taskName).toPromise().then(
+      response => {
+        console.log("getDataByTaskName");
+        return response.json() as SubmitJson;
+      }
+    ).catch(handleError);
+
   }
 }

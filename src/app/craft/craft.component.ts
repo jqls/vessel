@@ -18,16 +18,22 @@ export class CraftComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.isReload)
+    if(this.isReload){
       this.reRender();
+    } else {
+      this.craftService.setTaskName("新建任务");
+    }
+
   }
   get isOpenRightPane() {return this.craftService.getRightPaneStat();}
 
   onSubmitClick() {
     this.craftService.submit();
+    //todo:需要跟朱博商量状态参数问题
   }
 
   reRender(){
-    //todo:需要跟朱博商量参数问题
+    //todo:需要跟朱博商量参数问题,要不要记录节点坐标？
+    this.craftService.reRender();
   }
 }

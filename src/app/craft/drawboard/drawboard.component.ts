@@ -7,6 +7,8 @@ import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
 import {AlgorithmNode} from "./internal/node-algorithm";
 import {DatasetNode} from "./internal/node-dataset";
+import {DataService} from "../../data.service";
+import {SubmitJson, DatasetType, AlgorithmType} from "../../share/json-types";
 
 @Component({
   selector: 'app-drawboard',
@@ -44,7 +46,8 @@ export class DrawboardComponent implements OnInit {
   shiftDrag: boolean;
   private flowIDCounter: number;
 
-  constructor(private craftService: CraftService) {
+  constructor(private craftService: CraftService,
+              private dataService: DataService) {
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
       mydebug(this.debug_location, "craftService.bookSelectedNodeType", String(this.selectedNodeType == null));
@@ -63,11 +66,21 @@ export class DrawboardComponent implements OnInit {
     });
     this.workflowNodes = [];
     this.relations = [];
-    this.craftService.setTaskName("新建任务");
 
+    //设置用于submit的钩子函数
     this.craftService.setSubmitHook(() => {
       return this.getSubmitPara();
-    })
+    });
+
+    //设置用于reRender的钩子函数
+    this.craftService.setReRenderHook(()=>{
+      this.dataService.getDataByTaskName(this.taskName).then(
+        response => {
+          let reRenderData:SubmitJson = response;
+          this.reRender(reRenderData);
+        }
+      );
+    });
   }
 
   ngOnInit() {
@@ -289,5 +302,80 @@ export class DrawboardComponent implements OnInit {
         paths: paths
       }
     );
+  }
+
+  reRender(reRenderData: SubmitJson):void {
+    let self = this;
+    let position: {x: number; y: number}[] = [
+      {x: 245, y: 104},
+      {x: 476, y: 104},
+      {x: 225, y: 195},
+      {x: 467, y: 202},
+      {x: 491, y: 290},
+      {x: 300, y: 328},
+      {x: 312, y: 415},
+    ];
+    let count = 0;
+    console.log("ReRender");
+    let datasetNode: DatasetNode[] = reRenderData.sources.map(
+      (datasetType2) => {
+        let flowID:number = +datasetType2.flowID;
+        let datasetType: DatasetType = {
+          id: datasetType2.id,
+          label: datasetType2.label,
+          description: datasetType2.description,
+        }
+        let dataset: Dataset = new Dataset(datasetType);
+        let datasetNode: DatasetNode = new DatasetNode(flowID, self, position[count++],dataset);
+        console.log(datasetNode);
+        return datasetNode;
+      }
+    );
+    let algorithmNode: AlgorithmNode[] = reRenderData.processes.map(
+      (algorithmType2) =>{
+        let flowID:number = +algorithmType2.flowID;
+        let algorithmType: AlgorithmType = {
+          id: algorithmType2.id,
+          label: algorithmType2.label,
+          type: algorithmType2.type,
+          description: algorithmType2.description,
+          parameters: algorithmType2.parameters
+        }
+        let algorithm: Algorithm = new Algorithm(algorithmType);
+        let algorithmNode: AlgorithmNode = new AlgorithmNode(flowID, self, position[count++], algorithm);
+        console.log(algorithmNode);
+        return algorithmNode;
+      }
+    );
+
+    for(let dataSource of datasetNode){
+      self.workflowNodes.push(dataSource);
+      dataSource.render();
+    }
+
+    for(let process of algorithmNode){
+      self.workflowNodes.push(process);
+      process.render();
+    }
+
+    let paths = reRenderData.paths;
+    for(let path of paths){
+      let [from, to] = path.split("->");
+      console.log("from: "+from + "\nto: "+to);
+      let fromNode = this.findNodeByFlowID(+from);
+      let toNode = this.findNodeByFlowID(+to);
+      let relation = new Relation(self, fromNode, toNode);
+      fromNode.relations.push(relation);
+      toNode.relations.push(relation);
+      this.relations.push(relation);
+    }
+  }
+
+  findNodeByFlowID(flowid: number): WorkflowNode{
+    let node: WorkflowNode;
+    node = this.workflowNodes.filter(node=>{
+      return node.flowID == flowid;
+    })[0];
+    return node;
   }
 }

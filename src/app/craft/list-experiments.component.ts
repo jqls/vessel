@@ -28,6 +28,7 @@ export class ListExperimentsComponent implements OnInit {
   }
 
   gotoDetail(taskName: string) {
+    this.craftService.setTaskName(taskName);
     this.craftService.setReload(true);
     let link = ["/Experiment"];
     this.router.navigate(link);

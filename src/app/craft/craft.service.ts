@@ -20,6 +20,7 @@ export class CraftService {
   private taskName_subscribers: Array<(taskName: string)=>void>;
 
   private submit_hook: () =>void;
+  private reRender_hook: ()=>void;
   private rightPaneStat: boolean;
   private reload_flag: boolean;
 
@@ -69,6 +70,7 @@ export class CraftService {
   bookTaskName(update: (taskName: string)=>void): void {
     mydebug(this.debug_location, "bookTaskName", 'book');
     this.taskName_subscribers.push(update);
+    this.taskName_subscribers.forEach(fn=>fn(this.taskName));
   }
 
   setTaskName(taskName: string): void {
@@ -95,7 +97,7 @@ export class CraftService {
   setSubmitHook(getSubmitPara:()=>void){
     this.submit_hook = getSubmitPara;
 }
-  submit() {
+  submit(){
     let workflowJSON = this.submit_hook();
     mydebug(this.debug_location,"submit",`${workflowJSON}`);
 
@@ -110,5 +112,11 @@ export class CraftService {
         console.log(res)
       })
       .catch(handleError);
+  }
+  setReRenderHook(reRender:()=>void){
+    this.reRender_hook = reRender;
+  }
+  reRender(): void{
+    this.reRender_hook();
   }
 }
