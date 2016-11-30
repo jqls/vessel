@@ -44,7 +44,7 @@ export class DrawboardComponent implements OnInit {
   private lastKeyDown: number;
   dragFrom: WorkflowNode;
   shiftDrag: boolean;
-  private flowIDCounter: number;
+  flowIDCounter: number;
 
   constructor(private craftService: CraftService,
               private dataService: DataService) {

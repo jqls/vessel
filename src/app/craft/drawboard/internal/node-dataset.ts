@@ -83,21 +83,22 @@ export class DatasetNode extends BasicDrawboardNode {
   }
 
   copyElements(): ()=>void {
-    let x=this.cx+20;
-    let y=this.cy+20;
-    let copyElements=_.cloneDeep(this);
+    let x = this.cx + 20;
+    let y = this.cy + 20;
+    let copyElements = _.cloneDeep(this);
     //let copyElements=Object.assign(this);
 
-    return()=> {
-      copyElements.nodetype=this.nodetype;
-      copyElements.name=this.name;
-      copyElements.flowID=this.flowID;
-      copyElements.board=this.board;
-      copyElements.cx=x;
-      copyElements.cy=y;
-      copyElements.groupContainer=copyElements.board.container.append("g");
-      copyElements.setCenterPosition({'x':x,'y':y});
-      copyElements.relations=[];
+    return () => {
+      copyElements.nodetype = this.nodetype;
+      copyElements.name = this.name;
+      copyElements.flowID = this.board.flowIDCounter;
+      this.board.flowIDCounter += 1;
+      copyElements.board = this.board;
+      copyElements.cx = x;
+      copyElements.cy = y;
+      copyElements.groupContainer = copyElements.board.container.append("g");
+      copyElements.setCenterPosition({'x': x, 'y': y});
+      copyElements.relations = [];
       copyElements.initMenu();
       copyElements.bindEventHandler();
       copyElements.render();
