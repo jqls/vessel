@@ -99,10 +99,11 @@ export abstract class BasicDrawboardNode {
   protected initMenu(): void {
     this.menu = new Contextmenu();
     this.menu.addItem("删除", this.deleteNode());
+    this.menu.addItem("复制",this.copyElements());
     this.menu.addMenuTo(this);
   }
 
-  private bindEventHandler(): void {
+  protected bindEventHandler(): void {
     let self = this;
     this.groupContainer
       .on("mousedown", () => {
@@ -200,6 +201,8 @@ export abstract class BasicDrawboardNode {
 
     }
   }
+
+  abstract copyElements(): ()=>void;
 }
 
 

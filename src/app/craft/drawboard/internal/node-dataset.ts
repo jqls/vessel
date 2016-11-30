@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import * as _ from "lodash";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./relation";
 import {Dataset} from "../../../share/data-types";
@@ -78,6 +79,28 @@ export class DatasetNode extends BasicDrawboardNode {
       this.relations.forEach((value) => {
         value.update();
       });
+    }
+  }
+
+  copyElements(): ()=>void {
+    let x=this.cx+20;
+    let y=this.cy+20;
+    let copyElements=_.cloneDeep(this);
+    //let copyElements=Object.assign(this);
+
+    return()=> {
+      copyElements.nodetype=this.nodetype;
+      copyElements.name=this.name;
+      copyElements.flowID=this.flowID;
+      copyElements.board=this.board;
+      copyElements.cx=x;
+      copyElements.cy=y;
+      copyElements.groupContainer=copyElements.board.container.append("g");
+      copyElements.setCenterPosition({'x':x,'y':y});
+      copyElements.relations=[];
+      copyElements.initMenu();
+      copyElements.bindEventHandler();
+      copyElements.render();
     }
   }
 }
