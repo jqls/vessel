@@ -29,7 +29,7 @@ export type DataSourceNodeTypeJSON = {
   id: string,
   label: string,
   description: string,
-  // parameters: ParameterJSON[];
+  parameters: ParameterJSON[];
 }
 
 
@@ -61,13 +61,13 @@ export class DataSourceNodeType {
   id: string;
   label: string;
   description: string;
-  // parameters: ParameterJSON[];
+  parameters: ParameterJSON[];
 
   constructor(json: DataSourceNodeTypeJSON) {
     this.id = json.id;
     this.label = json.label;
     this.description = json.description;
-    // this.parameters = json.parameters;
+    this.parameters = json.parameters;
   }
 }
 export class StormNodeType {

@@ -11,8 +11,9 @@ import {ResultService} from "../result.service";
 import * as d3 from "d3";
 import {GlobalService} from "../../global.service";
 import {ProcessService} from "../process.service";
-import {SubmitJson, DataSourceNodeTypeJSON2, ProcessNodeTypeJSON2} from "../data-type";
+import {SubmitJson} from "../data-type";
 import {Relation} from "./internal/drawboard.relation";
+import {DrawboardMenu} from "./internal/drawboard.menu";
 
 
 @Component({
@@ -29,7 +30,7 @@ export class DrawboardComponent implements OnInit {
     container: any;
     relationLayer: any;
     dragLine: any;
-
+    ifcopy=false;
     selectedLine: any;
     selectedNode: any;
     mouseDownNode: any;
@@ -40,6 +41,8 @@ export class DrawboardComponent implements OnInit {
     lastKeyDown: number;
     shiftDrag: boolean;
     flowIDCounter = 0;
+
+    menu: DrawboardMenu;
 
     constants = {
         BACKSPACE_KEY: 8,
@@ -102,10 +105,11 @@ export class DrawboardComponent implements OnInit {
 
     private initSVG() {
         let self = this;
+
         this.dragLine = this.container.append('svg:path')
             .attr('class', 'hidden path')
-            .attr('d', 'M0,0 L0,0')
-            .style('marker-end', 'url(/craft#mark-end-arrow)');
+           .attr('d', 'M0,0L0,0')
+            .style('marker-end', 'url(/craft#mark-end-arrow)').style("stroke","lightgray").style( "stroke-dasharray","10 2").attr("fill","none");
 
         this.svg
             .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)
@@ -163,11 +167,12 @@ export class DrawboardComponent implements OnInit {
                 self.flowIDCounter += 1;
                 self.nodes.push(newElement);
                 console.log("before render");
+                //noinspection TypeScriptValidateTypes
                 newElement.render();
                 console.log("end render");
             } else {
                 // console.log("set null");
-                // self.setParameter(null);
+                self.setParameter(null);
                 // self.setResult(null);
             }
 
@@ -179,6 +184,16 @@ export class DrawboardComponent implements OnInit {
                 self.container.attr(
                     "transform",
                     "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(" + (<d3.ZoomEvent> d3.event).scale + ")");
+                if ((<d3.ZoomEvent> d3.event).scale<1.1){
+                    self.container.attr(
+                        "transform",
+                        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1.1)");
+                }
+                if ((<d3.ZoomEvent> d3.event).scale>5){
+                    self.container.attr(
+                        "transform",
+                        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(5)");
+                }
                 return true;
             })
             .on("zoomstart", function () {
@@ -219,10 +234,12 @@ export class DrawboardComponent implements OnInit {
 
     public update() {
         this.justDragged = false;
-        this.dragLine.attr("d", "M0,0L0,0").classed("hidden", true);
+        this.dragLine.attr("d", "M0,0L0,0")
+            .classed("hidden", true);
         this.shiftDrag = false;
         this.dragFrom = null;
     }
+
 
     ngOnInit() {
         this.drawBoardStatus.setSubmitClickHook(this.getSubmitHandler());
@@ -234,6 +251,7 @@ export class DrawboardComponent implements OnInit {
 
         if (this.isReload) {
             let taskName = this.drawBoardStatus.getTaskName();
+            //noinspection TypeScriptUnresolvedFunction
             this.processService.getDataByTaskName(taskName).then(
                 response => {
                     let reRenderData:SubmitJson = response;
@@ -241,7 +259,11 @@ export class DrawboardComponent implements OnInit {
                 }
             )
         }
+
     }
+
+
+
     reRender(reRenderData: SubmitJson){
         let self = this;
         let position: {x: number; y: number}[] = [
@@ -256,12 +278,13 @@ export class DrawboardComponent implements OnInit {
         let count = 0;
         console.log("ReRender");
         let dataSourceNode: DataSourceNode[] = reRenderData.sources.map(
-            (dataSourceNodeType2):DataSourceNode => {
+            (dataSourceNodeType2) => {
                 let flowID:number = +dataSourceNodeType2.flowID;
                 let dataSourceNodeTypeJSON: DataSourceNodeTypeJSON = {
                     id: dataSourceNodeType2.id,
                     label: dataSourceNodeType2.label,
-                    description: dataSourceNodeType2.description
+                    description: dataSourceNodeType2.description,
+                    parameters:dataSourceNodeType2.parameters
                 }
                 let dataSourceNodeType: DataSourceNodeType = new DataSourceNodeType(dataSourceNodeTypeJSON);
                 let dataSourceNode: DataSourceNode = new DataSourceNode(dataSourceNodeType, flowID, self, position[count++]);

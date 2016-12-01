@@ -1,11 +1,12 @@
 import {
     ParameterJSON, DataSourceNodeType, ProcessNodeType, StormParameterJSON,
-    StormNodeType
+    StormNodeType, WorkflowNodeType, ProcessNodeTypeJSON
 } from "./drawboard.node-types";
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT, ELEMENT_ROUND_X, ELEMENT_ROUND_Y} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./drawboard.relation";
 import * as d3 from  "d3";
+import * as _ from "lodash"
 
 
 /**
@@ -21,7 +22,6 @@ export class BasicNode {
 
 export class ProcessNode extends DrawboardElement {
     parameters: ParameterJSON[];
-
     constructor(nodeType: ProcessNodeType,
                 flowID: number,
                 board: DrawboardComponent,
@@ -41,6 +41,30 @@ export class ProcessNode extends DrawboardElement {
         };
     }
 
+
+   copyElements(): (()=>void ){
+       let x=this.cx+20;
+       let y=this.cy+20;
+       let copyElements=_.cloneDeep(this);
+       //let copyElements=Object.assign(this);
+
+    return()=> {
+        copyElements.parameters=this.parameters;
+        copyElements.attributes=this.attributes;
+        copyElements.board=this.board;
+        copyElements.cx=x;
+        copyElements.cy=y;
+        copyElements.groupContainer=copyElements.board.container.append("g");
+        copyElements.relations=[];
+        copyElements.rendered=false;
+        copyElements.setCenterPosition({x,y});
+        copyElements.initMenu();
+        copyElements.render();
+        copyElements.bindEventHandler();
+
+     }
+   }
+
     render() {
         if (!this.rendered) {
             this.groupContainer.append("rect")
@@ -49,16 +73,46 @@ export class ProcessNode extends DrawboardElement {
                 .attr("height", ELEMENT_HEIGHT)
                 .attr("width", ELEMENT_WIDTH)
                 .classed("process", true);
-            this.groupContainer
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ELEMENT_HEIGHT / 2)
-                .attr("dx", ELEMENT_WIDTH / 2)
-                .append("tspan")
-                .html(this.attributes.label);
+            this.groupContainer.append("circle")
+                .attr("cx",ELEMENT_WIDTH / 2)
+                // .attr("cy",this.cy)
+                .attr("r","4")
+                .style("stroke","gray")
+                .style("fill","white")
+                .style("stroke-width","1px")
+            this.groupContainer.append("circle")
+                .attr("cx",ELEMENT_WIDTH / 2)
+                .attr("cy",ELEMENT_HEIGHT)
+                .attr("r","4")
+                .style("stroke","gray")
+                .style("fill","#00CACA")
+                .style("stroke-width","1px")
+            if(ELEMENT_WIDTH/this.attributes.label.length>15){
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",15)
+                    .html(this.attributes.label);
+            }else{
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",ELEMENT_WIDTH/this.attributes.label.length)
+                    .html(this.attributes.label);
+
+            }
         }
         this.rendered = true;
     }
+
+
+
 
     bindEventHandler() {
         let self = this;
@@ -106,7 +160,8 @@ export class ProcessNode extends DrawboardElement {
                         if (self.board.shiftDrag) {
                             let mouseCoords = d3.mouse(self.board.container.node());
                             self.board.dragLine.classed("hidden", false);
-                            self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + ',' + (self.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
+                            self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + " " + (self.cy + ELEMENT_HEIGHT) + 'C'+(self.cx + ELEMENT_WIDTH / 2)+" "+(((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2-2)+',' +(((self.cx + ELEMENT_WIDTH / 2)+mouseCoords[0])/2+2)+" "+((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2 +','+((self.cx + ELEMENT_WIDTH / 2)+mouseCoords[0])/2+" "+((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2+'S'+mouseCoords[0]+" "+(((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2+2)+','+ mouseCoords[0] + " "+mouseCoords[1]);
+                              //  'L' + mouseCoords[0] + ',' + mouseCoords[1]);
                         } else {
                             let dragEvent = <d3.DragEvent> d3.event;
                             self.setCenterPosition({
@@ -157,13 +212,26 @@ export class StormNode extends DrawboardElement {
                 .attr("height", ELEMENT_HEIGHT)
                 .attr("width", ELEMENT_WIDTH)
                 .classed("process", true);
-            this.groupContainer
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ELEMENT_HEIGHT / 2)
-                .attr("dx", ELEMENT_WIDTH / 2)
-                .append("tspan")
-                .html(this.attributes.label);
+            if(ELEMENT_WIDTH/this.attributes.label.length>15){
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",15)
+                    .html(this.attributes.label);
+            }else{
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",ELEMENT_WIDTH/this.attributes.label.length)
+                    .html(this.attributes.label);
+
+            }
         }
         this.rendered = true;
     }
@@ -214,7 +282,8 @@ export class StormNode extends DrawboardElement {
                         if (self.board.shiftDrag) {
                             let mouseCoords = d3.mouse(self.board.container.node());
                             self.board.dragLine.classed("hidden", false);
-                            self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + ',' + (self.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
+                            self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + " " + (self.cy + ELEMENT_HEIGHT) + 'C'+(self.cx + ELEMENT_WIDTH / 2)+" "+(((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2-2)+',' +(((self.cx + ELEMENT_WIDTH / 2)+mouseCoords[0])/2+2)+" "+((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2 +','+((self.cx + ELEMENT_WIDTH / 2)+mouseCoords[0])/2+" "+((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2+'S'+mouseCoords[0]+" "+(((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2+2)+','+ mouseCoords[0] + " "+mouseCoords[1]);
+                            // self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + ',' + (self.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
                         } else {
                             let dragEvent = <d3.DragEvent> d3.event;
                             self.setCenterPosition({
@@ -237,13 +306,13 @@ export class StormNode extends DrawboardElement {
 
 export class DataSourceNode extends DrawboardElement {
 
-    // parameters: ParameterJSON[];
+     parameters: ParameterJSON[];
     constructor(nodeType: DataSourceNodeType,
                 flowID: number,
                 board: DrawboardComponent,
                 position: {x: number, y: number}) {
         super(board, position, flowID, nodeType);
-        // this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
+        this.parameters = JSON.parse(JSON.stringify(nodeType.parameters));
         this.bindEventHandler();
     }
 
@@ -253,8 +322,31 @@ export class DataSourceNode extends DrawboardElement {
             label: this.attributes.label,
             description: this.attributes.description,
             flowID: "" + this.attributes.flowID,
-            // parameters: this.parameters
+            parameters: this.parameters
         };
+    }
+
+    copyElements(): (()=>void ){
+        let x=this.cx+20;
+        let y=this.cy+20;
+        let copyElements=_.cloneDeep(this);
+        //let copyElements=Object.assign(this);
+
+        return()=> {
+            copyElements.parameters=this.parameters;
+            copyElements.attributes=this.attributes;
+            copyElements.board=this.board;
+            copyElements.cx=x;
+            copyElements.cy=y;
+            copyElements.groupContainer=copyElements.board.container.append("g");
+            copyElements.relations=[];
+            copyElements.rendered=false;
+            copyElements.setCenterPosition({x,y});
+            copyElements.initMenu();
+            copyElements.render();
+            copyElements.bindEventHandler();
+
+        }
     }
 
     render() {
@@ -266,13 +358,33 @@ export class DataSourceNode extends DrawboardElement {
                 .attr("height", ELEMENT_HEIGHT)
                 .attr("width", ELEMENT_WIDTH)
                 .classed("data-source", true);
-            this.groupContainer
-                .append("text")
-                .attr("text-anchor", "middle")
-                .attr("dy", ELEMENT_HEIGHT / 2)
-                .attr("dx", ELEMENT_WIDTH / 2)
-                .append("tspan")
-                .html(this.attributes.label);
+            this.groupContainer.append("circle")
+                .attr("cx",ELEMENT_WIDTH / 2)
+                .attr("cy",ELEMENT_HEIGHT)
+                .attr("r","4")
+                .style("stroke","gray")
+                .style("fill","#00CACA")
+                .style("stroke-width","1px")
+            if(ELEMENT_WIDTH/this.attributes.label.length>15){
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",15)
+                    .html(this.attributes.label);
+            }else{
+                this.groupContainer
+                    .append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("dy", ELEMENT_HEIGHT / 2)
+                    .attr("dx", ELEMENT_WIDTH / 2)
+                    .append("tspan")
+                    .attr("font-size",ELEMENT_WIDTH/this.attributes.label.length)
+                    .html(this.attributes.label);
+
+            }
         }
         this.rendered = true;
     }
@@ -289,7 +401,7 @@ export class DataSourceNode extends DrawboardElement {
                     self.board.dragLine.classed('hidden', false);
                     return;
                 } else {
-                    // self.board.setParameter(self);
+                    self.board.setParameter(self);
                     // self.board.setResult(null);
                 }
             })
@@ -322,7 +434,8 @@ export class DataSourceNode extends DrawboardElement {
                         if (self.board.shiftDrag) {
                             let mouseCoords = d3.mouse(self.board.container.node());
                             self.board.dragLine.classed("hidden", false);
-                            self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + ',' + (self.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
+                            self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + " " + (self.cy + ELEMENT_HEIGHT) + 'C'+(self.cx + ELEMENT_WIDTH / 2)+" "+(((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2-2)+',' +(((self.cx + ELEMENT_WIDTH / 2)+mouseCoords[0])/2+2)+" "+((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2 +','+((self.cx + ELEMENT_WIDTH / 2)+mouseCoords[0])/2+" "+((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2+'S'+mouseCoords[0]+" "+(((self.cy + ELEMENT_HEIGHT)+mouseCoords[1])/2+2)+','+ mouseCoords[0] + " "+mouseCoords[1]);
+                            //self.board.dragLine.attr('d', 'M' + (self.cx + ELEMENT_WIDTH / 2) + ',' + (self.cy + ELEMENT_HEIGHT) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
                         } else {
                             let dragEvent = <d3.DragEvent> d3.event;
                             self.setCenterPosition({

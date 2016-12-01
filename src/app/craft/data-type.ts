@@ -4,6 +4,7 @@ export type DataSourceNodeTypeJSON2 = {
     label: string,
     description: string,
     flowID: string
+    parameters: ParameterJSON[];
 }
 export type ProcessNodeTypeJSON2 = {
     id: string,
