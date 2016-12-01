@@ -1,14 +1,11 @@
 import {
     ParameterJSON, DataSourceNodeType, ProcessNodeType, StormParameterJSON,
-    StormNodeType
+    StormNodeType, ProcessNodeTypeJSON, DataSourceNodeTypeJSON
 } from "./drawboard.node-types";
 import {DrawboardElement, ELEMENT_WIDTH, ELEMENT_HEIGHT, ELEMENT_ROUND_X, ELEMENT_ROUND_Y} from "./drawboard.element";
 import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./drawboard.relation";
 import * as d3 from  "d3";
-import * as _ from "lodash"
-
-
 /**
  * Created by tang on 2016/8/24.
  */
@@ -45,16 +42,22 @@ export class ProcessNode extends DrawboardElement {
    copyElements(): (()=>void ){
        let x=this.cx+20;
        let y=this.cy+20;
-       let copyElements=_.cloneDeep(this);
+       //let copyElements=_.cloneDeep(this);//import * as _ from lodash
        //let copyElements=Object.assign(this);
 
     return()=> {
-        copyElements.parameters=this.parameters;
+        let json:ProcessNodeTypeJSON={
+            id : this.attributes.id,
+            label : this.attributes.label,
+            description : this.attributes.description,
+            parameters : this.parameters
+        }
+        let processnodetype=new ProcessNodeType(json);
+        let copyElements=new ProcessNode(processnodetype,this.attributes.flowID,this.board,{x,y});
         copyElements.attributes=this.attributes;
         copyElements.board=this.board;
         copyElements.cx=x;
         copyElements.cy=y;
-        copyElements.groupContainer=copyElements.board.container.append("g");
         copyElements.relations=[];
         copyElements.rendered=false;
         copyElements.setCenterPosition({x,y});
@@ -329,16 +332,22 @@ export class DataSourceNode extends DrawboardElement {
     copyElements(): (()=>void ){
         let x=this.cx+20;
         let y=this.cy+20;
-        let copyElements=_.cloneDeep(this);
+        //let copyElements=_.cloneDeep(this);  //import * as _ from lodash
         //let copyElements=Object.assign(this);
 
         return()=> {
-            copyElements.parameters=this.parameters;
+            let json: DataSourceNodeTypeJSON={
+                id : this.attributes.id,
+                label : this.attributes.label,
+                description : this.attributes.description,
+                parameters : this.parameters
+            }
+            let datasourcenodetype=new  DataSourceNodeType(json);
+            let copyElements=new  DataSourceNode(datasourcenodetype,this.attributes.flowID,this.board,{x,y});
             copyElements.attributes=this.attributes;
             copyElements.board=this.board;
             copyElements.cx=x;
             copyElements.cy=y;
-            copyElements.groupContainer=copyElements.board.container.append("g");
             copyElements.relations=[];
             copyElements.rendered=false;
             copyElements.setCenterPosition({x,y});

@@ -73,15 +73,8 @@ export class DrawboardElement {
     }
 
     copyElements(): (()=>void ){
-        /*
-        let self=this;
-        //let copyElements=lodash_.cloneDeep(self) ;
-        let copyElements=Object.assign(self);
-        */
+
         return()=>{
-           // console.log("复制"+copyElements.attributes.label);
-          //  copyElements.render();
-            //处理Parameters
         };
 
     }
