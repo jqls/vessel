@@ -54,7 +54,7 @@ export class ToolboxComponent implements OnInit {
 
   isHidden() {//下拉列表的收起和隐藏
     var divid = document.getElementById("triangle-icon");
-    $("#top1").click(function () {
+    //$("#top1").click(function () {
       var children = $(".second1");
 
       if (children.is(":visible")) {
@@ -66,9 +66,32 @@ export class ToolboxComponent implements OnInit {
         divid.className="triangle-expanded icon-expand";
       }
 
+    //});
+  }
+
+  isHidden2() {
+    $("#top2").click(function () {
+      var children = $(".submenu");
+      if (children.is(":visible")) {
+        children.hide();
+      } else {
+        children.show()
+      }
+
     });
   }
 
+  isHidden3() {
+    $("#top3").click(function () {
+      var children = $(".submenu1");
+      if (children.is(":visible")) {
+        children.hide();
+      } else {
+        children.show()
+      }
+
+    });
+  }
   ngOnInit() {
 
     // console.log("toobox");

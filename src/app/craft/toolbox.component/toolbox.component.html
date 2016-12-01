@@ -11,23 +11,28 @@
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="dataSources">
         <div class="list-group">
-            <a class="list-group-item" *ngFor="let dataSourceType of dataSourceTypes" [class.active]="selectedNodeType===dataSourceType"
-                (click)="itemClicked(dataSourceType)">
+            <a class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello "
+               *ngFor="let dataSourceType of dataSourceTypes" [class.active]="selectedNodeType===dataSourceType"
+               (click)="itemClicked(dataSourceType)">
                 <h5 class="list-group-item-heading">{{ dataSourceType.label }}</h5>
                 <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>
             </a>
         </div>
     </div>
+
     <div role="tabpanel" class="tab-pane" id="algorithms">
         <div class="list-group">
             <li id="tree" class="margin-li">
                 <div id="triangle-icon" class="triangle-expanded icon-expand "></div>
-                <span id="top1" [hidden]='isHidden()' class="title">聚类算法</span>
+                <span id="top1" (click)="isHidden()" class="title">聚类算法</span>
                 <ul class="second1 ul-left">
-                    <li class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello" *ngFor="let processType of processesTypes" (click)="itemClicked(processType)" [class.active]="selectedNodeType===processType"
+                    <li class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello"
+                        *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
+                        [class.active]="selectedNodeType===processType"
                         (dblclick)="itemDbClicked(processType)" data-toggle="tooltip" title={{processType.description}}>
                         <h6 class="list-group-item-heading">{{ processType.label }}
-                            <span style="margin-right: 5px;" class="label label-info pull-right" *ngFor="let tag of processType.tags">{{tag}}</span>
+                            <span style="margin-right: 5px;" class="label label-info pull-right"
+                                  *ngFor="let tag of processType.tags">{{tag}}</span>
                         </h6>
                     </li>
                 </ul>
