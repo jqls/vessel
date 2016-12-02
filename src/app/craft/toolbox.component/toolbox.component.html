@@ -24,7 +24,7 @@
         <div class="list-group">
             <li id="tree" class="margin-li">
                 <div id="triangle-icon" class="triangle-expanded icon-expand "></div>
-                <span id="top1" [hidden]='isHidden()' class="title">聚类算法</span>
+                <span id="top1" (click)="isHidden()" class="title">聚类算法</span>
                 <ul class="second1 ul-left">
                     <li class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello"
                         *ngFor="let processType of processesTypes" (click)="itemClicked(processType)"
