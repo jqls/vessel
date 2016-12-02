@@ -26,7 +26,9 @@ export class AlgorithmNode extends BasicDrawboardNode {
       label: this.nodetype.name,
       description: this.nodetype.description,
       flowID: "" + this.flowID,
-      parameters: this.nodetype.parameters
+      parameters: this.nodetype.parameters,
+      cx: "" + this.cx,
+      cy: "" + this.cy
     };
   }
 
@@ -34,6 +36,20 @@ export class AlgorithmNode extends BasicDrawboardNode {
     super.render();
     this.groupContainer.select("rect")
       .classed("algorithm", true);
+    this.groupContainer.append("circle")
+      .attr("cx",ELEMENT_WIDTH / 2)
+      // .attr("cy",this.cy)
+      .attr("r","4")
+      .style("stroke","gray")
+      .style("fill","white")
+      .style("stroke-width","1px");
+    this.groupContainer.append("circle")
+      .attr("cx",ELEMENT_WIDTH / 2)
+      .attr("cy",ELEMENT_HEIGHT)
+      .attr("r","4")
+      .style("stroke","gray")
+      .style("fill","#00CACA")
+      .style("stroke-width","1px");
   }
 
   mousedownHandler(): void {

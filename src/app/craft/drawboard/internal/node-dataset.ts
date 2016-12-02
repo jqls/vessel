@@ -26,7 +26,9 @@ export class DatasetNode extends BasicDrawboardNode {
       label: this.nodetype.name,
       description: this.nodetype.description,
       parameters: this.nodetype.parameters,
-      flowID: "" + this.flowID
+      flowID: "" + this.flowID,
+      cx: "" + this.cx,
+      cy: "" + this.cy
     };
   }
 
@@ -34,6 +36,13 @@ export class DatasetNode extends BasicDrawboardNode {
     super.render();
     this.groupContainer.select("rect")
       .classed("dataset", true);
+    this.groupContainer.append("circle")
+      .attr("cx",ELEMENT_WIDTH / 2)
+      .attr("cy",ELEMENT_HEIGHT)
+      .attr("r","4")
+      .style("stroke","gray")
+      .style("fill","#00CACA")
+      .style("stroke-width","1px");
   }
 
   mousedownHandler(): void {

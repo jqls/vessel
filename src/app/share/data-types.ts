@@ -10,7 +10,7 @@ export class Algorithm {
   constructor(json: AlgorithmType) {
     this.id = json.id;
     this.name = json.label;
-    this.type = json.type;
+    this.type = json.category;
     this.description = json.description;
     this.parameters = json.parameters;
   }

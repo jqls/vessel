@@ -24,7 +24,7 @@ export class QuestionBase<T>{
 }
 
 export class DropdownQuestion extends QuestionBase<string> {
-  controlType = 'dropdown';
+  controlType = 'select';
   options: {key: string, value: string}[] = [];
 
   constructor(options: {} = {}) {
