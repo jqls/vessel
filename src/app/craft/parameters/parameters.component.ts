@@ -53,7 +53,7 @@ export class ParametersComponent implements OnInit {
       null;
     if(node != null)
       node.nodetype.parameters.forEach(parameter => {
-        parameter.val = this.form.value[parameter.key];
+        parameter.value = this.form.value[parameter.key];
       });
   }
 }

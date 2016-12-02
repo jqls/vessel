@@ -337,7 +337,7 @@ export class DrawboardComponent implements OnInit {
         let algorithmType: AlgorithmType = {
           id: algorithmType2.id,
           label: algorithmType2.label,
-          type: algorithmType2.type,
+          category: algorithmType2.category,
           description: algorithmType2.description,
           parameters: algorithmType2.parameters
         }

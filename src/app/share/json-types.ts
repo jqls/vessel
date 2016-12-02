@@ -3,7 +3,7 @@ export type AlgorithmType = {
   flowID?: string,
   id: string,
   label: string,
-  type?: string,//算法类型
+  category?: string,//算法类型
   description?: string,
   parameters: ParameterType[];
 }
@@ -17,15 +17,15 @@ export type DatasetType = {
 }
 
 export type ParameterType = {
-  key: string
+  key: string,
   label: string,
-  val?: string,
+  value?: string,
   controlType: string,
   required?: boolean,
   order?: number,
   type?: string,
   options?: string[],
-  description?: string,
+  description?: string,//hint
 }
 
 export type SparkDataType = {
