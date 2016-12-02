@@ -4,27 +4,32 @@
       <ul class="nav">
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/ExperimentList']">
-            <i class="fa fa-database fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">数据分析</span>
+            <i class="sidebar-btn fa fa-database fa-fw" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">数据分析</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/data-analysis']">
-            <i class="fa fa-hourglass-half fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">SQL分析</span>
+            <i class="sidebar-btn fa fa-hourglass-half fa-fw" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">SQL分析</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/etl']">
-            <i class="fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">数据抽取</span>
+            <i class="sidebar-btn fa fa-flask fa-fw" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">数据抽取</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/upload-dataset']">
-            <i class="fa fa-cubes fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">Dataset</span>
+            <i class="sidebar-btn fa fa-cubes fa-fw" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">DATASET</span>
           </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/upload-algotithm']">
-            <i class="fa fa-cube fa-fw fa-2x" aria-hidden="true"></i>&nbsp; <span *ngIf="isExpended">Model</span>
+            <i class="sidebar-btn fa fa-cube fa-fw" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">MODEL</span>
           </a>
         </li>
 

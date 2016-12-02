@@ -10,7 +10,6 @@
   bottom: 0
 
 .drawer
-  color: #0d0000
   z-index: 2000
 
 //.drawer-inner
@@ -23,14 +22,105 @@
   display: none
 
 .drawertaskbar
-  background-color: #3c454f
-  height: 50px
+  background-color: #343a41
+  height: 55px
   position: relative
+
+
+.drawertaskbar li
+  list-style: none
+
+.btn-new
+  position: absolute
+  left: 0
+  background-color: #343a41
+  color: #fff
+  border-color: #343a41
+
+.btn-new-text
+  margin-left: 8px
+  position: absolute
+  bottom: 14px
+
+.btn-group-func
   text-align: center
+  margin: 0px auto
+  width: 500px
+  doverflow: hidden
+  display: inliine-block
+
+
+.func-style
+  margin-top: 10px
+  height: 45px //add eql drawer-height
+  color: #fff
+  float: left
+  width: 100px
+  //background-color: #343a41
+
+.func-btn
+  font-size: 25px
+
+.func-text
+  font-size: 13px
 
 .drawermenu
   display: block
-  background-color: #3c454f
+  background-color: #343a41
   overflow: hidden
   position: relative
-  height: 530px
+  height: 800px
+
+.btn-close-right
+  height: 70px
+
+.btn-close
+  position: absolute
+  right: 10px
+  line-height: 70px
+  background-color: #343a41
+  color: #fff
+.menu-new
+  position: absolute
+  left: 35px
+  line-height: 70px
+  font-size: 20px
+  color: #71b1d1
+
+.drawer-navpane
+  position: absolute
+  bottom: 0
+  top: 70px //等同于上方menu-new-height
+  left: 0
+  width: 180px
+  margin-left: 0
+  z-index: 1000
+  display: block
+  overflow-x: hidden
+  overflow-y: auto
+
+  //
+
+.drawer-sidebar li a
+  position: relative
+  display: block
+  padding: 10px 15px
+  font-size: 16px
+  color: #fff
+  border-right: 1px solid #48525e
+
+.nav-item > .nav-link
+  padding-left: 10px
+  padding-right: 10px
+  border-radius: 0
+.drawer-sidebar li a:hover
+  background-color: #48525e
+
+.drawer-btn
+  position: relative
+  left: 10px
+  font-size: 30px
+.drawer-btn-text
+  position: relative
+  left: 15px
+  font-size: 13px

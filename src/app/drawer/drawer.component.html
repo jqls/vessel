@@ -1,10 +1,96 @@
 <div id="drawer" class="drawer">
   <div class="drawer-inner" [style]="{height: drawerHeight}">
     <div class="drawertaskbar" [ngClass]="{'drawer-inactive': drawerActive}">
-      <button (click)="activeDrawer()">active</button>
+      <div class="btn-left-bottom">
+        <button (click)="activeDrawer()" class="btn btn-new">
+          <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+          <span class="btn-new-text">NEW</span>
+        </button>
+      </div>
+
+      <div class="btn-group-func">
+        <div class="func-style btn-run-history">
+          <li>
+            <a>
+              <i class="func-btn fa fa-clock-o" aria-hidden="true"></i>
+              <p class="func-text btn-run-history-text">RUN HISTORY</p>
+            </a>
+          </li>
+        </div>
+        <div class="func-style btn-save">
+          <li>
+            <a>
+              <i class="func-btn fa fa-floppy-o" aria-hidden="true"></i>
+              <p class="func-text btn-save-text">SAVE</p>
+            </a>
+          </li>
+        </div>
+        <div class="func-style btn-save-as">
+          <li>
+            <a>
+              <i class="func-btn fa fa-floppy-o" aria-hidden="true"></i>
+              <p class="func-text btn-save-text">SAVE AS</p>
+            </a>
+          </li>
+        </div>
+        <div class="func-style btn-copy">
+          <li>
+            <a>
+              <i class="func-btn fa fa-files-o" aria-hidden="true"></i>
+              <p class="func-text btn-save-as-text">COPY</p>
+            </a>
+          </li>
+        </div>
+        <div class="func-style btn-delete">
+          <li>
+            <a>
+              <i class="func-btn fa fa-trash-o" aria-hidden="true"></i>
+              <p class="func-text btn-delete-text">DELETE</p>
+            </a>
+          </li>
+        </div>
+      </div>
     </div>
     <div class="drawermenu" [ngClass]="{'drawer-inactive': !drawerActive}">
-      <button (click)="inactiveDrawer()">inactive</button>
+      <div class="row btn-close-right">
+        <button (click)="inactiveDrawer()" class="btn btn-close">
+          <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+        </button>
+        <span class="menu-new">NEW</span>
+      </div>
+      <div class="row">
+        <div class="drawer-navpane">
+          <nav class="drawer-sidebar">
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link">
+                  <i class="drawer-btn fa fa-cubes fa-fw" aria-hidden="true"></i>
+                  <span class="drawer-btn-text">&nbsp;DATASET</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                  <i class="drawer-btn fa fa-cube fa-fw" aria-hidden="true"></i>
+                  <span class="drawer-btn-text">&nbsp;MODEL</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                  <i class="drawer-btn fa fa-tasks fa-fw" aria-hidden="true"></i>
+                  <span class="drawer-btn-text">&nbsp;PRODUCT</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                  <i class="drawer-btn fa fa-hourglass-end fa-fw" aria-hidden="true"></i>
+                  <span class="drawer-btn-text">&nbsp;EXPERIMENT</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="drawer-content"></div>
+      </div>
     </div>
   </div>
 </div>
