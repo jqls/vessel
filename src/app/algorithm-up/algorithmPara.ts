@@ -16,7 +16,7 @@ export class AlgorithmPara {
     parameters:Parameters[];
 }
 export type Parameters={
-    count:number;
+    //count:number;
     label:string;
     val:string;
     type:string;

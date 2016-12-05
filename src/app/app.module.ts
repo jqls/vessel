@@ -32,9 +32,9 @@ import {AlgorithmComponent} from "./algorithm-up/algorithm-up.component";
 import {ETLModule} from "./etl/etl.module";
 
 // Imports for loading & configuring the in-memory web api
-// import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-// import { InMemoryDataService }  from './in-memory-data.service';
-
+import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
+import { TreeModule } from 'angular2-tree-component';
 @NgModule({
     imports: [
         BrowserModule,
@@ -46,8 +46,9 @@ import {ETLModule} from "./etl/etl.module";
         MdCardModule,
         ETLModule,
         AppRoutingModule,
+        TreeModule,
 
-        // InMemoryWebApiModule.forRoot(InMemoryDataService)
+        InMemoryWebApiModule.forRoot(InMemoryDataService)
     ],
     declarations: [
         AppComponent,

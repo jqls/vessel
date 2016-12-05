@@ -1,67 +1,103 @@
-
-#img-logo{
+/*顶部导航栏*/
+.navbar-brand{
     position: fixed;
-    /*position: absolute;*/
-    left:0;
-    top:0;
+    left: 60px;
 }
 .bg-inverse1 {
-    background-color: #1976D2;
+    background-color: #343a41;
     /*background-image: url("app/navbar.component/logo2.jpg");*/
 
 }
-
 .navbar-fixed-top {
     height: 50px
 }
-
-.navbar-nav {
-    position: absolute;
-    left: 240px;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+/*标题*/
+.title{
+    color: #eee;
+}
+/*下拉菜单按钮*/
+#nav-menu.btn{
+    height: 50px;
+    position: fixed;
+    top: 0px;
+    border-radius: 0;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #343a41;
+    border-color: #343a41;
+}
+.btn-group > .btn{
+    position: fixed;
+    left: 0px;
+}
+.btn-toggle1{
+    color: #fff;
+    background-color: #343a41;
+}
+#nav-menu:hover{
+    background-color: #48525e !important;
+}
+#nav-menu:focus{
+    background-color: #48525e !important;
+}
+#nav-menu:active{
+    background-color: #48525e !important;
 }
 
-.navbar-nav li {
-    float: left;
+.dropdown-menu-left{
+    position: fixed;
+    top: 46px;
 }
-
-.navbar-nav li a {
-    display: block;
-    width: 100px;
+.dropdown-toggle {
     font-weight: bold;
-    color: #FFFFFF;
-    background-color: #1976D2;
-    text-align: center;
-    text-decoration: none;
+}
+.dropdown-menu1{
+    background-color: #48525e;
+}
+.dropdown-item{
+    color: #eee;
+}
+.dropdown-item:hover{
+    background-color: #55606e;
 }
 
-.navbar-nav li a:hover {
-    background-color: #2087E1;
+/*侧边导航栏*/
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+    /*background-color: #eaeaea;*/
+}
+.nav-sidebar li{
+    border-bottom:solid 1px #71b1d1;
+}
+.nav-sidebar li a{
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    font-size: 15px;
+    color: #fff;
+}
+.nav-item > .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 0;
 }
 
+.nav-sidebar li a:hover{
+    /*color: #fff;*/
+    background-color: #7cc1de;
+}
+.nav-sidebar li a:focus{
+    color: #000;
+    background-color: #fff;
+}
+.nav-sidebar li a:active{
+    color: #000;
+    background-color: #fff;
+}
 #nav-menu.dropdown-toggle::after {
     display: none;
 }
 
-.dropdown-toggle {
-    font-weight: bold;
-}
-
-
-#nav-menu.btn {
-    padding: 0 16px;
-}
-
-#nav-menu:hover, #nav-menu:focus {
-    background-color: #2087E1;
-    border-color: #2087E1;
-}
-
-.nav-item > .nav-link {
-    border-radius: 4px;
-    padding-left: 10px;
-    padding-right: 10px;
-}

@@ -1,27 +1,48 @@
 <nav class="navbar navbar-default bg-inverse1 navbar-fixed-top">
-    <a href="/" class="navbar-brand bg-faded">
+    <a href="/" class="navbar-brand title">
         <!--todo: 路径问题-->
-        <img id="img-logo" src="app/navbar.component/logo1.jpg" width="220" height="50" class="d-inline-block align-top">
+        ICT中科院计算技术研究所
+        <!--<img id="img-logo" src="app/navbar.component/logo1.jpg" width="220" height="50" class="d-inline-block align-top">-->
     </a>
-    <ul class="nav navbar-nav">
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/craft']">数据分析</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/data-analysis']">SQL分析</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-            <a class="nav-link" [routerLink]="['/etl']">数据抽取</a>
-        </li>
-    </ul>
+    <div class="float-xs-left btn-group">
 
-    <div class="float-xs-right btn-group">
-        <button id="nav-menu" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog fa-2x" aria-hidden="true"></i></button>
-        <div class="dropdown-menu dropdown-menu-right">
+        <button id="nav-menu" type="button" class="btn dropdown-toggle btn-toggle1" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-left dropdown-menu1">
             <a class="dropdown-item" [routerLink]="['/craft']">新建任务</a>
             <a class="dropdown-item" [routerLink]="['/algo-up']">上传算法</a>
             <a class="dropdown-item" [routerLink]="['/history']">查看历史任务</a>
-        </div>
+        </ul>
     </div>
 </nav>
+<ul class="nav nav-sidebar">
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/craft']">
+            <i class="fa fa-database fa-fw" aria-hidden="true"></i>&nbsp; 数据分析
+        </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/data-analysis']">
+            <i class="fa fa-hourglass-half fa-fw" aria-hidden="true"></i>&nbsp; SQL分析
+        </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/etl']">
+            <i class="fa fa-flask fa-fw" aria-hidden="true"></i>&nbsp; 数据抽取
+        </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="">
+            <i class="fa fa-cubes fa-fw" aria-hidden="true"></i>&nbsp; Dataset
+        </a>
+    </li>
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="">
+            <i class="fa fa-cube fa-fw" aria-hidden="true"></i>&nbsp; Model
+        </a>
+    </li>
+
+</ul>

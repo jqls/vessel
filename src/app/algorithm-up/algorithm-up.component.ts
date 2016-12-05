@@ -1,35 +1,41 @@
-;
-import {Component, Input} from "@angular/core";
+import { TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-component';
+import {Component} from "@angular/core";
 import { Headers, Http, RequestMethod } from "@angular/http";
 import { AlgorithmPara,Parameters} from "./algorithmPara";
-import { ParaJSON } from "../craft/data-show/data-types"
+import { ParaJSON } from "../craft/data-show/data-types";
+
+const actionMapping:IActionMapping = {
+    mouse: {
+        click: TREE_ACTIONS.TOGGLE_SELECTED
+    },
+    keys: {
+        [KEYS.ENTER]: (tree, node, $event) =>
+            alert(`This is ${node.data.name}`)
+    }
+}
+
 @Component({
   selector: 'app-algorithm',
   templateUrl: 'algorithm-up.component.html',
   styleUrls: ['algorithm-up.component.css']
 })
 
-
-
-
 export class AlgorithmComponent {
-
     paraJSON:ParaJSON;
-   n=1;
-  algorithmPara = new AlgorithmPara();
-  
-  formData = new FormData();
-
+    n=1;
+    submitted = true;
+    algorithmPara = new AlgorithmPara();
+    formData = new FormData();
   //dong tai can shu list
    parameterList:Parameters[]=[
-     {"count":this.n,"label":null,"type":"int","val":"1111a","tags":"input类型","description":"111a"},
-     //{"count":1,"label":"ee","val":"ee","type":"ee","tags":"ee","description":"ee"},
-     //{"count":2,"label":"zhai","val":"zha","type":"zhli","tags":"zoli","description":"aoli"},
+     {"label":null,"type":null,"val":null,"tags":null,"description":null},
+
      ];
 
   constructor(private http: Http) {
   }
    get diagnostic() {
+
    this.algorithmPara.parameters = this.parameterList;
     return JSON.stringify(this.algorithmPara);
   }
@@ -48,7 +54,11 @@ export class AlgorithmComponent {
 //
 // }
 
-  onSubmit() {
+
+
+
+
+    onSubmit() {
     var URL_Parameter = "http://10.5.0.222:8080/uploadalgorithm/";
     let headers = new Headers({
       //'Content-Type': 'application/json'
@@ -82,11 +92,8 @@ export class AlgorithmComponent {
 
   addPara() {
       this.n++;
-  //this.parameters.push({"count":this.n,"label":"zhaoli","val":"zhaoli","type":"zhaoli","tags":"zhaoli","description":"zhaoli"});
-  // this.parameterList.push({"count":this.n,"label":this.parameterList[this.n-2].label,"val":this.parameterList[this.n-2].val,
-  // "type":this.parameterList[this.n-2].type,"tags":this.parameterList[this.n-2].tags,
-  // "description":this.parameterList[this.n-2].description});
-   this.parameterList.push({"count":this.n,"label":null,"type":null,"val":null,"tags":null,"description":null});
+
+   this.parameterList.push({"label":null,"type":null,"val":null,"tags":null,"description":null});
    for(let i=this.n-1;i>=0;i--) {
        console.log(this.parameterList[i].label + "**" + this.parameterList[i].tags + "**" + this.parameterList[i].description
            + "**" + this.parameterList[i].val+ "**" + this.parameterList[i].type );
@@ -107,43 +114,54 @@ export class AlgorithmComponent {
 
 
   }
+    nodes = [
+        {
+            id: 1,
+            name: 'root1',
+            children: [
+                { id: 2, name: 'child1' },
+                { id: 3, name: 'child2' }
+            ]
+        },
+        {
+            id: 4,
+            name: 'root2',
+            children: [
+                { id: 5, name: 'child2.1' },
+                {
+                    id: 6,
+                    name: 'child2.2',
+                    children: [
+                        { id: 7, name: 'subsub' }
+                    ]
+                }
+            ]
+        }
+    ];
 
-    private tree = [
-    {
-        text: "Parent 1",
-        nodes: [
-            {
-                text: "Child 1",
-                nodes: [
-                    {
-                        text: "Grandchild 1"
-                    },
-                    {
-                        text: "Grandchild 2"
-                    }
-                ]
-            },
-            {
-                text: "Child 2"
-            }
-        ]
-    },
-    {
-        text: "Parent 2"
-    },
-    {
-        text: "Parent 3"
-    },
-    {
-        text: "Parent 4"
-    },
-    {
-        text: "Parent 5"
-    }
-];
-  getTree() {
-
-
+    onEvent = ($event) => {//获取树状结构所选的值
+    this.algorithmPara.tags=$event.node.data.name;
+    this.submitted=true;
+    console.log(this.algorithmPara.tags);
 }
+    treeOptions = {
+        actionMapping
+    }
+
+
+    treeShow(){
+        this.submitted=false;}
+
+    // treeHide(){
+    //     this.submitted=true;
+    // }
+    // private treeUrl = 'app/algorithm-up/treeData';
+    // getTree(): Promise<TreeData[]> {
+    //     return this.http.get(this.treeUrl)
+    //         .toPromise()
+    //         .then(response => response.json().data as TreeData[])
+    //         .catch(this.handleError);
+    // }
+
 
 }
