@@ -9,6 +9,7 @@ import { ParametersComponent } from './parameters/parameters.component';
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {DynamicFormModule} from "../share/dynamic-form/dynamic-form.module";
 import {ListExperimentsComponent} from "./list-experiments.component";
+import { LogComponent } from './log/log.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {ListExperimentsComponent} from "./list-experiments.component";
     DrawboardComponent,
     ToolboxComponent,
     ParametersComponent,
-    ListExperimentsComponent
+    ListExperimentsComponent,
+    LogComponent
   ],
   providers: [
     CraftService

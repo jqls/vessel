@@ -36,12 +36,13 @@ export class DataService {
   getDatasets(): Promise<Dataset[]> {
     return this.spark_data
       .then(response => {
-          mydebug(this.debug_location, "getDatasets", JSON.stringify(response.sources));
-          return (response.sources)
-            .map((datasetJSON: DatasetType): Dataset => new Dataset(datasetJSON))
-        })
+        mydebug(this.debug_location, "getDatasets", JSON.stringify(response.sources));
+        return (response.sources)
+          .map((datasetJSON: DatasetType): Dataset => new Dataset(datasetJSON))
+      })
       .catch(handleError);
   }
+
   getAlgorithms(): Promise<Algorithm[]> {
     return this.spark_data
       .then(response => {
@@ -56,15 +57,23 @@ export class DataService {
     return this.http.get(`${environment.djangoServer}/get_history/`).toPromise();
   }
 
-  getDataByTaskName(taskName: string):Promise<SubmitJson>{
+  getDataByTaskName(taskName: string): Promise<SubmitJson> {
 
-    console.log("taskName: "+ taskName);
-    return this.http.get(environment.URL_Spark_redraw+"taskName="+ taskName).toPromise().then(
+    console.log("taskName: " + taskName);
+    return this.http.get(environment.URL_Spark_redraw + "taskName=" + taskName).toPromise().then(
       response => {
-        console.log("getDataByTaskName");
+        mydebug(this.debug_location, "getDataByTaskName", JSON.stringify(response.json()));
         return response.json() as SubmitJson;
       }
     ).catch(handleError);
 
+  }
+
+  getSocketAddress(taskName: string, flowID: string) {
+
+    return this.http.get(environment.URL_Spark_log + "taskName=" + taskName + "&flowID=" + flowID).toPromise().then(response => {
+      mydebug(this.debug_location, "getSocketAddress", JSON.stringify(response.json()));
+      return response.json();
+    });
   }
 }

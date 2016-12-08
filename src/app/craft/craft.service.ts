@@ -72,6 +72,7 @@ export class CraftService {
   bookTaskName(update: (taskName: string)=>void): void {
     mydebug(this.debug_location, "bookTaskName", 'book');
     this.taskName_subscribers.push(update);
+    //防止后订阅的观察者无法取得值
     this.taskName_subscribers.forEach(fn=>fn(this.taskName));
   }
 

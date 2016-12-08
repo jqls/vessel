@@ -9,4 +9,5 @@ export const environment = {
   URL_Spark_redraw: "http://10.5.0.222:8080/redraw?",
   dataAnalysisServer: "10.5.0.224:5000",
   djangoServer: "http://10.5.0.222:8080",
+  URL_Spark_log: "http://10.5.0.222:8080/processinformation?",
 };
