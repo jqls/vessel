@@ -2,10 +2,10 @@
   <div class="drawer-inner" [style]="{height: drawerHeight}">
     <div class="drawertaskbar" [ngClass]="{'drawer-inactive': drawerActive}">
       <div class="btn-left-bottom">
-        <button (click)="activeDrawer()" class="btn btn-new">
-          <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+        <div (click)="activeDrawer()" class="btn btn-new">
+          <i class="btn-new-fa fa fa-plus fa-2x" aria-hidden="true"></i>
           <span class="btn-new-text">NEW</span>
-        </button>
+        </div>
       </div>
 
       <div class="btn-group-func">
@@ -89,7 +89,37 @@
             </ul>
           </nav>
         </div>
-        <div class="drawer-content"></div>
+        <div class="drawer-content">
+          <!--<div class="note-lists">-->
+            <!--<div class="card-lists">-->
+              <!--<div class="card-item blankexperiment">-->
+                <!--<div class="blankex">-->
+                  <!--<i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>-->
+                  <!--<p class="card-item-text">BlankExperiment</p>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <div class="local-file">
+            <div class="local-file-btn">
+              <nav class="drawer-sidebar">
+                <ul class="nav">
+                  <li class="nav-item">
+                    <a class="nav-link">
+                      <i class="drawer-btn fa fa-folder-open-o fa-fw" aria-hidden="true"></i>
+                      <span class="drawer-btn-text">&nbsp;LOCAL FILE</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="local-file-text">
+              <span>LOCAL FILE</span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>

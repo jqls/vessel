@@ -1,11 +1,11 @@
 <div class="row experiment-container">
-  <div class="col-md-3">
+  <div class="col-md-2">
     <app-toolbox></app-toolbox>
   </div>
-  <div [ngClass]="{'col-md-10': !isOpenRightPane, 'col-md-6': isOpenRightPane}">
+  <div [ngClass]="{'col-md-10': !isOpenRightPane, 'col-md-8': isOpenRightPane}">
     <app-drawboard></app-drawboard>
   </div>
-  <div class="col-md-3" [hidden]="!isOpenRightPane">
+  <div class="col-md-2" [hidden]="!isOpenRightPane">
     <app-parameters></app-parameters>
   </div>
 </div>

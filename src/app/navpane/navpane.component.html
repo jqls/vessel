@@ -2,7 +2,7 @@
   <div id="navpane1" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
     <nav class="nav-sidebar">
       <ul class="nav">
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <li class="nav-item nav-item-top1" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
           <a class="nav-link" [routerLink]="['/ExperimentList']">
             <i class="sidebar-btn fa fa-database fa-fw" aria-hidden="true"></i>
             <span class="sidebar-btn-text" *ngIf="isExpended">数据分析</span>
