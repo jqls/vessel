@@ -13,7 +13,7 @@ export class DataService {
   private spark_data: Promise<SparkDataType>;
 
   constructor(private http: Http) {
-    this.spark_data_URL = environment.isMock ? environment.URL_Spark_mock : environment.URL_Spark;
+    this.spark_data_URL = environment.isMock ? environment.URL_Spark_mock : environment.URL_Spark1;
     mydebug(this.debug_location, "constructor", this.spark_data_URL);
 
     this.getAll();
