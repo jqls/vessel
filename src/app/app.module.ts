@@ -29,8 +29,10 @@ import { PieComponent } from './craft/data-show/pie/pie.component';
 import { HistoryComponent } from './history.unit/history.component';
 import {TaskShowComponent} from "./craft/data-show/task-show.component";
 import {AlgorithmComponent} from "./algorithm-up/algorithm-up.component";
+import {AlgorithmManagement} from "./algorithm-up/algorithm-management/algorithm-management.component"
 import {ETLModule} from "./etl/etl.module";
-
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
@@ -47,8 +49,9 @@ import { TreeModule } from 'angular2-tree-component';
         ETLModule,
         AppRoutingModule,
         TreeModule,
-
-        InMemoryWebApiModule.forRoot(InMemoryDataService)
+       // BootstrapModalModule,
+       // ModalModule.forRoot(),
+        //InMemoryWebApiModule.forRoot(InMemoryDataService),
     ],
     declarations: [
         AppComponent,
@@ -68,6 +71,7 @@ import { TreeModule } from 'angular2-tree-component';
         HistoryComponent,
         TaskShowComponent,
         AlgorithmComponent,
+        AlgorithmManagement,
 
     ],
     providers: [

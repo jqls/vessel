@@ -1,0 +1,66 @@
+<!--<div class="center">
+    <h3> <span class="tag tag-default" style="margin-left:600px">算法管理</span></h3>
+    <br>
+    <br>
+</div>
+-->
+<head>
+    <link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<br><br>
+<div  style="background-color: #eceeef;border: 1px solid #7cc1de;
+width: 400px;height: 400px;margin-left:auto; margin-right:auto;
+padding-left: 150px;padding-top: 20px">
+   <!-- <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" >'-->
+        <Tree  #tree [(nodes)]="nodes" (onActivate)="onEvent($event)" >'
+    <template #treeNodeTemplate let-node>
+        <span>{{ node.data.name }}</span>
+        <!--
+        <button data-toggle="modal" data-target="#myModal" (click)="addNode(node.data.id)" class="glyphicon glyphicon-plus"  ></button>
+        <button (click)="remove(node.data.id)" ><i class="glyphicon glyphicon-minus"></i></button>
+        -->
+        <i data-toggle="modal" data-target="#myModal" (click)="addNode(node.data.id)" class="glyphicon glyphicon-plus"></i>
+        <i (click)="remove(node.data.id)" class="glyphicon glyphicon-minus"></i>
+    </template>
+    </Tree>
+</div>
+<form [hidden]="isShow"
+      class="modal modal-body" id="myModal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-content" >
+<div class="col-md-10 divleft" >
+    <fieldset>
+        <legend>节点属性</legend>
+<div class="divleft">
+    <div>
+        <label class="col-md-3">名称：</label>
+        <input id="nameId" placeholder="请输入名称" [(ngModel)]="nodeName" name="nameId" >
+        <br>
+        <br>
+    </div>
+    <div>
+        <label class="col-md-3">是否显示：</label>
+        <input id="yes" type="radio" name="show" value="是" checked (click)="selected()"> 是
+        <input id="no" type="radio" name="show" value="否" (click)="selected()"> 否
+        <br>
+    </div>
+    <br>
+    <div>
+        <label class="col-md-3">图标上传：</label>
+        <input type="file">
+        <br>
+    </div>
+    <br>
+</div>
+    <div class="modal-footer">
+        <button (click)="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
+        <button (click)="cancel()"  data-dismiss="modal" class="btn btn-secondary">取消</button>
+    </div>
+        <br><br>
+
+    </fieldset>
+</div>
+</div>
+</form>

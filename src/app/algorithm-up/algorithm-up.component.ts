@@ -1,18 +1,9 @@
-import { TREE_ACTIONS, KEYS, IActionMapping } from 'angular2-tree-component';
-import {Component} from "@angular/core";
-import { Headers, Http, RequestMethod } from "@angular/http";
-import { AlgorithmPara,Parameters} from "./algorithmPara";
+import { TreeComponent,TREE_ACTIONS, KEYS, IActionMapping ,TreeNode} from 'angular2-tree-component';
+import {Component,ViewChild,OnInit} from "@angular/core";
+import { Headers, Http, RequestMethod,Request } from "@angular/http";
+import { AlgorithmPara,Parameters,InputParameters,OutputParameters} from "./algorithmPara";
 import { ParaJSON } from "../craft/data-show/data-types";
-
-const actionMapping:IActionMapping = {
-    mouse: {
-        click: TREE_ACTIONS.TOGGLE_SELECTED
-    },
-    keys: {
-        [KEYS.ENTER]: (tree, node, $event) =>
-            alert(`This is ${node.data.name}`)
-    }
-}
+import {treeNode} from "./algorithmPara";
 
 @Component({
   selector: 'app-algorithm',
@@ -20,148 +11,100 @@ const actionMapping:IActionMapping = {
   styleUrls: ['algorithm-up.component.css']
 })
 
-export class AlgorithmComponent {
+export class AlgorithmComponent implements OnInit{
     paraJSON:ParaJSON;
     n=1;
     submitted = true;
     algorithmPara = new AlgorithmPara();
     formData = new FormData();
-  //dong tai can shu list
-   parameterList:Parameters[]=[
-     {"label":null,"type":null,"val":null,"tags":null,"description":null},
-
-     ];
-
+    public nodes:treeNode[]=[];
+    inputParameters:InputParameters[]=[{"name":"","dataType":""}];
+    outputParameters:OutputParameters[]=[{"name":"","dataType":""}];
+    parameterList:Parameters[]=[{"label":"","parameterType":"","description":""}];
+    nodePath:number[]=[];
+    @ViewChild(TreeComponent)
+    private tree :TreeComponent;
   constructor(private http: Http) {
+      console.log("algorithm-up");
+      this.getData();
+  }
+  ngOnInit(){
   }
    get diagnostic() {
-
    this.algorithmPara.parameters = this.parameterList;
+   this.algorithmPara.inputs=this.inputParameters;
+   this.algorithmPara.outputs=this.outputParameters;
     return JSON.stringify(this.algorithmPara);
   }
 
   changeListener(event): void {
     this.postFile(event.target);
   }
-  postFile(inputValue: any): void {
-    this.formData.append("fname", inputValue.files[0]);
+  postFile(inputValue: any): void {//获取文件
+    this.formData.append("file", inputValue.files[0]);
     console.log(this.formData);
-  }
-
-// getType(value:string){
-//       this.parameterList[this.n-1].type=value;
-//       console.log("vaule-input:"+value);
-//
-// }
-
-
-
-
-
-    onSubmit() {
-    var URL_Parameter = "http://10.5.0.222:8080/uploadalgorithm/";
-    let headers = new Headers({
-      //'Content-Type': 'application/json'
-      'Content-Type': 'undefined'
-    });
-   
-    console.log('this.diagnostic'+this.diagnostic);
-    return this.http
-      .post(URL_Parameter, this.diagnostic, { headers: headers, method: RequestMethod.Post })
-      .toPromise()
-      .then(
-      response => {
-        console.log(response);
-        return (response.json() as ParaJSON);
-      }).catch(this.handleError);
   }
 
   private handleError(error: any) {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-  submit(){
-     //console.log("f.value"+f.value);
-     this.onSubmit().then((response: ParaJSON) => {
-      this.paraJSON = response;
-      console.log(this.paraJSON.algorithmID);
-      this.planB(this.paraJSON.algorithmID)
-    }).catch(this.handleError);
-
-  }
 
   addPara() {
       this.n++;
-
-   this.parameterList.push({"label":null,"type":null,"val":null,"tags":null,"description":null});
+   this.parameterList.push({"label":"","parameterType":"","description":""});
    for(let i=this.n-1;i>=0;i--) {
-       console.log(this.parameterList[i].label + "**" + this.parameterList[i].tags + "**" + this.parameterList[i].description
-           + "**" + this.parameterList[i].val+ "**" + this.parameterList[i].type );
+       console.log(this.parameterList[i].label + "**" +this.parameterList[i].parameterType);
    }
     }
-
-  planB(id: string) {//可以传文件
-    var URL_File = `http://10.5.0.222:8080/uploadalgorithmfile/${id}/`;
-    console.log(URL_File);
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", URL_File, true);
-    xhr.send(this.formData);
-    xhr.onload = function (e) {
-      if (this.status == 200) {
-        alert(this.responseText);
-      }
+    addInputPara(){
+      this.inputParameters.push({"name":"","dataType":""});
     }
-
-
-  }
-    nodes = [
-        {
-            id: 1,
-            name: 'root1',
-            children: [
-                { id: 2, name: 'child1' },
-                { id: 3, name: 'child2' }
-            ]
-        },
-        {
-            id: 4,
-            name: 'root2',
-            children: [
-                { id: 5, name: 'child2.1' },
-                {
-                    id: 6,
-                    name: 'child2.2',
-                    children: [
-                        { id: 7, name: 'subsub' }
-                    ]
-                }
-            ]
-        }
-    ];
+    addOutputPara(){
+        this.outputParameters.push({"name":"","dataType":""});
+    }
 
     onEvent = ($event) => {//获取树状结构所选的值
-    this.algorithmPara.tags=$event.node.data.name;
     this.submitted=true;
-    console.log(this.algorithmPara.tags);
-}
-    treeOptions = {
-        actionMapping
+    var nameList='';
+    this.nodePath=$event.node.path;
+    for(let i=this.nodePath.length-1;i>=0;i--)
+    {
+        let nodeName=this.tree.treeModel.getNodeById(this.nodePath[i]);
+        if (i==this.nodePath.length-1){
+            nameList=nodeName.data.name+nameList;
+        }
+        else{
+            nameList=nodeName.data.name+">"+nameList;
+        }
     }
+        this.algorithmPara.category=nameList;
 
-
+}
     treeShow(){
         this.submitted=false;}
+    getData(){//获取数据
+        let dataUrl="http://10.5.0.222:8080/workflow/category/";
+        return this.http.get(dataUrl).toPromise().then(response=>{
+             this.nodes.push(response.json());
+            this.tree.treeModel.update();
+            console.log(response.json())
+        })
+            .catch(this.handleError);
+    }
+    sendFile(){
+        var URL_File = `http://10.5.0.222:8080/workflow/processor/${this.diagnostic}/`;
+        console.log(URL_File);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", URL_File, true);
+        xhr.send(this.formData);
+        console.log(this.formData);
+        xhr.onload = function (e) {
+            if (this.status == 200) {
+                alert(this.responseText);
+            }
+        }
 
-    // treeHide(){
-    //     this.submitted=true;
-    // }
-    // private treeUrl = 'app/algorithm-up/treeData';
-    // getTree(): Promise<TreeData[]> {
-    //     return this.http.get(this.treeUrl)
-    //         .toPromise()
-    //         .then(response => response.json().data as TreeData[])
-    //         .catch(this.handleError);
-    // }
-
+    }
 
 }

@@ -1,0 +1,32 @@
+fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver}
+
+legend{padding:.5em;border:0;width:auto}
+.center{
+    padding-top: 20px;
+    text-align: center;
+}
+.divleft{
+    padding-left: 250px;
+}
+
+.xe-zoomIn:before {
+    background-position: -5px -408px;
+    width: 28px;
+    height: 28px;
+}
+.xe-zoomIcon {
+    height: 28px;
+    width: 28px;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+.collapse-icon:before {
+    display: inline-block;
+    background: url(https://studio.azureml.net/Libraries/Images/ee-sprite.png) no-repeat;
+    overflow: hidden;
+    text-indent: -9999px;
+    text-align: left;
+}
+.xe-zoomIn:before {
+    content: "";
+}

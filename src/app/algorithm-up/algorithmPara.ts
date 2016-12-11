@@ -5,23 +5,35 @@ export class AlgorithmPara {
     constructor(
 
     ) { }
-    public algorithmName: string;
-    public jarName: string;
-    public tags: string;
-    public description: string;
-    public inputSort: string;
-    public inputNumber: number;
-    public outputNumber: number;
-    public className: string;
+    public name: string;
+    public category: string;
+   // public description: string;
     parameters:Parameters[];
+    inputs:InputParameters[];
+    outputs:OutputParameters[];
 }
 export type Parameters={
-    //count:number;
     label:string;
-    val:string;
-    type:string;
-    tags:string;
-    description:string;
-
+    parameterType:string;
+    description: string;
+}
+export type InputParameters={
+    name:string;
+    dataType:string;
+}
+export type OutputParameters={
+    name:string;
+    dataType:string;
 }
 
+export type treeNode={
+    id:number;
+    name:string;
+    isHidden:boolean;
+    children:childrenNode[];
+}
+export type childrenNode={
+    id:number;
+    name:string;
+    isHidden:boolean;
+}

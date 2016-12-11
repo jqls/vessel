@@ -1,165 +1,175 @@
-<!--
-<link href="bootstrap.css" rel="stylesheet">
-
-<script src="jquery.js"></script>
-<script src="bootstrap-treeview.js"></script>
--->
-<div class="center-block">
- <h3> <span class="tag tag-default" style="margin-left:600px">算法属性</span></h3>
+<form name="fileinfo" (ngSubmit)="sendFile()" enctype="multipart/form-data" id="form">
+<div><!--(ngSubmit)="submit()" -->
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active color" data-toggle="tab" href="#algorithmAttribute" role="tab" >算法属性</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link color" data-toggle="tab" href="#parameterAttribute" role="tab">参数属性</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link color" data-toggle="tab" href="#inputAttribute" role="tab">input属性</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link color" data-toggle="tab" href="#outputAttribute" role="tab">output属性</a>
+  </li>
+</ul>
 </div>
-<form (ngSubmit)="submit()" enctype="multipart/form-data" id="form">
- <!-- -->
-  <div>
+  <div class="container">
+  <div class="leaderboard">
+<!--********************algorithmAttribute*****************************-->
+<div class="tab-content">
 
+  <div class="tab-pane active" id="algorithmAttribute" role="tabpanel">
+    <fieldset>
+      <legend>算法属性</legend>
     <div class="form-group row">
-      <label for="algorithmName" class="col-xs-1 col-form-label" style="margin-left:200px">算法名称：</label>
+      <label for="algorithmName" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
       <div class="col-xs-6">
-        <input class="form-control" type="text" id="algorithmName" required [(ngModel)]="algorithmPara.algorithmName" name="algorithmName"
+        <input class="form-control" type="text" id="algorithmName" required [(ngModel)]="algorithmPara.name" name="name"
                placeholder="请输入算法名称">
       </div>
     </div>
+    <div class="form-group row">
+      <label for="category" class="col-xs-1 col-form-label" style="margin-left:200px">种类：</label>
+      <div class="col-xs-6">
+        <input class="form-control" type="text" id="category" (click)="treeShow()" readonly="readonly" autocomplete="off"
+               required [(ngModel)]="algorithmPara.category" name="category" placeholder="请选择">
 
-    <div class="form-group row">
-      <label for="jarName" class="col-xs-1 col-form-label" style="margin-left:200px">jar包名称：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="jarName" required [(ngModel)]="algorithmPara.jarName" name="jarName"
-               placeholder="请输入jar包名称">
 
-      </div>
-
-    </div>
-    <div class="form-group row">
-      <label for="outputNumber" class="col-xs-1 col-form-label" style="margin-left:200px">outputNumber：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="outputNumber" required [(ngModel)]="algorithmPara.outputNumber" name="outputNumber"
-               placeholder="请输入outputNumber">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputSort" class="col-xs-1 col-form-label" style="margin-left:200px">inputSort：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="inputSort" required [(ngModel)]="algorithmPara.inputSort" name="inputSort"
-               placeholder="请输入inputSort">
-      </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="inputNumber" class="col-xs-1 col-form-label" style="margin-left:200px">inputNumber：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="inputNumber" required [(ngModel)]="algorithmPara.inputNumber" name="inputNumber"
-               placeholder="请输入inputNumber">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputClassName" class="col-xs-1 col-form-label" style="margin-left:200px">className：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="inputClassName" required [(ngModel)]="algorithmPara.className" name="inputClassName"
-               placeholder="请输入className">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="Tags" class="col-xs-1 col-form-label" style="margin-left:200px">tags：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="Tags" (click)="treeShow()" readonly="readonly" autocomplete="off"
-               required [(ngModel)]="algorithmPara.tags" name="Tags" placeholder="请选择tags">
-        <!--********************************************************************-->
-        <div class="row" id="tree"  [hidden]="submitted">
-          <Tree  [nodes]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)"></Tree>
+        <div class="row" id="tree"  [hidden]="submitted"
+             style="background-color: #eceeef;margin: 0px;padding-left: 10px;border: 1px solid #eceeef">
+          <Tree [nodes]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" ></Tree>
         </div>
       </div>
     </div>
 
 
-    <!--********************************************************************-->
 
+    </fieldset>
+  </div>
+  <!--********************parameterAttribute*****************************-->
+  <div class="tab-pane" id="parameterAttribute" role="tabpanel">
+    <div *ngFor="let i of parameterList ;  let ind=index;">
 
-
-    <div class="form-group row">
-      <label for="inputDescription" class="col-xs-1 col-form-label" style="margin-left:200px">description：</label>
-      <div class="col-xs-6">
-        <input class="form-control" type="text" id="inputDescription" required [(ngModel)]="algorithmPara.description" name="inputDescription"
-               placeholder="请输入description">
-      </div>
-    </div>
-
-    <div>
-      <h3> <span class="tag tag-default" style="margin-left:600px">参数属性</span></h3>
-
-      <!-- 动态添加参数-->
-
-      <div *ngFor="let i of parameterList ;  let ind=index;">
-
-        <fieldset>
-          <legend>参数{{ind+1}}</legend>
-          <div class="form-group row">
-            <label for="label${ ind }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
-            <div class="col-xs-6">
-              <input  class="form-control" type="text" id="label${ ind }"
-                      [(ngModel)]="i.label" name="label-{{ind}}"
-                      placeholder="请输入名称" >
-            </div>
+      <fieldset>
+        <legend>参数{{ind+1}}</legend>
+        <div class="form-group row">
+          <label for="label${ ind }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
+          <div class="col-xs-6">
+            <input  class="form-control" type="text" id="label${ ind }"
+                    [(ngModel)]="i.label" name="label-{{ind}}"
+                    placeholder="请输入名称label" >
           </div>
-
-
-          <div class="form-group row">
-            <label class="col-xs-1 col-form-label" style="margin-left:200px">值类型：</label>
-            <div class="col-xs-6">
-              <select class="form-control" [(ngModel)]="i.type" name="type-{{ind}}" placeholder="请输入值类型">
-                <option>int</option>
-                <option>float</option>
-                <option>string</option>
-                <option>double</option>
-              </select>
-            </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
+          <div class="col-xs-6">
+            <select class="form-control" [(ngModel)]="i.parameterType" name="type-{{ind}}" placeholder="请输入值类型">
+              <option>selection</option>
+              <option>text</option>
+            </select>
           </div>
-
+        </div>
           <div class="form-group row">
-            <label class="col-xs-1 col-form-label" style="margin-left:200px">参数值：</label>
+            <label for="inputDescription" class="col-xs-1 col-form-label" style="margin-left:200px">描述：</label>
             <div class="col-xs-6">
-              <input class="form-control" type="text" id="val ${ ind }"  [(ngModel)]="i.val" name="val-{{ind}}"
-                     placeholder="请输入参数值">
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <label class="col-xs-1 col-form-label" style="margin-left:200px">参数类型：</label>
-            <div class="col-xs-6">
-              <select class="form-control" [(ngModel)]="i.tags" name="tags-{{ind}}"
-                      placeholder="请输入参数类型">
-                <option>input类型</option>
-                <option>output类型</option>
-              </select>
-            </div>
-          </div>
-
-
-
-          <div class="form-group row">
-            <label class="col-xs-1 col-form-label" style="margin-left:200px">描述：</label>
-            <div class="col-xs-6">
-              <input class="form-control" type="text" id="description ${ ind}"  [(ngModel)]="i.description" name="description-{{ind}}"
+              <input class="form-control" type="text" id="inputDescription"  [(ngModel)]="i.description" name="description-{{ind}}"
                      placeholder="请输入描述">
             </div>
           </div>
-        </fieldset>
-
-        <br>
-      </div>
-      <div class="offset-sm-8 col-sm-30">
-        <button type="button" class="btn btn-primary" (click)="addPara()"> 添加参数 </button>
-      </div>
-
+      </fieldset>
     </div>
-    <div class="form-group">
-      <label for="InputFile" style="margin-left:200px">选择上传的算法文件：</label>
-      <input type="file" (change)="changeListener($event)" class="form-control-file" id="InputFile" name="fname" aria-describedby="fileHelp"
-        style="margin-left:200px">
-    </div>
-
     <br>
-    <div class="offset-sm-8 col-sm-30">
-        <button type="submit" class="btn btn-primary">算法上传</button>
+    <div class="offset-sm-8 col-sm-3">
+      <button type="button" class="btn btn-primary" (click)="addPara()"> 添加参数 </button>
     </div>
   </div>
+  <!--********************inputAttribute*****************************-->
+  <div class="tab-pane" id="inputAttribute" role="tabpanel">
+      <div *ngFor="let input of inputParameters; let i=index">
+        <fieldset>
+          <legend>input参数{{i+1}}</legend>
+        <div class="form-group row">
+          <label for="inputname${ i }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
+          <div class="col-xs-6">
+            <input  class="form-control" type="text" id="inputname${ i }"
+                    [(ngModel)]="input.name" name="inputname-{{i}}" placeholder="请输入名称" >
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label  class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
+          <div class="col-xs-6">
+            <select class="form-control" [(ngModel)]="input.dataType" name="inputdataType-{{i}}" placeholder="请选择值类型">
+              <option>1</option>
+            </select>
+          </div>
+          <!--<div class="col-xs-6">
+            <input  class="form-control" type="text" id="inputdataType${ i }"
+                    [(ngModel)]="input.dataType" name="inputdataType-{{i}}" placeholder="请输入参数类型" >
+          </div>
+          -->
+        </div>
+        </fieldset>
+      </div>
+    <br>
+    <div class="offset-sm-8 col-sm-3">
+      <button type="button" class="btn btn-primary" (click)="addInputPara()"> 添加参数 </button>
+    </div>
+  </div>
+  <!--********************outputAttribute*****************************-->
+  <div class="tab-pane" id="outputAttribute" role="tabpanel">
+    <div *ngFor="let output of outputParameters; let i=index">
+    <fieldset>
+      <legend>output参数{{i+1}}</legend>
+      <div class="form-group row">
+        <label for="outputname${ i }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
+        <div class="col-xs-6">
+          <input  class="form-control" type="text" id="outputname${ i }"
+                  [(ngModel)]="output.name" name="outputname-{{i}}" placeholder="请输入名称" >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label  class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
+        <div class="col-xs-6">
+          <select class="form-control" [(ngModel)]="output.dataType" name="outputdataType-{{i}}" placeholder="请选择值类型">
+            <option>1</option>
+          </select>
+        </div>
+        <!--
+        <div class="col-xs-6">
+          <input  class="form-control" type="text" id="outputdataType${ i }"
+                  [(ngModel)]="output.dataType" name="outputdataType-{{i}}" placeholder="请输入参数类型" >
+        </div>
+        -->
+      </div>
+    </fieldset>
+    </div>
+    <br>
+    <div class="offset-sm-8 col-sm-3">
+      <button type="button" class="btn btn-primary" (click)="addOutputPara()"> 添加参数 </button>
+    </div>
+  </div>
+</div>
+</div>
+
+  </div>
+
+<div class="leaderboard">
+  <div class="form-group">
+    <label for="InputFile" style="margin-left:200px">选择上传的算法文件：</label>
+    <input type="file" (change)="changeListener($event)" class="form-control-file" id="InputFile" name="file" aria-describedby="fileHelp"
+           style="margin-left:200px">
+
+    <br>
+    <div class="offset-sm-8 col-sm-3">
+      <button type="submit" class="btn btn-primary">算法上传</button>
+    </div>
+  </div>
+  </div>
+
+
 </form>
 
