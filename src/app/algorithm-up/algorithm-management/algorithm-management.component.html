@@ -10,11 +10,9 @@
     <script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <br><br>
-<div  style="background-color: #eceeef;border: 1px solid #7cc1de;
-width: 400px;height: 400px;margin-left:auto; margin-right:auto;
-padding-left: 150px;padding-top: 20px">
+<div class="treediv">
    <!-- <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" >'-->
-        <Tree  #tree [(nodes)]="nodes" (onActivate)="onEvent($event)" >'
+        <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" >
     <template #treeNodeTemplate let-node>
         <span>{{ node.data.name }}</span>
         <!--
@@ -26,14 +24,15 @@ padding-left: 150px;padding-top: 20px">
     </template>
     </Tree>
 </div>
-<form [hidden]="isShow"
-      class="modal modal-body" id="myModal" tabindex="-1" role="dialog"
-      aria-labelledby="myModalLabel" aria-hidden="true">
+<form [hidden]="false"
+      class="modal" id="myModal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true"
+      style="top: 150px;">
     <div class="modal-content" >
-<div class="col-md-10 divleft" >
+<div class="col-md-7 offset-sm-3 " >
     <fieldset>
         <legend>节点属性</legend>
-<div class="divleft">
+<div class="offset-sm-3 ">
     <div>
         <label class="col-md-3">名称：</label>
         <input id="nameId" placeholder="请输入名称" [(ngModel)]="nodeName" name="nameId" >
@@ -49,13 +48,13 @@ padding-left: 150px;padding-top: 20px">
     <br>
     <div>
         <label class="col-md-3">图标上传：</label>
-        <input type="file">
+        <input type="file" name="imagename">
         <br>
     </div>
     <br>
 </div>
     <div class="modal-footer">
-        <button (click)="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
+        <button  (click)="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
         <button (click)="cancel()"  data-dismiss="modal" class="btn btn-secondary">取消</button>
     </div>
         <br><br>

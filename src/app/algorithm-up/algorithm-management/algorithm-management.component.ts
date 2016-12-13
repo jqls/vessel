@@ -5,20 +5,27 @@ import {  TreeComponent,TreeNode, TREE_ACTIONS, KEYS, IActionMapping} from 'angu
 import {Component, ViewChild,OnInit} from '@angular/core';
 import { Headers, Http, RequestMethod } from "@angular/http";
 import { Modal } from 'angular2-modal';
+
 import {treeNode} from "../algorithmPara"
 import * as _ from 'lodash';
 //import * as d3 from "d3";
 //import tree = d3.layout.tree;
 //import {TreeComponent} from "angular2-tree-component/dist/lib/components/tree.component";
-// const actionMapping:IActionMapping = {
-//     mouse: {
-//         click: TREE_ACTIONS.TOGGLE_SELECTED
-//     },
-//     keys: {
-//         [KEYS.ENTER]: (tree, node, $event) =>
-//             alert(`This is ${node.data.isHidden}`)
-//     }
-// }
+const actionMapping:IActionMapping = {
+    mouse: {
+        // // dblClick: (tree, node, $event) =>{
+        // //     $("#nameId").val(node.data.name);
+        // //     console.log(node.data.name);
+        // },
+         click: TREE_ACTIONS.TOGGLE_SELECTED,
+
+
+    },
+    // keys: {
+    //     [KEYS.ENTER]: (tree, node, $event) =>
+    //         alert(`This is ${node.data.name}`)
+    // }
+}
 @Component({
     selector:'app-algorithmManagement',
     templateUrl: 'algorithm-management.component.html',
@@ -27,12 +34,12 @@ import * as _ from 'lodash';
 export class AlgorithmManagement implements OnInit{
 
     public nodeName:string;
-    public nodeIsHidden:boolean;
-    public nodes:treeNode[]=[];
-    //{"children": [], "isHidden": false, "id": -1, "name": "root0"}
+    public nodeIsHidden:boolean=false;
+    public nodes:treeNode[]=[{ id: 8, name: 'child3' ,Hidden:false,children:[]}];
     public nodeToAdd;//add node parameter
-    nodeId=10;
+    nodeId=2;
     public  dataUrl="http://10.5.0.222:8080/workflow/category/";
+    //public isShow:boolean=true;//模态框是否显示
     constructor(private http: Http) {
         this.getData();
     }
@@ -67,16 +74,16 @@ export class AlgorithmManagement implements OnInit{
     //         ]
     //     }
     // ];
-    isShow=true;//选择算法是否显示
+
     @ViewChild(TreeComponent)
     private tree :TreeComponent;
 
-    // treeOptions = {
-    //     actionMapping,
-    // }
+    treeOptions = {
+        actionMapping,
+    }
     onEvent = ($event) => {
         // this.isShow=false;
-        // console.log($event);
+        // console.log("onEvent");
         // let value=$event.node.data.name;
         // $("#nameId").val(value);
 
@@ -87,24 +94,25 @@ export class AlgorithmManagement implements OnInit{
         }
         else {
             this.nodeToAdd.data.children.push(
-                {id: this.nodeId, name: this.nodeName, isHidden: this.nodeIsHidden, children: []});
+                {id: this.nodeId, name: this.nodeName, Hidden: this.nodeIsHidden, children: []});
             console.log(this.nodeId);
             this.nodeId++;
             this.tree.treeModel.update();
-            this.isShow = true;
+            //this.isShow = true;
             this.sendData();
-          // $('#myModal').modal('hide')//model待完善
+            //$('#myModal').modal('hide');//model待完善
+
 
         }
     }
 
-    cancel(){ //add node cancel function
-        this.isShow=true;
+    cancel(){ //add node form cancel function
+        //this.isShow=true;
     }
 
     addNode(id:any){
         $("#nameId").val("");//set input is null
-        this.isShow=false;
+        //this.isShow=false;
         this.nodeToAdd=this.tree.treeModel.getNodeById(id);
        // console.log(this.nodeToAdd);
         // for(var i=0;i<5;i++)//test data--delete
@@ -121,11 +129,17 @@ export class AlgorithmManagement implements OnInit{
             alert("该节点有子节点不能删除！！！");
         }
         else {
-            //nodeToDelete.isHidden = true;
-            this.removeNode(nodeToDelete);
-            console.log("removenode");
-            this.tree.treeModel.update();
-            this.sendData();
+            if(nodeToDelete.isRoot){
+                alert("此乃根节点不能删除！！！");
+            }
+            else{
+                this.removeNode(nodeToDelete);
+                this.tree.treeModel.update();
+                this.sendData();
+            }
+
+
+            //this.sendDeleteNode(nodeToDelete);
         }
     }
 
@@ -151,9 +165,6 @@ export class AlgorithmManagement implements OnInit{
         })
         .catch(this.handleError);
     }
-    // sendDeleteData(){
-    //
-    // }
     sendData(){//发送数据
         let headers = new Headers({'Content-Type': 'application/json'});
         console.log("senddata");
@@ -176,6 +187,18 @@ export class AlgorithmManagement implements OnInit{
         _.remove(parentNode.data.children, function(child) {
             return child === node.data;
         });
+    }
+
+    sendDeleteNode(node:TreeNode){//只传送删除的节点
+        console.log(node);
+        let deleteUrl="";
+        let headers = new Headers({'Content-Type': 'application/json'});;
+        return this.http.post(deleteUrl,node,{ headers: headers, method: RequestMethod.Post }).toPromise()
+            .then(response => {
+                console.log(response);
+                return (response.json());})
+            .catch(this.handleError);
+
     }
 
 }

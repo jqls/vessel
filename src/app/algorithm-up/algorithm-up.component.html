@@ -8,10 +8,10 @@
     <a class="nav-link color" data-toggle="tab" href="#parameterAttribute" role="tab">参数属性</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link color" data-toggle="tab" href="#inputAttribute" role="tab">input属性</a>
+    <a class="nav-link color" data-toggle="tab" href="#inputAttribute" role="tab">输入属性</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link color" data-toggle="tab" href="#outputAttribute" role="tab">output属性</a>
+    <a class="nav-link color" data-toggle="tab" href="#outputAttribute" role="tab">输出属性</a>
   </li>
 </ul>
 </div>
@@ -21,8 +21,8 @@
 <div class="tab-content">
 
   <div class="tab-pane active" id="algorithmAttribute" role="tabpanel">
-    <fieldset>
-      <legend>算法属性</legend>
+    <!-- <fieldset>
+       <legend>算法属性</legend>-->
     <div class="form-group row">
       <label for="algorithmName" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
       <div class="col-xs-6">
@@ -43,23 +43,20 @@
         </div>
       </div>
     </div>
-
-
-
-    </fieldset>
+    <!--</fieldset>-->
   </div>
   <!--********************parameterAttribute*****************************-->
   <div class="tab-pane" id="parameterAttribute" role="tabpanel">
     <div *ngFor="let i of parameterList ;  let ind=index;">
 
       <fieldset>
-        <legend>参数{{ind+1}}</legend>
+        <legend><h6>参数{{ind+1}}</h6></legend>
         <div class="form-group row">
           <label for="label${ ind }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
           <div class="col-xs-6">
             <input  class="form-control" type="text" id="label${ ind }"
                     [(ngModel)]="i.label" name="label-{{ind}}"
-                    placeholder="请输入名称label" >
+                    placeholder="请输入名称" required>
           </div>
         </div>
         <div class="form-group row">
@@ -81,7 +78,7 @@
       </fieldset>
     </div>
     <br>
-    <div class="offset-sm-8 col-sm-3">
+    <div class="offset-sm-9 col-sm-3">
       <button type="button" class="btn btn-primary" (click)="addPara()"> 添加参数 </button>
     </div>
   </div>
@@ -89,7 +86,7 @@
   <div class="tab-pane" id="inputAttribute" role="tabpanel">
       <div *ngFor="let input of inputParameters; let i=index">
         <fieldset>
-          <legend>input参数{{i+1}}</legend>
+          <legend><h6>参数{{i+1}}</h6></legend>
         <div class="form-group row">
           <label for="inputname${ i }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
           <div class="col-xs-6">
@@ -114,7 +111,7 @@
         </fieldset>
       </div>
     <br>
-    <div class="offset-sm-8 col-sm-3">
+    <div class="offset-sm-9 col-sm-3">
       <button type="button" class="btn btn-primary" (click)="addInputPara()"> 添加参数 </button>
     </div>
   </div>
@@ -122,7 +119,7 @@
   <div class="tab-pane" id="outputAttribute" role="tabpanel">
     <div *ngFor="let output of outputParameters; let i=index">
     <fieldset>
-      <legend>output参数{{i+1}}</legend>
+      <legend><h6>参数{{i+1}}</h6></legend>
       <div class="form-group row">
         <label for="outputname${ i }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
         <div class="col-xs-6">
@@ -148,27 +145,29 @@
     </fieldset>
     </div>
     <br>
-    <div class="offset-sm-8 col-sm-3">
+    <div class="offset-sm-9 col-sm-3">
       <button type="button" class="btn btn-primary" (click)="addOutputPara()"> 添加参数 </button>
     </div>
   </div>
 </div>
+    <br><br>
+    <div style="padding-top: 30px">
+      <div class="tab-pane " >
+        <label for="InputFile" style="margin-left:20px">选择上传的算法文件：</label>
+        <input type="file" (change)="changeListener($event)" class="form-control-file" id="InputFile" name="file" aria-describedby="fileHelp"
+               style="margin-left:20px" required>
+
+        <br>
+        <div class="offset-sm-9 col-sm-3">
+          <button type="submit" class="btn btn-primary">算法上传</button>
+        </div>
+      </div>
+    </div>
+
 </div>
 
   </div>
 
-<div class="leaderboard">
-  <div class="form-group">
-    <label for="InputFile" style="margin-left:200px">选择上传的算法文件：</label>
-    <input type="file" (change)="changeListener($event)" class="form-control-file" id="InputFile" name="file" aria-describedby="fileHelp"
-           style="margin-left:200px">
-
-    <br>
-    <div class="offset-sm-8 col-sm-3">
-      <button type="submit" class="btn btn-primary">算法上传</button>
-    </div>
-  </div>
-  </div>
 
 
 </form>

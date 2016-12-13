@@ -49,6 +49,7 @@ import { TreeModule } from 'angular2-tree-component';
         ETLModule,
         AppRoutingModule,
         TreeModule,
+        ModalModule,
        // BootstrapModalModule,
        // ModalModule.forRoot(),
         //InMemoryWebApiModule.forRoot(InMemoryDataService),

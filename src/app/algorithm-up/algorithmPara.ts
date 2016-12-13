@@ -29,7 +29,7 @@ export type OutputParameters={
 export type treeNode={
     id:number;
     name:string;
-    isHidden:boolean;
+    Hidden:boolean;
     children:childrenNode[];
 }
 export type childrenNode={
