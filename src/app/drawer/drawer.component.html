@@ -1,125 +1,186 @@
 <div id="drawer" class="drawer">
-  <div class="drawer-inner" [style]="{height: drawerHeight}">
-    <div class="drawertaskbar" [ngClass]="{'drawer-inactive': drawerActive}">
-      <div class="btn-left-bottom">
-        <div (click)="activeDrawer()" class="btn btn-new">
-          <i class="btn-new-fa fa fa-plus fa-2x" aria-hidden="true"></i>
-          <span class="btn-new-text">NEW</span>
-        </div>
-      </div>
+  <div class="drawer-inner" [ngClass]="{'drawer-expended': drawerActive, 'drawer-collasped': !drawerActive}">
+    <div class="drawer-slip" style="top: 0px;">
+      <div class="drawertaskbar" [ngClass]="{'drawer-inactive': drawerActive}">
+        <div class="drawertaskbar-newbutton" (click)="activeDrawer()">
+          <div class="drawertaskbar-newbutton-img">
+            <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
 
-      <div class="btn-group-func">
-        <div class="func-style btn-run-history">
-          <li>
-            <a>
-              <i class="func-btn fa fa-clock-o" aria-hidden="true"></i>
-              <p class="func-text btn-run-history-text">RUN HISTORY</p>
-            </a>
-          </li>
+          </div>
+          <span class="drawertaskbar-newbutton-text">NEW</span>
         </div>
-        <div class="func-style btn-save">
-          <li>
-            <a>
-              <i class="func-btn fa fa-floppy-o" aria-hidden="true"></i>
-              <p class="func-text btn-save-text">SAVE</p>
-            </a>
-          </li>
-        </div>
-        <div class="func-style btn-save-as">
-          <li>
-            <a>
-              <i class="func-btn fa fa-floppy-o" aria-hidden="true"></i>
-              <p class="func-text btn-save-text">SAVE AS</p>
-            </a>
-          </li>
-        </div>
-        <div class="func-style btn-copy">
-          <li>
-            <a>
-              <i class="func-btn fa fa-files-o" aria-hidden="true"></i>
-              <p class="func-text btn-save-as-text">COPY</p>
-            </a>
-          </li>
-        </div>
-        <div class="func-style btn-delete">
-          <li>
-            <a>
-              <i class="func-btn fa fa-trash-o" aria-hidden="true"></i>
-              <p class="func-text btn-delete-text">DELETE</p>
-            </a>
-          </li>
+
+        <div class="drawertaskbar-commands">
+          <ul>
+            <li>
+              <div class="command-btn command-run-history">
+                <i class="func-btn fa fa-2x fa-clock-o" aria-hidden="true"></i>
+                <p class="func-text command-text">RUN HISTORY</p>
+              </div>
+            </li>
+            <li>
+              <div class="command-btn command-save">
+                <i class="func-command fa fa-2x fa-floppy-o" aria-hidden="true"></i>
+                <p class="func-text command-text">SAVE</p>
+              </div>
+            </li>
+            <li>
+              <div class="command-btn command-save-as">
+                <i class="func-btn fa fa-2x fa-floppy-o" aria-hidden="true"></i>
+                <p class="func-text command-text">SAVE AS</p>
+              </div>
+            </li>
+            <li>
+              <div class="command-btn command-copy">
+                <i class="func-btn fa fa-2x fa-files-o" aria-hidden="true"></i>
+                <p class="func-text command-text">COPY</p>
+              </div>
+            </li>
+            <li>
+              <div class="command-btn command-delete">
+                <i class="func-btn fa fa-2x fa-trash-o" aria-hidden="true"></i>
+                <p class="func-text command-text">DELETE</p>
+              </div>
+            </li>
+          </ul>
+
         </div>
       </div>
-    </div>
-    <div class="drawermenu" [ngClass]="{'drawer-inactive': !drawerActive}">
-      <div class="row btn-close-right">
-        <button (click)="inactiveDrawer()" class="btn btn-close">
+      <div class="drawermenu" [ngClass]="{'drawer-inactive': !drawerActive}">
+        <div class="drawermenu-title">New</div>
+        <div class="drawermenu-closebtn" (click)="inactiveDrawer()">
           <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-        </button>
-        <span class="menu-new">NEW</span>
-      </div>
-      <div class="row">
-        <div class="drawer-navpane">
-          <nav class="drawer-sidebar">
-            <ul class="nav">
-              <!--<li class="nav-item">-->
-                <!--<a class="nav-link">-->
-                  <!--<i class="drawer-btn fa fa-cubes fa-fw" aria-hidden="true"></i>-->
-                  <!--<span class="drawer-btn-text">&nbsp;DATASET</span>-->
-                <!--</a>-->
-              <!--</li>-->
-              <li class="nav-item">
-                <a class="nav-link">
-                  <i class="drawer-btn fa fa-cube fa-fw" aria-hidden="true"></i>
-                  <span class="drawer-btn-text">&nbsp;MODEL</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link">
-                  <i class="drawer-btn fa fa-tasks fa-fw" aria-hidden="true"></i>
-                  <span class="drawer-btn-text">&nbsp;PRODUCT</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link">
-                  <i class="drawer-btn fa fa-hourglass-end fa-fw" aria-hidden="true"></i>
-                  <span class="drawer-btn-text">&nbsp;EXPERIMENT</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
         </div>
-        <div class="drawer-content">
-          <!--<div class="note-lists">-->
-            <!--<div class="card-lists">-->
-              <!--<div class="card-item blankexperiment">-->
-                <!--<div class="blankex">-->
-                  <!--<i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>-->
-                  <!--<p class="card-item-text">BlankExperiment</p>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <div class="local-file">
-            <div class="local-file-btn">
-              <nav class="drawer-sidebar">
-                <ul class="nav">
-                  <li class="nav-item">
-                    <a class="nav-link">
-                      <i class="drawer-btn fa fa-folder-open-o fa-fw" aria-hidden="true"></i>
-                      <span class="drawer-btn-text">&nbsp;LOCAL FILE</span>
+        <div class="drawermenu-navandbtn">
+          <div class="drawer-navpane">
+            <nav class="drawer-sidebar">
+              <ul class="nav" role="tablist">
+                <li class="nav-item">
+                  <div class="menu-tablediv nav-link active" data-toggle="tab" href="#task1" role="tab">
+                    <a>
+                      <i class="drawer-btn fa fa-hourglass-end fa-fw" aria-hidden="true"></i>
+                      <span class="drawer-btn-text">&nbsp;数据挖掘任务</span>
                     </a>
-                  </li>
-                </ul>
-              </nav>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <div class="menu-tablediv nav-link" data-toggle="tab" href="#task2" role="tab">
+                    <a>
+                      <i class="drawer-btn fa fa-tasks fa-fw" aria-hidden="true"></i>
+                      <span class="drawer-btn-text">&nbsp;数据抽取任务</span>
+                    </a>
+                  </div>
+                </li>
+                <!--<li class="nav-item">-->
+                <!--<a class="nav-link" (click)="show(3)">-->
+                <!--<i class="drawer-btn fa fa-cubes fa-fw" aria-hidden="true"></i>-->
+                <!--<span class="drawer-btn-text">&nbsp;数据集</span>-->
+                <!--</a>-->
+                <!--</li>-->
+                <li class="nav-item">
+                  <div class="menu-tablediv nav-link" data-toggle="tab" href="#task4" role="tab">
+                    <a>
+                      <i class="drawer-btn fa fa-cube fa-fw" aria-hidden="true"></i>
+                      <span class="drawer-btn-text">&nbsp;算法</span>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="drawer-content tab-content">
+            <div class="tab-pane active" id="task1" role="tabpanel">
+              <div class="input-group input-group-sm module-input">
+                <input type="text" class="form-control">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div style="width: 100%;">
+                <span class="list-title">Samples</span>
+              </div>
+              <div class="modules-note-lists">
+                <div class="card-lists">
+                  <div class="card-item blankexperiment">
+                    <div class="blankex" [routerLink]="['/Experiment']" (click)="onClick()">
+                      <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
+                      <p class="card-item-text">新任务</p>
+                    </div>
+                  </div>
+                  <div class="card-item blankexperiment">
+                    <div class="blankex">
+                      <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
+                      <p class="card-item-text">Module 2</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="local-file-text">
-              <span>LOCAL FILE</span>
+            <div class="tab-pane note-lists" id="task2" role="tabpanel">
+              <div class="card-lists">
+                <div class="card-item blankexperiment">
+                  <div class="blankex" [routerLink]="['/etl/newtask']" (click)="onClick()">
+                    <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
+                    <p class="card-item-text">新任务</p>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="tab-pane" id="task4" role="tabpanel">
+              <div class="custom-modules">
+                <div style="margin-left: -30px;">
+                  <div class="custom-modules-btn">
+                    <ul class="nav">
+                      <li class="nav-item">
+                        <div class="menu-tablediv">
+                          <a>
+                            <i class="drawer-btn fa fa-folder-open-o fa-fw" aria-hidden="true"></i>
+                            <span class="drawer-btn-text">&nbsp;MODULES</span>
+                          </a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="custom-modules-text">
+                    <span>SOME SAMPLES OF CUSTOM MODULES</span>
+                  </div>
+                </div>
+                <div class="h-divider"></div>
+              </div>
+              <div class="input-group input-group-sm module-input">
+                <input type="text" class="form-control">
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+              <div style="width: 100%;">
+                <span class="list-title">Samples</span>
+              </div>
+              <div class="modules-note-lists">
+                <div class="card-lists">
+                  <div class="card-item blankexperiment">
+                    <div class="blankex" [routerLink]="['/upload-algotithm']" (click)="onClick()">
+                      <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
+                      <p class="card-item-text">新任务</p>
+                    </div>
+                  </div>
+                  <div class="card-item blankexperiment">
+                    <div class="blankex">
+                      <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
+                      <p class="card-item-text">Module 2</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
         </div>
-
       </div>
     </div>
   </div>

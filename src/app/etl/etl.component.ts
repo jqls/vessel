@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {GlobalService} from "../global.service";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-etl',
@@ -8,9 +7,7 @@ import {GlobalService} from "../global.service";
 })
 export class EtlComponent implements OnInit {
 
-  constructor(private globalService: GlobalService) {
-    this.globalService.setNavpaneStat(true);
-  }
+  constructor() { }
 
   ngOnInit() {
   }

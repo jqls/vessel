@@ -19,8 +19,7 @@ export class NavpaneComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  get panedWidth() {
-    return this.isExpended ? '200px' : '50px';
+  onClick(){
+    this.globalService.setNavpaneStat(true);
   }
 }

@@ -166,65 +166,25 @@
 -->
 
 <div class="row">
-  <div class="col-md-2 nav">
-    <div id="db_title">选择控件</div>
-    <ul class="list-group">
-      <li class="list-group-item menu_level_0 dropdown-toggle" data-toggle="collapse"
-          data-target="#sql" aria-expanded="false" aria-controls="sql">关系数据库</li>
-      <div class="collapse" id="sql">
-        <ul class="list-group">
-          <li class="list-group-item menu_level_1" *ngFor="let sql_item of sql_list"
-              (click)="nav_selected_item = sql_item;">{{sql_item}}</li>
-        </ul>
-      </div>
-
-      <li class="list-group-item menu_level_0 dropdown-toggle" data-toggle="collapse"
-          data-target="#nosql" aria-expanded="false" aria-controls="nosql">非关系数据库</li>
-      <div class="collapse" id="nosql">
-        <ul class="list-group">
-          <li class="list-group-item menu_level_1" *ngFor="let nosql_item of nosql_list">{{nosql_item}}</li>
-        </ul>
-      </div>
-    </ul>
-
+  <div class="col-md-2 tool-box">
+		<etl-toolbox></etl-toolbox>
   </div>
 
   <div class="col-md-10">
     <div class=row>
-      <div class="col-md-8 svg-container">
+      <div class="col-md-7 svg-container">
         <etl-drawboard></etl-drawboard>
       </div>
 
-      <div class="col-md-4" style="border: 1px solid; height:500px">
-        <div class="row para-title">参数配置</div>
-        <div class="dropdown-divider"></div>
-        <div class="para-content">
-        </div>
-      </div>
-
-    </div>
-
-    <div class="dropdown-divider"></div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <button class="btn btn-primary" style="float: right">提交运行</button>
-      </div>
-
-      <div class="col-md-6">
-        <button style="float: right;" class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="collapse" data-target="#exec_log" aria-expanded="false" aria-controls="exec_log">
-          查看日志
-        </button>
+      <div class="col-md-5">
+		<etl-parameters></etl-parameters>
       </div>
     </div>
-
-    <div class="collapse" id="exec_log">
-      <div class="card card-block" style="border: 0px;">
-        asfjoa;jgs;oajga;lalgsj;jga;jgaljgajgajgajgajgajtihjwieotewkngiowehtlwnoygha[odfmq233ptjgwengwlberiAnim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        asfjoa;jgs;oajga;lalgsj;jga;jgaljgajgajgajgajgajtihjwieotewkngiowehtlwnoygha[odfmq233ptjgwengwlberiAnim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-      </div>
-    </div>
+	
+	
   </div>
+    
+  
 </div>
 
 

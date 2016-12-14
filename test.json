@@ -1,0 +1,42 @@
+{
+  "key": "label1",
+  "label": "label1",
+  "value": "",
+  "controlType": "text",
+  "required": true,
+  "description": ""
+}
+{
+  "key": "label1",
+  "label": "label1",
+  "value": "",
+  "controlType": "text",
+  "required": true,
+  "description": ""
+}
+{
+  "key": "whatever",
+  "label": "whatever",
+  "value": "",
+  "controlType": "selection",
+  "required": true,
+  "options": [
+    "A",
+    "B",
+    "C"
+  ],
+  "description": ""
+}
+{
+  "key": "whatever",
+  "label": "whatever",
+  "value": "",
+  "controlType": "selection",
+  "required": true,
+  "options": [
+    "A",
+    "B",
+    "C"
+  ],
+  "description": ""
+}

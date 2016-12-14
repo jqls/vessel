@@ -1,20 +1,19 @@
 
-<div class="container-fluid">
-  <div class="row navbar-wrapper">
+  <div id="headerbar-wrapper" class="navbar-wrapper">
     <app-navbar></app-navbar>
   </div>
-  <div class="row">
-    <div class="col-md-1">
-      <!--col-md-1此处并无实际作用,同下方col-md-11-->
-      <app-navpane></app-navpane>
-    </div>
 
-    <div class="col-md-11" [ngClass]="{'outlet-expended': !navpaneStat,'outlet-collaspe': navpaneStat}">
+  <div>
+    <app-navpane></app-navpane>
+  </div>
+
+  <div id="main-foreground" class="main-wrapper">
+    <div id="main-body" [ngClass]="{'outlet-expended': !navpaneStat,'outlet-collaspe': navpaneStat}">
       <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="row">
-    <app-drawer></app-drawer>
-  </div>
-</div>
+
+  <app-drawer></app-drawer>
+
+
 

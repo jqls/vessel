@@ -20,7 +20,8 @@ export class LogComponent implements OnInit {
     //订阅selectedNode
     this.craftService.bookSelectedNode((node: WorkflowNode) => {
       this.selectedNode = node;
-      this.request();
+      if (node != null)
+        this.request();
     });
 
     this.craftService.bookTaskName((taskName: string) => {
@@ -32,10 +33,11 @@ export class LogComponent implements OnInit {
   }
 
   private request() {
+    console.log("-----------------------------------------------");
     this.appendLineToOutput("try to connect file: test.log");
 
-    this.dataService.getSocketAddress(this.taskName, "" + this.selectedNode.flowID).then(response => {
-      let url = response.url;
+    // this.dataService.getSocketAddress(this.taskName, "" + this.selectedNode.flowID).then(response => {
+      let url = "ws://10.5.0.222:8080/?id=2-43-13";//response.url;
       mydebug(this.debug_location, "request", url);
       var fileSocket = new WebSocket(url);
       fileSocket.onerror = (evt) => {
@@ -52,7 +54,7 @@ export class LogComponent implements OnInit {
       fileSocket.onclose = (evt) => {
         this.appendLineToOutput("connection closed");
       };
-    });
+    // });
   }
 
   private appendLineToOutput(newLine: string) {

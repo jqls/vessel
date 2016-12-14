@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
-import {Dataset, WorkflowNodeType} from "../../share/data-types";
+import {Dataset, WorkflowNodeType, Processor} from "../../share/data-types";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
 
@@ -12,8 +12,9 @@ import {mydebug} from "../../share/my-log";
 export class ToolboxComponent implements OnInit {
   private debug_location: string = "ToolboxComponent";
   private selectedNodeType: WorkflowNodeType;
-  private datasets: Dataset[];
-  private algorithms: Algorithm[];
+  // private datasets: Dataset[];
+  // private algorithms: Algorithm[];
+  private processors: Processor[];
 
   constructor(private dataService: DataService,
               private craftService: CraftService) {
@@ -22,12 +23,15 @@ export class ToolboxComponent implements OnInit {
       this.selectedNodeType = nodeType;
       mydebug(this.debug_location, "craftService.bookSelectedNodeType", String(this.selectedNodeType == null));
     });
-    this.dataService.getDatasets().then(datasets => {
-      this.datasets = datasets;
-    });
-    this.dataService.getAlgorithms().then(algorithms => {
-      this.algorithms = algorithms;
-    });
+    // this.dataService.getDatasets().then(datasets => {
+    //   this.datasets = datasets;
+    // });
+    // this.dataService.getAlgorithms().then(algorithms => {
+    //   this.algorithms = algorithms;
+    // });
+    this.dataService.getNodeInfo().then(processors =>{
+      this.processors = processors;
+    })
 
     this.craftService.setSelectedNodeType(null);
   }
@@ -41,7 +45,7 @@ export class ToolboxComponent implements OnInit {
     } else {
       this.craftService.setSelectedNodeType(item);
     }
-    mydebug(this.debug_location, "itemClicked", this.selectedNodeType ? this.selectedNodeType.id : 'null');
+    mydebug(this.debug_location, "itemClicked", this.selectedNodeType ? ''+this.selectedNodeType.id : 'null');
 
   }
 

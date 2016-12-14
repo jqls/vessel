@@ -1,3 +1,28 @@
-<svg id="svg">
+<div class="drawboard-wrapper">
+  <div class="drawboard-header row input-group">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <span class="input-group-addon" id="basic-addon1">任务名称:</span>
+        <input type="text" class="form-control" placeholder="请输入任务名称" aria-describedby="basic-addon1" [(ngModel)]="taskName">
+    <!-- <input class="taskname-wrap" type="text" [(ngModel)]="taskName"> -->
+    </div>
+  </div>
 
-</svg>
+  <div class="drawboard-body row">
+    <svg id="drawboard">
+      <defs>
+        <marker id="mark-end-arrow" viewBox="0 -5 10 10" refX="7" markerWidth="3.5" markerHeight="3.5" orient="auto">
+          <path d="M0,-5L10,0L0,5" style="fill:gray"></path>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="dropdown-divider"></div>
+
+  <div class="row">
+      <div class="col-md-7">
+        <button class="btn btn-primary" style="float: right" (click)="submit()">提交运行</button>
+      </div>
+  </div>
+</div>

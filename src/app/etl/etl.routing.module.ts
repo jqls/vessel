@@ -20,7 +20,7 @@ import {NewTaskComponent} from "./newtask/newtask.component";
             component: TaskListComponent
           },
           {
-            path: 'input-form',
+            path: 'newtask',
             component: NewTaskComponent
           }
         ]

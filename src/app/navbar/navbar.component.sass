@@ -1,59 +1,67 @@
-/*顶部导航栏*/
-.navbar-brand
-  position: fixed
-  left: 70px
-  padding-left: 0
+@media (min-width: 768px)
+  .top-nav .top-nav-items
+    list-style: none
+    margin: 0
+    padding: 0
+    display: flex
+    align-items: center
 
-.navbar-fixed-top
-  height: 50px
-  background: #343a41
-
-/*标题*/
-.title
-  color: #eee
-
-/*下拉菜单按钮*/
-
-#nav-menu.dropdown-toggle::after
-  display: none
-
-#nav-menu.btn
-  height: 50px
-  position: fixed
-  top: 0px
+.top-nav
+  padding: 0
+  min-height: 50px
+  border: 0
   border-radius: 0
+  margin-bottom: 0
+  background: #343a41
+  font-family: 'Segoe UI'
+  /*1.导航栏头 header，以后可能添加其他部分*/
+  .navbar-header
+    float: left
+    /*1.1标题*/
+    .brand-title
+      float: left
+      padding: 11.5px 0 5px 0
 
+    .brand-title:hover, .navbar-btn-wrapper:hover
+      background: #2c3137
+    .navbar-brand
+      //font-family: "Segoe UI Light"
+      font-size: 21px
+      line-height: 32px
+      float: none
+      padding: 10px 0 10px 8px
+      white-space: nowrap
+      color: #fff
 
-.btn-group > .btn
-  position: fixed
-  left: 0px
+    /*1.2下拉菜单按钮*/
+    .navbar-btn-wrapper
+      width: 50px
+      height: 50px
+      margin: 0
+      padding: 8px 3px
+      display: list-item
+    .navbar-btn-wrapper>button
+      background-color: transparent
+      border: 0
+      padding: 9px 10px
 
-.btn-toggle
-  color: #fff
-  background-color: #343a41
+    .navbar-btn-wrapper.open
+      background: #48525e
 
-#nav-menu:hover
-  background-color: #48525e !important
+    .dropdown-toggle::after
+      display: none
+    .btn-toggle
+      color: #fff
 
-#nav-menu:focus
-  background-color: #48525e !important
-
-#nav-menu:active
-  background-color: #48525e !important
-
-
-.dropdown-menu-left
-  position: fixed
-  top: 46px
-
-.dropdown-toggle
-  font-weight: bold
-
-.dropdown-menu
-  background-color: #48525e
-
-.dropdown-item
-  color: #eee
-
-.dropdown-item:hover
-  background-color: #55606e
+    .dropdown-menu
+      border: 0
+      margin: 0
+      border-radius: 0
+      background: #48525e
+    .dropdown-menu>li>a
+      min-width: 290px
+      clear: both
+      font-weight: normal
+      color: #fff
+    .dropdown-menu>li>a:hover
+      background: #55606e

@@ -39,18 +39,15 @@
   </div>
 
   <ul class="list-group">
-    <li class="row list-group-item list-content" *ngFor="let job of job_list">
+    <li class="row list-group-item list-content" *ngFor="let task of task_list">
       <div class="row list">
-        <div class="col-md-3">{{job['job_name']}}</div>
-        <div class="col-md-3">{{job['submit_time']}}</div>
-        <div class="col-md-3">{{job['job_status']=="1"? "执行完成":"正在执行"}}</div>
+        <div class="col-md-3">{{task['task_name']}}</div>
+        <div class="col-md-3">{{task['submit_date']}}</div>
+        <div class="col-md-3">{{task['status']=="1"? "执行完成":"正在执行"}}</div>
         <div class="col-md-2" style="color: blue;">
-          <button type="button" class="btn btn-link" style="padding:0;" (click)="this.flat_job_id = (this.flat_job_id==job['job_id']) ? null : job['job_id']">展开</button>
+          <button type="button" class="btn btn-link" style="padding:0;" (click)="redirect_to_drawboard(task['id'])">查看</button>
         </div>
-        <button class="btn del-label pull-right" (click)="delete(job); $event.stopPropagation()" data-toggle="tooltip" data-placement="right" title="删除此任务">x</button>
-      </div>
-      <div class="job-info row" [hidden]="flat_job_id !== job['job_id']">
-        {{job['job_name']}}
+        <button class="btn del-label pull-right" (click)="delete(task); $event.stopPropagation()" data-toggle="tooltip" data-placement="right" title="删除此任务">x</button>
       </div>
     </li>
   </ul>

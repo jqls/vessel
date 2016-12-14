@@ -1,40 +1,46 @@
 <div id="navpane" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
   <div id="navpane1" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
-    <nav class="nav-sidebar">
-      <ul class="nav">
-        <li class="nav-item nav-item-top1" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink]="['/ExperimentList']">
-            <i class="sidebar-btn fa fa-database fa-fw" aria-hidden="true"></i>
-            <span class="sidebar-btn-text" *ngIf="isExpended">数据分析</span>
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink]="['/data-analysis']">
-            <i class="sidebar-btn fa fa-hourglass-half fa-fw" aria-hidden="true"></i>
-            <span class="sidebar-btn-text" *ngIf="isExpended">SQL分析</span>
-          </a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink]="['/etl']">
-            <i class="sidebar-btn fa fa-flask fa-fw" aria-hidden="true"></i>
-            <span class="sidebar-btn-text" *ngIf="isExpended">数据抽取</span>
-          </a>
-        </li>
-        <!--<li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">-->
-          <!--<a class="nav-link" [routerLink]="['/upload-dataset']">-->
-            <!--<i class="sidebar-btn fa fa-cubes fa-fw" aria-hidden="true"></i>-->
-            <!--<span class="sidebar-btn-text" *ngIf="isExpended">DATASET</span>-->
+    <div id="navpane1-items" class="nav-sidebar">
+      <nav>
+        <ul class="nav">
+          <li class="nav-item nav-item-top1">
+            <a class="nav-link" [routerLink]="['/ExperimentList']" [routerLinkActive]="['active']"
+               [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+              <i class="sidebar-icon fa fa-database fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended">数据分析</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/data-analysis']" [routerLinkActive]="['active']"
+               [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+              <i class="sidebar-icon fa fa-hourglass-half fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended">SQL分析</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/etl/tasklist']" [routerLinkActive]="['active']"
+               [routerLinkActiveOptions]="{exact:true}"(click)="onClick()">
+              <i class="sidebar-icon fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended">数据抽取</span>
+            </a>
+          </li>
+          <!--<li class="nav-item">-->
+          <!--<a class="nav-link" [routerLink]="['/upload-dataset']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">-->
+          <!--<i class="sidebar-icon fa fa-cubes fa-fw fa-2x" aria-hidden="true"></i>-->
+          <!--<span class="sidebar-btn-text" *ngIf="isExpended">DATASET</span>-->
           <!--</a>-->
-        <!--</li>-->
-        <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" [routerLink]="['/upload-algotithm']">
-            <i class="sidebar-btn fa fa-cube fa-fw" aria-hidden="true"></i>
-            <span class="sidebar-btn-text" *ngIf="isExpended">MODEL</span>
-          </a>
-        </li>
+          <!--</li>-->
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/upload-algotithm']" [routerLinkActive]="['active']"
+               [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+              <i class="sidebar-icon fa fa-cube fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended">MODEL</span>
+            </a>
+          </li>
 
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>
 

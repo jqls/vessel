@@ -11,136 +11,194 @@
 
 .drawer
   z-index: 2000
-
-//.drawer-inner
-//  height: 50px
-
-.drawer .drawer-inner
-  position: relative
-
-.drawer-inner .drawer-inactive
-  display: none
-
-.drawertaskbar
-  background-color: #343a41
-  height: 55px
-  position: relative
-
-
-.drawertaskbar li
-  list-style: none
-
-.btn-new
-  position: absolute
-  left: 0
-  height: 55px
-  padding: 0 28px
-  width: 120px
-  background-color: #343a41
   color: #fff
-  border-color: #343a41
+  .drawer-expended
+    height: 800px
+  .drawer-collasped
+    height: 60px
 
-.btn-new-fa
-  line-height: 55px
-  vertical-align: middle
+  .drawer-inner
+    position: relative
 
-.btn-new-text
-  line-height: 55px
-  font-size: 15px
-.btn-new:hover
-  background-color: #48525e
+  .drawer-slip
+    height: 100%
+    position: absolute
+    left: 0
+    right: 0
 
-.btn-group-func
-  text-align: center
-  margin: 0px auto
-  width: 500px
-  doverflow: hidden
-  display: inliine-block
+  .drawer-inactive
+    display: none
 
+  .drawertaskbar
+    background-color: #343a41
+    height: 60px
+    position: relative
+    text-align: center
 
-.func-style
-  margin-top: 10px
-  height: 45px //add eql drawer-height
-  color: #fff
-  float: left
-  width: 100px
-  //background-color: #343a41
+    .drawertaskbar-newbutton
+      position: absolute
+      top: 0
+      left: 0
+      padding: 0 28px
+      min-width: 69px
+      cursor: pointer
+    .drawertaskbar-newbutton-img
+      float: left
+      padding-top: 17px
+      i
+        vertical-align: middle
+    .drawertaskbar-newbutton:hover
+      text-indent: 0
+      background-position: 0 0
+      width: 125px
+      height: 59px
+      display: inline-block
+      background: url(https://studio.azureml.net/Content/1.0/Images/dlwux-sprite.png) no-repeat
+      overflow: hidden
+      text-align: left
+    .drawertaskbar-newbutton-text
+      color: #fff
+      font: 18px/25px "Segoe UI Semibold"
+      text-transform: uppercase
+      margin-left: 2.5px
+      line-height: 68px
+    .drawertaskbar-commands
+      display: inline-block
+      overflow: hidden
+      text-align: center
+    .drawertaskbar-commands > ul
+      list-style: none
+      margin: 0
+      padding: 0
+      float: left
+    .drawertaskbar-commands > ul > li
+      display: list-item
+      float: left
+    .drawertaskbar-commands
+      .command-btn
+        background-color: transparent
+        border: 0
+        width: 85px
+        height: 60px
+        font-size: 12px
+        color: #fff
+        cursor: pointer
+      .command-btn:hover
+        background-color: #505861
+      i
+        position: relative
+        overflow: hidden
+        width: 32px
+        height: 32px
+        margin: 0 auto
+        padding: 6px 0 0
+        font-size: 25px
+      .command-text
+        text-transform: uppercase
+        line-height: 1em
+        word-wrap: break-word
+        padding: 0
+  .drawertaskbar > *
+    text-align: left
 
-.func-btn
-  font-size: 25px
-
-.func-text
-  font-size: 13px
-
-.drawermenu
-  display: block
-  background-color: #343a41
-  overflow: hidden
-  position: relative
-  height: 800px
-
-.btn-close-right
-  height: 70px
-
-.btn-close
-  position: absolute
-  right: 10px
-  line-height: 70px
-  background-color: #343a41
-  color: #fff
-.menu-new
-  position: absolute
-  left: 35px
-  line-height: 70px
-  font-size: 20px
-  color: #71b1d1
-
-.drawer-navpane
-  position: absolute
-  bottom: 0
-  top: 70px //等同于上方menu-new-height
-  left: 0
-  width: 180px
-  margin-left: 0
-  z-index: 1000
-  display: block
-  overflow-x: hidden
-  overflow-y: auto
-
-  //
-
-.drawer-sidebar li a
-  position: relative
-  display: block
-  padding: 10px 15px
-  font-size: 16px
-  color: #fff
-  border-right: 1px solid #48525e
-
-.nav-item > .nav-link
-  padding-left: 10px
-  padding-right: 10px
-  border-radius: 0
-.drawer-sidebar li a:hover
-  background-color: #48525e
-
-.drawer-btn
-  position: relative
-  left: 10px
-  font-size: 30px
-.drawer-btn-text
-  position: relative
-  left: 15px
-  font-size: 13px
-
-.drawer-content
-  float: none
-  position: absolute
-  left: 180px
-  overflow: auto
-  width: auto
-  height: 100%
-  padding-top: 0
+  .drawermenu
+    display: inherit
+    background-color: #3c454f
+    overflow: hidden
+    position: relative
+    height: 100%
+    .drawermenu-title
+      font: bold 14px/70px "Segoe UI"
+      color: #7acbf2
+      padding: 0 0 0 35px
+      text-transform: uppercase
+    .drawermenu-closebtn
+      padding: 0
+      height: 34px
+      position: absolute
+      border: solid 1px #dddddd
+      right: 20px
+      top: 20px
+      width: 34px
+      overflow: hidden
+      cursor: pointer
+      text-align: center
+      vertical-align: middle
+    .drawermenu-closebtn:hover
+      color: #ffffff
+      background: #dddddd
+    .drawermenu-navandbtn
+      display: block
+      height: calc(100% - 70px)
+      overflow: visible
+      position: relative
+      .drawer-navpane
+        height: auto
+        float: left
+        color: #fff
+      //font-family: "Segoe UI Semibold"
+      .drawer-sidebar
+        position: relative
+        top: auto
+        right: auto
+        bottom: auto
+        left: auto
+        float: left
+        margin: 0
+        border-right: 1px solid #7F868C
+        font-size: 11px
+        height: 100%
+        max-height: none
+        width: 178px
+        text-transform: uppercase
+        overflow: hidden
+        color: #ffffff
+      .drawer-sidebar > ul
+        margin: 0px
+        border-width: 0px
+        position: static
+        max-height: none
+        overflow: hidden
+        width: 177px
+        height: 135px
+      .drawer-sidebar li
+        height: 45px
+        position: relative
+      .menu-tablediv
+        display: table
+        cursor: pointer
+        height: 100%
+        width: 100%
+      .menu-tablediv a
+        display: table-cell
+        text-decoration: none
+        color: #fff
+        vertical-align: middle
+      .menu-tablediv:hover
+        background-color: #6d747b
+      .nav-link
+        border-left: 5px solid transparent
+      .nav-link.active
+        background-color: #6d747b
+        border-left: 5px solid #fff
+      .drawer-btn
+        font-size: 30px
+        position: absolute
+        left: 25px
+        top: 6px
+        overflow: hidden
+        height: 34px
+        width: 40px
+        display: inline-block
+      .drawer-btn-text
+        margin-left: 75px
+      .drawer-content
+        float: none
+        overflow: auto
+        width: auto
+        height: 100%
+        padding-top: 0
+        padding-left: 30px
 
 .note-lists
   width: 100%
@@ -170,6 +228,7 @@
 
 .card-item-text
   font-size: 15px
+
 .blankex
   margin-top: 100px
   color: grey
@@ -194,8 +253,79 @@
   font-size: 16px
   float: left
   color: #fff
-  //margin-left: 20px
-  //z-index: 1000
-  //display: block
-  //overflow-x: hidden
-  //overflow-y: auto
+
+.custom-modules
+  width: 100%
+  position: relative
+  align-content: flex-start
+  overflow-x: hidden
+
+.custom-modules-btn
+  width: 180px
+  height: 45px
+  float: left
+  overflow: hidden
+  border-right: 1px solid #7F868C
+
+.custom-modules-btn > ul
+  margin: 0
+  border-width: 0
+  position: static
+  max-height: none
+  overflow: hidden
+  width: 180px
+  height: 45px
+
+.custom-modules-btn > ul > li
+  border-left: 5px solid transparent
+  height: 45px
+  position: relative
+
+.custom-modules-text
+  float: none
+  overflow: auto
+  width: auto
+  padding-top: 0
+  color: #fff
+  padding-left: 30px
+  height: 45px
+  line-height: 45px
+
+.module-input
+  width: 50%
+  min-width: 300px
+  margin: 12px 24px 12px 0px
+  input
+    border: none
+    width: calc(100% - 35px)
+    height: 23px
+    font-size: 18px
+    float: left
+  .input-group-btn
+    float: left
+  .btn
+    background-color: #ffffff
+    font-size: 36px
+    color: #48525e
+    border: none
+
+.modules-note-lists
+  width: 100%
+  padding-right: 50px
+  height: calc(100% - 121px)
+  margin-top: 0
+  margin-left: -24px
+  align-content: flex-start
+  overflow-x: auto
+  line-height: 1.428571429
+  //border-bottom: 1px solid #fff
+  .card-item
+    float: left
+
+.h-divider
+  margin: 10px 0 25px
+  height: 0
+  width: 100%
+  border-bottom: 1px solid #7f868c
+.list-title
+  font-size: 24px

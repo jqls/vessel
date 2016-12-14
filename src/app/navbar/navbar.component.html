@@ -1,18 +1,24 @@
-<nav class="navbar navbar-default bg-inverse1 navbar-fixed-top">
-  <div class="float-xs-left btn-group">
-    <button id="nav-menu" type="button" class="btn dropdown-toggle btn-toggle" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-      <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
-    </button>
-    <ul class="dropdown-menu dropdown-menu-left">
-      <a class="dropdown-item" [routerLink]="['/Experiment']">新建任务</a>
-    </ul>
+<nav class="navbar navbar-default top-nav">
+  <div class="top-nav-items">
+    <div class="navbar-header">
+      <div class="float-xs-left btn-group navbar-btn-wrapper">
+        <button type="button" class="btn dropdown-toggle btn-toggle" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-left">
+          <li><a class="dropdown-item" [routerLink]="['/Experiment']">新建任务</a></li>
+
+        </ul>
+      </div>
+      <div class="brand-title">
+        <a href="/" class="navbar-brand">
+          ICT中科院计算技术研究所
+        </a>
+      </div>
+    </div>
   </div>
-
-  <a href="/" class="navbar-brand title">
-
-    ICT中科院计算技术研究所
-    <!--路径问题-->
-    <!--<img id="img-logo" src="app/navbar.component/logo1.jpg" width="220" height="50" class="d-inline-block align-top">-->
-  </a>
 </nav>
+
+<!--图标，注意路径问题-->
+<!--<img id="img-logo" src="app/navbar.component/logo1.jpg" width="220" height="50" class="d-inline-block align-top">-->

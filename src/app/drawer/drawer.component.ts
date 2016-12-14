@@ -15,7 +15,6 @@ export class DrawerComponent implements OnInit {
     //   this.drawerActive = active;
     // });
     this.drawerActive = false;
-
   }
 
   ngOnInit() {
@@ -34,5 +33,8 @@ export class DrawerComponent implements OnInit {
     console.log(this.drawerActive);
   }
 
-  get drawerHeight(){return this.drawerActive?'500px':'50px';}
+  onClick(){
+    this.globalService.setNavpaneStat(false);
+    this.drawerActive = false;
+  }
 }

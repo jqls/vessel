@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {WorkflowNode} from "./internal/node-basic";
 import * as d3 from "d3";
 import {Relation} from "./internal/relation";
-import {WorkflowNodeType, Algorithm, Dataset} from "../../share/data-types";
+import {WorkflowNodeType, Algorithm, Dataset, Processor} from "../../share/data-types";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
 import {AlgorithmNode} from "./internal/node-algorithm";
 import {DatasetNode} from "./internal/node-dataset";
 import {DataService} from "../../data.service";
-import {SubmitJson, DatasetType, AlgorithmType} from "../../share/json-types";
+import {SubmitJson, DatasetType, AlgorithmType, SubmitType} from "../../share/json-types";
+import {ProcessorNode} from "./internal/node-processor";
 
 @Component({
   selector: 'app-drawboard',
@@ -50,16 +51,16 @@ export class DrawboardComponent implements OnInit {
               private dataService: DataService) {
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
-      mydebug(this.debug_location, "craftService.bookSelectedNodeType", "isNull? "+String(this.selectedNodeType == null));
+      mydebug(this.debug_location, "craftService.bookSelectedNodeType", "isNull? " + String(this.selectedNodeType == null));
     });
 
     this.craftService.bookSelectedNode((node: WorkflowNode) => {
       this.selectedNode = node;
-      mydebug(this.debug_location, "craftService.bookSelectedNode", "isNull? "+String(this.selectedNode == null));
+      mydebug(this.debug_location, "craftService.bookSelectedNode", "isNull? " + String(this.selectedNode == null));
     });
     this.craftService.bookSelectedRelation((relation: Relation) => {
       this.selectedRelation = relation;
-      mydebug(this.debug_location, "craftService.bookSelectedRelation", "isNull? "+String(this.selectedRelation == null));
+      mydebug(this.debug_location, "craftService.bookSelectedRelation", "isNull? " + String(this.selectedRelation == null));
     });
     this.craftService.bookTaskName((taskName: string) => {
       this.taskName = taskName;
@@ -73,11 +74,11 @@ export class DrawboardComponent implements OnInit {
     });
 
     //设置用于reRender的钩子函数
-    this.craftService.setReRenderHook(()=>{
+    this.craftService.setReRenderHook(() => {
       this.dataService.getDataByTaskName(this.taskName).then(
         response => {
-          let reRenderData:SubmitJson = response;
-          this.reRender(reRenderData);
+          let reRenderData: SubmitJson = response;
+          // this.reRender(reRenderData);todo
         }
       );
     });
@@ -171,6 +172,7 @@ export class DrawboardComponent implements OnInit {
       case this.constants.DELETE_KEY:
         console.log(this.relations);
         console.log(this.workflowNodes);
+        console.log(this.getSubmitPara());
         (<Event> d3.event).preventDefault();
         break;
     }
@@ -189,11 +191,13 @@ export class DrawboardComponent implements OnInit {
 
       //好像是工厂模式，根据输入不同返回不同的构造方法
       let fn = (): WorkflowNode => {
-        if (this.selectedNodeType instanceof Algorithm) {
-          return new AlgorithmNode(this.flowIDCounter, this, position, this.selectedNodeType)
-        } else if (this.selectedNodeType instanceof Dataset) {
-          return new DatasetNode(this.flowIDCounter, this, position, this.selectedNodeType)
-        }
+        // if (this.selectedNodeType instanceof Algorithm) {
+        //   return new AlgorithmNode(this.flowIDCounter, this, position, this.selectedNodeType)
+        // } else if (this.selectedNodeType instanceof Dataset) {
+        //   return new DatasetNode(this.flowIDCounter, this, position, this.selectedNodeType)
+        // }
+        return new ProcessorNode(this.flowIDCounter, this, position, <Processor>this.selectedNodeType)
+
       }
 
       let newNode = fn();
@@ -279,101 +283,126 @@ export class DrawboardComponent implements OnInit {
   getSubmitPara(): string {
     mydebug(this.debug_location, "getSubmitPara-taskName", this.taskName);
 
-    let paths: string[] = [];
+    let paths: {}[] = [];
     this.relations.map((relation) => {
-      let path = relation.from.flowID + "->" + relation.to.flowID;
-      if (paths.indexOf(path) == -1) {
-        paths.push(path);
-      }
+      // let path = relation.from.flowID + "->" + relation.to.flowID;
+      // if (paths.indexOf(path) == -1) {
+      //   paths.push(path);
+      // }
+
+      let path = {
+        from: {
+          flow_id: relation.from.flowID,
+          processor_id: relation.from.nodetype.id,
+          id: 1
+        },
+        to: {
+          flow_id: relation.to.flowID,
+          processor_id: relation.to.nodetype.id,
+          id: 1
+        }
+      };
+      paths.push(path);
     });
     return JSON.stringify(
       {
-        taskName: this.taskName,
-        sources: this.workflowNodes.filter((node): boolean => {
-          return (node instanceof DatasetNode)
-        }).map((node): {} => {
-          return node.toJSON()
+        // taskName: this.taskName,
+        // sources: this.workflowNodes.filter((node): boolean => {
+        //   return (node instanceof DatasetNode)
+        // }).map((node): {} => {
+        //   return node.toJSON()
+        // }),
+        // processes: this.workflowNodes.filter((node): boolean => {
+        //   return (node instanceof AlgorithmNode)
+        // }).map((node): {} => {
+        //   return node.toJSON()
+        // }),
+        // paths: paths
+
+        name: this.taskName,
+        processors: this.workflowNodes.map(node => {
+          return node.toJSON();
         }),
-        processes: this.workflowNodes.filter((node): boolean => {
-          return (node instanceof AlgorithmNode)
-        }).map((node): {} => {
-          return node.toJSON()
-        }),
-        paths: paths
+        connections: paths
       }
-    );
+    )
+      ;
   }
 
-  reRender(reRenderData: SubmitJson):void {
-    let self = this;
-    let position: {x: number; y: number}[] = [
-      {x: 245, y: 104},
-      {x: 476, y: 104},
-      {x: 225, y: 195},
-      {x: 467, y: 202},
-      {x: 491, y: 290},
-      {x: 300, y: 328},
-      {x: 312, y: 415},
-    ];
-    let count = 0;
-    console.log("ReRender");
-    let datasetNode: DatasetNode[] = reRenderData.sources.map(
-      (datasetType2) => {
-        let flowID:number = +datasetType2.flowID;
-        let datasetType: DatasetType = {
-          id: datasetType2.id,
-          label: datasetType2.label,
-          description: datasetType2.description,
-        }
-        let dataset: Dataset = new Dataset(datasetType);
-        let datasetNode: DatasetNode = new DatasetNode(flowID, self, position[count++],dataset);
-        console.log(datasetNode);
-        return datasetNode;
-      }
-    );
-    let algorithmNode: AlgorithmNode[] = reRenderData.processes.map(
-      (algorithmType2) =>{
-        let flowID:number = +algorithmType2.flowID;
-        let algorithmType: AlgorithmType = {
-          id: algorithmType2.id,
-          label: algorithmType2.label,
-          category: algorithmType2.category,
-          description: algorithmType2.description,
-          parameters: algorithmType2.parameters
-        }
-        let algorithm: Algorithm = new Algorithm(algorithmType);
-        let algorithmNode: AlgorithmNode = new AlgorithmNode(flowID, self, position[count++], algorithm);
-        console.log(algorithmNode);
-        return algorithmNode;
-      }
-    );
+  reRender(reRenderData: SubmitType): void {
 
-    for(let dataSource of datasetNode){
-      self.workflowNodes.push(dataSource);
-      dataSource.render();
-    }
-
-    for(let process of algorithmNode){
-      self.workflowNodes.push(process);
-      process.render();
-    }
-
-    let paths = reRenderData.paths;
-    for(let path of paths){
-      let [from, to] = path.split("->");
-      console.log("from: "+from + "\nto: "+to);
-      let fromNode = this.findNodeByFlowID(+from);
-      let toNode = this.findNodeByFlowID(+to);
-      let relation = new Relation(self, fromNode, toNode);
-      fromNode.relations.push(relation);
-      toNode.relations.push(relation);
-      this.relations.push(relation);
-    }
   }
 
-  findNodeByFlowID(flowid: number): WorkflowNode{
+  // reRender_old(reRenderData: SubmitJson):void {
+  //   let self = this;
+  //   let position: {x: number; y: number}[] = [
+  //     {x: 245, y: 104},
+  //     {x: 476, y: 104},
+  //     {x: 225, y: 195},
+  //     {x: 467, y: 202},
+  //     {x: 491, y: 290},
+  //     {x: 300, y: 328},
+  //     {x: 312, y: 415},
+  //   ];
+  //   let count = 0;
+  //   console.log("ReRender");
+  //   let datasetNode: DatasetNode[] = reRenderData.sources.map(
+  //     (datasetType2) => {
+  //       let flowID:number = +datasetType2.flowID;
+  //       let datasetType: DatasetType = {
+  //         id: datasetType2.id,
+  //         label: datasetType2.label,
+  //         description: datasetType2.description,
+  //       }
+  //       let dataset: Dataset = new Dataset(datasetType);
+  //       let datasetNode: DatasetNode = new DatasetNode(flowID, self, position[count++],dataset);
+  //       console.log(datasetNode);
+  //       return datasetNode;
+  //     }
+  //   );
+  //   let algorithmNode: AlgorithmNode[] = reRenderData.processes.map(
+  //     (algorithmType2) =>{
+  //       let flowID:number = +algorithmType2.flowID;
+  //       let algorithmType: AlgorithmType = {
+  //         id: algorithmType2.id,
+  //         label: algorithmType2.label,
+  //         category: algorithmType2.category,
+  //         description: algorithmType2.description,
+  //         parameters: algorithmType2.parameters
+  //       }
+  //       let algorithm: Algorithm = new Algorithm(algorithmType);
+  //       let algorithmNode: AlgorithmNode = new AlgorithmNode(flowID, self, position[count++], algorithm);
+  //       console.log(algorithmNode);
+  //       return algorithmNode;
+  //     }
+  //   );
+  //
+  //   for(let dataSource of datasetNode){
+  //     self.workflowNodes.push(dataSource);
+  //     dataSource.render();
+  //   }
+  //
+  //   for(let process of algorithmNode){
+  //     self.workflowNodes.push(process);
+  //     process.render();
+  //   }
+  //
+  //   let paths = reRenderData.paths;
+  //   for(let path of paths){
+  //     let [from, to] = path.split("->");
+  //     console.log("from: "+from + "\nto: "+to);
+  //     let fromNode = this.findNodeByFlowID(+from);
+  //     let toNode = this.findNodeByFlowID(+to);
+  //     let relation = new Relation(self, fromNode, toNode);
+  //     fromNode.relations.push(relation);
+  //     toNode.relations.push(relation);
+  //     this.relations.push(relation);
+  //   }
+  // }
+
+  findNodeByFlowID(flowid: number): WorkflowNode {
     let node: WorkflowNode;
-    node = this.workflowNodes.filter(node=>{
+    node = this.workflowNodes.filter(node => {
       return node.flowID == flowid;
     })[0];
     return node;

@@ -15,7 +15,7 @@
     <div class="tab-pane active" id="datasets" role="tabpanel">
       <div class="list-group">
         <a class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello"
-           *ngFor="let dataset of datasets" [class.active]="selectedNodeType===dataset"
+           *ngFor="let dataset of processors" [class.active]="selectedNodeType===dataset"
            (click)="itemClicked(dataset)">
           <h5 class="list-group-item-heading">{{ dataset.name }}</h5>
           <p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>

@@ -8,10 +8,9 @@ import {TaskListService} from "./tasklist.service";
 })
 export class TaskListComponent implements OnInit {
 
-  job_list:Array<any> = null;
+  task_list:Array<any> = null;
   cur_task:any = null;
-
-  flat_job_id = null;
+  // task_status_map = ["正在运行", "已完成"];
 
   constructor(private taskListService: TaskListService){}
 
@@ -19,11 +18,16 @@ export class TaskListComponent implements OnInit {
     this.taskListService
       .getTasks()
       .then(data => {
-        var tmp = JSON.parse(data);
-        var t_num = tmp.length;
-        if(t_num > 0){
-          this.job_list = tmp;
-        }
+        // var tmp = JSON.parse(data);
+        // var t_num = tmp.length;
+        // if(t_num > 0){
+        //   this.job_list = tmp;
+        // }
+        console.log(JSON.stringify(data));
+        
+        let task_num: number = data.length;
+        console.log(task_num);
+        this.task_list = data;
       });
   }
 
@@ -32,10 +36,10 @@ export class TaskListComponent implements OnInit {
     this.taskListService
       .delete(task)
       .then(() => {
-        this.job_list = this.job_list.filter(h => h !== task);
-        if (this.cur_task === task) { this.cur_task = null; }
-        // alert(this.task_list.length);
-        // alert(this.task_list[0]['task_name']);
+        // this.task_list = this.task_list.filter(h => h !== task);
+        // if (this.cur_task === task) { this.cur_task = null; }
+        console.log("Delete a task!");
+        this.get_tasks();
       });
   }
 
@@ -46,5 +50,6 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(){
     this.get_tasks();
+    console.log("heheheheheeh");
   }
 }

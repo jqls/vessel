@@ -5,6 +5,7 @@ import {Contextmenu} from "./contextmenu";
 import {mydebug} from "../../../share/my-log";
 import {AlgorithmNode} from "./node-algorithm";
 import {DatasetNode} from "./node-dataset";
+import {ProcessorNode} from "./node-processor";
 
 export const ELEMENT_HEIGHT = 50;
 export const ELEMENT_WIDTH = 150;
@@ -207,4 +208,4 @@ export abstract class BasicDrawboardNode {
 
 
 
-export type WorkflowNode = AlgorithmNode | DatasetNode
+export type WorkflowNode = ProcessorNode//AlgorithmNode | DatasetNode
