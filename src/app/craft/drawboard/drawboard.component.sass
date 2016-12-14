@@ -1,25 +1,27 @@
-//@import "compass/css3";
-
 .drawboard-wrapper
+  position: relative
   height: 100%
-
 
 .taskname-wrap
   border-width: 0
-  position: absolute
   overflow: hidden
   height: 44px
   width: 100%
   background-color: #f2f2f2
 
-.drawboard-header input
+.drawboard-header
+  position: absolute
+  width: 100%
   font: 200 28px "Segoe UI"
 
 .drawboard-body
   top: 44px
   width: 100%
-  position: relative
+  position: absolute
   bottom: 0
   /*网格*/
-  background: -webkit-linear-gradient(top, transparent 13px, #e9ecef 14px), -webkit-linear-gradient(left, transparent 13px, #e9ecef 14px)
-  background-size: 14px 14px
+  //background: -webkit-linear-gradient(top, transparent 13px, #e9ecef 14px), -webkit-linear-gradient(left, transparent 13px, #e9ecef 14px)
+  //background-size: 14px 14px
+
+.drawboard
+  background-color: #f2f2f2

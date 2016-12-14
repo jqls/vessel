@@ -64,4 +64,7 @@ export class ToolboxComponent implements OnInit {
       }
     });
   }
+  closeLeft(){
+    this.craftService.setLeftPaneStat(false);
+  }
 }

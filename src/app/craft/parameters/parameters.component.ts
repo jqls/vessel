@@ -67,4 +67,7 @@ export class ParametersComponent implements OnInit {
         parameter.value = this.form.value[parameter.key];
       });
   }
+  closeRight(){
+    this.craftService.setRightPaneStat(false);
+  }
 }

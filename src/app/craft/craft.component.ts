@@ -26,7 +26,13 @@ export class CraftComponent implements OnInit {
 
   }
   get isOpenRightPane() {return this.craftService.getRightPaneStat();}
-
+  get isOpenLeftPane() {return this.craftService.getLeftPaneStat();}
+  openRight(){
+    this.craftService.setRightPaneStat(true);
+  }
+  openLeft(){
+    this.craftService.setLeftPaneStat(true);
+  }
   onSubmitClick() {
     this.craftService.submit();
     //todo:需要跟朱博商量状态参数问题

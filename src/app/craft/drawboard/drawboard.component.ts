@@ -113,7 +113,7 @@ export class DrawboardComponent implements OnInit {
       .style('marker-end', 'url(/Experiment#mark-end-arrow)');
 
     this.svg
-      .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)
+      // .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)
       .classed("drawboard", true);
   }
 

@@ -1,6 +1,58 @@
 .experiment-container
-  position: initial
-  //right: 0
+  position: fixed
+  right: 0
   top: 50px
-  bottom: 50px
+  left: 60px
+  bottom: 60px
   height: auto
+  float: left
+
+.left
+  width: 36px
+  float: left
+  height: 100%
+  padding-left: 15px
+  padding-right: 15px
+  background-color: #fff
+  //border-right: solid 1px #ededed
+  position: relative
+  i
+    height: 20px
+    width: 20px
+    margin-top: 10px
+
+.right
+  width: 36px
+  height: 100%
+  float: right
+  overflow: hidden
+  background-color: #fff
+  position: relative
+  padding-left: 15px
+  padding-right: 15px
+  //border-left: solid 1px #ededed
+  i
+    margin-top: 10px
+    margin-right: 10px
+    height: 20px
+    width: 20px
+.col-l
+  width: 254px
+  height: 100%
+  float: left
+.col-c
+  position: relative
+  height: 100%
+  float: left
+.col-r
+  width: 254px
+  height: 100%
+  float: right
+.col-1
+  width: calc(100% - 36px * 2)
+
+.col-2
+  width: calc(100% - 254px - 36px)
+
+.col-3
+  width: calc(100% - 254px * 2)

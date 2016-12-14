@@ -23,6 +23,7 @@ export class CraftService {
   private submit_hook: () =>void;
   private reRender_hook: ()=>void;
   private rightPaneStat: boolean;
+  private leftPaneStat: boolean;
   private reload_flag: boolean;
 
   constructor(private globalService: GlobalService,
@@ -33,6 +34,7 @@ export class CraftService {
     this.taskName_subscribers = Array<(taskName: string)=>void>();
 
     this.rightPaneStat = true;
+    this.leftPaneStat = true;
     this.reload_flag = false;
   }
 
@@ -88,6 +90,12 @@ export class CraftService {
 
   setRightPaneStat(stat: boolean): void {
     this.rightPaneStat = stat;
+  }
+  getLeftPaneStat(): boolean {
+    return this.leftPaneStat;
+  }
+  setLeftPaneStat(stat: boolean): void {
+    this.leftPaneStat = stat;
   }
 
   setReload(reload: boolean){

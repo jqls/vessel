@@ -1,19 +1,18 @@
+<div id="headerbar-wrapper" class="navbar-wrapper">
+  <app-navbar></app-navbar>
+</div>
 
-  <div id="headerbar-wrapper" class="navbar-wrapper">
-    <app-navbar></app-navbar>
+<div>
+  <app-navpane></app-navpane>
+</div>
+
+<div id="main-foreground" class="main-wrapper">
+  <div id="main-body" [ngClass]="{'outlet-expended': !navpaneStat,'outlet-collaspe': navpaneStat}">
+    <router-outlet></router-outlet>
   </div>
+</div>
 
-  <div>
-    <app-navpane></app-navpane>
-  </div>
-
-  <div id="main-foreground" class="main-wrapper">
-    <div id="main-body" [ngClass]="{'outlet-expended': !navpaneStat,'outlet-collaspe': navpaneStat}">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-
-  <app-drawer></app-drawer>
+<app-drawer></app-drawer>
 
 
 
