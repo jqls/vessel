@@ -11,19 +11,20 @@
 </head>
 <br><br>
 <div class="treediv">
-   <!-- <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" >'-->
         <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" >
     <template #treeNodeTemplate let-node>
-        <span>{{ node.data.name }}</span>
+        <span id="treeSpan">{{ node.data.name }}</span>
         <!--
         <button data-toggle="modal" data-target="#myModal" (click)="addNode(node.data.id)" class="glyphicon glyphicon-plus"  ></button>
         <button (click)="remove(node.data.id)" ><i class="glyphicon glyphicon-minus"></i></button>
         -->
         <i data-toggle="modal" data-target="#myModal" (click)="addNode(node.data.id)" class="glyphicon glyphicon-plus"></i>
         <i (click)="remove(node.data.id)" class="glyphicon glyphicon-minus"></i>
+        <i data-toggle="modal" data-target="#myModal" (click)="editNode(node)" class="glyphicon glyphicon-pencil"></i>
     </template>
     </Tree>
 </div>
+
 <form [hidden]="false"
       class="modal" id="myModal" tabindex="-1" role="dialog"
       aria-labelledby="myModalLabel" aria-hidden="true"
@@ -31,11 +32,20 @@
     <div class="modal-content" >
 <div class="col-md-7 offset-sm-3 " >
     <fieldset>
-        <legend>节点属性</legend>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                &times;
+            </button>
+            <h4 class="modal-title text-lg-center">
+                节点属性
+            </h4>
+        </div>
+
 <div class="offset-sm-3 ">
     <div>
+        <br>
         <label class="col-md-3">名称：</label>
-        <input id="nameId" placeholder="请输入名称" [(ngModel)]="nodeName" name="nameId" >
+        <input id="nameId" placeholder="请输入名称" [(ngModel)]="nodeName" name="nameId" autocomplete="off">
         <br>
         <br>
     </div>
@@ -54,7 +64,8 @@
     <br>
 </div>
     <div class="modal-footer">
-        <button  (click)="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
+        <button *ngIf="isEdit==false" (click)="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
+        <button *ngIf="isEdit==true" (click)="editSave()" data-dismiss="modal" class="btn btn-primary">保存修改</button>
         <button (click)="cancel()"  data-dismiss="modal" class="btn btn-secondary">取消</button>
     </div>
         <br><br>

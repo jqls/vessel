@@ -39,7 +39,10 @@
 
         <div class="row" id="tree"  [hidden]="submitted"
              style="background-color: #eceeef;margin: 0px;padding-left: 10px;border: 1px solid #eceeef">
-          <Tree [nodes]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" ></Tree>
+          <Tree  [nodes]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" ></Tree>
+        <template #treeNodeTemplate let-node>
+          <span *ngIf="node.data.isHidden==false">{{node.data.name}}</span>
+        </template>
         </div>
       </div>
     </div>

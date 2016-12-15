@@ -35,11 +35,12 @@ export class AlgorithmManagement implements OnInit{
 
     public nodeName:string;
     public nodeIsHidden:boolean=false;
-    public nodes:treeNode[]=[{ id: 8, name: 'child3' ,Hidden:false,children:[]}];
-    public nodeToAdd;//add node parameter
+    public nodes:treeNode[]=[{ id: 8, name: 'child3' ,isHidden:this.nodeIsHidden,children:[]}];
+    public node;//node parameter
     nodeId=2;
     public  dataUrl="http://10.5.0.222:8080/workflow/category/";
-    //public isShow:boolean=true;//模态框是否显示
+    public nodeEdit:TreeNode;//暂存编辑节点的数据
+    public isEdit:boolean=false;
     constructor(private http: Http) {
         this.getData();
     }
@@ -80,7 +81,9 @@ export class AlgorithmManagement implements OnInit{
 
     treeOptions = {
         actionMapping,
-    }
+        isHiddenField: 'hidden' ,//控制节点是否隐藏的属性，此处选择hidden非ishidden
+
+}
     onEvent = ($event) => {
         // this.isShow=false;
         // console.log("onEvent");
@@ -93,27 +96,33 @@ export class AlgorithmManagement implements OnInit{
             alert("名称不能为空！！！");
         }
         else {
-            this.nodeToAdd.data.children.push(
-                {id: this.nodeId, name: this.nodeName, Hidden: this.nodeIsHidden, children: []});
+
+            this.node.data.children.push(
+                {id: this.nodeId, name: this.nodeName, isHidden: this.nodeIsHidden, children: []});
             console.log(this.nodeId);
             this.nodeId++;
+            if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
             this.tree.treeModel.update();
-            //this.isShow = true;
             this.sendData();
             //$('#myModal').modal('hide');//model待完善
+            // $('#myModal').on('hidden.bs.modal', function (e) {
+            //     // do something...
+            //     console.log("zhaoli");
+            // })
 
 
         }
     }
 
     cancel(){ //add node form cancel function
-        //this.isShow=true;
+        this.isEdit=false;
     }
 
     addNode(id:any){
+        this.isEdit=false;
         $("#nameId").val("");//set input is null
         //this.isShow=false;
-        this.nodeToAdd=this.tree.treeModel.getNodeById(id);
+        this.node=this.tree.treeModel.getNodeById(id);
        // console.log(this.nodeToAdd);
         // for(var i=0;i<5;i++)//test data--delete
         // {
@@ -137,8 +146,6 @@ export class AlgorithmManagement implements OnInit{
                 this.tree.treeModel.update();
                 this.sendData();
             }
-
-
             //this.sendDeleteNode(nodeToDelete);
         }
     }
@@ -151,7 +158,7 @@ export class AlgorithmManagement implements OnInit{
         }
         else {
             this.nodeIsHidden=true;
-            console.log("no")
+            console.log("no");
         }
     }
 
@@ -200,5 +207,29 @@ export class AlgorithmManagement implements OnInit{
             .catch(this.handleError);
 
     }
+
+    editNode(node:TreeNode){
+        this.isEdit=true;
+        this.nodeEdit=node;
+        $("#nameId").val(this.nodeEdit.data.name);
+        if(this.nodeEdit.data.isHidden){
+            $("input:radio[name='show']").eq(1).prop("checked","checked");//设置radio的选中值
+        }
+        else{
+            $("input:radio[name='show']").eq(0).prop("checked","checked");
+        }
+    }
+    editSave(){
+      this.nodeEdit.data.name=$("#nameId").val();
+      if($("input:radio:checked").val()=="是") {
+          this.nodeEdit.data.isHidden=false;
+      }
+      else {
+          this.nodeEdit.data.isHidden=true;
+      }
+
+      this.sendData();
+    }
+
 
 }
