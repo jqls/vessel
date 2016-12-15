@@ -5,7 +5,7 @@ import {Relation} from "./relation";
 import {Processor} from "../../../share/data-types";
 import {mydebug} from "../../../share/my-log";
 import {BasicDrawboardNode, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./node-basic";
-import {ParametersType} from "../../../share/json-types";
+import {ParametersType, ProcessorType} from "../../../share/json-types";
 
 export class ProcessorNode extends BasicDrawboardNode {
 
@@ -21,17 +21,17 @@ export class ProcessorNode extends BasicDrawboardNode {
     this.debug_location = "ProcessorNode";
   }
 
-  toJSON(): {} {
+  toJSON(): ProcessorType {
     let parameters = {};
     this.nodetype.parameters.forEach((para:ParametersType)=>{
       parameters[para.key]=para.value;
     })
     return {
-      id: "" + this.nodetype.id,
-      flow_id: "" + this.flowID,
+      id: this.nodetype.id,
+      flow_id: this.flowID,
       parameters: parameters,
-      loc_x: "" + this.cx,
-      loc_y: "" + this.cy
+      loc_x: this.cx,
+      loc_y: this.cy
     };
   }
 

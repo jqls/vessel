@@ -16,29 +16,8 @@
 						</button>
     </span>
   </div>
-  <!--<ul class="nav nav-tabs" role="tablist">-->
-  <!--&lt;!&ndash;<li class="nav-item">&ndash;&gt;-->
-  <!--&lt;!&ndash;<a class="nav-link active" data-toggle="tab" href="#datasets" role="tab">数据集</a>&ndash;&gt;-->
-  <!--&lt;!&ndash;</li>&ndash;&gt;-->
-  <!--<li class="nav-item">-->
-  <!--<a class="nav-link" data-toggle="tab" href="#algorithms" role="tab">算法列表</a>-->
-  <!--</li>-->
-  <!--</ul>-->
 
-  <!-- Tab panes -->
   <div class="tab-content">
-    <!--<div class="tab-pane active" id="datasets" role="tabpanel">-->
-    <!--<div class="list-group">-->
-    <!--<a class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello"-->
-    <!--*ngFor="let dataset of datasets" [class.active]="selectedNodeType===dataset"-->
-    <!--(click)="itemClicked(dataset)">-->
-    <!--<h5 class="list-group-item-heading">{{ dataset.name }}</h5>-->
-    <!--<p class="list-group-item-text">上传时间: {{ "2016-2-2" }}</p>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="tab-pane" id="algorithms" role="tabpanel">-->
     <div id="tree" class="list-group">
       <div id="zhaoli" class="triangle-expanded icon-expand"></div>
       <div id="top1" [hidden]='isHidden()' class="title expanded ">聚类算法</div>
@@ -50,6 +29,5 @@
         </li>
       </ul>
     </div>
-    <!--</div>-->
   </div>
 </div>

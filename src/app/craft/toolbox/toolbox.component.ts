@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
-import {Dataset, WorkflowNodeType, Processor} from "../../share/data-types";
+import {WorkflowNodeType, Processor} from "../../share/data-types";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
 
@@ -23,12 +23,6 @@ export class ToolboxComponent implements OnInit {
       this.selectedNodeType = nodeType;
       mydebug(this.debug_location, "craftService.bookSelectedNodeType", String(this.selectedNodeType == null));
     });
-    // this.dataService.getDatasets().then(datasets => {
-    //   this.datasets = datasets;
-    // });
-    // this.dataService.getAlgorithms().then(algorithms => {
-    //   this.algorithms = algorithms;
-    // });
     this.dataService.getNodeInfo().then(processors =>{
       this.processors = processors;
     })

@@ -2,13 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {WorkflowNode} from "./internal/node-basic";
 import * as d3 from "d3";
 import {Relation} from "./internal/relation";
-import {WorkflowNodeType, Algorithm, Dataset, Processor} from "../../share/data-types";
+import {WorkflowNodeType, Processor} from "../../share/data-types";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
-import {AlgorithmNode} from "./internal/node-algorithm";
-import {DatasetNode} from "./internal/node-dataset";
 import {DataService} from "../../data.service";
-import {SubmitJson, DatasetType, AlgorithmType, SubmitType} from "../../share/json-types";
+import {SubmitType} from "../../share/json-types";
 import {ProcessorNode} from "./internal/node-processor";
 
 @Component({
@@ -77,7 +75,7 @@ export class DrawboardComponent implements OnInit {
     this.craftService.setReRenderHook(() => {
       this.dataService.getDataByTaskName(this.taskName).then(
         response => {
-          let reRenderData: SubmitJson = response;
+          let reRenderData: SubmitType = response;
           // this.reRender(reRenderData);todo
         }
       );
@@ -113,7 +111,6 @@ export class DrawboardComponent implements OnInit {
       .style('marker-end', 'url(/Experiment#mark-end-arrow)');
 
     this.svg
-      // .attr("viewBox", `0 0 ${this.constants.RESOLUTION_WIDTH} ${this.constants.RESOLUTION_HEIGHT}`)
       .classed("drawboard", true);
   }
 
@@ -191,11 +188,7 @@ export class DrawboardComponent implements OnInit {
 
       //好像是工厂模式，根据输入不同返回不同的构造方法
       let fn = (): WorkflowNode => {
-        // if (this.selectedNodeType instanceof Algorithm) {
-        //   return new AlgorithmNode(this.flowIDCounter, this, position, this.selectedNodeType)
-        // } else if (this.selectedNodeType instanceof Dataset) {
-        //   return new DatasetNode(this.flowIDCounter, this, position, this.selectedNodeType)
-        // }
+        //todo:若新加Node类型，在此进行类型判断
         return new ProcessorNode(this.flowIDCounter, this, position, <Processor>this.selectedNodeType)
 
       }
@@ -285,11 +278,6 @@ export class DrawboardComponent implements OnInit {
 
     let paths: {}[] = [];
     this.relations.map((relation) => {
-      // let path = relation.from.flowID + "->" + relation.to.flowID;
-      // if (paths.indexOf(path) == -1) {
-      //   paths.push(path);
-      // }
-
       let path = {
         from: {
           flow_id: relation.from.flowID,
@@ -306,19 +294,6 @@ export class DrawboardComponent implements OnInit {
     });
     return JSON.stringify(
       {
-        // taskName: this.taskName,
-        // sources: this.workflowNodes.filter((node): boolean => {
-        //   return (node instanceof DatasetNode)
-        // }).map((node): {} => {
-        //   return node.toJSON()
-        // }),
-        // processes: this.workflowNodes.filter((node): boolean => {
-        //   return (node instanceof AlgorithmNode)
-        // }).map((node): {} => {
-        //   return node.toJSON()
-        // }),
-        // paths: paths
-
         name: this.taskName,
         processors: this.workflowNodes.map(node => {
           return node.toJSON();
@@ -328,7 +303,7 @@ export class DrawboardComponent implements OnInit {
     )
       ;
   }
-
+//todo：重绘算法
   reRender(reRenderData: SubmitType): void {
 
   }

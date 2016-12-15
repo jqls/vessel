@@ -35,11 +35,9 @@ export class CraftComponent implements OnInit {
   }
   onSubmitClick() {
     this.craftService.submit();
-    //todo:需要跟朱博商量状态参数问题
   }
 
   reRender(){
-    //todo:需要跟朱博商量参数问题,要不要记录节点坐标？
     this.craftService.reRender();
   }
 }

@@ -7,7 +7,6 @@ import {QuestionControlService} from "../../share/dynamic-form/question-control.
 import {QuestionBase} from "../../share/dynamic-form/questions";
 import {FormGroup} from "@angular/forms";
 import {ParameterType} from "../../share/json-types";
-import {AlgorithmNode} from "../drawboard/internal/node-algorithm";
 import {ProcessorNode} from "../drawboard/internal/node-processor";
 
 @Component({

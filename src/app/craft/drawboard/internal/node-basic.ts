@@ -3,8 +3,6 @@ import {DrawboardComponent} from "../drawboard.component";
 import {Relation} from "./relation";
 import {Contextmenu} from "./contextmenu";
 import {mydebug} from "../../../share/my-log";
-import {AlgorithmNode} from "./node-algorithm";
-import {DatasetNode} from "./node-dataset";
 import {ProcessorNode} from "./node-processor";
 
 export const ELEMENT_HEIGHT = 50;

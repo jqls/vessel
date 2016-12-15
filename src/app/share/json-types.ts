@@ -1,45 +1,3 @@
-//-------------------旧版-------------------------
-export type AlgorithmType = {
-  flowID?: string,
-  id: string,
-  label: string,
-  category?: string,//算法类型
-  description?: string,
-  parameters: ParameterType[];
-}
-
-export type DatasetType = {
-  flowID?: string,
-  id: string,
-  label: string,
-  description: string,
-  parameters?: ParameterType[];
-}
-
-export type ParameterType = {
-  key: string,
-  label: string,
-  value?: string,
-  controlType: string,
-  required?: boolean,
-  order?: number,
-  type?: string,
-  options?: string[],
-  description?: string,//hint
-}
-
-export type SparkDataType = {
-  sources: DatasetType[],
-  processes: AlgorithmType[]
-}
-
-export type SubmitJson = {
-  taskName: string,
-  sources: DatasetType[],
-  processes: AlgorithmType[],
-  paths: string[]
-}
-//-------------------新版-------------------------
 export type NodeType = {
   category: string,
   inputs: InputType[],
@@ -56,6 +14,19 @@ export type InputType = {
   processor_id: number,
   id: number
 }
+//参数的实际需求
+export type ParameterType = {
+  key: string,
+  label: string,
+  value?: string,
+  controlType: string,
+  required?: boolean,
+  order?: number,
+  type?: string,
+  options?: string[],
+  description?: string
+}
+//参数的完整格式
 export type ParametersType = {
   parameterType: string,
   controlType: string,
@@ -78,9 +49,10 @@ export type SubmitType = {
 
 export type ProcessorType ={
   id: number,
-  flow_id:number,
+  flow_id: number,
   parameters: {},
-
+  loc_x?: number,
+  loc_y?: number
 }
 
 export type ConnectionType = {
