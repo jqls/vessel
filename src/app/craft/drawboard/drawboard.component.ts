@@ -107,6 +107,7 @@ export class DrawboardComponent implements OnInit {
 
     this.dragLine = this.container.append('svg:path')
       .attr('class', 'hidden path')
+      .attr('fill','transparent')
       .attr('d', 'M0,0 L0,0')
       .style('marker-end', 'url(/Experiment#mark-end-arrow)');
 

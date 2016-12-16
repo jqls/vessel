@@ -23,8 +23,8 @@ export class ProcessorNode extends BasicDrawboardNode {
 
   toJSON(): ProcessorType {
     let parameters = {};
-    this.nodetype.parameters.forEach((para:ParametersType)=>{
-      parameters[para.key]=para.value;
+    this.nodetype.parameters.forEach((para: ParametersType) => {
+      parameters[para.key] = para.value;
     })
     return {
       id: this.nodetype.id,
@@ -40,19 +40,19 @@ export class ProcessorNode extends BasicDrawboardNode {
     this.groupContainer.select("rect")
       .classed("algorithm", true);
     this.groupContainer.append("circle")
-      .attr("cx",ELEMENT_WIDTH / 2)
+      .attr("cx", ELEMENT_WIDTH / 2)
       // .attr("cy",this.cy)
-      .attr("r","4")
-      .style("stroke","gray")
-      .style("fill","white")
-      .style("stroke-width","1px");
+      .attr("r", "4")
+      .style("stroke", "gray")
+      .style("fill", "white")
+      .style("stroke-width", "1px");
     this.groupContainer.append("circle")
-      .attr("cx",ELEMENT_WIDTH / 2)
-      .attr("cy",ELEMENT_HEIGHT)
-      .attr("r","4")
-      .style("stroke","gray")
-      .style("fill","#00CACA")
-      .style("stroke-width","1px");
+      .attr("cx", ELEMENT_WIDTH / 2)
+      .attr("cy", ELEMENT_HEIGHT)
+      .attr("r", "4")
+      .style("stroke", "gray")
+      .style("fill", "#00CACA")
+      .style("stroke-width", "1px");
   }
 
   mousedownHandler(): void {
@@ -90,7 +90,13 @@ export class ProcessorNode extends BasicDrawboardNode {
       let mouseCoords = d3.mouse(this.board.container.node());
       mydebug(this.debug_location, "dragHandler", "x=" + mouseCoords[0] + " y=" + mouseCoords[1]);
       this.board.dragLine.classed("hidden", false);
-      this.board.dragLine.attr('d', 'M' + (this.cx + ELEMENT_WIDTH / 2) + ',' + (this.cy + ELEMENT_HEIGHT / 2) + 'L' + mouseCoords[0] + ',' + mouseCoords[1]);
+      let fromPosition = {x: 0, y: 0};
+      let toPosition = {x: 0, y: 0};
+      fromPosition.x = this.cx + ELEMENT_WIDTH / 2;
+      fromPosition.y = this.cy + ELEMENT_HEIGHT / 2;
+      toPosition.x = mouseCoords[0];
+      toPosition.y = mouseCoords[1];
+      this.board.dragLine.attr('d','M' + fromPosition.x + " " + fromPosition.y + 'C' + fromPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 - 2) + ',' + ((fromPosition.x + toPosition.x) / 2 + 2) + " " + (fromPosition.y + toPosition.y) / 2 + ',' + (fromPosition.x + toPosition.x) / 2 + " " + (fromPosition.y + toPosition.y) / 2 + 'S' + toPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 + 2) + ',' + toPosition.x + " " + toPosition.y);
     } else {
       let dragEvent = (<d3.DragEvent> d3.event);
       mydebug(this.debug_location, "dragHandler", "x=" + dragEvent.dx + " y=" + dragEvent.dy);
@@ -104,7 +110,7 @@ export class ProcessorNode extends BasicDrawboardNode {
     }
   }
 
-  copyElements(): ()=>void {
+  copyElements(): () => void {
     let x = this.cx + 20;
     let y = this.cy + 20;
     let copyElements = _.cloneDeep(this);
