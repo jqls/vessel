@@ -10,6 +10,7 @@ import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {DynamicFormModule} from "../share/dynamic-form/dynamic-form.module";
 import {ListExperimentsComponent} from "./list-experiments.component";
 import { LogComponent } from './log/log.component';
+import { TemplateComponent } from './toolbox/template/template.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { LogComponent } from './log/log.component';
     ToolboxComponent,
     ParametersComponent,
     ListExperimentsComponent,
-    LogComponent
+    LogComponent,
+    TemplateComponent
   ],
   providers: [
     CraftService

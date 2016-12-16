@@ -1,0 +1,97 @@
+.list-category
+  overflow: hidden
+  cursor: pointer
+  padding-left: 10px
+  padding-right: 10px
+  user-select: none
+  position: relative
+  .list-category-header
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+    font-size: 14px
+    margin-bottom: 6px
+    color: #333
+    margin-top: 6px
+    display: flex
+    width: 100%
+    .expanded
+      font-weight: 600
+      color: #1a6082
+  .list-category-header:hover
+    color: #1a6082
+  .icon-expand
+    overflow-y: hidden
+    float: left
+    height: 10px
+    width: 10px
+    min-width: 10px
+    margin: 6px 5px 3px 0
+  .category-header-title
+    margin-left: 8px
+  .category-header-icon
+    font-size: 24px
+    color: #519bbd
+    height: 24px
+    width: 24px
+  .list-category
+    .list-category-header
+      font-weight: 600
+      color: #1a6082
+  .list-category-item
+    background-color: #e1f3fb
+    padding: 5px 5px 5px 10px
+    margin-bottom: 3px
+    height: 30px
+    width: auto
+    display: flex
+  .list-category-item:hover
+    background-color: #c3e7f7
+  .list-category-item-text
+    font-size: 14px
+    text-overflow: ellipsis
+    white-space: nowrap
+    color: #000
+    overflow: hidden
+    fill-opacity: .5
+    user-select: none
+    cursor: pointer
+    margin: 0 1px 2px 0
+    display: block
+    position: relative
+    flex: 1 1 auto
+  .list-category-item-icon
+    display: block
+    position: relative
+    flex: 0 0 auto
+  .list-category-item-icon:before
+    position: relative
+    background: url(https://studio.azureml.net/Libraries/Images/ee-sprite.png) no-repeat
+    overflow: hidden
+    text-indent: -9999px
+    text-align: left
+    content: ""
+    float: right
+    margin: 2px 0 2px 2px
+    background-position: -5px -953px
+    width: 16px
+    height: 16px
+    display: inline-block
+  .list-category>.list-category-content
+    margin-left: 20px
+.maximized
+  .list-category-content
+    display: block
+  .icon-expand:before
+    content: url(https://studio.azureml.net/Libraries/Images/sprite-triangle-expanded.png)
+    position: relative
+    top: -30px
+    background-repeat: no-repeat
+.minimized
+  .list-category-content
+    display: none
+  .icon-expand:before
+    content: url(https://studio.azureml.net/Libraries/Images/sprite-triangle-collapsed.png)
+    background-repeat: no-repeat
+    position: relative
+    top: -10px

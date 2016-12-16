@@ -10,7 +10,7 @@ import {GlobalService} from "../global.service";
   styleUrls: ['list-experiments.component.sass']
 })
 export class ListExperimentsComponent implements OnInit {
-  private history: [{}];
+  private history: {}[];
 
   constructor(private dataService: DataService,
               private craftService: CraftService,

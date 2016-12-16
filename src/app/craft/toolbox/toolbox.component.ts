@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {DataService} from "../../data.service";
 import {WorkflowNodeType, Processor} from "../../share/data-types";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
-
+import * as d3 from "d3"
 @Component({
   selector: 'app-toolbox',
   templateUrl: './toolbox.component.html',
   styleUrls: ['./toolbox.component.sass']
 })
+
 export class ToolboxComponent implements OnInit {
   private debug_location: string = "ToolboxComponent";
   private selectedNodeType: WorkflowNodeType;
-  // private datasets: Dataset[];
-  // private algorithms: Algorithm[];
+  private tree = [];
   private processors: Processor[];
 
   constructor(private dataService: DataService,
@@ -23,9 +23,49 @@ export class ToolboxComponent implements OnInit {
       this.selectedNodeType = nodeType;
       mydebug(this.debug_location, "craftService.bookSelectedNodeType", String(this.selectedNodeType == null));
     });
-    this.dataService.getNodeInfo().then(processors =>{
+    this.dataService.getNodeInfo().then(processors => {
       this.processors = processors;
-    })
+      this.processors.forEach((item) => {
+        let string = item.category;
+        let str = string.split('>');
+        let last = str[str.length-1];
+        console.log(str);
+        // object版，留念
+        // let temp1 = this.tree1;
+        // str.forEach(s => {
+        //   temp1[s] = temp1[s] ? temp1[s] : {};
+        //   temp1 = temp1[s];
+        //   if(s===last){
+        //     temp1['val'] = item;
+        //   }
+        // });
+        // console.log(this.tree1);
+        console.log("---------------------------1-----------------------------");
+        let temp = this.tree;
+        str.forEach(s => {
+          let obj;
+          obj = temp[0]?temp.filter(a=>{return (a['key']===s)})[0]:null;
+          console.log(obj);
+          if(obj==null){
+            obj={};
+            obj['key'] = s;
+            obj['value']=[];
+            obj['type']='dir';
+            temp.push(obj);
+            console.log(temp);
+          }
+          temp = obj['value'];
+        console.log(temp);
+
+          if(obj['key']===last){
+            obj['type']='item';
+            temp.push(item);
+          }
+        });
+        console.log(this.tree);
+        console.log("---------------------------2-----------------------------");
+      });
+    });
 
     this.craftService.setSelectedNodeType(null);
   }
@@ -33,32 +73,9 @@ export class ToolboxComponent implements OnInit {
   ngOnInit() {
   }
 
-  itemClicked(item: WorkflowNodeType) {
-    if (this.selectedNodeType == item) {
-      this.craftService.setSelectedNodeType(null);
-    } else {
-      this.craftService.setSelectedNodeType(item);
-    }
-    mydebug(this.debug_location, "itemClicked", this.selectedNodeType ? ''+this.selectedNodeType.id : 'null');
 
-  }
 
-  isHidden() {//下拉列表的收起和隐藏
-    var divid = document.getElementById("zhaoli");
-    $("#top1").click(function () {
-      var children = $(".second1");
-
-      if (children.is(":visible")) {
-        children.hide();
-        divid.className = "triangle-collapsed icon-expand";
-      } else {
-        children.show()
-
-        divid.className = "triangle-expanded icon-expand";
-      }
-    });
-  }
-  closeLeft(){
+  closeLeft() {
     this.craftService.setLeftPaneStat(false);
   }
 }

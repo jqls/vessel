@@ -76,7 +76,7 @@
           <div class="form-group row">
             <label class="col-xs-1 col-form-label" style="margin-left:200px">type：</label>
             <div class="col-xs-6">
-              <input class="form-control" type="text" id="type ${ i.count }"  [(ngModel)]="i.types" name="types ${ i.count }" >
+              <input class="form-control" type="text" id="type {{ i.count }}"  [(ngModel)]="i.types" name="types ${ i.count }" >
             </div>
           </div>
 
@@ -97,7 +97,7 @@
           <div class="form-group row">
             <label class="col-xs-1 col-form-label" style="margin-left:200px">description：</label>
             <div class="col-xs-6">
-              <input class="form-control" type="text" id="description ${ i.count }"  [(ngModel)]="i.description" name="description ${ i.count }"
+              <input class="form-control" type="text" id="description {{ i.count }}"  [(ngModel)]="i.description" name="description ${ i.count }"
               >
             </div>
           </div>

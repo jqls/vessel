@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CraftService} from "./craft.service";
 import {GlobalService} from "../global.service";
 
@@ -10,6 +10,7 @@ import {GlobalService} from "../global.service";
 export class CraftComponent implements OnInit {
 
   private isReload: boolean;
+
   constructor(private craftService:CraftService,
               private globalService:GlobalService) {
     this.globalService.setNavpaneStat(false);

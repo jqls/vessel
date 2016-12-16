@@ -1,6 +1,5 @@
 <div class="toolbox-wraper">
-  <!-- todo:toolbox 修改显示方式，利用‘>’css选择器-->
-  <!-- Nav tabs -->
+
   <div class="btn-left-close">
     <button class="btn" type="button">
       <i class="fa fa-angle-double-left" aria-hidden="true" (click)="closeLeft()"></i>
@@ -8,26 +7,27 @@
       <!--右向箭头-->
     </button>
   </div>
+
   <div class="btn-left-search input-group input-group-sm">
     <input type="text" class="form-control">
     <span class="input-group-btn">
 						<button class="btn btn-default" type="button">
-							<i class="fa fa-search" aria-hidden="true" style="color: #fff;;"></i>
+							<i class="fa fa-search" aria-hidden="true" style="color: #fff;"></i>
 						</button>
     </span>
   </div>
 
-  <div class="tab-content">
-    <div id="tree" class="list-group">
-      <div id="zhaoli" class="triangle-expanded icon-expand"></div>
-      <div id="top1" [hidden]='isHidden()' class="title expanded ">聚类算法</div>
-      <ul class="second1">
-        <li class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello"
-            *ngFor="let algorithm of algorithms" [class.active]="selectedNodeType===algorithm"
-            (click)="itemClicked(algorithm)" data-toggle="tooltip" title={{algorithm.description}}>
-          <h5 class="list-group-item-heading">{{ algorithm.name }}</h5>
-        </li>
-      </ul>
-    </div>
+  <div class="toolbox-list">
+    <app-template *ngFor="let item of tree" [data]="item"></app-template>
+
+    <!--<div id="top1" class="title expanded ">聚类算法</div>-->
+    <!--<ul class="second1">-->
+      <!--<li class="list-group-item xe-paletteItemText  xe-datasetPaletteItem paletteGripper hello"-->
+          <!--*ngFor="let algorithm of algorithms" [class.active]="selectedNodeType===algorithm"-->
+          <!--(click)="itemClicked(algorithm)" data-toggle="tooltip" title={{algorithm.description}}>-->
+        <!--<h5 class="list-group-item-heading">{{ algorithm.name }}</h5>-->
+      <!--</li>-->
+    <!--</ul>-->
   </div>
+
 </div>

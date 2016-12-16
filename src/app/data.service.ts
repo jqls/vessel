@@ -36,7 +36,7 @@ export class DataService {
       .catch(handleError);
   }
   getExperimentsList(): Promise<Response> {
-    return this.http.get(`${environment.djangoServer}/workflow/mission/`).toPromise();
+    return this.http.get(environment.djangoServer+'/workflow/mission/0').toPromise();
   }
 
   getDataByTaskName(taskName: string): Promise<SubmitType> {

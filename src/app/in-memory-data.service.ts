@@ -1,44 +1,168 @@
 import {InMemoryDbService} from "angular2-in-memory-web-api";
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
-    let spark_data = {
-      "sources": [
-        {"description": "", "id": 1, "label": "KDDCUP1999_10"},
-        {"description": "", "id": 2, "label": "KDDCUP1999"}
-      ],
-      "processes": [
-        {
-          "description": "1",
-          "id": 1,
-          "parameters": [{"controlType": "textbox", "key": "classNumber", "val": "0", "label": "classNumber"}],
-          "label": "KDDCUPNormalization"
-        },
-        {
-          "description": "2",
-          "id": 2,
-          "parameters": [{
-            "controlType": "textbox",
-            "type": "float",
+    let spark_data = [
+      {
+        "category": "root1>child1>child3",
+        "inputs": [
+          {
+            "processor_id": 12,
+            "id": 9
+          }
+        ],
+        "name": "DataNorm",
+        "outputs": [
+          {
+            "processor_id": 12,
+            "id": 16
+          },
+          {
+            "processor_id": 12,
+            "id": 17
+          }
+        ],
+        "params": [
+          {
+            "parameterType": "text",
+            "controlType": "text",
+            "description": "",
+            "key": "label1",
+            "hint": "",
+            "required": true,
+            "optional": true,
+            "id": 19,
+            "value": "",
+            "label": "label1"
+          },
+          {
+            "parameterType": "selection",
+            "description": "",
+            "hint": "",
+            "required": true,
+            "value": "",
+            "label": "whatever",
+            "controlType": "selection",
+            "key": "whatever",
+            "choices": [
+              "A",
+              "B",
+              "C"
+            ],
+            "optional": true,
+            "id": 20
+          }
+        ],
+        "id": 12
+      },
+      {
+        "category": "root1>child1>child2",
+        "inputs": [ ],
+        "name": "DataIO",
+        "outputs": [
+          {
+            "processor_id": 13,
+            "id": 18
+          }
+        ],
+        "params": [ ],
+        "id": 13
+      },
+      {
+        "category": "root1>test1",
+        "inputs": [ ],
+        "name": "Documents",
+        "outputs": [
+          {
+            "processor_id": 28,
+            "id": 28
+          }
+        ],
+        "params": [
+          {
+            "parameterType": "text",
+            "controlType": "text",
+            "description": "",
+            "key": "filePath",
+            "hint": "",
+            "required": true,
+            "optional": true,
+            "id": 30,
+            "value": "",
+            "label": "filePath"
+          }
+        ],
+        "id": 28
+      },
+      {
+        "category": "root1>test2",
+        "inputs": [
+          {
+            "processor_id": 29,
+            "id": 18
+          }
+        ],
+        "name": "KcupNormal",
+        "outputs": [
+          {
+            "processor_id": 29,
+            "id": 29
+          }
+        ],
+        "params": [ ],
+        "id": 29
+      },
+      {
+        "category": "root1>test3",
+        "inputs": [
+          {
+            "processor_id": 30,
+            "id": 19
+          },
+          {
+            "processor_id": 30,
+            "id": 20
+          }
+        ],
+        "name": "NaiveBayes",
+        "outputs": [
+          {
+            "processor_id": 30,
+            "id": 30
+          }
+        ],
+        "params": [
+          {
+            "parameterType": "text",
+            "controlType": "text",
+            "description": "",
             "key": "lambda",
-            "val": "1.0",
+            "hint": "",
+            "required": true,
+            "optional": true,
+            "id": 31,
+            "value": "",
             "label": "lambda"
-          }, {
-            "options": [{"key":"multi-nominal","value":"multi-nominal"},{"key":"bernoulli","value":"bernoulli"}],
-            "controlType": "dropdown",
-            "key": "NBType",
-            "val": "0",
-            "label": "NBType"
-          }],
-          "label": "naiveBayes"
-        },
-        {
-          "description": "3",
-          "id": 3,
-          "parameters": [{"controlType": "textbox", "type": "text", "key": "modelType", "val": "None", "label": "modelType"}],
-          "label": "ModelEstimation"
-        }
-      ]
-    };
+          },
+          {
+            "parameterType": "selection",
+            "description": "",
+            "hint": "",
+            "required": true,
+            "value": "",
+            "label": "modelType",
+            "controlType": "selection",
+            "key": "modelType",
+            "choices": [
+              "multinomial",
+              "bernoulli"
+            ],
+            "optional": true,
+            "id": 32
+          }
+        ],
+        "id": 30
+      }
+    ];
 
     let datashow_data = [
       {

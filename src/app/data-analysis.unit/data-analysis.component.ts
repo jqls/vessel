@@ -15,7 +15,6 @@ export class DataAnalysisComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer,
               private globalService:GlobalService) {
-    this.globalService.setNavpaneStat(false);
     this.remoteURL = sanitizer.bypassSecurityTrustResourceUrl(`http://${environment.dataAnalysisServer}/`);
   }
 
