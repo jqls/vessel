@@ -13,35 +13,41 @@
         <div class="drawertaskbar-commands">
           <ul>
             <li>
-              <div class="command-btn command-run-history">
+              <div class="command-btn command-run-history"(click)="onRunHistory()">
                 <i class="func-btn fa fa-2x fa-clock-o" aria-hidden="true"></i>
                 <p class="func-text command-text">RUN HISTORY</p>
               </div>
             </li>
             <li>
-              <div class="command-btn command-save">
+              <div class="command-btn command-save" (click)="onSave()">
                 <i class="func-command fa fa-2x fa-floppy-o" aria-hidden="true"></i>
                 <p class="func-text command-text">SAVE</p>
               </div>
             </li>
+            <!--<li>-->
+              <!--<div class="command-btn command-save-as">-->
+                <!--<i class="func-btn fa fa-2x fa-floppy-o" aria-hidden="true"></i>-->
+                <!--<p class="func-text command-text">SAVE AS</p>-->
+              <!--</div>-->
+            <!--</li>-->
             <li>
-              <div class="command-btn command-save-as">
-                <i class="func-btn fa fa-2x fa-floppy-o" aria-hidden="true"></i>
-                <p class="func-text command-text">SAVE AS</p>
+              <div class="command-btn command-save-as" (click)="onRun()">
+                <i class="func-btn fa fa-2x fa-play" aria-hidden="true"></i>
+                <p class="func-text command-text">RUN</p>
               </div>
             </li>
-            <li>
-              <div class="command-btn command-copy">
-                <i class="func-btn fa fa-2x fa-files-o" aria-hidden="true"></i>
-                <p class="func-text command-text">COPY</p>
-              </div>
-            </li>
-            <li>
-              <div class="command-btn command-delete">
-                <i class="func-btn fa fa-2x fa-trash-o" aria-hidden="true"></i>
-                <p class="func-text command-text">DELETE</p>
-              </div>
-            </li>
+            <!--<li>-->
+              <!--<div class="command-btn command-copy">-->
+                <!--<i class="func-btn fa fa-2x fa-files-o" aria-hidden="true"></i>-->
+                <!--<p class="func-text command-text">COPY</p>-->
+              <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+              <!--<div class="command-btn command-delete">-->
+                <!--<i class="func-btn fa fa-2x fa-trash-o" aria-hidden="true"></i>-->
+                <!--<p class="func-text command-text">DELETE</p>-->
+              <!--</div>-->
+            <!--</li>-->
           </ul>
 
         </div>
@@ -49,7 +55,7 @@
       <div class="drawermenu" [ngClass]="{'drawer-inactive': !drawerActive}">
         <div class="drawermenu-title">New</div>
         <div class="drawermenu-closebtn" (click)="inactiveDrawer()">
-          <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+          <i class="fa fa-times fa-lg" aria-hidden="true"></i>
         </div>
         <div class="drawermenu-navandbtn">
           <div class="drawer-navpane">

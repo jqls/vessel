@@ -3,6 +3,7 @@ import {DataService} from "../data.service";
 import {Router} from "@angular/router";
 import {CraftService} from "./craft.service";
 import {GlobalService} from "../global.service";
+import {Workflow_history} from "../share/json-types";
 
 @Component({
   selector: 'app-list-experiments',
@@ -28,8 +29,9 @@ export class ListExperimentsComponent implements OnInit {
   ngOnInit() {
   }
 
-  gotoDetail(taskName: string) {
-    this.craftService.setTaskName(taskName);
+  gotoDetail(record: Workflow_history) {
+    this.craftService.setTaskName(record.name);
+    this.globalService.set_workflowID(record.id);
     this.craftService.setReload(true);
     let link = ["/Experiment"];
     this.router.navigate(link);

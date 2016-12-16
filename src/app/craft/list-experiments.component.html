@@ -12,11 +12,12 @@
 
   <tbody>
   <tr *ngFor="let record of history">
-    <td>{{record.workflow_name}}</td>
-    <td>{{record.submit_time}}</td>
-    <td>{{record.finish_time}}</td>
+    <td>{{record.id}}</td>
+    <td>{{record.name}}</td>
+    <td>{{record.submitTime}}</td>
+    <!--<td>{{record.finish_time}}</td>-->
     <td>
-      <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail(record.workflow_name)">查看</button>
+      <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail(record)">查看</button>
     </td>
   </tr>
   <tr>

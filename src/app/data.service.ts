@@ -1,16 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {environment} from "../environments/environment";
-import {NodeType, SubmitType} from "./share/json-types";
+import {NodeType, SubmitType, Workflow_data_all} from "./share/json-types";
 import {mydebug} from "./share/my-log";
 import {Processor} from "./share/data-types";
 import {handleError} from "./share/my-handler";
 
 @Injectable()
 export class DataService {
+  get spark_data(): NodeType[] {
+    return this._spark_data;
+  }
   private debug_location: string = "DataService";
   private spark_data_URL: string;
   private spark_data_new: Promise<NodeType[]>;
+  private _spark_data:NodeType[];
 
   constructor(private http: Http) {
     this.spark_data_URL = environment.isMock ? environment.URL_Spark_mock : environment.URL_Spark;
@@ -30,22 +34,23 @@ export class DataService {
       }).catch(handleError);
 
     return this.spark_data_new.then(response => {
+      this._spark_data = response;
       return (response)
         .map((nodeType: NodeType): Processor => new Processor(nodeType))
     })
       .catch(handleError);
   }
   getExperimentsList(): Promise<Response> {
-    return this.http.get(environment.djangoServer+'/workflow/mission/0').toPromise();
+    return this.http.get(environment.URL_Spark_Workflow_History).toPromise();
   }
 
-  getDataByTaskName(taskName: string): Promise<SubmitType> {
+  getDataByFlowID(workflow_id: number): Promise<Workflow_data_all> {
 
-    console.log("taskName: " + taskName);
-    return this.http.get(environment.URL_Spark_redraw + "taskName=" + taskName).toPromise().then(
+    console.log("workflow_id: " + workflow_id);
+    return this.http.get(environment.URL_Spark_redraw + workflow_id).toPromise().then(
       response => {
-        mydebug(this.debug_location, "getDataByTaskName", JSON.stringify(response.json()));
-        return response.json() as SubmitType;
+        mydebug(this.debug_location, "getDataByFlowID", JSON.stringify(response.json()));
+        return response.json() as Workflow_data_all;
       }
     ).catch(handleError);
 

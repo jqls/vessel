@@ -9,9 +9,11 @@ export const environment = {
   isMock: false,
   URL_Spark: "http://10.5.0.222:8080/workflow/processor/0",
   URL_Spark_mock: "app/spark_data",
-  URL_Spark_submit: "http://10.5.0.222:8080/submit/",
-  URL_Spark_redraw: "http://10.5.0.222:8080/redraw?",
+  URL_Spark_run: "http://10.5.0.222:8080/dispatcher/submit_mission/",
+  URL_Spark_redraw: "http://10.5.0.222:8080/workflow/workflow/?workflow_id=",
   dataAnalysisServer: "10.5.0.224:5000",
-  djangoServer: "http://10.5.0.222:8080",
+  URL_Spark_RUN_HISTORY: "http://10.5.0.222:8080/workflow/mission/0/?workflow_id=",
   URL_Spark_log: "http://10.5.0.222:8080/processinformation?",
+  URL_Spark_save:"http://10.5.0.222:8080/workflow/workflow/",
+  URL_Spark_Workflow_History:"http://10.5.0.222:8080/workflow/workflow/?workflow_id=0"
 };

@@ -59,3 +59,43 @@ export type ConnectionType = {
   from: ProcessorType,
   to: ProcessorType
 }
+//用于显示workflow历史清单的简略信息
+export type Workflow_history={
+  id: number,
+  name: string,
+  submitTime: string
+}
+//用于获取全部workflow信息
+export type Workflow_data_all={
+  processors: reRender_Nodes[],
+  connections: reRender_Connections[],
+  parameters: reRender_Parameter[],
+  id: number,
+  name: string,
+  submitTime: string
+}
+
+export type reRender_Parameter={
+  processor_id: number,
+  label: string,
+  val: string,
+  flow_id: number
+}
+
+export type reRender_Connections={
+
+  output_processor_flow_id: string,
+  input: InputType,
+  input_processor_flow_id: string,
+  id: number,
+  output: OutputType
+
+}
+export type reRender_Nodes={
+  inputs: number[],
+  outputs: number[],
+  flow_id: number,
+  loc_x: number,
+  loc_y: number,
+  id: number
+}

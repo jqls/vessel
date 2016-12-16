@@ -36,6 +36,9 @@ export class CraftService {
     this.rightPaneStat = true;
     this.leftPaneStat = true;
     this.reload_flag = false;
+
+    this.globalService.bookSubmit(()=>{this.submit();});
+    this.globalService.bookSubmitAndRun(()=>{this.submitAndRun()})
   }
 
   bookSelectedNodeType(update: (nodeType: WorkflowNodeType)=>void): void {
@@ -58,6 +61,7 @@ export class CraftService {
     this.selectedNode = node;
     mydebug(this.debug_location, "setSelectedNode", this.selectedNode ? this.selectedNode.name : 'null');
     this.SN_subscribers.forEach(s => s(node));
+    this.globalService.setSelectedNode(node);
   }
 
   bookSelectedRelation(update: (relation: Relation)=>void): void {
@@ -117,10 +121,35 @@ export class CraftService {
       'Content-Type': 'application/json'
     });
     return this.http
-      .post(environment.URL_Spark_submit, workflowJSON, {headers: headers, method: RequestMethod.Post})
+      .post(environment.URL_Spark_save, workflowJSON, {headers: headers, method: RequestMethod.Post})
       .toPromise()
       .then(res => {
-        console.log(res)
+        // console.log(res);
+        // console.log(res.json());
+        console.log(res.json().workflow_id);
+        this.globalService.set_workflowID(res.json().workflow_id);
+      })
+      .catch(handleError);
+  }
+  submitAndRun(){
+    let workflowJSON = this.submit_hook();
+    mydebug(this.debug_location,"submit",`${workflowJSON}`);
+
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http
+      .post(environment.URL_Spark_save, workflowJSON, {headers: headers, method: RequestMethod.Post})
+      .toPromise()
+      .then(res => {
+        // console.log(res);
+        // console.log(res.json());
+        let response = res.json().workflow_id;
+        console.log(response);
+        if(response!=null){
+          this.globalService.set_workflowID(res.json().workflow_id);
+          this.globalService.run();
+        }
       })
       .catch(handleError);
   }

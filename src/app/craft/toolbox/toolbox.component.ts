@@ -29,7 +29,8 @@ export class ToolboxComponent implements OnInit {
         let string = item.category;
         let str = string.split('>');
         let last = str[str.length-1];
-        console.log(str);
+        // console.log(str);
+
         // object版，留念
         // let temp1 = this.tree1;
         // str.forEach(s => {
