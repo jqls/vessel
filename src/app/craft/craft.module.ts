@@ -11,6 +11,7 @@ import {DynamicFormModule} from "../share/dynamic-form/dynamic-form.module";
 import {ListExperimentsComponent} from "./list-experiments.component";
 import {LogComponent} from './log/log.component';
 import {TemplateComponent} from './toolbox/template/template.component';
+import { RunHistoryComponent } from './run-history/run-history.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import {TemplateComponent} from './toolbox/template/template.component';
     ParametersComponent,
     ListExperimentsComponent,
     LogComponent,
-    TemplateComponent
+    TemplateComponent,
+    RunHistoryComponent
   ],
   providers: [
     CraftService

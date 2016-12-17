@@ -43,6 +43,9 @@ export class DataService {
   getExperimentsList(): Promise<Response> {
     return this.http.get(environment.URL_Spark_Workflow_History).toPromise();
   }
+  getMissionsList(workflow_id: number): Promise<Response> {
+    return this.http.get(environment.URL_Spark_RUN_HISTORY+workflow_id).toPromise();
+  }
 
   getDataByFlowID(workflow_id: number): Promise<Workflow_data_all> {
 

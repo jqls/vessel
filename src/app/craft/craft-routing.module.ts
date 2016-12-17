@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { CraftComponent } from "./craft.component";
 import {ListExperimentsComponent} from "./list-experiments.component";
+import {RunHistoryComponent} from "./run-history/run-history.component";
 
 @NgModule({
   imports: [
@@ -14,6 +15,10 @@ import {ListExperimentsComponent} from "./list-experiments.component";
         path: 'ExperimentList',
         component: ListExperimentsComponent,
       },
+      {
+        path: 'RunHistory',
+        component: RunHistoryComponent
+      }
     ])
   ],
   exports: [

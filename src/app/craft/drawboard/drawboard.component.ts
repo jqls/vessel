@@ -331,7 +331,9 @@ export class DrawboardComponent implements OnInit {
   console.log("-------------spark_data Over-------------------");
     reRenderData.parameters.forEach((item:reRender_Parameter)=>{
       let node = processorNodes.filter(i=>i.flowID = item.flow_id)[0];
+      console.log(node);
       let param = node.nodetype.parameters.filter(s=>s.label===item.label)[0];
+      console.log(param);
       param.value= item.val;
     });
     let paths:reRender_Connections[] = reRenderData.connections;

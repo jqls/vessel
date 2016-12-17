@@ -3,19 +3,18 @@
 <table class="table table-hover">
   <thead>
   <tr>
-    <th>ID</th>
-    <th>任务名</th>
+    <th>任务名称</th>
     <th>提交时间</th>
+    <th>完成时间</th>
     <th>操作</th>
   </tr>
   </thead>
 
   <tbody>
   <tr *ngFor="let record of history">
-    <td>{{record.id}}</td>
-    <td>{{record.name}}</td>
-    <td>{{record.submitTime}}</td>
-    <!--<td>{{record.finish_time}}</td>-->
+    <td>{{record.workflow_name}}</td>
+    <td>{{record.submit_time}}</td>
+    <td>{{record.finish_time}}</td>
     <td>
       <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail(record)">查看</button>
     </td>

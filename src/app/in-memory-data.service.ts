@@ -163,7 +163,65 @@ export class InMemoryDataService implements InMemoryDbService {
         "id": 30
       }
     ];
-
+    let redraw = {
+      "processors": [
+        {
+          "inputs": [ ],
+          "outputs": [
+            18
+          ],
+          "flow_id": "4",
+          "loc_x": 0,
+          "loc_y": 0,
+          "id": 13
+        },
+        {
+          "inputs": [
+            9
+          ],
+          "outputs": [
+            16,
+            17
+          ],
+          "flow_id": "3",
+          "loc_x": 0,
+          "loc_y": 0,
+          "id": 12
+        }
+      ],
+      "parameters": [
+        {
+          "processor_id": 12,
+          "label": "label1",
+          "val": "test",
+          "flow_id": 4
+        },
+        {
+          "processor_id": 12,
+          "label": "whatever",
+          "val": "A",
+          "flow_id": 4
+        }
+      ],
+      "connections": [
+        {
+          "output_processor_flow_id": "4",
+          "input": {
+            "processor_id": 12,
+            "id": 9
+          },
+          "input_processor_flow_id": "3",
+          "id": 1,
+          "output": {
+            "processor_id": 13,
+            "id": 18
+          }
+        }
+      ],
+      "submitTime": "2016-12-07T07:20:02.109306+00:00",
+      "id": 2,
+      "name": "simple_workflow_post_test"
+    };
     let datashow_data = [
       {
         "NAME": "衬衫",
@@ -190,6 +248,8 @@ export class InMemoryDataService implements InMemoryDbService {
         "VAL": "29"
       }
     ];
-    return {spark_data, datashow_data};
+    return {spark_data, datashow_data, redraw};
+    //redraw:http://10.5.0.222:8080/workflow/workflow/?workflow_id=2
+
   }
 }
