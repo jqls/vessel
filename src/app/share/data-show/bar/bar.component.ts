@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {DataJSON} from "../data-types";
-import {DataShowService} from "../data-show.service";
 import * as echarts from "echarts";
 
 @Component({
@@ -9,14 +8,14 @@ import * as echarts from "echarts";
   styleUrls: ['./bar.component.sass']
 })
 export class BarComponent implements OnInit {
-
+  @Input() data: Promise<DataJSON[]>;
   dataJSON:DataJSON[];
   myChart;
-  constructor(private dataShowService:DataShowService) {
+  constructor() {
     this.myChart = echarts.init(document.getElementById('main') as HTMLDivElement);
   }
   ngOnInit() {
-    this.dataShowService.requireData().then((response: DataJSON[]) => {
+    this.data.then((response: DataJSON[]) => {
       this.dataJSON = response;
       this.bar()(this.dataJSON);
     }).catch(this.handleError);

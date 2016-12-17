@@ -56,7 +56,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         "category": "root1>child1>child2",
-        "inputs": [ ],
+        "inputs": [],
         "name": "DataIO",
         "outputs": [
           {
@@ -64,12 +64,12 @@ export class InMemoryDataService implements InMemoryDbService {
             "id": 18
           }
         ],
-        "params": [ ],
+        "params": [],
         "id": 13
       },
       {
         "category": "root1>test1",
-        "inputs": [ ],
+        "inputs": [],
         "name": "Documents",
         "outputs": [
           {
@@ -108,7 +108,7 @@ export class InMemoryDataService implements InMemoryDbService {
             "id": 29
           }
         ],
-        "params": [ ],
+        "params": [],
         "id": 29
       },
       {
@@ -166,7 +166,7 @@ export class InMemoryDataService implements InMemoryDbService {
     let redraw = {
       "processors": [
         {
-          "inputs": [ ],
+          "inputs": [],
           "outputs": [
             18
           ],
@@ -248,7 +248,8 @@ export class InMemoryDataService implements InMemoryDbService {
         "VAL": "29"
       }
     ];
-    return {spark_data, datashow_data, redraw};
+    let visualise = ["multihop,102", "loadmodule,86", "ftp_write,4477", "guess_passwd,41581", "rootkit,245", "phf,14910", "spy,5255", "warezclient,650", "nmap,9690", "back,6951", "smurf,280996", "satan,1675", "pod,3776", "buffer_overflow,214", "land,199", "imap,794", "warezmaster,39", "normal,6254", "perl,79", "teardrop,1990", "ipsweep,6293", "neptune,107719", "portsweep,46"];
+    return {spark_data, datashow_data, redraw, visualise};
     //redraw:http://10.5.0.222:8080/workflow/workflow/?workflow_id=2
 
   }

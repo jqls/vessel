@@ -34,7 +34,7 @@ export class RunHistoryComponent implements OnInit {
 
   gotoDetail(record: Workflow_history) {
     this.craftService.setTaskName(record.name);
-    this.globalService.mission_id = record.id
+    this.globalService.mission_id = record.id;
     this.craftService.setReload(true);
     let link = ["/Experiment"];
     this.router.navigate(link);

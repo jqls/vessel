@@ -49,6 +49,7 @@ export class DrawboardComponent implements OnInit {
   shiftDrag: boolean;
   flowIDCounter: number;
   private workflow_id: number;
+  private visualise_func: () => void;
 
   constructor(private craftService: CraftService,
               private globalService: GlobalService,
@@ -358,10 +359,15 @@ export class DrawboardComponent implements OnInit {
   }
 
   setParam(Param: {processor_id: number; flow_id: number; port_id: number}) {
-
+    this.globalService.processor_id=Param.processor_id;
+    this.globalService.flow_id = Param.flow_id;
+    this.globalService.port_id=Param.port_id;
   }
 
+  setVisualise(visualise_func:()=>void){
+    this.visualise_func = visualise_func;
+  }
   gotoVisulise() {
-    // this.router.navigate(["/result-show"]);
+    this.visualise_func();
   }
 }

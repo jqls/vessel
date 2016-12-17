@@ -11,7 +11,7 @@ import {handleError} from "../my-handler";
 export class DataShowComponent implements OnInit {
 
   attributeName: any;
-  dataJSON: DataJSON[];
+  dataJSON: Promise<DataJSON[]>;
   type: number = null;
 
   //获取任务列表zhaoli
@@ -19,19 +19,21 @@ export class DataShowComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataShowService.requireTask().then((response: DataJSON[]) => {
-      this.dataJSON = response;
-      console.log(this.dataJSON);
+    this.dataJSON = this.dataShowService.requireData().then((response: String[]) => {
+      console.log(response);
+      let dataJSON = response.map(item=>{
+        let str = item.split(",");
+        return {
+          NAME: str[0],
+          VAL:str[1]
+        }
+      });
+
+      console.log(dataJSON);
+      return dataJSON;
     }).catch(handleError);
   }
 
-  //获取下拉列表中选中的属性值--------------------------
-  selectAttribute(event: any) {
-    this.attributeName = event.target.value;
-    let [first,last] = this.attributeName.split('-');
-    //  return this.attributeName as DataJSON[];
-    this.dataShowService.setData(first, last);
-  }
 
   setType(type: number) {
     this.type = type;

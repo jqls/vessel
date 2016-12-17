@@ -1,70 +1,45 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {GlobalService} from "../../global.service";
 import {handleError} from "../my-handler";
 import {DataJSON} from "./data-types";
 import {Http} from "@angular/http";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class DataShowService {
 
-  id:string;
-  label:string;
-  URL = "http://10.5.0.222:8080/visualization/?";
-  constructor(private globalService:GlobalService,private http: Http) {
+  id: string;
+  label: string;
+  private workflow_id: number;
 
+  constructor(private globalService: GlobalService, private http: Http) {
+    this.globalService.book_workflowID((id) => {
+      this.workflow_id = id
+    });
   }
 
-  // getData(){//师弟获取数据函数
-  //   let flowid = this.globalService.getLastFLowID();
-  //   let id = this.globalService.getLastID();
-  //   let json = {
-  //     flowID:"6",
-  //     id:"4"
-  //   };
-  //   console.log(this.URL+JSON.stringify(json));
-  //   let response = "id="+json.id+'&'+'flowID='+json.flowID;
-  //   return this.http.get(this.URL+response).toPromise().then(
-  //       response => {
-  //         return (response.json() as DataJSON[]);
-  //       }
-  //   ).catch(handleError);
-  //  //return Promise. resolve(this.data as DataJSON[]);
-  // }
 
+  requireData() {//根据下拉列表中选定的任务获取指定任务的 数据
+    let workflow_id = this.workflow_id;
+    let mission_id = this.globalService.mission_id;
+    let processor_id = this.globalService.processor_id;
+    let flow_id = this.globalService.flow_id;
+    let port_id = this.globalService.port_id;
+    if (!workflow_id || !mission_id || !processor_id || !flow_id || !port_id) {
+      console.warn("error task! Visualise Parameter is not enough");
+      if (!environment.isMock)
+        return null;
+    }
 
-  requireData(){//根据下拉列表中选定的任务获取指定任务的 数据
-    let dataUrl="http://10.5.0.222:8080/visualization/?";
-    let taskName =this.globalService.getTaskName();
-    console.log("requireData: "+taskName);
-    //let selected=this.taskService.getAttribute();
-    //let response = "taskName="+taskName+'&'+"id=1"+"&"+"label=histogram_1_6";
-
-    let response="taskName="+taskName+'&'+"id="+this.id+"&"+"label="+this.label;
-    return this.http.get(dataUrl+response)
+    let URL = environment.isMock ?
+      "app/visualise" :
+      environment.URL_Spark_visualisation + workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0;
+    console.log("requireData: " + URL);
+    return this.http.get(URL)
       .toPromise()
-      .then(response =>
-        response.json() as DataJSON[]
-      )
-      .catch(handleError);
-    //return Promise.resolve(this.data as DataJSON[]);
-  }
-  setData(id:string,label:string){
-    this.id=id;
-    this.label=label;
-  }
-  requireTask(){//获取数据库中的任务，添加到下拉列表中
-    var taskUrl = "http://10.5.0.222:8080/sendresultinformation/?"
-    let taskName =this.globalService.getTaskName();
-    console.log("requireTask: "+this.URL+taskName);
-    let response = "taskName="+taskName;
-    return this.http.get(taskUrl+response).toPromise().then(
-      response => {
-        console.log(response);
-        return (response.json()as DataJSON[]);
-
-      }
-    ).catch(handleError);
-
-    //  return Promise.resolve(this.data as DataJSON[]);
+      .then(response => {
+          return environment.isMock ? response.json().data as string[] : response.json() as string[];
+        }
+      ).catch(handleError);
   }
 }

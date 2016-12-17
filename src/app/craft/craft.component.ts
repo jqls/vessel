@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {CraftService} from "./craft.service";
 import {GlobalService} from "../global.service";
 import {DataService} from "../data.service";
+import {Router} from "@angular/router";
+import {DrawboardComponent} from "./drawboard/drawboard.component";
 
 @Component({
   selector: 'app-craft',
@@ -12,19 +14,20 @@ export class CraftComponent implements OnInit {
 
   private isReload: boolean;
 
-  constructor(private craftService: CraftService,
+  @ViewChild(DrawboardComponent) private drawboard: DrawboardComponent;
+  constructor(private router: Router,
+              private craftService: CraftService,
               private dataService: DataService,
               private globalService: GlobalService) {
     this.globalService.setNavpaneStat(false);
     this.isReload = this.craftService.isReload();
     this.craftService.setReload(false);
-
   }
 
   ngOnInit() {
     console.log("isReload? " + this.isReload);
     if (this.isReload) {
-      this.dataService.getNodeInfo().then(item =>{
+      this.dataService.getNodeInfo().then(() =>{
         this.reRender();
       });
     } else {
@@ -34,7 +37,7 @@ export class CraftComponent implements OnInit {
       this.globalService.mission_id = null;
       this.globalService.processor_id = null;
     }
-
+    this.drawboard.setVisualise(()=>{this.gotoVisualise();});
   }
 
   get isOpenRightPane() {
@@ -59,5 +62,8 @@ export class CraftComponent implements OnInit {
 
   reRender() {
     this.craftService.reRender();
+  }
+  gotoVisualise(){
+    this.router.navigate(["result-show"]);
   }
 }

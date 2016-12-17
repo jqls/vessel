@@ -25,13 +25,6 @@ import {DataAnalysisComponent} from './data-analysis.unit/data-analysis.componen
 import {DataShowModule} from "./share/data-show/data-show.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavpaneComponent,
-    NavbarComponent,
-    DrawerComponent,
-    DataAnalysisComponent,
-  ],
   imports: [
     // InMemoryWebApiModule.forRoot(InMemoryDataService),
 
@@ -45,6 +38,13 @@ import {DataShowModule} from "./share/data-show/data-show.module";
     ETLModule,
     UploadModule,
     DataShowModule
+  ],
+  declarations: [
+    AppComponent,
+    NavpaneComponent,
+    NavbarComponent,
+    DrawerComponent,
+    DataAnalysisComponent,
   ],
   providers: [
     GlobalService,

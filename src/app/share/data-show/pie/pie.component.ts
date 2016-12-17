@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import * as echarts from "echarts";
 import * as d3 from "d3";
 import {DataJSON} from "../data-types";
-import {DataShowService} from "../data-show.service";
 
 @Component({
   selector: 'app-pie',
@@ -11,14 +10,15 @@ import {DataShowService} from "../data-show.service";
 })
 export class PieComponent implements OnInit {
 
+  @Input() data: Promise<DataJSON[]>;
   dataJSON:DataJSON[];
   myChart;
-  constructor(private dataShowService:DataShowService) {
+  constructor() {
     this.myChart = echarts.init(d3.select('#main').node() as HTMLDivElement);
   }
 
   ngOnInit() {
-    this.dataShowService.requireData().then((response: DataJSON[]) => {
+    this.data.then((response: DataJSON[]) => {
       this.dataJSON = response;
       this.pie()(this.dataJSON);
     }).catch(this.handleError);
