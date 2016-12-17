@@ -6,6 +6,8 @@ import {UploadAlgorithmComponent} from './upload-algorithm/upload-algorithm.comp
 import {UploadDatasetComponent} from './upload-dataset/upload-dataset.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
+import { UploadManagementComponent } from './upload-management/upload-management.component';
+import {TreeModule} from "angular2-tree-component";
 
 @NgModule({
   imports: [
@@ -13,12 +15,14 @@ import {HttpModule} from "@angular/http";
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    UploadRoutingModule
+    UploadRoutingModule,
+    TreeModule,
   ],
   declarations: [
     UploadComponent,
     UploadAlgorithmComponent,
-    UploadDatasetComponent
+    UploadDatasetComponent,
+    UploadManagementComponent
   ],
   exports:[
     UploadComponent
