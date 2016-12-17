@@ -20,6 +20,7 @@ export class GlobalService {
   mission_id: number;
   processor_id: number;
   flow_id: number;
+  port_id: number;
 
   constructor(private http: Http) {
     this.navepane_subscribers = Array<(stat: boolean) => void>();
@@ -101,9 +102,5 @@ export class GlobalService {
     } else {
       this.submitAndRun_hook();
     }
-  }
-
-  getMissionHistory() {
-
   }
 }

@@ -54,10 +54,15 @@ export type ProcessorType ={
   loc_x?: number,
   loc_y?: number
 }
+export type FromToType={
+  processor_id:number,
+  id: number,
+  flow_id: number
+}
 
 export type ConnectionType = {
-  from: ProcessorType,
-  to: ProcessorType
+  from: FromToType,
+  to: FromToType
 }
 //用于显示workflow历史清单的简略信息
 export type Workflow_history={

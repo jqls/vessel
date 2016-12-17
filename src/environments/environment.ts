@@ -14,6 +14,7 @@ export const environment = {
   dataAnalysisServer: "10.5.0.224:5000",
   URL_Spark_RUN_HISTORY: "http://10.5.0.222:8080/workflow/mission/0/?workflow_id=",
   URL_Spark_log: "http://10.5.0.222:8080/processinformation?",
-  URL_Spark_save:"http://10.5.0.222:8080/workflow/workflow/",
+  URL_Spark_save:"http://10.5.0.222:8080/workflow/workflow/",//POST
   URL_Spark_Workflow_History:"http://10.5.0.222:8080/workflow/workflow/?workflow_id=0"
+  //完整版GET http://10.5.0.222:8080/workflow/workflow/
 };

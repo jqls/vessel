@@ -8,7 +8,7 @@ import {mydebug} from "../../share/my-log";
 import {DataService} from "../../data.service";
 import {
   SubmitType, Workflow_data_all, reRender_Parameter, reRender_Connections,
-  reRender_Nodes
+  reRender_Nodes, ConnectionType
 } from "../../share/json-types";
 import {ProcessorNode} from "./internal/node-processor";
 import {GlobalService} from "../../global.service";
@@ -77,7 +77,7 @@ export class DrawboardComponent implements OnInit {
       return this.getSubmitPara();
     });
 
-    this.globalService.book_workflowID((id:number)=>{
+    this.globalService.book_workflowID((id: number) => {
       this.workflow_id = id;
     })
     //设置用于reRender的钩子函数
@@ -117,7 +117,7 @@ export class DrawboardComponent implements OnInit {
 
     this.dragLine = this.container.append('svg:path')
       .attr('class', 'hidden path')
-      .attr('fill','transparent')
+      .attr('fill', 'transparent')
       .attr('d', 'M0,0 L0,0')
       .style('marker-end', 'url(/Experiment#mark-end-arrow)');
 
@@ -287,9 +287,9 @@ export class DrawboardComponent implements OnInit {
   getSubmitPara(): string {
     mydebug(this.debug_location, "getSubmitPara-taskName", this.taskName);
 
-    let paths: {}[] = [];
+    let paths: ConnectionType[] = [];
     this.relations.map((relation) => {
-      let path = {
+      let path:ConnectionType = {
         from: {
           flow_id: relation.from.flowID,
           processor_id: relation.from.nodetype.id,
@@ -303,47 +303,46 @@ export class DrawboardComponent implements OnInit {
       };
       paths.push(path);
     });
-    return JSON.stringify(
-      {
-        name: this.taskName,
-        processors: this.workflowNodes.map(node => {
-          return node.toJSON();
-        }),
-        connections: paths
-      }
-    )
-      ;
+    let submitType: SubmitType = {
+      name: this.taskName,
+      processors: this.workflowNodes.map(node => {
+        return node.toJSON();
+      }),
+      connections: paths
+    };
+    return JSON.stringify(submitType);
   }
+
   reRender(reRenderData: Workflow_data_all): void {
-    mydebug(this.debug_location,"reRender","begin");
+    mydebug(this.debug_location, "reRender", "begin");
     let processorNodes: ProcessorNode[] = reRenderData.processors.map(
-      (data:reRender_Nodes)=>{
+      (data: reRender_Nodes) => {
         let processor_id = data.id;
-        let nodeType = this.dataService.spark_data.filter(item=>item.id==processor_id)[0];
+        let nodeType = this.dataService.spark_data.filter(item => item.id == processor_id)[0];
         let processor = new Processor(nodeType);
-        let node = new ProcessorNode(data.flow_id,this,{x:data.loc_x,y:data.loc_y},processor);
+        let node = new ProcessorNode(data.flow_id, this, {x: data.loc_x, y: data.loc_y}, processor);
         console.log(node);
         this.workflowNodes.push(node);
         node.render();
         return node;
       }
     );
-  console.log("-------------spark_data Over-------------------");
-    reRenderData.parameters.forEach((item:reRender_Parameter)=>{
-      let node = processorNodes.filter(i=>i.flowID = item.flow_id)[0];
+    console.log("-------------spark_data Over-------------------");
+    reRenderData.parameters.forEach((item: reRender_Parameter) => {
+      let node = processorNodes.filter(i => i.flowID = item.flow_id)[0];
       console.log(node);
-      let param = node.nodetype.parameters.filter(s=>s.label===item.label)[0];
+      let param = node.nodetype.parameters.filter(s => s.label === item.label)[0];
       console.log(param);
-      param.value= item.val;
+      param.value = item.val;
     });
-    let paths:reRender_Connections[] = reRenderData.connections;
-    for(let path of paths){
+    let paths: reRender_Connections[] = reRenderData.connections;
+    for (let path of paths) {
       let from = path.output_processor_flow_id;
       let to = path.input_processor_flow_id;
-      console.log("from: "+from + "\nto: "+to);
+      console.log("from: " + from + "\nto: " + to);
       let fromNode = this.findNodeByFlowID(+from);
       let toNode = this.findNodeByFlowID(+to);
-      let relation = new Relation(this,fromNode,toNode);
+      let relation = new Relation(this, fromNode, toNode);
       fromNode.relations.push(relation);
       toNode.relations.push(relation);
       this.relations.push(relation);

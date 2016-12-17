@@ -2,6 +2,7 @@ import {DrawboardComponent} from "../drawboard.component";
 import {WorkflowNode, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./node-basic";
 import {Contextmenu} from "./contextmenu";
 import {mydebug} from "../../../share/my-log";
+import {OutputType, InputType} from "../../../share/json-types";
 export class Relation {
   private debug_location: string = "Relation";
   static idCount = 0;
@@ -11,7 +12,8 @@ export class Relation {
   to: WorkflowNode;
   menu: Contextmenu;
   path: any;
-
+  input: InputType;
+  output: OutputType;
   constructor(board: DrawboardComponent, from: WorkflowNode, to: WorkflowNode) {
     this.board = board;
     this.from = from;

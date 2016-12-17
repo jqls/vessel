@@ -58,7 +58,4 @@ export class DrawerComponent implements OnInit {
   onSave(){
     this.globalService.save();
   }
-  onRunHistory(){
-    this.globalService.getMissionHistory();
-  }
 }

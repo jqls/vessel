@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import {environment} from "../environments/environment";
-import {NodeType, SubmitType, Workflow_data_all} from "./share/json-types";
+import {NodeType, Workflow_data_all} from "./share/json-types";
 import {mydebug} from "./share/my-log";
 import {Processor} from "./share/data-types";
 import {handleError} from "./share/my-handler";
