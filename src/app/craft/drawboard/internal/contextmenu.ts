@@ -92,4 +92,38 @@ export class Contextmenu {
   remove(): void {
     d3.select(this.menuNode).remove();
   }
+  //仅用于向Output添加按钮
+  addClickMenu(obj: any){
+    this.obj = obj;
+
+    let objNode;
+
+    objNode = obj.node();
+
+
+    let menuBody = this.menuBodyNode;
+    let menu = this.menuNode;
+    /* 设置ul的类属性 */
+    d3.select(menuBody).classed("list-group", true).classed("menu-body", true);
+
+    /*设置div的类属性*/
+    d3.select(menu).attr('class', "menu");
+
+    menu.appendChild(menuBody);
+    document.body.appendChild(menu);
+
+    //向目标添加事件响应
+    objNode.onblur = function () {
+      d3.select(menu).style({'display': "none"});
+    };
+    objNode.onclick = function (ev) {
+      d3.select(menu).style({
+        'display': "block",
+        'top': ev.pageY + 'px',
+        'left': ev.pageX + 'px'
+      });
+      return false;
+    }
+  }
+
 }

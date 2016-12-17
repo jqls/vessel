@@ -356,4 +356,12 @@ export class DrawboardComponent implements OnInit {
     })[0];
     return node;
   }
+
+  setParam(Param: {processor_id: number; flow_id: number; port_id: number}) {
+
+  }
+
+  gotoVisulise() {
+    // this.router.navigate(["/result-show"]);
+  }
 }

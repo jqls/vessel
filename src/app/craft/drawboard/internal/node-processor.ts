@@ -55,6 +55,18 @@ export class ProcessorNode extends BasicDrawboardNode {
       .style("stroke", "gray")
       .style("fill", "#00CACA")
       .style("stroke-width", "1px");
+
+    this.outputMenu.addItem("可视化", () => {
+      console.log("可视化");
+      let Param = {
+        processor_id: this.nodetype.id,
+        flow_id: this.flowID,
+        port_id: this.nodetype.outputs[0].id
+      };
+      this.board.setParam(Param);
+      this.board.gotoVisulise();
+    });
+    this.outputMenu.addClickMenu(this.groupContainer.select(".output"));
   }
 
   mousedownHandler(): void {

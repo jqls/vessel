@@ -22,7 +22,7 @@ export abstract class BasicDrawboardNode {
   relations: Relation[];
   // private isRendered: boolean;
   private menu: Contextmenu;
-
+  outputMenu: Contextmenu;
 
   constructor(name: string,
               flowID: number,
@@ -99,6 +99,8 @@ export abstract class BasicDrawboardNode {
     this.menu.addItem("删除", this.deleteNode());
     this.menu.addItem("复制",this.copyElements());
     this.menu.addMenuTo(this);
+
+    this.outputMenu = new Contextmenu();
   }
 
   protected bindEventHandler(): void {
@@ -195,7 +197,8 @@ export abstract class BasicDrawboardNode {
       self.board.setSelectedNode(null);
 
       //清理menu
-      self.menu.remove()
+      self.menu.remove();
+      self.outputMenu.remove();
 
     }
   }
