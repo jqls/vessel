@@ -1,26 +1,23 @@
 <div class="experiment-container">
   <div style="position: relative;height: 100%;">
-    <div class="col-l" [hidden]="!isOpenLeftPane">
-      <app-toolbox #toolbox></app-toolbox>
+    <div class="transition-width" [ngClass]="{'left': !isOpenLeftPane, 'col-l': isOpenLeftPane}">
+      <app-toolbox #toolbox [hidden]="!isOpenLeftPane"></app-toolbox>
+      <i [hidden]="isOpenLeftPane" class="fa fa-angle-double-right" aria-hidden="true" (click)="openLeft()"></i>
     </div>
-    <div class="left" [hidden]="isOpenLeftPane">
-      <i class="fa fa-angle-double-right" aria-hidden="true" (click)="openLeft()"></i>
-    </div>
-    <div class="col-c" [ngClass]="{'col-1': !isOpenRightPane && !isOpenLeftPane,'col-2': (!isOpenRightPane && isOpenLeftPane)||(isOpenRightPane && !isOpenLeftPane), 'col-3': isOpenRightPane&&isOpenLeftPane}">
+    <div class="col-c"
+         [ngClass]="{'col-1': !isOpenRightPane && !isOpenLeftPane,'col-2': (!isOpenRightPane && isOpenLeftPane)||(isOpenRightPane && !isOpenLeftPane), 'col-3': isOpenRightPane&&isOpenLeftPane}">
       <app-drawboard></app-drawboard>
     </div>
-    <div class="col-r" [hidden]="!isOpenRightPane">
-      <app-parameters></app-parameters>
-    </div>
-    <div class="right" [hidden]="isOpenRightPane">
-      <i class="fa fa-angle-double-left" aria-hidden="true" (click)="openRight()"></i>
+    <div class="transition-width" [ngClass]="{'col-r':isOpenRightPane, 'right':!isOpenRightPane}">
+      <app-parameters [hidden]="!isOpenRightPane"></app-parameters>
+      <i [hidden]="isOpenRightPane" class="fa fa-angle-double-left" aria-hidden="true" (click)="openRight()"></i>
     </div>
   </div>
   <!--<div id="bottom-btn" class="row" style="right: 40px;position: absolute;bottom: 10px;">-->
-    <!--<div class="float-xs-right">-->
-      <!--<button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>-->
-      <!--<button class="btn btn-primary" [routerLink]="['/result-show']">结果可视化</button>-->
-    <!--</div>-->
+  <!--<div class="float-xs-right">-->
+  <!--<button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>-->
+  <!--<button class="btn btn-primary" [routerLink]="['/result-show']">结果可视化</button>-->
+  <!--</div>-->
   <!--</div>-->
 </div>
 
