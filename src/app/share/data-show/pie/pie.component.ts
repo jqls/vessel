@@ -3,6 +3,7 @@ import * as echarts from "echarts";
 import * as d3 from "d3";
 import {DataJSON} from "../data-types";
 
+
 @Component({
   selector: 'app-pie',
   templateUrl: './pie.component.html',
@@ -12,11 +13,12 @@ export class PieComponent implements OnInit {
 
   @Input() data: Promise<DataJSON[]>;
   dataJSON:DataJSON[];
-  myChart;
-  constructor() {
-    this.myChart = echarts.init(d3.select('#main').node() as HTMLDivElement);
-  }
-
+  /*
+   myChart;
+   constructor() {
+   this.myChart = echarts.init(d3.select('#main').node() as HTMLDivElement);
+   }
+   */
   ngOnInit() {
     this.data.then((response: DataJSON[]) => {
       this.dataJSON = response;
@@ -27,87 +29,129 @@ export class PieComponent implements OnInit {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-  private  pie() {
-    return (json)=> {
-      let app = {
-        currentIndex: null,
-        timeTicket: null
-      };
-      let option = {
-        title: {
-          text: '饼图高亮',
-          x: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left',
-          data: (()=> {
-            let data = [];
-            for (let key in json) {
-              data.push({
-                name: json[key].NAME
-              });
-            }
-            return data;
-          })()
-        },
-        series: [
+  /*  echarts实现
+   private  pie() {
+   return (json)=> {
+   let app = {
+   currentIndex: null,
+   timeTicket: null
+   };
+   let option = {
+   title: {
+   text: '饼图高亮',
+   x: 'center'
+   },
+   tooltip: {
+   trigger: 'item',
+   formatter: "{a} <br/>{b} : {c} ({d}%)"
+   },
+   legend: {
+   orient: 'vertical',
+   left: 'left',
+   data: (()=> {
+   let data = [];
+   for (let key in json) {
+   data.push({
+   name: json[key].NAME
+   });
+   }
+   return data;
+   })()
+   },
+   series: [
 
-          {
-            name: '访问来源',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '60%'],
-            data: (()=> {
-              let data = [];
-              for (let key in json)
-                data.push({
-                  value: json[key].VAL,
-                  name: json[key].NAME
-                });
-              return data;
-            })(),
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
-              }
-            }
+   {
+   name: '访问来源',
+   type: 'pie',
+   radius: '55%',
+   center: ['50%', '60%'],
+   data: (()=> {
+   let data = [];
+   for (let key in json)
+   data.push({
+   value: json[key].VAL,
+   name: json[key].NAME
+   });
+   return data;
+   })(),
+   itemStyle: {
+   emphasis: {
+   shadowBlur: 10,
+   shadowOffsetX: 0,
+   shadowColor: 'rgba(0, 0, 0, 0.5)'
+   }
+   }
+   }
+   ]
+   };
+   app.currentIndex = -1;
+   app.timeTicket = setInterval(()=> {
+   let dataLen = option.series[0].data.length;
+   // 取消之前高亮的图形
+   this.myChart.dispatchAction({
+   type: 'downplay',
+   seriesIndex: 0,
+   dataIndex: app.currentIndex
+   });
+   app.currentIndex = (app.currentIndex + 1) % dataLen;
+   // 高亮当前图形
+   this.myChart.dispatchAction({
+   type: 'highlight',
+   seriesIndex: 0,
+   dataIndex: app.currentIndex
+   });
+   // 显示 tooltip
+   this.myChart.dispatchAction({
+   type: 'showTip',
+   seriesIndex: 0,
+   dataIndex: app.currentIndex
+   });
+   }, 1000);
+   if (option && typeof option === "object") {
+   this.myChart.setOption(option, true);
+   }
+   }
+   }
+   */
+  private  pie() {
+    var plotly = require('plotly.js/lib/core');
+
+    // Load in the trace types for pie
+    plotly.register([
+      require('plotly.js/lib/pie'),
+    ]);
+
+    module.exports = plotly;
+    return (json)=> {
+
+      var data= [{
+        values:(()=> {
+          let data = [];
+          for (let key in json)
+            data.push(
+              json[key].VAL,
+            );
+          return data;
+        })(),
+        labels:(()=> {
+          let data = [];
+          for (let key in json) {
+            data.push(
+              json[key].NAME
+            );
           }
-        ]
+          return data;
+        })(),
+        type:'pie'
+      }];
+
+      var layout = {
+        height: 480,
+        width: 680
       };
-      app.currentIndex = -1;
-      app.timeTicket = setInterval(()=> {
-        let dataLen = option.series[0].data.length;
-        // 取消之前高亮的图形
-        this.myChart.dispatchAction({
-          type: 'downplay',
-          seriesIndex: 0,
-          dataIndex: app.currentIndex
-        });
-        app.currentIndex = (app.currentIndex + 1) % dataLen;
-        // 高亮当前图形
-        this.myChart.dispatchAction({
-          type: 'highlight',
-          seriesIndex: 0,
-          dataIndex: app.currentIndex
-        });
-        // 显示 tooltip
-        this.myChart.dispatchAction({
-          type: 'showTip',
-          seriesIndex: 0,
-          dataIndex: app.currentIndex
-        });
-      }, 1000);
-      if (option && typeof option === "object") {
-        this.myChart.setOption(option, true);
-      }
+      plotly.newPlot(document.getElementById('main') as HTMLDivElement, data,layout);
     }
+
   }
 
 }
