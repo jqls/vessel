@@ -3,12 +3,8 @@
  */
 import {Component, OnInit} from "@angular/core";
 import * as d3 from "d3";
-import color = d3.color;
 import {nodePara,edgePara} from "./topologyPara";
 import {  Http } from "@angular/http";
-import {findIndex} from "rxjs/operator/findIndex";
-import transform = d3.transform;
-import ZoomEvent = d3.ZoomEvent;
 @Component({
   selector: 'topological-diagram',
   templateUrl: 'topology.component.html',
@@ -26,7 +22,7 @@ export class topologyComponent implements OnInit{
   }
   ngOnInit(){
     this.getData();
-    //this.initSvg();
+   // this.initSvg();
   }
   getData(){//获取数据
     let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/7-63-31-2-31-50/";
@@ -70,19 +66,49 @@ export class topologyComponent implements OnInit{
 
     var width = 800;
     var height = 600;
-
+    var margin = {top: -5, right: -5, bottom: -5, left: -5};
     var zoom = d3.behavior.zoom()
       .scaleExtent([0, 100])
       .on("zoom", zoomed);
 
+    var drag = d3.behavior.drag()
+      .on("dragstart", dragstarted)
+      .on("drag", dragged)
+      .on("dragend", dragended);
+
+
     var svg = d3.select("svg#topological")
         .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
         .call(zoom)
       ;
+    var rect = svg.append("rect")
+      .attr("width", width)
+      .attr("height", height)
+      .style("fill", "none")
+      .style("pointer-events", "all");
+
+    var container=svg.append("g");
 
     function zoomed(){
-      var evt:ZoomEvent = <d3.ZoomEvent> d3.event;
-      svg.attr("transform", "translate(" + evt.translate + ")scale(" + evt.scale + ")");
+      svg.attr("transform",
+        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(" + (<d3.ZoomEvent> d3.event).scale + ")");
+    }
+
+    function dragstarted(d) {
+      (<d3.DragEvent> d3.event).sourceEvent.stopPropagation();
+       d3.select(this).classed("dragging", true);
+       force.start();
+    }
+
+    function dragged(d) {
+
+      d3.select(this).attr("cx", d.x = (<d3.DragEvent> d3.event).x).attr("cy", d.y = (<d3.DragEvent> d3.event).y);
+    }
+
+    function dragended(d) {
+
+      d3.select(this).classed("dragging", false);
     }
 
     var force = d3.layout.force()
@@ -90,20 +116,19 @@ export class topologyComponent implements OnInit{
       .links(this.edgeSet)		//指定连线数组
       .size([width,height])	//指定范围
       .linkDistance(100)	//指定连线长度
-      .charge(-400);	//相互之间的作用力
-    force.start();	//开始作用
+      .charge(-400)  //相互之间的作用力
+      .start();	 //开始作用
     //添加连线
 
-    var svg_edges = svg.selectAll("line")
-      .data(this.edgeSet)
-      .enter()
-      .append("line")
-      .style("stroke","#ccc")
-      .style("stroke-width",1);
-
+    // var svg_edges = svg.selectAll("line")
+    //   .data(this.edgeSet)
+    //   .enter()
+    //   .append("line")
+    //   .style("stroke","#ccc")
+    //   .style("stroke-width",1);
 
     //创建箭头标记
-    svg.append("svg:defs").selectAll("marker")
+    container.append("svg:defs").selectAll("marker")
       .data(this.edgeSet)
       .enter().append("svg:marker")
       .attr("id", "arrow")
@@ -119,7 +144,7 @@ export class topologyComponent implements OnInit{
       .attr("d", "M0,-5L10,0L0,5")////箭头的路径
       .attr('fill','#000000');
     // 画弧线
-    var path = svg.append("svg:g").selectAll("path")
+    var path = container.append("svg:g").selectAll("path")
       .data(this.edgeSet)
       .enter().append("svg:path")
       .attr("id",function (d,i) {
@@ -128,21 +153,11 @@ export class topologyComponent implements OnInit{
       .style("stroke","#ccc")
       .attr("fill","none")
       .attr("marker-end","url(#arrow)");
-//-------------------------------------------------------
-//     path.append("text")
-//       .style("fill","red")
-//       .attr("x",12)
-//       .attr("y",1)
-//       .attr('text-anchor', 'middle')
-//       .text(function () {
-//         return "test";
-//       })
-//------------------------------------------------------
 
     var color = d3.scale.category20();
 
     //添加节点
-    var svg_nodes = svg.selectAll("circle")
+    var svg_nodes = container.append("g").selectAll("circle")
       .data(this.nodeSet)
       .enter()
       .append("circle")
@@ -150,10 +165,10 @@ export class topologyComponent implements OnInit{
       .style("fill",function(d,i){
         return color(<any>i);
       })
-     .call(force.drag);	//使得节点能够拖动
+      .call(drag);	//使得节点能够拖动
 
     //添加描述节点的文字
-    var svg_texts = svg.selectAll("text")
+    var svg_texts = container.selectAll("text")
       .data(this.nodeSet)
       .enter()
       .append("text")
@@ -164,7 +179,7 @@ export class topologyComponent implements OnInit{
         return d.name;
       });
 
-    var linktext = svg.append("svg:g").selectAll("g.linklabelholder").data(this.edgeSet);
+    var linktext = container.append("svg:g").selectAll("g.linklabelholder").data(this.edgeSet);
 
     linktext.enter().append("g").attr("class", "linklabelholder")
       .append("text")
@@ -196,17 +211,9 @@ export class topologyComponent implements OnInit{
       svg_texts.attr("x", function(d){ return (<any>d).x; })
         .attr("y", function(d){ return (<any>d).y; });
 
-      // //更新弧线文字坐标
-      // arc_text.attr("x",function (d) { return ((<any>d.target).x+(<any>d.source).x)/2 })
-      //   .attr("y",function (d) { return ((<any>d.target).y+(<any>d.source).y)/2 });
-
-
       path.attr("d", function(d,i) {
         var dx = (<any>d.target).x - (<any>d.source).x,//增量
           dy = (<any>d.target).y - (<any>d.source).y,
-         //dr = Math.sqrt(dx * dx + dy * dy)/(i+1);
-          //dr=Math.sqrt(dx * dx + dy * dy)+i;
-         // dr=Math.sqrt(dx * dx + dy * dy)-i*20
           dr = Math.sqrt(dx * dx + dy * dy-i*dx);//+Math.floor(Math.random() * 600)
         return "M" + (<any>d.source).x + ","
           + (<any>d.source).y + "A" + dr + ","
