@@ -7,7 +7,7 @@ export class AlgorithmPara {
     ) { }
     public name: string;
     public category: string;
-   // public description: string;
+    public is_visualization: string;
     parameters:Parameters[];
     inputs:InputParameters[];
     outputs:OutputParameters[];

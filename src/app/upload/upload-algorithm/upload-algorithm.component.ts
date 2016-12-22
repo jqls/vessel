@@ -19,35 +19,35 @@ export class UploadAlgorithmComponent implements OnInit {
   submitted = true;
   algorithmPara = new AlgorithmPara();
   formData = new FormData();
-  public nodes: treeNode[] = [];
-  // nodes = [
-  //     {
-  //         id: 1,
-  //         name: 'root1',
-  //         isHidden:false,
-  //         children: [
-  //             { id: 2, name: 'child1' ,isHidden:false,children:[]},
-  //             { id: 3, name: 'child2' ,isHidden:false,children:[]},
-  //             { id: 8, name: 'child3' ,isHidden:true,children:[]},
-  //         ]
-  //     },
-  //     {
-  //         id: 4,
-  //         name: 'root2',
-  //         isHidden:false,
-  //         children: [
-  //             { id: 5, name: 'child2.1' ,isHidden:false,children:[]},
-  //             {
-  //                 id: 6,
-  //                 name: 'child2.2',
-  //                 isHidden:false,
-  //                 children: [
-  //                     { id: 7, name: 'subsub',isHidden:true,children:[]}
-  //                 ]
-  //             }
-  //         ]
-  //     }
-  // ];
+ // public nodes: treeNode[] = [];
+  nodes = [
+      {
+          id: 1,
+          name: 'root1',
+          isHidden:false,
+          children: [
+              { id: 2, name: 'child1' ,isHidden:false,children:[]},
+              { id: 3, name: 'child2' ,isHidden:false,children:[]},
+              { id: 8, name: 'child3' ,isHidden:true,children:[]},
+          ]
+      },
+      {
+          id: 4,
+          name: 'root2',
+          isHidden:false,
+          children: [
+              { id: 5, name: 'child2.1' ,isHidden:false,children:[]},
+              {
+                  id: 6,
+                  name: 'child2.2',
+                  isHidden:false,
+                  children: [
+                      { id: 7, name: 'subsub',isHidden:true,children:[]}
+                  ]
+              }
+          ]
+      }
+  ];
   inputParameters: InputParameters[] = [{"name": "", "dataType": ""}];
   outputParameters: OutputParameters[] = [{"name": "", "dataType": ""}];
   parameterList: Parameters[] = [{"label": "", "parameterType": "", "description": ""}];

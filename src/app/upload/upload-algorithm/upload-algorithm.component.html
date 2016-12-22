@@ -45,6 +45,16 @@
                 </template>
               </div>
             </div>
+
+          </div>
+          <div class="form-group row">
+            <label  class="col-xs-1 col-form-label" style="margin-left:200px;padding-left:10px">可视化：</label>
+            <div class="col-xs-6">
+              <select class="form-control" [(ngModel)]="algorithmPara.is_visualization" name="is_visualization" placeholder="请输入值类型">
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select>
+            </div>
           </div>
           <!--</fieldset>-->
         </div>

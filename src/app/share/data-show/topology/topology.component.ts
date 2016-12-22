@@ -13,16 +13,16 @@ import {  Http } from "@angular/http";
 export class topologyComponent implements OnInit{
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
-  // public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
-  //   "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"
-  //   ,"2,3,3,4,7","2,3,3,4,6777"];
-  public dataSet=[];
+  public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
+    "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"
+    ,"2,3,3,4,7","2,3,3,4,6777"];
+  //public dataSet=[];
   constructor(private http:Http){
-
+    //this.initSvg();
   }
   ngOnInit(){
-    this.getData();
-   // this.initSvg();
+   // this.getData();
+    this.initSvg();
   }
   getData(){//获取数据
     let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/7-63-31-2-31-50/";
@@ -37,6 +37,7 @@ export class topologyComponent implements OnInit{
 
   public initSvg(){
     console.log("initSvg()");
+    console.log(this.dataSet);
     for(let data of this.dataSet){
       let[SIp,SPort,DIp,DPort,Pro]=data.split(",");
       this.nodeSet.push({"name": SIp, "sPort": SPort});
