@@ -1,16 +1,21 @@
 /**
  * Created by zhaoli on 16-12-18.
  */
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Input, OnDestroy} from "@angular/core";
 import * as d3 from "d3";
 import {nodePara,edgePara} from "./topologyPara";
 import {  Http } from "@angular/http";
+import {DataJSON} from "../data-types";
 @Component({
   selector: 'topological-diagram',
   templateUrl: 'topology.component.html',
   styleUrls: ['topology.component.css']
 })
-export class topologyComponent implements OnInit{
+export class topologyComponent implements OnInit,OnDestroy{
+
+  @Input() data: Promise<DataJSON[]>;
+  dataJSON:DataJSON[];
+
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
   public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
@@ -21,7 +26,12 @@ export class topologyComponent implements OnInit{
     //this.initSvg();
   }
   ngOnInit(){
+    d3.select("#main").select(".plotly").remove();
    // this.getData();
+   //  this.data.then((response: DataJSON[]) => {
+   //    this.dataJSON = response;
+   //    this.initSvg();
+   //  }).catch(this.handleError);
     this.initSvg();
   }
   getData(){//获取数据
@@ -45,6 +55,7 @@ export class topologyComponent implements OnInit{
       this.nodeSet=this.removeRepeat(this.nodeSet);
       this.edgeSet.push({"source":this.requireIndex(SIp),"target":this.requireIndex(DIp),"pro": Pro});
     }
+    console.log("-------------");
 //     //sort links by source, then target
 //     this.edgeSet.sort(function(a,b) {
 //       if (a.source > b.source) {return 1;}
@@ -78,7 +89,7 @@ export class topologyComponent implements OnInit{
       .on("dragend", dragended);
 
 
-    var svg = d3.select("svg#topological")
+    var svg = d3.select("#main").append("svg").attr("width",1000).attr("height",600)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
         .call(zoom)
@@ -224,7 +235,9 @@ export class topologyComponent implements OnInit{
 
     });
   }
-
+  ngOnDestroy(): void {
+    d3.select("#main").select("svg").remove();
+  }
 
   requireIndex(name:string){
     for(let i=0;i<this.nodeSet.length;i++){
