@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   isDebug: true,
-  isMock: false,
+  isMock: true,
   URL_Spark: "http://10.5.0.222:8080/workflow/processor/0",
   URL_Spark_mock: "app/spark_data",
   URL_Spark_run: "http://10.5.0.222:8080/dispatcher/submit_mission/",

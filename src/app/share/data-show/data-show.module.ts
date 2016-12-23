@@ -5,6 +5,7 @@ import { BarComponent } from './bar/bar.component';
 import { PieComponent } from './pie/pie.component';
 import {DataShowService} from "./data-show.service";
 import {DataShowRoutingModule} from "./data-show.routing.module";
+import {topologyComponent} from "./topology/topology.component";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import {DataShowRoutingModule} from "./data-show.routing.module";
   declarations: [
     DataShowComponent,
     BarComponent,
-    PieComponent
+    PieComponent,
+    topologyComponent,
   ],
   providers: [
     DataShowService
