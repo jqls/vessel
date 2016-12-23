@@ -4,7 +4,8 @@ export type NodeType = {
   name: string,
   outputs: OutputType[],
   params: ParametersType[],
-  id: number
+  id: number,
+  visualization: boolean
 }
 export type OutputType = {
   processor_id: number,

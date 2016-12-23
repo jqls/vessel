@@ -9,9 +9,11 @@ import {mydebug} from "../../../share/my-log";
   styleUrls: ['./template.component.sass']
 })
 export class TemplateComponent implements OnInit {
+
   @Input() data;
   private selectedNodeType: WorkflowNodeType;
   private debug_location:string = "TemplateComponent";
+
   constructor(private craftService: CraftService) {
     //通过订阅者模式保证本地与CraftService中的selectedNodeType的一致
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
@@ -20,6 +22,7 @@ export class TemplateComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   changeStat(element) {
@@ -33,16 +36,6 @@ export class TemplateComponent implements OnInit {
       item.classed("minimized", true);
       d3.select("#" + element + " .category-header-title").classed("expanded", false);
     }
-  }
-
-  itemClicked(item: WorkflowNodeType) {
-    if (this.selectedNodeType == item) {
-      this.craftService.setSelectedNodeType(null);
-    } else {
-      this.craftService.setSelectedNodeType(item);
-    }
-    mydebug(this.debug_location, "itemClicked", this.selectedNodeType ? '' + this.selectedNodeType.id : 'null');
-
   }
 
 }

@@ -131,7 +131,7 @@ export class ProcessorNode extends BasicDrawboardNode {
     //let copyElements=Object.assign(this);
 
     return () => {
-      copyElements.nodetype = this.nodetype;
+      copyElements.nodetype = _.cloneDeep(this.nodetype);
       copyElements.name = this.name;
       copyElements.flowID = this.board.flowIDCounter;
       this.board.flowIDCounter += 1;

@@ -54,6 +54,7 @@ export class DrawboardComponent implements OnInit {
   constructor(private craftService: CraftService,
               private globalService: GlobalService,
               private dataService: DataService) {
+    this.craftService.drawboard = this;
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
       mydebug(this.debug_location, "craftService.bookSelectedNodeType", "isNull? " + String(this.selectedNodeType == null));
@@ -141,7 +142,7 @@ export class DrawboardComponent implements OnInit {
 
     this.svg.on("mousedown", () => {
       console.log("drawboard-mousedwon");
-      self.mouseDownHandler();
+      // self.mouseDownHandler();
     })
       .on("mouseup", () => {
         console.log("drawboard-mouseup");
@@ -194,30 +195,30 @@ export class DrawboardComponent implements OnInit {
 
   private mouseDownHandler(): void {
     mydebug(this.debug_location, "mouseDownHandler", 'begin');
-    mydebug(this.debug_location, "mouseDownHandler", this.selectedNodeType ? this.selectedNodeType.name : 'null');
-    if (this.selectedNodeType != null) {
-      let cord = d3.mouse(this.container.node());
-      let position = {'x': cord[0], 'y': cord[1]};
-
-      //好像是工厂模式，根据输入不同返回不同的构造方法
-      let fn = (): WorkflowNode => {
-        //todo:若新加Node类型，在此进行类型判断
-        return new ProcessorNode(this.flowIDCounter, this, position, <Processor>this.selectedNodeType);
-
-      }
-
-      let newNode = fn();
-
-      this.flowIDCounter += 1;
-      this.workflowNodes.push(newNode);
-      mydebug(this.debug_location, "mouseDownHandler", "befroe render");
-      newNode.render();
-      mydebug(this.debug_location, "mouseDownHandler", "after render");
-      this.craftService.setSelectedNodeType(null);
-      this.craftService.setSelectedNode(newNode);
-    } else {
+    // mydebug(this.debug_location, "mouseDownHandler", this.selectedNodeType ? this.selectedNodeType.name : 'null');
+    // if (this.selectedNodeType != null) {
+    //   let cord = d3.mouse(this.container.node());
+    //   let position = {'x': cord[0], 'y': cord[1]};
+    //
+    //   //好像是工厂模式，根据输入不同返回不同的构造方法
+    //   let fn = (): WorkflowNode => {
+    //     //todo:若新加Node类型，在此进行类型判断
+    //     return new ProcessorNode(this.flowIDCounter, this, position, <Processor>this.selectedNodeType);
+    //
+    //   }
+    //
+    //   let newNode = fn();
+    //
+    //   this.flowIDCounter += 1;
+    //   this.workflowNodes.push(newNode);
+    //   mydebug(this.debug_location, "mouseDownHandler", "befroe render");
+    //   newNode.render();
+    //   mydebug(this.debug_location, "mouseDownHandler", "after render");
+    //   this.craftService.setSelectedNodeType(null);
+    //   this.craftService.setSelectedNode(newNode);
+    // } else {
       this.craftService.setSelectedNode(null);
-    }
+    // }
   }
 
   private mouseupHandler(): void {

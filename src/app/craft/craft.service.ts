@@ -7,6 +7,7 @@ import {Headers, RequestMethod, Http} from "@angular/http";
 import {environment} from "../../environments/environment";
 import {handleError} from "../share/my-handler";
 import {GlobalService} from "../global.service";
+import {DrawboardComponent} from "./drawboard/drawboard.component";
 
 @Injectable()
 export class CraftService {
@@ -26,6 +27,7 @@ export class CraftService {
   private leftPaneStat: boolean;
   private reload_flag: boolean;
 
+  drawboard: DrawboardComponent;
   constructor(private globalService: GlobalService,
               private http: Http) {
     this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();

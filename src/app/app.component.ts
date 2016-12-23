@@ -9,9 +9,11 @@ import {GlobalService} from "./global.service";
 export class AppComponent {
   title = 'app works!';
   private navpaneStat: boolean;
+
   constructor(private globalService: GlobalService){
     this.globalService.bookNavpaneStat((stat)=>{
       this.navpaneStat = stat;
     });
+
   }
 }

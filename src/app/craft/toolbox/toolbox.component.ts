@@ -41,6 +41,9 @@ export class ToolboxComponent implements OnInit {
         //   }
         // });
         // console.log(this.tree1);
+        /*
+          构造目录树，利用数组形式
+         */
         console.log("---------------------------1-----------------------------");
         let temp = this.tree;
         str.forEach(s => {

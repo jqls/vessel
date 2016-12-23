@@ -12,6 +12,7 @@ import {ListExperimentsComponent} from "./list-experiments.component";
 import {LogComponent} from './log/log.component';
 import {TemplateComponent} from './toolbox/template/template.component';
 import { RunHistoryComponent } from './run-history/run-history.component';
+import { TemplateItemComponent } from './toolbox/template-item/template-item.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { RunHistoryComponent } from './run-history/run-history.component';
     ListExperimentsComponent,
     LogComponent,
     TemplateComponent,
-    RunHistoryComponent
+    RunHistoryComponent,
+    TemplateItemComponent
   ],
   providers: [
     CraftService

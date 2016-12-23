@@ -10,6 +10,7 @@ export class Processor {
   outputs: OutputType[];
   parameters: ParameterType[];
   id: number;
+  visualization: boolean;
 
   constructor(nodeType: NodeType) {
     this.category = nodeType.category;
@@ -18,6 +19,7 @@ export class Processor {
     this.outputs = nodeType.outputs;
     this.id = nodeType.id;
     this.parameters = [];
+    this.visualization = nodeType.visualization;
     nodeType.params.forEach((param: ParametersType) => {
       let newPara = {};
       newPara['key'] = param.key;

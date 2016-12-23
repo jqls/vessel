@@ -9,11 +9,7 @@
   <div class="list-category-content">
     <div  *ngFor="let item of (data['value'])">
       <app-template *ngIf="data['type']==='dir'" [data]="item"></app-template>
-      <div class="list-category-item" *ngIf="data['type']==='item'" [class.active]="selectedNodeType===item"
-           (click)="itemClicked(item)" title={{item.description}}>
-        <span class="list-category-item-text">{{item.name}}</span>
-        <div class="list-category-item-icon"></div>
-      </div>
+      <app-template-item *ngIf="data['type']==='item'" [data]="item"></app-template-item>
     </div>
   </div>
 </div>

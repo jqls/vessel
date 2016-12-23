@@ -17,5 +17,6 @@ export const environment = {
   URL_Spark_save:"http://10.5.0.222:8080/workflow/workflow/",//POST
   URL_Spark_Workflow_History:"http://10.5.0.222:8080/workflow/workflow/?workflow_id=0",
   //完整版GET http://10.5.0.222:8080/workflow/workflow/
-  URL_Spark_visualisation: "http://10.5.0.222:8080/dispatcher/visualization/"
+  URL_Spark_visualisation: "http://10.5.0.222:8080/dispatcher/visualization/",
+  URL_Spark_processor_stat: "http://10.5.0.222:8080/dispatcher/processor_status/",
 };
