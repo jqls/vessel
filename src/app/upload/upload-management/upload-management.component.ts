@@ -29,7 +29,7 @@ export class UploadManagementComponent implements OnInit {
 
   public nodeName:string;
   public nodeIsHidden:boolean=false;
-  public nodes:treeNode[]=[{ id: 8, name: '节点名' ,isHidden:this.nodeIsHidden,children:[]}];
+  public nodes:treeNode[]=[];
   public node;//node parameter
   nodeId=2;
   public  dataUrl="http://10.5.0.222:8080/workflow/category/";
