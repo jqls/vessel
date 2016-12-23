@@ -31,7 +31,7 @@ export class TemplateItemComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     let self = this;
     this.drawboard = this.craftService.drawboard;
-      console.log(d3.select("#processor-"+this.data.id).node());
+      // console.log(d3.select("#processor-"+this.data.id).node());
       d3.select("#processor-"+this.data.id).call(
         d3.behavior.drag()
           .on("drag", () => {
@@ -62,7 +62,7 @@ export class TemplateItemComponent implements OnInit, AfterViewInit {
       let coord = d3.mouse(gElement);
       let loc_x = coord[0]-ELEMENT_WIDTH/2;
       let loc_y = coord[1]-ELEMENT_HEIGHT/2;
-      console.log(loc_x + "------"+loc_y);
+      // console.log(loc_x + "------"+loc_y);
       this.node = new ProcessorNode(this.drawboard.flowIDCounter,this.drawboard, {
         'x': loc_x,
         'y': loc_y

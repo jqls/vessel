@@ -50,6 +50,12 @@ export class DataService {
   getDataByFlowID(workflow_id: number): Promise<Workflow_data_all> {
 
     console.log("workflow_id: " + workflow_id);
+    if(environment.isMock){
+      return this.http.get(environment.URL_Spark_redraw_mock).toPromise().then(res=>{
+        mydebug(this.debug_location, "getDataByFlowID", JSON.stringify(res.json().data));
+        return res.json().data as Workflow_data_all;
+      }).catch(handleError);
+    }
     return this.http.get(environment.URL_Spark_redraw + workflow_id).toPromise().then(
       response => {
         mydebug(this.debug_location, "getDataByFlowID", JSON.stringify(response.json()));

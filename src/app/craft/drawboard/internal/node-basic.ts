@@ -30,8 +30,8 @@ export abstract class BasicDrawboardNode {
               centerPosition: {x: number, y: number}) {
     mydebug(this.debug_location, "constructor", "begin");
     this.name = name;
-    console.log("name: "+ this.name);
     this.flowID = flowID;
+    console.log("flowID: "+ this.flowID);
     this.board = board;
     this.groupContainer = this.board.container.append("g").attr("cursor","default");
 

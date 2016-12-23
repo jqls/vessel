@@ -171,8 +171,8 @@ export class InMemoryDataService implements InMemoryDbService {
             18
           ],
           "flow_id": "4",
-          "loc_x": 0,
-          "loc_y": 0,
+          "loc_x": 10,
+          "loc_y": 20,
           "id": 13
         },
         {
@@ -183,7 +183,7 @@ export class InMemoryDataService implements InMemoryDbService {
             16,
             17
           ],
-          "flow_id": "3",
+          "flow_id": "2",
           "loc_x": 0,
           "loc_y": 0,
           "id": 12
@@ -194,13 +194,13 @@ export class InMemoryDataService implements InMemoryDbService {
           "processor_id": 12,
           "label": "label1",
           "val": "test",
-          "flow_id": 4
+          "flow_id": 2
         },
         {
           "processor_id": 12,
           "label": "whatever",
           "val": "A",
-          "flow_id": 4
+          "flow_id": 2
         }
       ],
       "connections": [
@@ -210,7 +210,7 @@ export class InMemoryDataService implements InMemoryDbService {
             "processor_id": 12,
             "id": 9
           },
-          "input_processor_flow_id": "3",
+          "input_processor_flow_id": "2",
           "id": 1,
           "output": {
             "processor_id": 13,

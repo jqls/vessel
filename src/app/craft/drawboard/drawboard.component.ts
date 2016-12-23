@@ -320,25 +320,31 @@ export class DrawboardComponent implements OnInit {
     mydebug(this.debug_location, "reRender", "begin");
     let processorNodes: ProcessorNode[] = reRenderData.processors.map(
       (data: reRender_Nodes) => {
+        console.log("--------one node begin----");
+        console.log(data);
         let processor_id = data.id;
         let nodeType = this.dataService.spark_data.filter(item => item.id == processor_id)[0];
         let processor = new Processor(nodeType);
-        let node = new ProcessorNode(data.flow_id, this, {x: data.loc_x, y: data.loc_y}, processor);
+        let node = new ProcessorNode(+data.flow_id, this, {x: data.loc_x, y: data.loc_y}, processor);
         console.log(node);
         this.workflowNodes.push(node);
         node.render();
+        console.log("--------one node over----");
         return node;
       }
     );
     console.log("-------------spark_data Over-------------------");
     reRenderData.parameters.forEach((item: reRender_Parameter) => {
-      let node = processorNodes.filter(i => i.flowID = item.flow_id)[0];
+      let node = this.workflowNodes.filter(i => i.flowID == item.flow_id)[0];
       console.log(node);
       let param = node.nodetype.parameters.filter(s => s.label === item.label)[0];
       console.log(param);
       param.value = item.val;
     });
+
     let paths: reRender_Connections[] = reRenderData.connections;
+    console.log("-------------rerender connections-------------------");
+    console.log(paths);
     for (let path of paths) {
       let from = path.output_processor_flow_id;
       let to = path.input_processor_flow_id;

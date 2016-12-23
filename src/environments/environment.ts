@@ -9,6 +9,7 @@ export const environment = {
   isMock: false,
   URL_Spark: "http://10.5.0.222:8080/workflow/processor/0",
   URL_Spark_mock: "app/spark_data",
+  URL_Spark_redraw_mock: "app/redraw",
   URL_Spark_run: "http://10.5.0.222:8080/dispatcher/submit_mission/",
   URL_Spark_redraw: "http://10.5.0.222:8080/workflow/workflow/?workflow_id=",
   dataAnalysisServer: "10.5.0.224:5000",

@@ -100,7 +100,7 @@ export type reRender_Connections={
 export type reRender_Nodes={
   inputs: number[],
   outputs: number[],
-  flow_id: number,
+  flow_id: string,
   loc_x: number,
   loc_y: number,
   id: number
