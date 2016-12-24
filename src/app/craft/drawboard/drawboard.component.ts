@@ -8,7 +8,7 @@ import {mydebug} from "../../share/my-log";
 import {DataService} from "../../data.service";
 import {
   SubmitType, Workflow_data_all, reRender_Parameter, reRender_Connections,
-  reRender_Nodes, ConnectionType
+  reRender_Nodes, ConnectionType, OutputType
 } from "../../share/json-types";
 import {ProcessorNode} from "./internal/node-processor";
 import {GlobalService} from "../../global.service";
@@ -46,6 +46,7 @@ export class DrawboardComponent implements OnInit {
   justDragged: boolean;
   private lastKeyDown: number;
   dragFrom: WorkflowNode;
+  dragFromPort: OutputType;
   shiftDrag: boolean;
   flowIDCounter: number;
   private workflow_id: number;
@@ -109,6 +110,7 @@ export class DrawboardComponent implements OnInit {
     this.justDragged = false;
     this.lastKeyDown = -1;
     this.dragFrom = null;
+    this.dragFromPort = null;
     this.shiftDrag = false;
   }
 
@@ -273,6 +275,7 @@ export class DrawboardComponent implements OnInit {
     this.dragLine.attr("d", "M0,0L0,0").classed("hidden", true);
     this.shiftDrag = false;
     this.dragFrom = null;
+    this.dragFromPort = null;
   }
 
   setSelectedRelation(relation: Relation): void {
@@ -296,12 +299,12 @@ export class DrawboardComponent implements OnInit {
         from: {
           flow_id: relation.from.flowID,
           processor_id: relation.from.nodetype.id,
-          id: 1
+          id: relation.from_port.id
         },
         to: {
           flow_id: relation.to.flowID,
           processor_id: relation.to.nodetype.id,
-          id: 1
+          id: relation.to_port.id
         }
       };
       paths.push(path);
@@ -351,7 +354,7 @@ export class DrawboardComponent implements OnInit {
       console.log("from: " + from + "\nto: " + to);
       let fromNode = this.findNodeByFlowID(+from);
       let toNode = this.findNodeByFlowID(+to);
-      let relation = new Relation(this, fromNode, toNode);
+      let relation = new Relation(this, fromNode, toNode,path.output,path.input);
       fromNode.relations.push(relation);
       toNode.relations.push(relation);
       this.relations.push(relation);

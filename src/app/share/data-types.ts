@@ -33,7 +33,7 @@ export class Processor {
       mydebug(this.debug_location, "constructor", JSON.stringify(newPara));
       mydebug(this.debug_location, "constructor", JSON.stringify(<ParameterType>newPara));
       this.parameters.push(<ParameterType>newPara);
-    })
+    });
     console.log(this);
   }
 }

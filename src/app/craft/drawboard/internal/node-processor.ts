@@ -5,7 +5,7 @@ import {Relation} from "./relation";
 import {Processor} from "../../../share/data-types";
 import {mydebug} from "../../../share/my-log";
 import {BasicDrawboardNode, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./node-basic";
-import {ParametersType, ProcessorType} from "../../../share/json-types";
+import {ParametersType, ProcessorType, InputType, OutputType} from "../../../share/json-types";
 
 export class ProcessorNode extends BasicDrawboardNode {
 
@@ -39,34 +39,100 @@ export class ProcessorNode extends BasicDrawboardNode {
     super.render();
     this.groupContainer.select("rect")
       .classed("algorithm", true);
-    this.groupContainer.append("circle")
-      .attr("cx", ELEMENT_WIDTH / 2)
-      // .attr("cy",this.cy)
-      .attr("r", "4")
-      .classed("input", true)
-      .style("stroke", "gray")
-      .style("fill", "white")
-      .style("stroke-width", "1px");
-    this.groupContainer.append("circle")
-      .attr("cx", ELEMENT_WIDTH / 2)
-      .attr("cy", ELEMENT_HEIGHT)
-      .attr("r", "4")
-      .classed("output", true)
-      .style("stroke", "gray")
-      .style("fill", "#00CACA")
-      .style("stroke-width", "1px");
-
-    this.outputMenu.addItem("可视化", () => {
-      console.log("可视化");
-      let Param = {
-        processor_id: this.nodetype.id,
-        flow_id: this.flowID,
-        port_id: this.nodetype.outputs[0].id
-      };
-      this.board.setParam(Param);
-      this.board.gotoVisulise();
+    let input_num = this.nodetype.inputs.length;
+    let output_num = this.nodetype.outputs.length;
+    let count = 0;
+    this.nodetype.inputs.forEach(input => {
+      count += 1;
+      let cx = ELEMENT_WIDTH * count / (1 + input_num);
+      input.cx = cx;
+      input.cy = 0;
+      this.groupContainer.append("circle")
+        .attr("cx", cx)
+        .attr("r", "4")
+        .attr("data-bind", JSON.stringify(input))
+        .classed("input", true)
+        .style("stroke", "gray")
+        .style("fill", "white")
+        .style("stroke-width", "1px")
+        .on('mouseover', function (d) {
+          d3.select(this).style({r: '10'});
+        })
+        .on('mouseout', function (d) {
+          d3.select(this).style({r: '4'});
+        })
+        .on("mouseup", () => {
+          this.portMouseupHandler(input);
+        });
     });
-    this.outputMenu.addClickMenu(this.groupContainer.select(".output"));
+
+    count = 0;
+    this.nodetype.outputs.forEach(output => {
+      count += 1;
+      let cx = ELEMENT_WIDTH * count / (1 + output_num);
+      let cy = ELEMENT_HEIGHT;
+      output.cx = cx;
+      output.cy = cy;
+      this.groupContainer.append("circle")
+        .attr("cx", cx)
+        .attr("cy", cy)
+        .attr("r", "4")
+        .attr("data-bind", JSON.stringify(output))
+        .classed("output", true)
+        .style("stroke", "gray")
+        .style("fill", "#00CACA")
+        .style("stroke-width", "1px")
+        .on('mouseover', function (d) {
+          d3.select(this).style({r: '10'});
+        })
+        .on('mouseout', function (d) {
+          d3.select(this).style({r: '4'});
+        })
+        .call(
+          d3.behavior.drag()
+            .on("dragstart", () => {
+              console.log("port-dragstart");
+              (<d3.DragEvent> d3.event).sourceEvent.stopPropagation();
+            })
+            .on("drag", () => {
+              console.log("port-drag");
+              this.portDragHandler(output);
+            })
+        );
+
+      this.menu.addItem2({
+        key: "Output-" + count, // +output.id
+        type: "dir",
+        value: [{
+          key: "可视化",
+          type: "item",
+          event: () => {
+            console.log("可视化");
+            let Param = {
+              processor_id: this.nodetype.id,
+              flow_id: this.flowID,
+              port_id: output.id
+            };
+            this.board.setParam(Param);
+            this.board.gotoVisulise();
+          }
+        }]
+      });
+
+      this.outputMenu.addItem("可视化", () => {
+        console.log("可视化");
+        let Param = {
+          processor_id: this.nodetype.id,
+          flow_id: this.flowID,
+          port_id: output.id
+        };
+        this.board.setParam(Param);
+        this.board.gotoVisulise();
+      });
+      this.outputMenu.addClickMenu(this.groupContainer.select(".output"));
+    });
+
+
   }
 
   mousedownHandler(): void {
@@ -81,11 +147,14 @@ export class ProcessorNode extends BasicDrawboardNode {
   }
 
   mouseupHandler(): void {
+  }
+
+  portMouseupHandler(input: InputType): void {
     mydebug(this.debug_location, "mouseupHandler", "begin");
     if (this.board.justDragged) {
       mydebug(this.debug_location, "mouseupHandler", "after shift");
       if (this.board.dragFrom != this && this != null && this.board.dragFrom != null) {
-        let relation = new Relation(this.board, this.board.dragFrom, this);
+        let relation = new Relation(this.board, this.board.dragFrom, this, this.board.dragFromPort, input);
         this.relations.push(relation);
         this.board.dragFrom.relations.push(relation);
         this.board.relations.push(relation);
@@ -95,33 +164,35 @@ export class ProcessorNode extends BasicDrawboardNode {
 
   }
 
-  dragHandler(): void {
-    mydebug(this.debug_location, "dragHandler", "begin");
+  portDragHandler(output: OutputType): void {
+    mydebug(this.debug_location, "portDragHandler", "begin");
     this.board.justDragged = true;
     this.board.dragFrom = this;
+    this.board.dragFromPort = output;
 
-    if (this.board.shiftDrag) {
-      let mouseCoords = d3.mouse(this.board.container.node());
-      mydebug(this.debug_location, "dragHandler", "x=" + mouseCoords[0] + " y=" + mouseCoords[1]);
-      this.board.dragLine.classed("hidden", false);
-      let fromPosition = {x: 0, y: 0};
-      let toPosition = {x: 0, y: 0};
-      fromPosition.x = this.cx + ELEMENT_WIDTH / 2;
-      fromPosition.y = this.cy + ELEMENT_HEIGHT / 2;
-      toPosition.x = mouseCoords[0];
-      toPosition.y = mouseCoords[1];
-      this.board.dragLine.attr('d','M' + fromPosition.x + " " + fromPosition.y + 'C' + fromPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 - 2) + ',' + ((fromPosition.x + toPosition.x) / 2 + 2) + " " + (fromPosition.y + toPosition.y) / 2 + ',' + (fromPosition.x + toPosition.x) / 2 + " " + (fromPosition.y + toPosition.y) / 2 + 'S' + toPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 + 2) + ',' + toPosition.x + " " + toPosition.y);
-    } else {
-      let dragEvent = (<d3.DragEvent> d3.event);
-      mydebug(this.debug_location, "dragHandler", "x=" + dragEvent.dx + " y=" + dragEvent.dy);
-      this.setCenterPosition({
-        'x': this.cx + dragEvent.dx,
-        'y': this.cy + dragEvent.dy
-      });
-      this.relations.forEach((value) => {
-        value.update();
-      });
-    }
+    let mouseCoords = d3.mouse(this.board.container.node());
+    mydebug(this.debug_location, "dragHandler", "x=" + mouseCoords[0] + " y=" + mouseCoords[1]);
+    this.board.dragLine.classed("hidden", false);
+    let fromPosition = {x: 0, y: 0};
+    let toPosition = {x: 0, y: 0};
+    fromPosition.x = this.cx + ELEMENT_WIDTH / 2;
+    fromPosition.y = this.cy + ELEMENT_HEIGHT / 2;
+    toPosition.x = mouseCoords[0];
+    toPosition.y = mouseCoords[1];
+    this.board.dragLine.attr('d', 'M' + fromPosition.x + " " + fromPosition.y + 'C' + fromPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 - 2) + ',' + ((fromPosition.x + toPosition.x) / 2 + 2) + " " + (fromPosition.y + toPosition.y) / 2 + ',' + (fromPosition.x + toPosition.x) / 2 + " " + (fromPosition.y + toPosition.y) / 2 + 'S' + toPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 + 2) + ',' + toPosition.x + " " + toPosition.y);
+  }
+
+  dragHandler(): void {
+    mydebug(this.debug_location, "dragHandler", "begin");
+    let dragEvent = (<d3.DragEvent> d3.event);
+    mydebug(this.debug_location, "dragHandler", "x=" + dragEvent.dx + " y=" + dragEvent.dy);
+    this.setCenterPosition({
+      'x': this.cx + dragEvent.dx,
+      'y': this.cy + dragEvent.dy
+    });
+    this.relations.forEach((value) => {
+      value.update();
+    });
   }
 
   copyElements(): () => void {

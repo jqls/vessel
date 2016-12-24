@@ -44,30 +44,30 @@ export class ToolboxComponent implements OnInit {
         /*
           构造目录树，利用数组形式
          */
-        console.log("---------------------------1-----------------------------");
+        // console.log("---------------------------1-----------------------------");
         let temp = this.tree;
         str.forEach(s => {
           let obj;
           obj = temp[0]?temp.filter(a=>{return (a['key']===s)})[0]:null;
-          console.log(obj);
+          // console.log(obj);
           if(obj==null){
             obj={};
             obj['key'] = s;
             obj['value']=[];
             obj['type']='dir';
             temp.push(obj);
-            console.log(temp);
+            // console.log(temp);
           }
           temp = obj['value'];
-        console.log(temp);
+        // console.log(temp);
 
           if(obj['key']===last){
             obj['type']='item';
             temp.push(item);
           }
         });
-        console.log(this.tree);
-        console.log("---------------------------2-----------------------------");
+        // console.log(this.tree);
+        // console.log("---------------------------2-----------------------------");
       });
     });
 

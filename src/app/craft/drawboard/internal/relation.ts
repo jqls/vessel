@@ -9,15 +9,17 @@ export class Relation {
   id: number;
   board: DrawboardComponent;
   from: WorkflowNode;
+  from_port: OutputType;
   to: WorkflowNode;
+  to_port: InputType;
   menu: Contextmenu;
   path: any;
-  input: InputType;
-  output: OutputType;
-  constructor(board: DrawboardComponent, from: WorkflowNode, to: WorkflowNode) {
+  constructor(board: DrawboardComponent, from: WorkflowNode, to: WorkflowNode,from_port: OutputType, to_port: InputType) {
     this.board = board;
     this.from = from;
+    this.from_port = from_port;
     this.to = to;
+    this.to_port = to_port;
 
     this.id = Relation.idCount;
     mydebug(this.debug_location, "constructor", 'id:idCount = ' + this.id + ':' + Relation.idCount);
@@ -28,7 +30,7 @@ export class Relation {
       .style('marker-end', 'url(/Experiment#mark-end-arrow)');
     this.initMenu();
     this.bindEventHandler();
-
+    console.log(this);
     this.update();
   }
 
@@ -66,15 +68,15 @@ export class Relation {
 
   private getFromPosition(): {x: number, y: number} {
     return {
-      'x': this.from.cx + ELEMENT_WIDTH / 2,
-      'y': this.from.cy + ELEMENT_HEIGHT
+      'x': this.from.cx + this.from_port.cx,
+      'y': this.from.cy + this.from_port.cy
     };
   }
 
   private getToPosition(): {x: number, y: number} {
     return {
-      'x': this.to.cx + ELEMENT_WIDTH / 2,
-      'y': this.to.cy
+      'x': this.to.cx + this.to_port.cx,
+      'y': this.to.cy + this.to_port.cy
     };
   }
 

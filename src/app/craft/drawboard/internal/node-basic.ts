@@ -21,7 +21,7 @@ export abstract class BasicDrawboardNode {
   groupContainer: any; //path所属<g>
   relations: Relation[];
   // private isRendered: boolean;
-  private menu: Contextmenu;
+  protected menu: Contextmenu;
   outputMenu: Contextmenu;
 
   constructor(name: string,
@@ -113,7 +113,7 @@ export abstract class BasicDrawboardNode {
       })
       .on("mouseup", () => {
         console.log("node-mouseup");
-        self.mouseupHandler();
+        // self.mouseupHandler();
       })
       .on("mouseover", () => {
         self.mouseoverHandler();

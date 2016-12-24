@@ -9,11 +9,15 @@ export type NodeType = {
 }
 export type OutputType = {
   processor_id: number,
-  id: number
+  id: number,
+  cx?: number,
+  cy?: number
 }
 export type InputType = {
   processor_id: number,
   id: number
+  cx?: number,
+  cy?: number
 }
 //参数的实际需求
 export type ParameterType = {
