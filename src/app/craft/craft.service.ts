@@ -8,6 +8,7 @@ import {environment} from "../../environments/environment";
 import {handleError} from "../share/my-handler";
 import {GlobalService} from "../global.service";
 import {DrawboardComponent} from "./drawboard/drawboard.component";
+import {NodeStat} from "../share/json-types";
 
 @Injectable()
 export class CraftService {
@@ -16,37 +17,50 @@ export class CraftService {
   private selectedNode: WorkflowNode;
   private selectedRelation: Relation;
   private taskName: string;
-  private SNT_subscribers: Array<(nodeType: WorkflowNodeType)=>void>;
-  private SN_subscribers: Array<(node: WorkflowNode)=>void>;
-  private SR_subscribers: Array<(relation: Relation)=>void>;
-  private taskName_subscribers: Array<(taskName: string)=>void>;
-  private showVisual_subscribers: Array<(isshow: boolean)=>void>;
+  private SNT_subscribers: Array<(nodeType: WorkflowNodeType) => void>;
+  private SN_subscribers: Array<(node: WorkflowNode) => void>;
+  private SR_subscribers: Array<(relation: Relation) => void>;
+  private taskName_subscribers: Array<(taskName: string) => void>;
+  private showVisual_subscribers: Array<(isshow: boolean) => void>;
 
-  private submit_hook: () =>void;
-  private reRender_hook: ()=>void;
+  private submit_hook: () => void;
+  private reRender_hook: () => void;
   private rightPaneStat: boolean;
   private leftPaneStat: boolean;
   private reload_flag: boolean;
   private visual_stat: boolean;
+  private workflow_id: number;
 
   drawboard: DrawboardComponent;
+
   constructor(private globalService: GlobalService,
               private http: Http) {
-    this.SNT_subscribers = Array<(nodeType: WorkflowNodeType)=>void>();
-    this.SN_subscribers = Array<(node: WorkflowNode)=>void>();
-    this.SR_subscribers = Array<(relation: Relation)=>void>();
-    this.taskName_subscribers = Array<(taskName: string)=>void>();
-    this.showVisual_subscribers = Array<(isshow: boolean)=>void>();
+    this.SNT_subscribers = Array<(nodeType: WorkflowNodeType) => void>();
+    this.SN_subscribers = Array<(node: WorkflowNode) => void>();
+    this.SR_subscribers = Array<(relation: Relation) => void>();
+    this.taskName_subscribers = Array<(taskName: string) => void>();
+    this.showVisual_subscribers = Array<(isshow: boolean) => void>();
 
     this.rightPaneStat = true;
     this.leftPaneStat = true;
     this.reload_flag = false;
 
-    this.globalService.bookSubmit(()=>{this.submit();});
-    this.globalService.bookSubmitAndRun(()=>{this.submitAndRun()})
+    this.globalService.bookSubmit(() => {
+      this.submit();
+    });
+    this.globalService.bookSubmitAndRun(() => {
+      this.submitAndRun()
+    });
+    this.globalService.book_workflowID((id) => {
+      this.workflow_id = id
+    });
   }
 
-  bookSelectedNodeType(update: (nodeType: WorkflowNodeType)=>void): void {
+  get hasRun(): boolean {
+    return this.globalService.hasRun;
+  };
+
+  bookSelectedNodeType(update: (nodeType: WorkflowNodeType) => void): void {
     mydebug(this.debug_location, "bookSelectedNodeType", 'book');
     this.SNT_subscribers.push(update);
   }
@@ -57,7 +71,7 @@ export class CraftService {
     this.SNT_subscribers.forEach(s => s(nodeType));
   }
 
-  bookSelectedNode(update: (node: WorkflowNode)=>void): void {
+  bookSelectedNode(update: (node: WorkflowNode) => void): void {
     mydebug(this.debug_location, "bookSelectedNode", 'book');
     this.SN_subscribers.push(update);
   }
@@ -69,7 +83,7 @@ export class CraftService {
     this.globalService.setSelectedNode(node);
   }
 
-  bookSelectedRelation(update: (relation: Relation)=>void): void {
+  bookSelectedRelation(update: (relation: Relation) => void): void {
     mydebug(this.debug_location, "bookSelectedRelation", 'book');
     this.SR_subscribers.push(update);
   }
@@ -80,11 +94,11 @@ export class CraftService {
     this.SR_subscribers.forEach(s => s(relation));
   }
 
-  bookTaskName(update: (taskName: string)=>void): void {
+  bookTaskName(update: (taskName: string) => void): void {
     mydebug(this.debug_location, "bookTaskName", 'book');
     this.taskName_subscribers.push(update);
     //防止后订阅的观察者无法取得值
-    this.taskName_subscribers.forEach(fn=>fn(this.taskName));
+    this.taskName_subscribers.forEach(fn => fn(this.taskName));
   }
 
   setTaskName(taskName: string): void {
@@ -92,11 +106,12 @@ export class CraftService {
     this.globalService.setTaskName(taskName);
     this.taskName_subscribers.forEach(fn => fn(taskName));
   }
-  bookVisualStat(update: (isshow: boolean)=>void): void {
+
+  bookVisualStat(update: (isshow: boolean) => void): void {
     mydebug(this.debug_location, "bookVisualStat", 'book');
     this.showVisual_subscribers.push(update);
     //防止后订阅的观察者无法取得值
-    this.showVisual_subscribers.forEach(fn=>fn(this.visual_stat));
+    this.showVisual_subscribers.forEach(fn => fn(this.visual_stat));
   }
 
   setVisualStat(isshow: boolean): void {
@@ -111,27 +126,30 @@ export class CraftService {
   setRightPaneStat(stat: boolean): void {
     this.rightPaneStat = stat;
   }
+
   getLeftPaneStat(): boolean {
     return this.leftPaneStat;
   }
+
   setLeftPaneStat(stat: boolean): void {
     this.leftPaneStat = stat;
   }
 
-  setReload(reload: boolean){
+  setReload(reload: boolean) {
     this.reload_flag = reload;
   }
 
-  isReload(){
+  isReload() {
     return this.reload_flag;
   }
 
-  setSubmitHook(getSubmitPara:()=>void){
+  setSubmitHook(getSubmitPara: () => void) {
     this.submit_hook = getSubmitPara;
-}
-  submit(){
+  }
+
+  submit() {
     let workflowJSON = this.submit_hook();
-    mydebug(this.debug_location,"submit",`${workflowJSON}`);
+    mydebug(this.debug_location, "submit", `${workflowJSON}`);
 
     let headers = new Headers({
       'Content-Type': 'application/json'
@@ -147,10 +165,16 @@ export class CraftService {
       })
       .catch(handleError);
   }
-  submitAndRun(){
-    let workflowJSON = this.submit_hook();
-    mydebug(this.debug_location,"submit",`${workflowJSON}`);
 
+  submitAndRun() {
+
+    let workflowJSON = this.submit_hook();
+    mydebug(this.debug_location, "submit", `${workflowJSON}`);
+    if(environment.isMock){
+      this.globalService.set_workflowID(1);
+      this.globalService.run();
+      return;
+    }
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -162,17 +186,38 @@ export class CraftService {
         // console.log(res.json());
         let response = res.json().workflow_id;
         console.log(response);
-        if(response!=null){
+        if (response != null) {
           this.globalService.set_workflowID(res.json().workflow_id);
           this.globalService.run();
         }
       })
       .catch(handleError);
   }
-  setReRenderHook(reRender:()=>void){
+
+  setReRenderHook(reRender: () => void) {
     this.reRender_hook = reRender;
   }
-  reRender(): void{
+
+  reRender(): void {
     this.reRender_hook();
+  }
+
+  getNodeStat() {
+    if(environment.isMock){
+      return this.http.get("app/processor_stat").toPromise().then(response=>{
+        console.log("----------------------------------");
+        console.log(response.json().data);
+
+        return response.json().data as NodeStat[];
+      });
+    }else{
+      if (this.workflow_id != null && this.globalService.mission_id != null) {
+        return this.http.get(environment.URL_Spark_processor_stat + this.workflow_id + "-" + this.globalService.mission_id).toPromise().then(response => {
+          return response.json() as NodeStat[];
+        });
+      } else {
+        alert("-----workflow_id 或 mission_id 为空-----");
+      }
+    }
   }
 }

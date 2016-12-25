@@ -111,3 +111,8 @@ export type reRender_Nodes={
   loc_y: number,
   id: number
 }
+export type NodeStat = {
+  processor_id: number,
+  status:number, //0:未执行,1:正在执行,2:执行错误,3:执行完成
+  flow_id:number
+}

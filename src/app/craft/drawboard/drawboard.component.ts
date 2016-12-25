@@ -8,7 +8,7 @@ import {mydebug} from "../../share/my-log";
 import {DataService} from "../../data.service";
 import {
   SubmitType, Workflow_data_all, reRender_Parameter, reRender_Connections,
-  reRender_Nodes, ConnectionType, OutputType
+  reRender_Nodes, ConnectionType, OutputType, NodeStat
 } from "../../share/json-types";
 import {ProcessorNode} from "./internal/node-processor";
 import {GlobalService} from "../../global.service";
@@ -51,7 +51,7 @@ export class DrawboardComponent implements OnInit {
   flowIDCounter: number;
   private workflow_id: number;
   private visualise_func: () => void;
-
+  private interval;
   constructor(private craftService: CraftService,
               private globalService: GlobalService,
               private dataService: DataService) {
@@ -175,7 +175,7 @@ export class DrawboardComponent implements OnInit {
         })
     );
   }
-
+count = 0;
   //todo：如要需要，在此添加键盘事件
   private keyDown(): void {
     this.lastKeyDown = d3.event['keyCode'];
@@ -187,6 +187,10 @@ export class DrawboardComponent implements OnInit {
         console.log(this.workflowNodes);
         console.log(this.getSubmitPara());
         (<Event> d3.event).preventDefault();
+        break;
+      case this.constants.ENTER_KEY:
+        this.setNodestat([{processor_id: 28, status: this.count, flow_id: 0}]);
+        this.count = (this.count++) % 4;
         break;
     }
   }
@@ -316,6 +320,7 @@ export class DrawboardComponent implements OnInit {
       }),
       connections: paths
     };
+    this.interval = setInterval(()=>{this.getNodeStat()},3000);//3s一次
     return JSON.stringify(submitType);
   }
 
@@ -381,5 +386,41 @@ export class DrawboardComponent implements OnInit {
   }
   gotoVisulise() {
     this.visualise_func();
+  }
+
+  getNodeStat(){
+    this.craftService.getNodeStat().then(res=>{
+      console.log("------------------getNodeStat-------------------------");
+      let over = true;
+      res.forEach(item=>{
+        if(item.status!=3)
+          over = false;
+      });
+      if(over){
+        clearInterval(this.interval);
+      }
+      this.setNodestat(res);
+    });
+  }
+  setNodestat(stat:NodeStat[]){
+    stat.forEach(item=>{
+      let temp = d3.select("#node-"+item.flow_id).select(".nodeStatus").select("image");
+      console.log(temp);
+      switch(item.status){
+        case 0:
+          temp.attr("href","../assets/images/icon-notstarted.svg");
+          break;
+        case 1:
+          temp.attr("href","../assets/images/Processing.gif");
+          break;
+        case 2:
+          temp.attr("href","../assets/images/icon-error.png");
+          break;
+        case 3:
+          temp.attr("href","../assets/images/icon-complete.svg");
+          break;
+
+      }
+    });
   }
 }

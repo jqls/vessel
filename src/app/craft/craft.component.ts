@@ -27,11 +27,13 @@ export class CraftComponent implements OnInit {
       this.show_visual = isshow;
     });
     this.craftService.setVisualStat(false);
+    this.globalService.hasRun = false;
   }
 
   ngOnInit() {
     console.log("isReload? " + this.isReload);
     if (this.isReload) {
+      this.globalService.hasRun = true;
       this.dataService.getNodeInfo().then(() =>{
         this.reRender();
       });
@@ -60,10 +62,6 @@ export class CraftComponent implements OnInit {
 
   openLeft() {
     this.craftService.setLeftPaneStat(true);
-  }
-
-  onSubmitClick() {
-    this.craftService.submit();
   }
 
   reRender() {

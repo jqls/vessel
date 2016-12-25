@@ -38,6 +38,7 @@ export class ProcessorNode extends BasicDrawboardNode {
 
   render(): void {
     super.render();
+    this.groupContainer.attr("id","node-"+this.flowID);
     this.groupContainer.select("rect")
       .classed("algorithm", true);
     let input_num = this.nodetype.inputs.length;
@@ -136,7 +137,14 @@ export class ProcessorNode extends BasicDrawboardNode {
       });
     });
 
-
+    this.groupContainer.append("svg")
+      .classed("nodeStatus",true)
+      .attr("x", ELEMENT_WIDTH - 30)
+      .attr("y", 14)
+      .append("image")
+      .attr("height",16)
+      .attr("width",16)
+      .attr("href","../assets/images/icon-none.svg");
   }
 
   mousedownHandler(): void {

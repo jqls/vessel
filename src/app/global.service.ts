@@ -21,11 +21,13 @@ export class GlobalService {
   flow_id: number;
   port_id: number;
   visualization: boolean;
+  hasRun: boolean;
 
   constructor(private http: Http) {
     this.navepane_subscribers = Array<(stat: boolean) => void>();
     this.da_subscribers = Array<(active: boolean)=>void>();
     this.workflow_subscribers = Array<(id: number) => void>();
+    this.hasRun = false;
   }
 
   book_workflowID(update: (id: number) => void) {
@@ -86,6 +88,13 @@ export class GlobalService {
 
   run() {
     console.log("workflow_id: " + this.workflow_id);
+    if(environment.isMock){
+      if (this.workflow_id == null) {
+        this.submitAndRun_hook();
+      }else
+        this.mission_id = 1;
+      return;
+    }
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
@@ -95,6 +104,7 @@ export class GlobalService {
         method: RequestMethod.Post
       })
         .toPromise().then(response => {
+          this.hasRun = true;
         mydebug(this.debug_location, "run", JSON.stringify(response.json()));
         this.mission_id = response.json().mission_id;
         return response.json();
