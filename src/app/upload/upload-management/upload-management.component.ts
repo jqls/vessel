@@ -31,7 +31,7 @@ export class UploadManagementComponent implements OnInit {
   public nodeIsHidden:boolean=false;
   public nodes:treeNode[]=[];
   public node;//node parameter
-  nodeId=2;
+  public nodeId;
   public  dataUrl="http://10.5.0.222:8080/workflow/category/";
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
@@ -40,7 +40,7 @@ export class UploadManagementComponent implements OnInit {
     this.getData();
   }
   ngOnInit(){
-    console.log("OnInit");
+    console.log("OnInit-upload-management");
   }
   // nodes = [
   //     {
@@ -86,12 +86,13 @@ export class UploadManagementComponent implements OnInit {
     // $("#nameId").val(value);
 
   }
+
   save(){//add node save function
     if($("#nameId").val()==='') {
       alert("名称不能为空！！！");
     }
     else {
-
+      this.nodeId=this.nodes.length+1;
       this.node.data.children.push(
         {id: this.nodeId, name: this.nodeName, isHidden: this.nodeIsHidden, children: []});
       console.log(this.nodeId);
@@ -99,6 +100,7 @@ export class UploadManagementComponent implements OnInit {
       if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
       this.tree.treeModel.update();
       this.sendData();
+
       //$('#myModal').modal('hide');//model待完善
       // $('#myModal').on('hidden.bs.modal', function (e) {
       //     // do something...
@@ -162,7 +164,7 @@ export class UploadManagementComponent implements OnInit {
       this.nodes.push(response.json());
       this.tree.treeModel.update();
       console.log("getData");
-      console.log(this.nodes);
+      console.log(this.nodes.length);
 
     })
       .catch(this.handleError);
