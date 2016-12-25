@@ -35,6 +35,7 @@ export class UploadManagementComponent implements OnInit {
   public  dataUrl="http://10.5.0.222:8080/workflow/category/";
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
+  formData = new FormData();
   constructor(private http: Http) {
     this.getData();
   }
@@ -224,5 +225,23 @@ export class UploadManagementComponent implements OnInit {
 
     this.sendData();
   }
+  changeListener(event): void {
+        this.postImage(event.target);
+     }
 
+  postImage(inputValue: any): void {//上传图片
+      this.formData.append("image", inputValue.files[0]);
+     console.log(this.formData);
+      var URL_Image = `>>>>>>>>>>>>>>>>>`;
+      console.log(URL_Image);
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", URL_Image, true);
+      xhr.send(this.formData);
+      console.log(this.formData);
+      xhr.onload = function (e) {
+           if (this.status == 200) {
+                alert(this.responseText);
+              }
+          }
+      }
 }

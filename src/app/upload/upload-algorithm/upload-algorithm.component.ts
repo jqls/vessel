@@ -107,10 +107,10 @@ export class UploadAlgorithmComponent implements OnInit {
     for (let i = this.nodePath.length - 1; i >= 0; i--) {
       let nodeName = this.tree.treeModel.getNodeById(this.nodePath[i]);
       if (i == this.nodePath.length - 1) {
-        nameList = nodeName.data.name + nameList;
+        nameList = nodeName.data.id + nameList;
       }
       else {
-        nameList = nodeName.data.name + ">" + nameList;
+        nameList = nodeName.data.id + ">" + nameList;
       }
     }
     this.algorithmPara.category = nameList;
