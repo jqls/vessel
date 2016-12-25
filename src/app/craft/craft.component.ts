@@ -13,7 +13,8 @@ import {DrawboardComponent} from "./drawboard/drawboard.component";
 export class CraftComponent implements OnInit {
 
   private isReload: boolean;
-
+  private show_visual: boolean;
+  private visualization:boolean;
   @ViewChild(DrawboardComponent) private drawboard: DrawboardComponent;
   constructor(private router: Router,
               private craftService: CraftService,
@@ -22,6 +23,10 @@ export class CraftComponent implements OnInit {
     this.globalService.setNavpaneStat(false);
     this.isReload = this.craftService.isReload();
     this.craftService.setReload(false);
+    this.craftService.bookVisualStat((isshow)=>{
+      this.show_visual = isshow;
+    });
+    this.craftService.setVisualStat(false);
   }
 
   ngOnInit() {
@@ -38,6 +43,7 @@ export class CraftComponent implements OnInit {
       this.globalService.processor_id = null;
     }
     this.drawboard.setVisualise(()=>{this.gotoVisualise();});
+
   }
 
   get isOpenRightPane() {
@@ -64,6 +70,10 @@ export class CraftComponent implements OnInit {
     this.craftService.reRender();
   }
   gotoVisualise(){
-    this.router.navigate(["result-show"]);
+    this.visualization = this.globalService.visualization;
+    this.craftService.setVisualStat(true);
+  }
+  onVisualClose(){
+    this.craftService.setVisualStat(false);
   }
 }

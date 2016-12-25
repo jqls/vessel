@@ -20,12 +20,14 @@ export class CraftService {
   private SN_subscribers: Array<(node: WorkflowNode)=>void>;
   private SR_subscribers: Array<(relation: Relation)=>void>;
   private taskName_subscribers: Array<(taskName: string)=>void>;
+  private showVisual_subscribers: Array<(isshow: boolean)=>void>;
 
   private submit_hook: () =>void;
   private reRender_hook: ()=>void;
   private rightPaneStat: boolean;
   private leftPaneStat: boolean;
   private reload_flag: boolean;
+  private visual_stat: boolean;
 
   drawboard: DrawboardComponent;
   constructor(private globalService: GlobalService,
@@ -34,6 +36,7 @@ export class CraftService {
     this.SN_subscribers = Array<(node: WorkflowNode)=>void>();
     this.SR_subscribers = Array<(relation: Relation)=>void>();
     this.taskName_subscribers = Array<(taskName: string)=>void>();
+    this.showVisual_subscribers = Array<(isshow: boolean)=>void>();
 
     this.rightPaneStat = true;
     this.leftPaneStat = true;
@@ -88,6 +91,17 @@ export class CraftService {
     this.taskName = taskName;
     this.globalService.setTaskName(taskName);
     this.taskName_subscribers.forEach(fn => fn(taskName));
+  }
+  bookVisualStat(update: (isshow: boolean)=>void): void {
+    mydebug(this.debug_location, "bookVisualStat", 'book');
+    this.showVisual_subscribers.push(update);
+    //防止后订阅的观察者无法取得值
+    this.showVisual_subscribers.forEach(fn=>fn(this.visual_stat));
+  }
+
+  setVisualStat(isshow: boolean): void {
+    this.visual_stat = isshow;
+    this.showVisual_subscribers.forEach(fn => fn(isshow));
   }
 
   getRightPaneStat(): boolean {

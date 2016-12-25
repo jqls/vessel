@@ -74,7 +74,8 @@ export class InMemoryDataService implements InMemoryDbService {
             "id": 9
           }
         ],
-        "id": 12
+        "id": 12,
+        "visualization": false
       },
       {
         "category": "root1>child1>child2",
@@ -87,7 +88,8 @@ export class InMemoryDataService implements InMemoryDbService {
           }
         ],
         "params": [],
-        "id": 13
+        "id": 13,
+        "visualization": true
       },
       {
         "category": "root1>test1",

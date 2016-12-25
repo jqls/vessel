@@ -89,3 +89,41 @@
   transition-property: width
   -moz-transition-property: width
   -webkit-transition-property: width
+
+#visualization
+  width: 100%
+  position: absolute
+  background: rgba(0,0,0,.4)
+  min-height: 100%
+
+.front-wrapper
+  z-index: -1
+  visibility: hidden
+.show-visual
+  z-index: 2000
+  visibility: visible
+.custom-window
+  margin: auto
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  background: #fff
+  .visual-closebtn
+    background-image: url("../assets/images/icon-close.png")
+    height: 20px
+    width: 20px
+    margin: 10px 10px 5px auto
+    float: right
+    background-size: 20px 20px
+    opacity: 1
+    font-size: 21px
+    font-weight: bold
+    line-height: 1
+    color: #000
+    text-shadow: 0 1px 0 #fff
+  .visual-closebtn:hover
+    color: #000
+    text-decoration: none
+    cursor: pointer

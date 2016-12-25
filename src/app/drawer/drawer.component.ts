@@ -18,9 +18,12 @@ export class DrawerComponent implements OnInit {
     return this.selectedNode != null;
   }
   constructor(private globalService: GlobalService) {
-    // this.globalService.bookDrawerStat((active:boolean)=>{
-    //   this.drawerActive = active;
-    // });
+    this.globalService.bookDrawerStat((active:boolean)=>{
+      if(active)
+        this.activeDrawer();
+      else
+        this.inactiveDrawer();
+    });
     this.drawerActive = false;
     console.log(document.body.scrollHeight);
     this.globalService.book_workflowID((id:number)=>{

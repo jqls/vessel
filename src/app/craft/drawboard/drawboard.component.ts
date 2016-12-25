@@ -369,10 +369,11 @@ export class DrawboardComponent implements OnInit {
     return node;
   }
 
-  setParam(Param: {processor_id: number; flow_id: number; port_id: number}) {
+  setParam(Param: {processor_id: number; flow_id: number; port_id: number, visualization:boolean}) {
     this.globalService.processor_id=Param.processor_id;
     this.globalService.flow_id = Param.flow_id;
     this.globalService.port_id=Param.port_id;
+    this.globalService.visualization = Param.visualization;
   }
 
   setVisualise(visualise_func:()=>void){

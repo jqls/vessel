@@ -12,12 +12,16 @@
       <app-parameters [hidden]="!isOpenRightPane"></app-parameters>
       <i [hidden]="isOpenRightPane" class="fa fa-angle-double-left" aria-hidden="true" (click)="openRight()"></i>
     </div>
-  </div>
-  <!--<div id="bottom-btn" class="row" style="right: 40px;position: absolute;bottom: 10px;">-->
-  <!--<div class="float-xs-right">-->
-  <!--<button class="btn btn-primary" (click)="onSubmitClick()">提交运行</button>-->
-  <!--<button class="btn btn-primary" [routerLink]="['/result-show']">结果可视化</button>-->
-  <!--</div>-->
-  <!--</div>-->
-</div>
 
+    <!--可视化层-->
+    <div id="visualization" class="front-wrapper" [ngClass]="{'show-visual': show_visual}">
+      <div class="custom-window" style="width: 90%; height: 90%;">
+        <div style="width: 100%">
+          <div class="visual-closebtn" (click)="onVisualClose()"></div>
+        </div>
+
+        <app-data-show [visualization]="visualization"></app-data-show>
+      </div>
+    </div>
+  </div>
+</div>

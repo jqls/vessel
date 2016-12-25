@@ -6,6 +6,7 @@ import {Processor} from "../../../share/data-types";
 import {mydebug} from "../../../share/my-log";
 import {BasicDrawboardNode, ELEMENT_WIDTH, ELEMENT_HEIGHT} from "./node-basic";
 import {ParametersType, ProcessorType, InputType, OutputType} from "../../../share/json-types";
+import {Contextmenu} from "./contextmenu";
 
 export class ProcessorNode extends BasicDrawboardNode {
 
@@ -68,12 +69,14 @@ export class ProcessorNode extends BasicDrawboardNode {
 
     count = 0;
     this.nodetype.outputs.forEach(output => {
+      let outputMenu:Contextmenu = new Contextmenu();
       count += 1;
       let cx = ELEMENT_WIDTH * count / (1 + output_num);
       let cy = ELEMENT_HEIGHT;
       output.cx = cx;
       output.cy = cy;
-      this.groupContainer.append("circle")
+      let circle = this.groupContainer.append("circle");
+      circle
         .attr("cx", cx)
         .attr("cy", cy)
         .attr("r", "4")
@@ -99,6 +102,18 @@ export class ProcessorNode extends BasicDrawboardNode {
               this.portDragHandler(output);
             })
         );
+      outputMenu.addItem("可视化", () => {
+        console.log("可视化");
+        let Param = {
+          processor_id: this.nodetype.id,
+          flow_id: this.flowID,
+          port_id: output.id,
+          visualization: this.nodetype.visualization
+        };
+        this.board.setParam(Param);
+        this.board.gotoVisulise();
+      });
+      outputMenu.addClickMenu(circle);
 
       this.menu.addItem2({
         key: "Output-" + count, // +output.id
@@ -111,25 +126,14 @@ export class ProcessorNode extends BasicDrawboardNode {
             let Param = {
               processor_id: this.nodetype.id,
               flow_id: this.flowID,
-              port_id: output.id
+              port_id: output.id,
+              visualization: this.nodetype.visualization
             };
             this.board.setParam(Param);
             this.board.gotoVisulise();
           }
         }]
       });
-
-      this.outputMenu.addItem("可视化", () => {
-        console.log("可视化");
-        let Param = {
-          processor_id: this.nodetype.id,
-          flow_id: this.flowID,
-          port_id: output.id
-        };
-        this.board.setParam(Param);
-        this.board.gotoVisulise();
-      });
-      this.outputMenu.addClickMenu(this.groupContainer.select(".output"));
     });
 
 
@@ -207,8 +211,8 @@ export class ProcessorNode extends BasicDrawboardNode {
       copyElements.flowID = this.board.flowIDCounter;
       this.board.flowIDCounter += 1;
       copyElements.board = this.board;
-      copyElements.cx = x+20;
-      copyElements.cy = y+20;
+      copyElements.cx = x + 20;
+      copyElements.cy = y + 20;
       copyElements.groupContainer = copyElements.board.container.append("g");
       copyElements.setCenterPosition({'x': x, 'y': y});
       copyElements.relations = [];

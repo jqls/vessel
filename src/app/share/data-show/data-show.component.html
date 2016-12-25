@@ -1,5 +1,5 @@
-<div id="data-show">
-  <div class="col-md-3">
+<div id="data-show" *ngIf="visualization">
+  <div class="col-md-3 left-col">
     <!--<div id="task">-->
     <!--<div>-->
     <!--<h5>任务文件列表:</h5>-->
@@ -20,10 +20,21 @@
         <button class="btn" (click)="setType(3)">拓扑图</button>
       </div>
     </div>
-
+    <div class="table-wrapper">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+        </tr>
+        <tr *ngFor="let data of datas">
+          <td>{{data.NAME}}</td>
+          <td>{{data.VAL}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 
-  <div class="col-md-8" [ngSwitch]="type">
+  <div class="col-md-8 right-col" [ngSwitch]="type">
     <div id="main" style="height:600px;width: 1000px; margin-left: 10px;float: left;">
       <app-bar *ngSwitchCase="1" [data]="dataJSON"></app-bar>
       <app-pie *ngSwitchCase="2" [data]="dataJSON"></app-pie>
@@ -31,5 +42,13 @@
     </div>
   </div>
 
-
+</div>
+<div id="table-show" *ngIf="!visualization">
+  <div class="table-wrapper">
+    <table>
+      <tr *ngFor="let data of datas">
+        <td *ngFor="let item of (data.table_value)">{{item}}</td>
+      </tr>
+    </table>
+  </div>
 </div>

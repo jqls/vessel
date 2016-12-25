@@ -13,6 +13,7 @@ import {LogComponent} from './log/log.component';
 import {TemplateComponent} from './toolbox/template/template.component';
 import { RunHistoryComponent } from './run-history/run-history.component';
 import { TemplateItemComponent } from './toolbox/template-item/template-item.component';
+import {DataShowModule} from "../share/data-show/data-show.module";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { TemplateItemComponent } from './toolbox/template-item/template-item.com
     FormsModule,
     ReactiveFormsModule,
     CraftRoutingModule,
-    DynamicFormModule
+    DynamicFormModule,
+    DataShowModule
   ],
   declarations: [
     CraftComponent,

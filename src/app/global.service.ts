@@ -8,8 +8,7 @@ import {WorkflowNode} from "./craft/drawboard/internal/node-basic";
 export class GlobalService {
   private debug_location: string = "GlobalService";
   private taskName: string;
-  //todo:好像暂时不需要
-  // private da_subscribers: Array<(active: boolean)=>void>;
+  private da_subscribers: Array<(active: boolean)=>void>;
   private navepane_subscribers: Array<(stat: boolean) => void>;
   private navepaneStat: boolean;
   private submit_hook: () => void;
@@ -21,10 +20,11 @@ export class GlobalService {
   processor_id: number;
   flow_id: number;
   port_id: number;
+  visualization: boolean;
 
   constructor(private http: Http) {
     this.navepane_subscribers = Array<(stat: boolean) => void>();
-    // this.da_subscribers = Array<(active: boolean)=>void>();
+    this.da_subscribers = Array<(active: boolean)=>void>();
     this.workflow_subscribers = Array<(id: number) => void>();
   }
 
@@ -64,13 +64,13 @@ export class GlobalService {
     return this.selectedNode;
   }
 
-  // bookDrawerStat(update: (active: boolean)=>void): void {
-  //   mydebug(this.debug_location, "bookSelectedNodeType", 'book');
-  //   this.da_subscribers.push(update);
-  // }
-  // setDrawerStat(active: boolean): void{
-  //   this.da_subscribers.forEach(fn=>fn(active));
-  // }
+  bookDrawerStat(update: (active: boolean)=>void): void {
+    mydebug(this.debug_location, "bookSelectedNodeType", 'book');
+    this.da_subscribers.push(update);
+  }
+  setDrawerStat(active: boolean): void{
+    this.da_subscribers.forEach(fn=>fn(active));
+  }
 
   bookSubmit(submit: () => void) {
     this.submit_hook = submit;
