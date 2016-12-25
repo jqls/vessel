@@ -56,11 +56,11 @@ export class ParametersComponent implements OnInit {
 
   onSubmit() {
     mydebug(this.debug_location, "onSubmit", "update parameters");
-    let node = this.selectedNode;
     // node = node instanceof AlgorithmNode ?
     //   (<AlgorithmNode>this.selectedNode) :
     //   null;
-    node = <ProcessorNode>this.selectedNode;
+    let node = <ProcessorNode>this.selectedNode;
+    console.log(node);
     if (node != null && node.nodetype.parameters != [])
       node.nodetype.parameters.forEach(parameter => {
         parameter.value = this.form.value[parameter.key];

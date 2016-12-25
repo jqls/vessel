@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   isDebug: true,
-  isMock: false,
+  isMock: true,
   URL_Spark: "http://10.5.0.222:8080/workflow/processor/0",
   URL_Spark_mock: "app/spark_data",
   URL_Spark_redraw_mock: "app/redraw",
@@ -19,5 +19,5 @@ export const environment = {
   URL_Spark_Workflow_History:"http://10.5.0.222:8080/workflow/workflow/?workflow_id=0",
   //完整版GET http://10.5.0.222:8080/workflow/workflow/
   URL_Spark_visualisation: "http://10.5.0.222:8080/dispatcher/visualization/",
-  URL_Spark_processor_stat: "http://10.5.0.222:8080/dispatcher/processor_status/",
+  URL_Spark_processor_stat: "http://10.5.0.222:8080/dispatcher/processor_status/",//24-66
 };

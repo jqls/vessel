@@ -29,6 +29,7 @@ export type ParameterType = {
   order?: number,
   type?: string,
   options?: string[],
+  filelist?: {file_name: string,file_id: number}[],
   description?: string
 }
 //参数的完整格式
@@ -43,7 +44,8 @@ export type ParametersType = {
   key: string,
   value: string,
   label: string,
-  choices?: string[]
+  choices?: string[],
+  filelist?: {file_name: string,file_id: number}[],
 }
 
 export type SubmitType = {

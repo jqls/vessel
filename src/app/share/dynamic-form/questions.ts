@@ -50,11 +50,22 @@ export class TextboxQuestion extends QuestionBase<string> {
     this.type = options['type'] || '';
   }
 }
-/*
- Copyright 2016 Google Inc. All Rights Reserved.
- Use of this source code is governed by an MIT-style license that
- can be found in the LICENSE file at http://angular.io/license
- */
+export class FilelistQuestion extends QuestionBase<string> {
+  controlType = 'filelist';
+  options: {key: string, value: string}[] = [];
+
+  constructor(options: {} = {}) {
+    super(options);
+    console.log(options['filelist']);
+    this.options = options['filelist'].map(item=>{
+      return {
+        key: ""+item.file_id,
+        value: item.file_name
+      }
+      }) || [];
+  }
+}
+
 
 // export class PasswordQuestion extends QuestionBase<string> {
 //   controlType = 'password';

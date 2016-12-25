@@ -27,7 +27,8 @@ export class Processor {
       newPara['value'] = param.value;
       newPara['controlType'] = param.controlType;
       newPara['required'] = param.required;
-      newPara['options'] = param.choices
+      newPara['options'] = param.choices;
+      newPara['filelist'] = param.filelist;
       newPara['description'] = param.description;
       newPara['order'] = 1;
       mydebug(this.debug_location, "constructor", JSON.stringify(newPara));

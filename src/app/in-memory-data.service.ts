@@ -50,6 +50,28 @@ export class InMemoryDataService implements InMemoryDbService {
             ],
             "optional": true,
             "id": 20
+          },
+          {
+            "parameterType": "filelist",
+            "description": "",
+            "hint": "",
+            "required": true,
+            "value": "",
+            "label": "file",
+            "controlType": "filelist",
+            "key": "file",
+            "filelist": [
+              {
+                "file_name": "KDDCUP99_train",
+                "file_id": 1
+              },
+              {
+                "file_name": "KDDCUP99_test",
+                "file_id": 2
+              },
+            ],
+            "optional": true,
+            "id": 9
           }
         ],
         "id": 12
@@ -249,7 +271,16 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ];
     let visualise = ["multihop,102", "loadmodule,86", "ftp_write,4477", "guess_passwd,41581", "rootkit,245", "phf,14910", "spy,5255", "warezclient,650", "nmap,9690", "back,6951", "smurf,280996", "satan,1675", "pod,3776", "buffer_overflow,214", "land,199", "imap,794", "warezmaster,39", "normal,6254", "perl,79", "teardrop,1990", "ipsweep,6293", "neptune,107719", "portsweep,46"];
-    return {spark_data, datashow_data, redraw, visualise};
+    let processor_stat = [{"processor_id": 28, "status": 3, "flow_id": "6"}, {
+      "processor_id": 28,
+      "status": 3,
+      "flow_id": "1"
+    }, {"processor_id": 29, "status": 3, "flow_id": "7"}, {
+      "processor_id": 29,
+      "status": 3,
+      "flow_id": "2"
+    }, {"processor_id": 30, "status": 3, "flow_id": "5"}, {"processor_id": 32, "status": 3, "flow_id": "8"}];
+    return {spark_data, datashow_data, redraw, visualise, processor_stat};
     //redraw:http://10.5.0.222:8080/workflow/workflow/?workflow_id=2
 
   }

@@ -1,29 +1,37 @@
 import {Injectable} from '@angular/core';
-import {QuestionBase, TextboxQuestion, DropdownQuestion, SelectQuestion} from "./questions";
+import {QuestionBase, TextboxQuestion, DropdownQuestion, SelectQuestion, FilelistQuestion} from "./questions";
 import {FormControl, Validators, FormGroup} from "@angular/forms";
 import {ParameterType} from "../json-types";
 import {mydebug} from "../my-log";
 
 @Injectable()
 export class QuestionControlService {
-private debug_location: string = "QuestionControlService";
+  private debug_location: string = "QuestionControlService";
+
   constructor() {
   }
 
   toQuestions(parameters: ParameterType[]): QuestionBase<any>[] {
     let questions: QuestionBase<any>[] = [];
     parameters.forEach((parameter: ParameterType) => {
-      mydebug(this.debug_location,"toQuestions",parameter.key);
-      mydebug(this.debug_location,"toQuestions",parameter.controlType);
+      mydebug(this.debug_location, "toQuestions", parameter.key);
+      mydebug(this.debug_location, "toQuestions", parameter.controlType);
       //todo:根据parameters的controltyoe构造对应Question类型,可根据需要添加
       questions.push(
         parameter.controlType == "selection" ? new SelectQuestion(parameter) :
         parameter.controlType == "text" ? new TextboxQuestion(parameter) :
-          null
+        parameter.controlType == "filelist" ? new FilelistQuestion(parameter) :
+        null
       );
 
     });
-    return questions.sort((a, b) => { console.log(a);console.log(a.order);console.log(b);console.log(b.order);return a.order - b.order});
+    return questions.sort((a, b) => {
+      console.log(a);
+      console.log(a.order);
+      console.log(b);
+      console.log(b.order);
+      return a.order - b.order
+    });
   }
 
   toFormGroup(questions: QuestionBase<any>[]) {
@@ -31,7 +39,7 @@ private debug_location: string = "QuestionControlService";
     // todo:需要的话加入password类型的表单
     // let isPasswdQuestion: boolean = false;
     questions.forEach(question => {
-      mydebug(this.debug_location,"toQuestions",question.key);
+      mydebug(this.debug_location, "toQuestions", question.key);
       // if (question.controlType == "password")
       //   isPasswdQuestion = true;
       group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
