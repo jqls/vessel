@@ -168,7 +168,7 @@
       <div style="padding-top: 30px">
         <div class="tab-pane " >
           <label for="InputFile" style="margin-left:20px">选择上传的算法文件：</label>
-          <input type="file" class="form-control-file" id="InputFile" name="file" aria-describedby="fileHelp"
+          <input type="file" (change)="changeListener($event)" class="form-control-file" id="InputFile" name="file" aria-describedby="fileHelp"
                  style="margin-left:20px" required>
 
           <br>
