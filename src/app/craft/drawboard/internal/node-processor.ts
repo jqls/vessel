@@ -16,7 +16,7 @@ export class ProcessorNode extends BasicDrawboardNode {
               conterPosition: {x: number, y: number},
               nodeType: Processor) {
     super(nodeType.name, flowID, board, conterPosition);
-    this.nodetype = nodeType;
+    this.nodetype = _.cloneDeep(nodeType);
 
     this.debug_location = "ProcessorNode";
   }
@@ -207,8 +207,8 @@ export class ProcessorNode extends BasicDrawboardNode {
       copyElements.flowID = this.board.flowIDCounter;
       this.board.flowIDCounter += 1;
       copyElements.board = this.board;
-      copyElements.cx = x;
-      copyElements.cy = y;
+      copyElements.cx = x+20;
+      copyElements.cy = y+20;
       copyElements.groupContainer = copyElements.board.container.append("g");
       copyElements.setCenterPosition({'x': x, 'y': y});
       copyElements.relations = [];
