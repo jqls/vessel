@@ -26,7 +26,7 @@
           <div class="form-group row">
             <label for="algorithmName" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
             <div class="col-xs-6">
-              <input class="form-control" type="text" id="algorithmName" required [(ngModel)]="algorithmPara.name" name="name"
+              <input class="form-control" type="text" id="algorithmName"  [(ngModel)]="algorithmPara.name" name="name"
                      placeholder="请输入算法名称">
             </div>
           </div>
@@ -34,7 +34,7 @@
             <label for="category" class="col-xs-1 col-form-label" style="margin-left:200px">种类：</label>
             <div class="col-xs-6">
               <input class="form-control" type="text" id="category" (click)="treeShow()" readonly="readonly" autocomplete="off"
-                     required [(ngModel)]="algorithmPara.category" name="category" placeholder="请选择">
+                      [(ngModel)]="algorithmPara.category" name="category" placeholder="请选择">
 
 
               <div class="row" id="tree"  [hidden]="submitted"
@@ -69,7 +69,7 @@
                 <div class="col-xs-6">
                   <input  class="form-control" type="text" id="label${ ind }"
                           [(ngModel)]="i.label" name="label-{{ind}}"
-                          placeholder="请输入名称" required>
+                          placeholder="请输入名称" >
                 </div>
               </div>
               <div class="form-group row">
@@ -80,6 +80,7 @@
                     <option>text</option>
                     <option>filelist</option>
                   </select>
+
                 </div>
               </div>
               <div class="form-group row">
