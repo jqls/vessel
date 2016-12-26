@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CraftService} from "./craft.service";
 import {GlobalService} from "../global.service";
 import {DataService} from "../data.service";
-import {Router} from "@angular/router";
 import {DrawboardComponent} from "./drawboard/drawboard.component";
 
 @Component({
@@ -16,8 +15,7 @@ export class CraftComponent implements OnInit {
   private show_visual: boolean;
   private visualization:boolean;
   @ViewChild(DrawboardComponent) private drawboard: DrawboardComponent;
-  constructor(private router: Router,
-              private craftService: CraftService,
+  constructor(private craftService: CraftService,
               private dataService: DataService,
               private globalService: GlobalService) {
     this.globalService.setNavpaneStat(false);
@@ -69,9 +67,11 @@ export class CraftComponent implements OnInit {
   }
   gotoVisualise(){
     this.visualization = this.globalService.visualization;
+    this.globalService.isVisual = true;
     this.craftService.setVisualStat(true);
   }
   onVisualClose(){
+    this.globalService.isVisual = false;
     this.craftService.setVisualStat(false);
   }
 }

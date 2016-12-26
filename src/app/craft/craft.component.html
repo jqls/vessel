@@ -14,7 +14,7 @@
     </div>
 
     <!--可视化层-->
-    <div id="visualization" class="front-wrapper" [ngClass]="{'show-visual': show_visual}">
+    <div id="visualization" class="front-wrapper" *ngIf="show_visual">
       <div class="custom-window" style="width: 90%; height: 90%;">
         <div style="width: 100%">
           <div class="visual-closebtn" (click)="onVisualClose()"></div>

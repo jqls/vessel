@@ -13,13 +13,13 @@
         <div class="drawertaskbar-commands">
           <ul>
             <li>
-              <div class="command-btn command-run-history"[routerLink]="['/RunHistory']">
+              <div class="command-btn command-run-history"(click)="gotoRunHistory()" [ngClass]="{'btn-disable': isVisualise}">
                 <i class="func-btn fa fa-2x fa-clock-o" aria-hidden="true"></i>
                 <p class="func-text command-text">运行历史</p>
               </div>
             </li>
             <li>
-              <div class="command-btn command-save" (click)="onSave()">
+              <div class="command-btn command-save" (click)="onSave()" [ngClass]="{'btn-disable': isVisualise}">
                 <i class="func-command fa fa-2x fa-floppy-o" aria-hidden="true"></i>
                 <p class="func-text command-text">保存流图</p>
               </div>
@@ -31,7 +31,7 @@
               <!--</div>-->
             <!--</li>-->
             <li>
-              <div class="command-btn command-save-as" (click)="onRun()">
+              <div class="command-btn command-save-as" (click)="onRun()" [ngClass]="{'btn-disable': isVisualise}">
                 <i class="func-btn fa fa-2x fa-play" aria-hidden="true"></i>
                 <p class="func-text command-text">运行</p>
               </div>

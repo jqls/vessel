@@ -22,12 +22,13 @@ export class GlobalService {
   port_id: number;
   visualization: boolean;
   hasRun: boolean;
-
+  isVisual: boolean;
   constructor(private http: Http) {
     this.navepane_subscribers = Array<(stat: boolean) => void>();
     this.da_subscribers = Array<(active: boolean)=>void>();
     this.workflow_subscribers = Array<(id: number) => void>();
     this.hasRun = false;
+    this.isVisual = false;
   }
 
   book_workflowID(update: (id: number) => void) {

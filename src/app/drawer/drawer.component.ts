@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalService} from "../global.service";
 import * as d3 from "d3";
 import {WorkflowNode} from "../craft/drawboard/internal/node-basic";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-drawer',
@@ -17,7 +18,8 @@ export class DrawerComponent implements OnInit {
     this.selectedNode = this.globalService.getSelectedNode();
     return this.selectedNode != null;
   }
-  constructor(private globalService: GlobalService) {
+  constructor(private router: Router,
+              private globalService: GlobalService) {
     this.globalService.bookDrawerStat((active:boolean)=>{
       if(active)
         this.activeDrawer();
@@ -30,7 +32,7 @@ export class DrawerComponent implements OnInit {
       this.workflow_id = id;
     });
   }
-
+  get isVisualise() {return this.globalService.isVisual}
   ngOnInit() {
   }
 
@@ -55,10 +57,19 @@ export class DrawerComponent implements OnInit {
     d3.select(".drawer-inner").style("height","60px");
   }
   onRun(){
+    if(this.isVisualise)
+      return false;
     this.globalService.run();
   }
 
   onSave(){
+    if(this.isVisualise)
+      return false;
     this.globalService.save();
+  }
+  gotoRunHistory(){
+    if(this.isVisualise)
+      return false;
+    this.router.navigate(['/RunHistory']);
   }
 }
