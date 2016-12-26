@@ -17,37 +17,38 @@ export class UploadAlgorithmComponent implements OnInit {
   paraJSON: ParaJSON;
   n = 1;
   submitted = true;
+  nodeName:string;//保存树节点名字
   algorithmPara = new AlgorithmPara();
   formData = new FormData();
   public nodes: treeNode[] = [];
- //  nodes = [
- //      {
- //          id: 1,
- //          name: 'root1',
- //          isHidden:false,
- //          children: [
- //              { id: 2, name: 'child1' ,isHidden:false,children:[]},
- //              { id: 3, name: 'child2' ,isHidden:false,children:[]},
- //              { id: 8, name: 'child3' ,isHidden:true,children:[]},
- //          ]
- //      },
- //      {
- //          id: 4,
- //          name: 'root2',
- //          isHidden:false,
- //          children: [
- //              { id: 5, name: 'child2.1' ,isHidden:false,children:[]},
- //              {
- //                  id: 6,
- //                  name: 'child2.2',
- //                  isHidden:false,
- //                  children: [
- //                      { id: 7, name: 'subsub',isHidden:true,children:[]}
- //                  ]
- //              }
- //          ]
- //      }
- //  ];
+  // nodes = [//测试用数据
+  //     {
+  //         id: 1,
+  //         name: 'root1',
+  //         isHidden:false,
+  //         children: [
+  //             { id: 2, name: 'child1' ,isHidden:false,children:[]},
+  //             { id: 3, name: 'child2' ,isHidden:false,children:[]},
+  //             { id: 8, name: 'child3' ,isHidden:true,children:[]},
+  //         ]
+  //     },
+  //     {
+  //         id: 4,
+  //         name: 'root2',
+  //         isHidden:false,
+  //         children: [
+  //             { id: 5, name: 'child2.1' ,isHidden:false,children:[]},
+  //             {
+  //                 id: 6,
+  //                 name: 'child2.2',
+  //                 isHidden:false,
+  //                 children: [
+  //                     { id: 7, name: 'subsub',isHidden:true,children:[]}
+  //                 ]
+  //             }
+  //         ]
+  //     }
+  // ];
   inputParameters: InputParameters[] = [{"name": "", "dataType": ""}];
   outputParameters: OutputParameters[] = [{"name": "", "dataType": ""}];
   parameterList: Parameters[] = [{"label": "", "parameterType": "", "description": ""}];
@@ -103,14 +104,17 @@ export class UploadAlgorithmComponent implements OnInit {
   onEvent = ($event) => {//获取树状结构所选的值
     this.submitted = true;
     var nameList = '';
+    this.nodeName='';
     this.nodePath = $event.node.path;
     for (let i = this.nodePath.length - 1; i >= 0; i--) {
       let nodeName = this.tree.treeModel.getNodeById(this.nodePath[i]);
       if (i == this.nodePath.length - 1) {
-        nameList = nodeName.data.id + nameList;
+        nameList = nodeName.data.id + nameList;//绑定到数组，传递id到后台
+        this.nodeName=nodeName.data.name + this.nodeName;//只绑定到前端显示
       }
       else {
         nameList = nodeName.data.id + ">" + nameList;
+        this.nodeName=nodeName.data.name + ">" + this.nodeName;
       }
     }
     this.algorithmPara.category = nameList;
@@ -144,5 +148,12 @@ export class UploadAlgorithmComponent implements OnInit {
       }
     }
 
+  }
+
+  inputSelect(value:string,index:number){//把selection数据转换成数组格式
+    var inputArray:string[]=value.split(",");
+    this.parameterList[index].choices=inputArray;
+    console.log(index);
+    console.log(inputArray);
   }
 }

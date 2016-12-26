@@ -34,8 +34,8 @@
             <label for="category" class="col-xs-1 col-form-label" style="margin-left:200px">种类：</label>
             <div class="col-xs-6">
               <input class="form-control" type="text" id="category" (click)="treeShow()" readonly="readonly" autocomplete="off"
-                      [(ngModel)]="algorithmPara.category" name="category" placeholder="请选择">
-
+                      [(ngModel)]="nodeName" name="category" placeholder="请选择">
+<!-- algorithmPara.category-->
 
               <div class="row" id="tree"  [hidden]="submitted"
                    style="background-color: #eceeef;margin: 0px;padding-left: 10px;border: 1px solid #eceeef">
@@ -65,9 +65,9 @@
             <fieldset>
               <legend><h6>参数{{ind+1}}</h6></legend>
               <div class="form-group row">
-                <label for="label${ ind }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
+                <label  class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
                 <div class="col-xs-6">
-                  <input  class="form-control" type="text" id="label${ ind }"
+                  <input  class="form-control" type="text" id="label-{{ind}}"
                           [(ngModel)]="i.label" name="label-{{ind}}"
                           placeholder="请输入名称" >
                 </div>
@@ -75,12 +75,14 @@
               <div class="form-group row">
                 <label class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
                 <div class="col-xs-6">
-                  <select class="form-control" [(ngModel)]="i.parameterType" name="type-{{ind}}" placeholder="请输入值类型">
+                  <select #select class="form-control" [(ngModel)]="i.parameterType" name="type-{{ind}}" placeholder="请输入值类型">
                     <option>selection</option>
                     <option>text</option>
                     <option>filelist</option>
                   </select>
-
+                  <br>
+                  <input #input *ngIf='select.value=="selection"' class="form-control" type="text" id="choices-{{ind}}"
+                          (mouseleave)="inputSelect(input.value,ind)"  placeholder="请输入selection子选项" >
                 </div>
               </div>
               <div class="form-group row">
@@ -113,8 +115,8 @@
               <div class="form-group row">
                 <label  class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
                 <div class="col-xs-6">
-                  <select class="form-control" [(ngModel)]="input.dataType" name="inputdataType-{{i}}" placeholder="请选择值类型">
-                    <option>1</option>
+                  <select class="form-control" [(ngModel)]="input.dataType" name="inputdataType-{{i}}"  placeholder="请选择值类型">
+                    <option value="1">all</option>
                   </select>
                 </div>
                 <!--<div class="col-xs-6">
@@ -147,7 +149,7 @@
                 <label  class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
                 <div class="col-xs-6">
                   <select class="form-control" [(ngModel)]="output.dataType" name="outputdataType-{{i}}" placeholder="请选择值类型">
-                    <option>1</option>
+                    <option value="1">all</option>
                   </select>
                 </div>
                 <!--
