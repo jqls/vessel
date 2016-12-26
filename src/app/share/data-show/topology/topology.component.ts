@@ -42,7 +42,7 @@ export class topologyComponent implements OnInit,OnDestroy{
     let processor_id = this.globalService.processor_id;
     let flow_id = this.globalService.flow_id;
     let port_id = this.globalService.port_id;
-    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 50";
+    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 50;
     return this.http.get(dataUrl).toPromise().then(response=>{
       //this.dataSet.push(response.json());
       this.dataSet=response.json();
