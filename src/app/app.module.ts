@@ -6,8 +6,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 // Imports for loading & configuring the in-memory web api
-  import {InMemoryWebApiModule} from 'angular2-in-memory-web-api';
-  import {InMemoryDataService}  from './in-memory-data.service';
+  //import {InMemoryWebApiModule} from 'angular2-in-memory-web-api';
+ // import {InMemoryDataService}  from './in-memory-data.service';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
@@ -26,7 +26,7 @@ import {DataShowModule} from "./share/data-show/data-show.module";
 
 @NgModule({
   imports: [
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+   // InMemoryWebApiModule.forRoot(InMemoryDataService),
 
     BrowserModule,
     FormsModule,
