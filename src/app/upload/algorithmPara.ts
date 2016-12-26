@@ -15,6 +15,7 @@ export class AlgorithmPara {
 export type Parameters={
     label:string;
     parameterType:string;
+    choices?:string[];
     description: string;
 }
 export type InputParameters={

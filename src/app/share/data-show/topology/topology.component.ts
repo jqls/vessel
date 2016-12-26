@@ -19,8 +19,7 @@ export class topologyComponent implements OnInit,OnDestroy{
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
   public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
-    "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"
-    ,"2,3,3,4,7","2,3,3,4,6777"];
+    "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"];
   //public dataSet=[];
   constructor(private http:Http){
     //this.initSvg();
