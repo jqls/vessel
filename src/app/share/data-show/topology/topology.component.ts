@@ -18,20 +18,19 @@ export class topologyComponent implements OnInit,OnDestroy{
 
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
-  public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
-    "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"];
-  //public dataSet=[];
+  // public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
+  //   "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"];
+  public dataSet=[];
   constructor(private http:Http){
-    //this.initSvg();
   }
   ngOnInit(){
     d3.select("#main").select(".plotly").remove();
-   // this.getData();
+   this.getData();
    //  this.data.then((response: DataJSON[]) => {
    //    this.dataJSON = response;
    //    this.initSvg();
    //  }).catch(this.handleError);
-    this.initSvg();
+   // this.initSvg();
   }
   getData(){//获取数据
     let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/7-63-31-2-31-50/";
