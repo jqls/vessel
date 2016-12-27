@@ -6,6 +6,7 @@ import * as d3 from "d3";
 import {nodePara,edgePara} from "./topologyPara";
 import {  Http } from "@angular/http";
 import {DataJSON} from "../data-types";
+import {GlobalService} from "../../../global.service";
 @Component({
   selector: 'topological-diagram',
   templateUrl: 'topology.component.html',
@@ -15,27 +16,33 @@ export class topologyComponent implements OnInit,OnDestroy{
 
   @Input() data: Promise<DataJSON[]>;
   dataJSON:DataJSON[];
-
+  private workflow_id: number;
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
-  public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
-    "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"
-    ,"2,3,3,4,7","2,3,3,4,6777"];
-  //public dataSet=[];
-  constructor(private http:Http){
-    //this.initSvg();
+  // public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
+  //   "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"];
+  public dataSet=[];
+  constructor(private globalService: GlobalService,private http:Http){
+    this.globalService.book_workflowID((id) => {
+      this.workflow_id = id
+    });
   }
   ngOnInit(){
     d3.select("#main").select(".plotly").remove();
-   // this.getData();
+   this.getData();
    //  this.data.then((response: DataJSON[]) => {
    //    this.dataJSON = response;
    //    this.initSvg();
    //  }).catch(this.handleError);
-    this.initSvg();
+   // this.initSvg();
   }
   getData(){//获取数据
-    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/7-63-31-2-31-50/";
+    let workflow_id = this.workflow_id;
+    let mission_id = this.globalService.mission_id;
+    let processor_id = this.globalService.processor_id;
+    let flow_id = this.globalService.flow_id;
+    let port_id = this.globalService.port_id;
+    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 50;
     return this.http.get(dataUrl).toPromise().then(response=>{
       //this.dataSet.push(response.json());
       this.dataSet=response.json();
