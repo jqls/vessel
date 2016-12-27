@@ -136,7 +136,7 @@ export class UploadManagementComponent implements OnInit {
     //
     // }
   }
-  remove(id:any){ //remove node
+  remove(id:number){ //remove node
     console.log(id);
     let nodeToDelete=this.tree.treeModel.getNodeById(id);
     if(nodeToDelete.hasChildren){
@@ -149,9 +149,10 @@ export class UploadManagementComponent implements OnInit {
       else{
         this.removeNode(nodeToDelete);
         this.tree.treeModel.update();
-        this.sendData(this.removeUrl);
+       // this.sendData(this.removeUrl);//传输删除后的整个数组
+        this.sendDeleteNode(id);//只传输删除节点的id
       }
-      //this.sendDeleteNode(nodeToDelete);
+
     }
   }
 
@@ -218,11 +219,9 @@ export class UploadManagementComponent implements OnInit {
     });
   }
 
-  sendDeleteNode(node:TreeNode){//只传送删除的节点
-    console.log(node);
-    let deleteUrl="";
-    let headers = new Headers({'Content-Type': 'application/json'});;
-    return this.http.post(deleteUrl,node,{ headers: headers, method: RequestMethod.Post }).toPromise()
+  sendDeleteNode(id:number){//只传送删除的节点
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.removeUrl,id,{ headers: headers, method: RequestMethod.Post }).toPromise()
       .then(response => {
         console.log(response);
         return (response.json());})
