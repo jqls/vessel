@@ -33,6 +33,7 @@ export class UploadManagementComponent implements OnInit {
   public node;//node parameter
   public nodeId;
   public  dataUrl="http://10.5.0.222:8080/workflow/category/";
+  private removeUrl="http://10.5.0.222:8080/workflow/category_delete/"
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
   formData = new FormData();
@@ -106,7 +107,7 @@ export class UploadManagementComponent implements OnInit {
       this.nodeId++;
       if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
       this.tree.treeModel.update();
-      this.sendData();
+      this.sendData(this.dataUrl);
 
       //$('#myModal').modal('hide');//model待完善
       // $('#myModal').on('hidden.bs.modal', function (e) {
@@ -148,7 +149,7 @@ export class UploadManagementComponent implements OnInit {
       else{
         this.removeNode(nodeToDelete);
         this.tree.treeModel.update();
-        this.sendData();
+        this.sendData(this.removeUrl);
       }
       //this.sendDeleteNode(nodeToDelete);
     }
@@ -193,11 +194,11 @@ export class UploadManagementComponent implements OnInit {
         }
 
   }
-  sendData(){//发送数据
+  sendData(Url:string){//发送数据
     let headers = new Headers({'Content-Type': 'application/json'});
     console.log("senddata");
     console.log(this.nodes);
-    return this.http.post(this.dataUrl,this.nodes,{ headers: headers, method: RequestMethod.Post }).toPromise()
+    return this.http.post(Url,this.nodes,{ headers: headers, method: RequestMethod.Post }).toPromise()
       .then(response => {
         console.log(response);
         return (response.json());})
@@ -249,7 +250,7 @@ export class UploadManagementComponent implements OnInit {
       this.nodeEdit.data.isHidden=true;
     }
 
-    this.sendData();
+    this.sendData(this.dataUrl);
   }
   changeListener(event): void {
         this.postImage(event.target);
