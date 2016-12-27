@@ -38,33 +38,39 @@ export class UploadManagementComponent implements OnInit {
   formData = new FormData();
   constructor(private http: Http) {
     this.getData();
+
   }
   ngOnInit(){
     console.log("OnInit-upload-management");
   }
   // nodes = [
-  //     {
-  //         id: 1,
-  //         name: 'root1',
-  //         isHidden:false,
-  //         children: [
-  //             { id: 2, name: 'child1' ,isHidden:false,children:[]},
-  //             { id: 3, name: 'child2' ,isHidden:false,children:[]},
-  //             { id: 8, name: 'child3' ,isHidden:false,children:[]},
-  //         ]
-  //     },
+  //     // {
+  //     //     id: 1,
+  //     //     name: 'root1',
+  //     //     isHidden:false,
+  //     //     children: [
+  //     //         { id: 2, name: 'child1' ,isHidden:false,children:[]},
+  //     //         { id: 3, name: 'child2' ,isHidden:false,children:[]},
+  //     //         { id: 8, name: 'child3' ,isHidden:false,children:[]},
+  //     //     ]
+  //     // },
   //     {
   //         id: 4,
   //         name: 'root2',
   //         isHidden:false,
   //         children: [
-  //             { id: 5, name: 'child2.1' ,isHidden:false,children:[]},
+  //             { id: 5, name: 'child2.1' ,isHidden:false,
+  //               children:[
+  //                 { id: 91, name: 'subsub',isHidden:false,children:[]},
+  //                 { id: 901, name: 'subsub',isHidden:false,children:[]}
+  //               ]},
   //             {
   //                 id: 6,
   //                 name: 'child2.2',
   //                 isHidden:false,
   //                 children: [
-  //                     { id: 7, name: 'subsub',isHidden:false,children:[]}
+  //                     { id: 71, name: 'subsub',isHidden:false,children:[]},
+  //                     { id: 801, name: 'subsub',isHidden:false,children:[]}
   //                 ]
   //             }
   //         ]
@@ -92,7 +98,8 @@ export class UploadManagementComponent implements OnInit {
       alert("名称不能为空！！！");
     }
     else {
-      this.nodeId=this.nodes.length+1;
+      this.nodeId=this.selectMaxId(this.nodes[0])+1;
+      console.log(this.nodeId);
       this.node.data.children.push(
         {id: this.nodeId, name: this.nodeName, isHidden: this.nodeIsHidden, children: []});
       console.log(this.nodeId);
@@ -163,11 +170,28 @@ export class UploadManagementComponent implements OnInit {
     return this.http.get(this.dataUrl).toPromise().then(response=>{
       this.nodes.push(response.json());
       this.tree.treeModel.update();
+      console.log(this.selectMaxId(this.nodes[0]));
       console.log("getData");
-      console.log(this.nodes.length);
-
+      console.log(this.nodes);
     })
       .catch(this.handleError);
+  }
+
+  selectMaxId(node:treeNode){//获取数组中最大的id
+    let tempID=node.id;
+    let len=node.children.length;
+        if (len == 0) {
+          return tempID;
+        }
+        else {
+          for(let i=0;i<len;i++){
+            if(tempID<this.selectMaxId(node.children[i])){
+              tempID=this.selectMaxId(node.children[i]);
+            }
+          }
+          return tempID;
+        }
+
   }
   sendData(){//发送数据
     let headers = new Headers({'Content-Type': 'application/json'});

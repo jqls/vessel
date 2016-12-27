@@ -31,7 +31,7 @@ export type treeNode={
     id:number;
     name:string;
     isHidden:boolean;
-    children:childrenNode[];
+    children:treeNode[];
 }
 export type childrenNode={
     id:number;
