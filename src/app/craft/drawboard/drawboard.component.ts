@@ -392,11 +392,14 @@ count = 0;
     this.craftService.getNodeStat().then(res=>{
       console.log("------------------getNodeStat-------------------------");
       let over = true;
+      let error = false;
       res.forEach(item=>{
         if(item.status!=3)
           over = false;
+        if(item.status==2)
+          error = true;
       });
-      if(over){
+      if(over || error){
         clearInterval(this.interval);
       }
       this.setNodestat(res);
