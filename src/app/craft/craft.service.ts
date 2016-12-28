@@ -185,6 +185,7 @@ export class CraftService {
         // console.log(res);
         // console.log(res.json());
         let response = res.json().workflow_id;
+
         console.log(response);
         if (response != null) {
           this.globalService.set_workflowID(res.json().workflow_id);
@@ -213,6 +214,8 @@ export class CraftService {
     }else{
       if (this.workflow_id != null && this.globalService.mission_id != null) {
         return this.http.get(environment.URL_Spark_processor_stat + this.workflow_id + "-" + this.globalService.mission_id).toPromise().then(response => {
+          console.log("----------------------------------");
+          console.log(response.json());
           return response.json() as NodeStat[];
         });
       } else {

@@ -15,6 +15,7 @@ export class GlobalService {
   private submitAndRun_hook: () => void;
   private selectedNode: WorkflowNode;
   private workflow_subscribers: Array<(id: number) => void>;
+  private getNodestat_hook: ()=>void;
   private workflow_id: number;
   mission_id: number;
   processor_id: number;
@@ -31,6 +32,9 @@ export class GlobalService {
     this.isVisual = false;
   }
 
+  setNodesttatHook(hook: ()=>void){
+    this.getNodestat_hook = hook;
+  }
   book_workflowID(update: (id: number) => void) {
     this.workflow_subscribers.push(update);
     this.workflow_subscribers.forEach(s => s(this.workflow_id));
@@ -108,6 +112,7 @@ export class GlobalService {
           this.hasRun = true;
         mydebug(this.debug_location, "run", JSON.stringify(response.json()));
         this.mission_id = response.json().mission_id;
+        this.getNodestat_hook();
         return response.json();
       });
     } else {
