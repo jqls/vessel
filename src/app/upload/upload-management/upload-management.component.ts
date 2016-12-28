@@ -33,38 +33,45 @@ export class UploadManagementComponent implements OnInit {
   public node;//node parameter
   public nodeId;
   public  dataUrl="http://10.5.0.222:8080/workflow/category/";
+  private removeUrl="http://10.5.0.222:8080/workflow/category_delete/"
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
   formData = new FormData();
   constructor(private http: Http) {
     this.getData();
+
   }
   ngOnInit(){
     console.log("OnInit-upload-management");
   }
   // nodes = [
-  //     {
-  //         id: 1,
-  //         name: 'root1',
-  //         isHidden:false,
-  //         children: [
-  //             { id: 2, name: 'child1' ,isHidden:false,children:[]},
-  //             { id: 3, name: 'child2' ,isHidden:false,children:[]},
-  //             { id: 8, name: 'child3' ,isHidden:false,children:[]},
-  //         ]
-  //     },
+  //     // {
+  //     //     id: 1,
+  //     //     name: 'root1',
+  //     //     isHidden:false,
+  //     //     children: [
+  //     //         { id: 2, name: 'child1' ,isHidden:false,children:[]},
+  //     //         { id: 3, name: 'child2' ,isHidden:false,children:[]},
+  //     //         { id: 8, name: 'child3' ,isHidden:false,children:[]},
+  //     //     ]
+  //     // },
   //     {
   //         id: 4,
   //         name: 'root2',
   //         isHidden:false,
   //         children: [
-  //             { id: 5, name: 'child2.1' ,isHidden:false,children:[]},
+  //             { id: 5, name: 'child2.1' ,isHidden:false,
+  //               children:[
+  //                 { id: 91, name: 'subsub',isHidden:false,children:[]},
+  //                 { id: 901, name: 'subsub',isHidden:false,children:[]}
+  //               ]},
   //             {
   //                 id: 6,
   //                 name: 'child2.2',
   //                 isHidden:false,
   //                 children: [
-  //                     { id: 7, name: 'subsub',isHidden:false,children:[]}
+  //                     { id: 71, name: 'subsub',isHidden:false,children:[]},
+  //                     { id: 801, name: 'subsub',isHidden:false,children:[]}
   //                 ]
   //             }
   //         ]
@@ -92,14 +99,15 @@ export class UploadManagementComponent implements OnInit {
       alert("名称不能为空！！！");
     }
     else {
-      this.nodeId=this.nodes.length+1;
+      this.nodeId=this.selectMaxId(this.nodes[0])+1;
+      console.log(this.nodeId);
       this.node.data.children.push(
         {id: this.nodeId, name: this.nodeName, isHidden: this.nodeIsHidden, children: []});
       console.log(this.nodeId);
       this.nodeId++;
       if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
       this.tree.treeModel.update();
-      this.sendData();
+      this.sendData(this.dataUrl);
 
       //$('#myModal').modal('hide');//model待完善
       // $('#myModal').on('hidden.bs.modal', function (e) {
@@ -128,7 +136,7 @@ export class UploadManagementComponent implements OnInit {
     //
     // }
   }
-  remove(id:any){ //remove node
+  remove(id:number){ //remove node
     console.log(id);
     let nodeToDelete=this.tree.treeModel.getNodeById(id);
     if(nodeToDelete.hasChildren){
@@ -141,9 +149,10 @@ export class UploadManagementComponent implements OnInit {
       else{
         this.removeNode(nodeToDelete);
         this.tree.treeModel.update();
-        this.sendData();
+       // this.sendData(this.removeUrl);//传输删除后的整个数组
+        this.sendDeleteNode(id);//只传输删除节点的id
       }
-      //this.sendDeleteNode(nodeToDelete);
+
     }
   }
 
@@ -163,17 +172,34 @@ export class UploadManagementComponent implements OnInit {
     return this.http.get(this.dataUrl).toPromise().then(response=>{
       this.nodes.push(response.json());
       this.tree.treeModel.update();
+      console.log(this.selectMaxId(this.nodes[0]));
       console.log("getData");
-      console.log(this.nodes.length);
-
+      console.log(this.nodes);
     })
       .catch(this.handleError);
   }
-  sendData(){//发送数据
+
+  selectMaxId(node:treeNode){//获取数组中最大的id
+    let tempID=node.id;
+    let len=node.children.length;
+        if (len == 0) {
+          return tempID;
+        }
+        else {
+          for(let i=0;i<len;i++){
+            if(tempID<this.selectMaxId(node.children[i])){
+              tempID=this.selectMaxId(node.children[i]);
+            }
+          }
+          return tempID;
+        }
+
+  }
+  sendData(Url:string){//发送数据
     let headers = new Headers({'Content-Type': 'application/json'});
     console.log("senddata");
     console.log(this.nodes);
-    return this.http.post(this.dataUrl,this.nodes,{ headers: headers, method: RequestMethod.Post }).toPromise()
+    return this.http.post(Url,this.nodes,{ headers: headers, method: RequestMethod.Post }).toPromise()
       .then(response => {
         console.log(response);
         return (response.json());})
@@ -193,11 +219,9 @@ export class UploadManagementComponent implements OnInit {
     });
   }
 
-  sendDeleteNode(node:TreeNode){//只传送删除的节点
-    console.log(node);
-    let deleteUrl="";
-    let headers = new Headers({'Content-Type': 'application/json'});;
-    return this.http.post(deleteUrl,node,{ headers: headers, method: RequestMethod.Post }).toPromise()
+  sendDeleteNode(id:number){//只传送删除的节点
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.removeUrl,id,{ headers: headers, method: RequestMethod.Post }).toPromise()
       .then(response => {
         console.log(response);
         return (response.json());})
@@ -225,7 +249,7 @@ export class UploadManagementComponent implements OnInit {
       this.nodeEdit.data.isHidden=true;
     }
 
-    this.sendData();
+    this.sendData(this.dataUrl);
   }
   changeListener(event): void {
         this.postImage(event.target);
