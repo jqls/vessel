@@ -110,7 +110,7 @@
               <div class="modules-note-lists">
                 <div class="card-lists">
                   <div class="card-item blankexperiment">
-                    <div class="blankex" [routerLink]="['/Experiment']" (click)="onClick()">
+                    <div class="blankex" (click)="onClick('/Experiment')">
                       <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
                       <p class="card-item-text">新任务</p>
                     </div>
@@ -127,7 +127,8 @@
             <div class="tab-pane note-lists" id="task2" role="tabpanel">
               <div class="card-lists">
                 <div class="card-item blankexperiment">
-                  <div class="blankex" [routerLink]="['/etl/newtask']" (click)="onClick()">
+                  <div class="blankex" (click)="onClick('/etl/newtask')">
+                    <!--[routerLink]="['/etl/newtask']"-->
                     <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
                     <p class="card-item-text">新任务</p>
                   </div>
@@ -169,7 +170,8 @@
               <div class="modules-note-lists">
                 <div class="card-lists">
                   <div class="card-item blankexperiment">
-                    <div class="blankex" [routerLink]="['/upload-algotithm']" (click)="onClick()">
+                    <div class="blankex" (click)="onClick('/upload-algotithm')">
+                      <!--[routerLink]="['/upload-algotithm']"-->
                       <i class="card-item-btn fa fa-plus fa-2x" aria-hidden="true"></i>
                       <p class="card-item-text">新任务</p>
                     </div>
