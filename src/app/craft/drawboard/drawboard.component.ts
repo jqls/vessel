@@ -240,6 +240,7 @@ export class DrawboardComponent implements OnInit {
 
   private mouseupHandler(): void {
     mydebug(this.debug_location, "mouseupHandler", 'begin');
+    this.update();
   }
 
   private zoomHandler(): void {
