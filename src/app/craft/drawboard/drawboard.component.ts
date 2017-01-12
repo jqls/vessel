@@ -133,7 +133,7 @@ export class DrawboardComponent implements OnInit {
       .attr('fill', 'transparent')
       .attr('d', 'M0,0 L0,0')
       .style("stroke-dasharray", "10 2")
-      .style('marker-end', 'url(/Experiment#mark-end-arrow)');
+      .style('marker-end', 'url(#mark-end-arrow)');
 
     this.svg
       .classed("drawboard", true);
@@ -153,7 +153,7 @@ export class DrawboardComponent implements OnInit {
 
     this.svg.on("mousedown", () => {
       console.log("drawboard-mousedwon");
-      // self.mouseDownHandler();
+      self.mouseDownHandler();
     })
       .on("mouseup", () => {
         console.log("drawboard-mouseup");
@@ -234,7 +234,8 @@ export class DrawboardComponent implements OnInit {
     //   this.craftService.setSelectedNodeType(null);
     //   this.craftService.setSelectedNode(newNode);
     // } else {
-    this.craftService.setSelectedNode(null);
+    // this.craftService.setSelectedNode(null);
+    this.container.selectAll("rect").classed("selectedalgorithm",false);
     // }
   }
 

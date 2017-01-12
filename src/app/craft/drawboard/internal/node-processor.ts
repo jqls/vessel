@@ -38,7 +38,8 @@ export class ProcessorNode extends BasicDrawboardNode {
 
   render(): void {
     super.render();
-    this.groupContainer.attr("id","node-"+this.flowID);
+    this.groupContainer.attr("id","node-"+this.flowID)
+      .on("click",()=>{this.groupContainer.select("rect").classed("selectedalgorithm",true)});
     this.groupContainer.select("rect")
       .classed("algorithm", true);
     let input_num = this.nodetype.inputs.length;
