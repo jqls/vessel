@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
-import {QuestionBase, TextboxQuestion, DropdownQuestion, SelectQuestion, FilelistQuestion} from "./questions";
+import {
+  QuestionBase, TextboxQuestion, DropdownQuestion, SelectQuestion, FilelistQuestion,
+  DatabaseQuestion
+} from "./questions";
 import {FormControl, Validators, FormGroup} from "@angular/forms";
 import {ParameterType} from "../json-types";
 import {mydebug} from "../my-log";
@@ -21,6 +24,7 @@ export class QuestionControlService {
         parameter.controlType == "selection" ? new SelectQuestion(parameter) :
         parameter.controlType == "text" ? new TextboxQuestion(parameter) :
         parameter.controlType == "filelist" ? new FilelistQuestion(parameter) :
+        parameter.controlType == "database"? new DatabaseQuestion(parameter):
         null
       );
 

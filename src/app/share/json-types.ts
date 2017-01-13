@@ -30,6 +30,7 @@ export type ParameterType = {
   type?: string,
   options?: string[],
   filelist?: {file_name: string,file_id: number}[],
+  database?: {db_name: string, db_id: number}[],
   description?: string
 }
 //参数的完整格式
@@ -46,6 +47,7 @@ export type ParametersType = {
   label: string,
   choices?: string[],
   filelist?: {file_name: string,file_id: number}[],
+  database?: {db_name: string, db_id: number}[],
 }
 
 export type SubmitType = {

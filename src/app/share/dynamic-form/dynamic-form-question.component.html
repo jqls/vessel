@@ -15,6 +15,9 @@
     <select [id]="question.key" *ngSwitchCase="'filelist'" [formControlName]="question.key">
       <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
     </select>
+    <select [id]="question.key" *ngSwitchCase="'database'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
 
   </div>
 
