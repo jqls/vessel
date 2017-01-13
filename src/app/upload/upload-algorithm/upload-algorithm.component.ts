@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, NgZone} from '@angular/core';
 import { TreeComponent} from 'angular2-tree-component';
 import { Http } from "@angular/http";
 import { AlgorithmPara,Parameters,InputParameters,OutputParameters} from "../algorithmPara";
@@ -20,6 +20,7 @@ export class UploadAlgorithmComponent implements OnInit {
   nodeName:string;//保存树节点名字
   algorithmPara = new AlgorithmPara();
   formData = new FormData();
+  private isShow=false;//用于显示正在上传
   public nodes: treeNode[] = [];
   // nodes = [//测试用数据
   //     {
@@ -49,9 +50,9 @@ export class UploadAlgorithmComponent implements OnInit {
   //         ]
   //     }
   // ];
-  inputParameters: InputParameters[] = [{"name": "", "dataType": ""}];
-  outputParameters: OutputParameters[] = [{"name": "", "dataType": ""}];
-  parameterList: Parameters[] = [{"label": "", "parameterType": "", "description": ""}];
+  //inputParameters: InputParameters[] = [{"name": "", "dataType": ""}];
+  //outputParameters: OutputParameters[] = [{"name": "", "dataType": ""}];
+ // parameterList: Parameters[] = [{"label": "", "parameterType": "", "description": ""}];
   nodePath: number[] = [];
   @ViewChild(TreeComponent)
   private tree: TreeComponent;
@@ -65,14 +66,17 @@ export class UploadAlgorithmComponent implements OnInit {
   }
 
   get diagnostic() {
-    this.algorithmPara.parameters = this.parameterList;
-    this.algorithmPara.inputs = this.inputParameters;
-    this.algorithmPara.outputs = this.outputParameters;
+    //this.algorithmPara.parameters = this.parameterList;
+    //this.algorithmPara.inputs = this.inputParameters;
+    //this.algorithmPara.outputs = this.outputParameters;
     return JSON.stringify(this.algorithmPara);
   }
 
   changeListener(event): void {
     this.postFile(event.target);
+    if(event.target.value!=null){
+      this.isShow=true;
+    }
   }
 
   postFile(inputValue: any): void {//获取文件
@@ -85,21 +89,21 @@ export class UploadAlgorithmComponent implements OnInit {
     return Promise.reject(error.message || error);
   }
 
-  addPara() {
-    this.n++;
-    this.parameterList.push({"label": "", "parameterType": "", "description": ""});
-    for (let i = this.n - 1; i >= 0; i--) {
-      console.log(this.parameterList[i].label + "**" + this.parameterList[i].parameterType);
-    }
-  }
-
-  addInputPara() {
-    this.inputParameters.push({"name": "", "dataType": ""});
-  }
-
-  addOutputPara() {
-    this.outputParameters.push({"name": "", "dataType": ""});
-  }
+  // addPara() {
+  //   this.n++;
+  //   this.parameterList.push({"label": "", "parameterType": "", "description": ""});
+  //   for (let i = this.n - 1; i >= 0; i--) {
+  //     console.log(this.parameterList[i].label + "**" + this.parameterList[i].parameterType);
+  //   }
+  // }
+  //
+  // addInputPara() {
+  //   this.inputParameters.push({"name": "", "dataType": ""});
+  // }
+  //
+  // addOutputPara() {
+  //   this.outputParameters.push({"name": "", "dataType": ""});
+  // }
 
   onEvent = ($event) => {//获取树状结构所选的值
     this.submitted = true;
@@ -126,6 +130,7 @@ export class UploadAlgorithmComponent implements OnInit {
   }
 
   getData() {//获取数据
+    console.log("up-algo getdata()")
     let dataUrl = "http://10.5.0.222:8080/workflow/category/";
     return this.http.get(dataUrl).toPromise().then(response => {
       this.nodes.push(response.json());
@@ -134,26 +139,26 @@ export class UploadAlgorithmComponent implements OnInit {
     })
       .catch(this.handleError);
   }
-
   sendFile() {
     var URL_File = `http://10.5.0.222:8080/workflow/processor/${this.diagnostic}/`;
     console.log(URL_File);
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", URL_File, true);
-    xhr.send(this.formData);
-    console.log(this.formData);
-    xhr.onload = function (e) {
-      if (this.status == 200) {
-        alert(this.responseText);
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", URL_File, true);
+      xhr.send(this.formData);
+      console.log(this.formData);
+      xhr.onload = ()=> {
+        if (xhr.status == 200) {
+          this.isShow=false;
+          alert(xhr.responseText);
+        }
       }
-    }
-
   }
 
-  inputSelect(value:string,index:number){//把selection数据转换成数组格式
-    var inputArray:string[]=value.split(",");
-    this.parameterList[index].choices=inputArray;
-    console.log(index);
-    console.log(inputArray);
-  }
+
+  // inputSelect(value:string,index:number){//把selection数据转换成数组格式
+  //   var inputArray:string[]=value.split(",");
+  //   this.parameterList[index].choices=inputArray;
+  //   console.log(index);
+  //   console.log(inputArray);
+  // }
 }

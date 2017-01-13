@@ -26,7 +26,7 @@ import {DataShowModule} from "./share/data-show/data-show.module";
 
 @NgModule({
   imports: [
-   //InMemoryWebApiModule.forRoot(InMemoryDataService),
+  // InMemoryWebApiModule.forRoot(InMemoryDataService),
 
     BrowserModule,
     FormsModule,

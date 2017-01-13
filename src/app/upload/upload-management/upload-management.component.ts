@@ -45,16 +45,16 @@ export class UploadManagementComponent implements OnInit {
     console.log("OnInit-upload-management");
   }
   // nodes = [
-  //     // {
-  //     //     id: 1,
-  //     //     name: 'root1',
-  //     //     isHidden:false,
-  //     //     children: [
-  //     //         { id: 2, name: 'child1' ,isHidden:false,children:[]},
-  //     //         { id: 3, name: 'child2' ,isHidden:false,children:[]},
-  //     //         { id: 8, name: 'child3' ,isHidden:false,children:[]},
-  //     //     ]
-  //     // },
+  //     {
+  //         id: 1,
+  //         name: 'root1',
+  //         isHidden:false,
+  //         children: [
+  //             { id: 2, name: 'child1' ,isHidden:false,children:[]},
+  //             { id: 3, name: 'child2' ,isHidden:false,children:[]},
+  //             { id: 8, name: 'child3' ,isHidden:false,children:[]},
+  //         ]
+  //     },
   //     {
   //         id: 4,
   //         name: 'root2',
@@ -105,7 +105,7 @@ export class UploadManagementComponent implements OnInit {
         {id: this.nodeId, name: this.nodeName, isHidden: this.nodeIsHidden, children: []});
       console.log(this.nodeId);
       this.nodeId++;
-      if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
+     // if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
       this.tree.treeModel.update();
       this.sendData(this.dataUrl);
 
@@ -147,10 +147,12 @@ export class UploadManagementComponent implements OnInit {
         alert("此乃根节点不能删除！！！");
       }
       else{
-        this.removeNode(nodeToDelete);
-        this.tree.treeModel.update();
-       // this.sendData(this.removeUrl);//传输删除后的整个数组
-        this.sendDeleteNode(id);//只传输删除节点的id
+        if(confirm("确定删除"+nodeToDelete.data.name+"节点？")) {
+          this.removeNode(nodeToDelete);
+          this.tree.treeModel.update();
+          // this.sendData(this.removeUrl);//传输删除后的整个数组
+          this.sendDeleteNode(id);//只传输删除节点的id
+        }
       }
 
     }
