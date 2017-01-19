@@ -38,7 +38,8 @@ export class ProcessorNode extends BasicDrawboardNode {
 
   render(): void {
     super.render();
-    this.groupContainer.attr("id","node-"+this.flowID);
+    this.groupContainer.attr("id","node-"+this.flowID)
+      .on("click",()=>{this.groupContainer.select("rect").classed("selectedalgorithm",true)});
     this.groupContainer.select("rect")
       .classed("algorithm", true);
     let input_num = this.nodetype.inputs.length;
@@ -187,8 +188,8 @@ export class ProcessorNode extends BasicDrawboardNode {
     this.board.dragLine.classed("hidden", false);
     let fromPosition = {x: 0, y: 0};
     let toPosition = {x: 0, y: 0};
-    fromPosition.x = this.cx + ELEMENT_WIDTH / 2;
-    fromPosition.y = this.cy + ELEMENT_HEIGHT / 2;
+    fromPosition.x = this.cx + output.cx;//ELEMENT_WIDTH / 2;
+    fromPosition.y = this.cy + output.cy;//ELEMENT_HEIGHT / 2;
     toPosition.x = mouseCoords[0];
     toPosition.y = mouseCoords[1];
     this.board.dragLine.attr('d', 'M' + fromPosition.x + " " + fromPosition.y + 'C' + fromPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 - 2) + ',' + ((fromPosition.x + toPosition.x) / 2 + 2) + " " + (fromPosition.y + toPosition.y) / 2 + ',' + (fromPosition.x + toPosition.x) / 2 + " " + (fromPosition.y + toPosition.y) / 2 + 'S' + toPosition.x + " " + ((fromPosition.y + toPosition.y) / 2 + 2) + ',' + toPosition.x + " " + toPosition.y);

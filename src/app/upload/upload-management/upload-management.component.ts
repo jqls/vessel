@@ -107,6 +107,7 @@ export class UploadManagementComponent implements OnInit {
       this.nodeId++;
      // if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
       this.tree.treeModel.update();
+      this.dataUrl=this.dataUrl+JSON.stringify(this.nodes[0])+'/'
       this.sendData(this.dataUrl);
 
       //$('#myModal').modal('hide');//model待完善
@@ -171,7 +172,8 @@ export class UploadManagementComponent implements OnInit {
   }
 
   getData(){//获取数据
-    return this.http.get(this.dataUrl).toPromise().then(response=>{
+    let dataUrl1="http://10.5.0.222:8080/workflow/category/0/";
+    return this.http.get(dataUrl1).toPromise().then(response=>{
       this.nodes.push(response.json());
       this.tree.treeModel.update();
       console.log(this.selectMaxId(this.nodes[0]));
@@ -197,15 +199,35 @@ export class UploadManagementComponent implements OnInit {
         }
 
   }
+  changeListener(event): void {
+    this.postImage(event.target);
+  }
+
+  postImage(inputValue: any): void {//上传图片
+    this.formData.append("image", inputValue.files[0]);
+    // var URL_Image = `http://10.5.0.222:8080/workflow/processor/${''}/`;
+    // console.log(URL_Image);
+    // var xhr = new XMLHttpRequest();
+    // xhr.open("POST", URL_Image, true);
+    // xhr.send(this.formData);
+    // console.log(this.formData);
+    // xhr.onload = function (e) {
+    //      if (this.status == 200) {
+    //           alert(this.responseText);
+    //         }
+    //     }
+  }
   sendData(Url:string){//发送数据
-    let headers = new Headers({'Content-Type': 'application/json'});
-    console.log("senddata");
-    console.log(this.nodes);
-    return this.http.post(Url,this.nodes,{ headers: headers, method: RequestMethod.Post }).toPromise()
-      .then(response => {
-        console.log(response);
-        return (response.json());})
-      .catch(this.handleError);
+    console.log(Url);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", Url, true);
+    xhr.send(this.formData);
+    console.log(this.formData);
+    xhr.onload = ()=> {
+      if (xhr.status == 200) {
+        alert(xhr.responseText);
+      }
+    }
   }
   private handleError(error: any) {
     console.error('An error occurred', error);
@@ -253,23 +275,5 @@ export class UploadManagementComponent implements OnInit {
 
     this.sendData(this.dataUrl);
   }
-  changeListener(event): void {
-        this.postImage(event.target);
-     }
 
-  postImage(inputValue: any): void {//上传图片
-      this.formData.append("image", inputValue.files[0]);
-     console.log(this.formData);
-      var URL_Image = `>>>>>>>>>>>>>>>>>`;
-      console.log(URL_Image);
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", URL_Image, true);
-      xhr.send(this.formData);
-      console.log(this.formData);
-      xhr.onload = function (e) {
-           if (this.status == 200) {
-                alert(this.responseText);
-              }
-          }
-      }
 }

@@ -25,7 +25,8 @@ export class DataShowService {
     let processor_id = this.globalService.processor_id;
     let flow_id = this.globalService.flow_id;
     let port_id = this.globalService.port_id;
-    if (!workflow_id || !mission_id || !processor_id || !flow_id || !port_id) {
+    console.log([workflow_id,mission_id,processor_id,flow_id,port_id]);
+    if (workflow_id==null || mission_id==null || processor_id==null || flow_id==null || port_id==null) {
       console.warn("error task! Visualise Parameter is not enough");
       if (!environment.isMock)
         return null;

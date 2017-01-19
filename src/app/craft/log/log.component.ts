@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {WorkflowNode} from "../drawboard/internal/node-basic";
 import {CraftService} from "../craft.service";
-import {DataService} from "../../data.service";
 import {mydebug} from "../../share/my-log";
+import {GlobalService} from "../../global.service";
 
 @Component({
   selector: 'app-log',
@@ -16,7 +16,7 @@ export class LogComponent implements OnInit {
   private output: string = "";
 
   constructor(private craftService: CraftService,
-              private dataService: DataService) {
+              private globalService: GlobalService) {
     //订阅selectedNode
     this.craftService.bookSelectedNode((node: WorkflowNode) => {
       this.selectedNode = node;
@@ -35,9 +35,10 @@ export class LogComponent implements OnInit {
   private request() {
     console.log("-----------------------------------------------");
     this.appendLineToOutput("try to connect file: test.log");
-
-    // this.dataService.getSocketAddress(this.taskName, "" + this.selectedNode.flowID).then(response => {
-      let url = "ws://10.5.0.222:8080/?id=2-43-13";//response.url;
+    if (this.craftService.hasRun) {
+      // this.dataService.getSocketAddress(this.taskName, "" + this.selectedNode.flowID).then(response => {
+      // let workflow_id = this.globalService.book_workflowID();
+      let url = "ws://10.5.0.222:8080/?id=2-43-13";//response.url;workflow_id,mission_id,flow_id
       mydebug(this.debug_location, "request", url);
       var fileSocket = new WebSocket(url);
       fileSocket.onerror = (evt) => {
@@ -54,7 +55,8 @@ export class LogComponent implements OnInit {
       fileSocket.onclose = (evt) => {
         this.appendLineToOutput("connection closed");
       };
-    // });
+      // });
+    }
   }
 
   private appendLineToOutput(newLine: string) {

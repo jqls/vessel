@@ -69,6 +69,7 @@ export class ToolboxComponent implements OnInit {
         // console.log(this.tree);
         // console.log("---------------------------2-----------------------------");
       });
+      this.tree=this.tree[0]['value'];
     });
 
     this.craftService.setSelectedNodeType(null);

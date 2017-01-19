@@ -8,7 +8,7 @@
 
 .renderable
   stroke-width: 1px
-  stroke: gray
+  stroke: #b3b3b3
 
 .dataset
   @extend .renderable
@@ -16,13 +16,18 @@
 
 .algorithm
   @extend .renderable
-  fill: lighten(red, 40%)
+  fill: lighten(white, 40%)
+
+.selectedalgorithm
+  stroke: #2086bf
+  stroke-width:  2px
 
 .hidden
   stroke-width: 0px
 
-.selected
-  stroke: yellow
+.selected rect
+  stroke: gray
+  stroke-width: 2px
 
 $menu-background: lighten(forestgreen, 30%)
 

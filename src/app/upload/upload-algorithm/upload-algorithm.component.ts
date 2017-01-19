@@ -131,7 +131,7 @@ export class UploadAlgorithmComponent implements OnInit {
 
   getData() {//获取数据
     console.log("up-algo getdata()")
-    let dataUrl = "http://10.5.0.222:8080/workflow/category/";
+    let dataUrl = "http://10.5.0.222:8080/workflow/category/0/";
     return this.http.get(dataUrl).toPromise().then(response => {
       this.nodes.push(response.json());
       this.tree.treeModel.update();

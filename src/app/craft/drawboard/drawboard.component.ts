@@ -8,7 +8,7 @@ import {mydebug} from "../../share/my-log";
 import {DataService} from "../../data.service";
 import {
   SubmitType, Workflow_data_all, reRender_Parameter, reRender_Connections,
-  reRender_Nodes, ConnectionType, OutputType, NodeStat
+  reRender_Nodes, ConnectionType, OutputType, NodeStat, InputType
 } from "../../share/json-types";
 import {ProcessorNode} from "./internal/node-processor";
 import {GlobalService} from "../../global.service";
@@ -52,9 +52,18 @@ export class DrawboardComponent implements OnInit {
   private workflow_id: number;
   private visualise_func: () => void;
   private interval;
+
   constructor(private craftService: CraftService,
               private globalService: GlobalService,
               private dataService: DataService) {
+    this.globalService.setNodesttatHook(() => {
+      this.workflowNodes.forEach(node=>{
+        node.groupContainer.select(".nodeStatus").select("image").attr("href", "../assets/images/icon-notstarted.svg");
+      });
+      this.interval = setInterval(() => {
+        this.getNodeStat()
+      }, 5000);//5s一次
+    });
     this.craftService.drawboard = this;
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
@@ -123,8 +132,8 @@ export class DrawboardComponent implements OnInit {
       .attr('class', 'hidden path')
       .attr('fill', 'transparent')
       .attr('d', 'M0,0 L0,0')
-      .style("stroke-dasharray","10 2")
-      .style('marker-end', 'url(/Experiment#mark-end-arrow)');
+      .style("stroke-dasharray", "10 2")
+      .style('marker-end', 'url(#mark-end-arrow)');
 
     this.svg
       .classed("drawboard", true);
@@ -144,7 +153,7 @@ export class DrawboardComponent implements OnInit {
 
     this.svg.on("mousedown", () => {
       console.log("drawboard-mousedwon");
-      // self.mouseDownHandler();
+      self.mouseDownHandler();
     })
       .on("mouseup", () => {
         console.log("drawboard-mouseup");
@@ -175,7 +184,8 @@ export class DrawboardComponent implements OnInit {
         })
     );
   }
-count = 0;
+
+  count = 0;
   //todo：如要需要，在此添加键盘事件
   private keyDown(): void {
     this.lastKeyDown = d3.event['keyCode'];
@@ -191,6 +201,7 @@ count = 0;
       case this.constants.ENTER_KEY:
         this.setNodestat([{processor_id: 28, status: this.count, flow_id: 0}]);
         this.count = (this.count++) % 4;
+        console.log(this.count);
         break;
     }
   }
@@ -223,12 +234,14 @@ count = 0;
     //   this.craftService.setSelectedNodeType(null);
     //   this.craftService.setSelectedNode(newNode);
     // } else {
-      this.craftService.setSelectedNode(null);
+    // this.craftService.setSelectedNode(null);
+    this.container.selectAll("rect").classed("selectedalgorithm",false);
     // }
   }
 
   private mouseupHandler(): void {
     mydebug(this.debug_location, "mouseupHandler", 'begin');
+    this.update();
   }
 
   private zoomHandler(): void {
@@ -299,7 +312,7 @@ count = 0;
 
     let paths: ConnectionType[] = [];
     this.relations.map((relation) => {
-      let path:ConnectionType = {
+      let path: ConnectionType = {
         from: {
           flow_id: relation.from.flowID,
           processor_id: relation.from.nodetype.id,
@@ -320,7 +333,7 @@ count = 0;
       }),
       connections: paths
     };
-    this.interval = setInterval(()=>{this.getNodeStat()},3000);//3s一次
+
     return JSON.stringify(submitType);
   }
 
@@ -359,7 +372,7 @@ count = 0;
       console.log("from: " + from + "\nto: " + to);
       let fromNode = this.findNodeByFlowID(+from);
       let toNode = this.findNodeByFlowID(+to);
-      let relation = new Relation(this, fromNode, toNode,path.output,path.input);
+      let relation = new Relation(this, fromNode, toNode, this.findOutputById(path.output.id, fromNode), this.findInputById(path.input.id, toNode));
       fromNode.relations.push(relation);
       toNode.relations.push(relation);
       this.relations.push(relation);
@@ -374,53 +387,63 @@ count = 0;
     return node;
   }
 
-  setParam(Param: {processor_id: number; flow_id: number; port_id: number, visualization:boolean}) {
-    this.globalService.processor_id=Param.processor_id;
+  findInputById(id: number, node: WorkflowNode): InputType {
+    return node.nodetype.inputs.filter(item => item.id == id)[0];
+  }
+
+  findOutputById(id: number, node: WorkflowNode): OutputType {
+    return node.nodetype.outputs.filter(item => item.id == id)[0];
+  }
+
+  setParam(Param: {processor_id: number; flow_id: number; port_id: number, visualization: boolean}) {
+    this.globalService.processor_id = Param.processor_id;
     this.globalService.flow_id = Param.flow_id;
-    this.globalService.port_id=Param.port_id;
+    this.globalService.port_id = Param.port_id;
     this.globalService.visualization = Param.visualization;
   }
 
-  setVisualise(visualise_func:()=>void){
+  setVisualise(visualise_func: () => void) {
     this.visualise_func = visualise_func;
   }
+
   gotoVisulise() {
     this.visualise_func();
   }
 
-  getNodeStat(){
-    this.craftService.getNodeStat().then(res=>{
+  getNodeStat() {
+    this.craftService.getNodeStat().then(res => {
       console.log("------------------getNodeStat-------------------------");
       let over = true;
       let error = false;
-      res.forEach(item=>{
-        if(item.status!=3)
+      res.forEach(item => {
+        if (item.status != 3)
           over = false;
-        if(item.status==2)
+        if (item.status == 2)
           error = true;
       });
-      if(over || error){
+      if (over || error) {
         clearInterval(this.interval);
       }
       this.setNodestat(res);
     });
   }
-  setNodestat(stat:NodeStat[]){
-    stat.forEach(item=>{
-      let temp = d3.select("#node-"+item.flow_id).select(".nodeStatus").select("image");
-      console.log(temp);
-      switch(item.status){
+
+  setNodestat(stat: NodeStat[]) {
+    stat.forEach(item => {
+      let temp = d3.select("#node-" + item.flow_id).select(".nodeStatus").select("image");
+      console.log(temp.node());
+      switch (item.status) {
         case 0:
-          temp.attr("href","../assets/images/icon-notstarted.svg");
+          temp.attr("href", "../assets/images/icon-notstarted.svg");
           break;
         case 1:
-          temp.attr("href","../assets/images/Processing.gif");
+          temp.attr("href", "../assets/images/Processing.gif");
           break;
         case 2:
-          temp.attr("href","../assets/images/icon-error.png");
+          temp.attr("href", "../assets/images/icon-error.png");
           break;
         case 3:
-          temp.attr("href","../assets/images/icon-complete.svg");
+          temp.attr("href", "../assets/images/icon-complete.svg");
           break;
 
       }

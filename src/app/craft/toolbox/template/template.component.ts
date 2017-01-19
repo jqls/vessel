@@ -19,6 +19,7 @@ export class TemplateComponent implements OnInit {
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
       this.selectedNodeType = nodeType;
     });
+    console.log(this.data);
   }
 
   ngOnInit() {
