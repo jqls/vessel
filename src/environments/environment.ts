@@ -14,10 +14,10 @@ export const environment = {
   URL_Spark_redraw: "http://10.5.0.222:8080/workflow/workflow/?workflow_id=",
   dataAnalysisServer: "10.5.0.224:5000",
   URL_Spark_RUN_HISTORY: "http://10.5.0.222:8080/workflow/mission/0/?workflow_id=",
-  URL_Spark_log: "http://10.5.0.222:8080/processinformation?",
   URL_Spark_save:"http://10.5.0.222:8080/workflow/workflow/",//POST
   URL_Spark_Workflow_History:"http://10.5.0.222:8080/workflow/workflow/?workflow_id=0",
   //完整版GET http://10.5.0.222:8080/workflow/workflow/
   URL_Spark_visualisation: "http://10.5.0.222:8080/dispatcher/visualization/",
   URL_Spark_processor_stat: "http://10.5.0.222:8080/dispatcher/get_processor_status/",//24-66
+  URL_Spark_SQL: "http://10.5.0.222:8080/workflow/sql/"
 };

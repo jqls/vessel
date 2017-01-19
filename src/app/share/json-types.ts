@@ -5,7 +5,8 @@ export type NodeType = {
   outputs: OutputType[],
   params: ParametersType[],
   id: number,
-  visualization: boolean
+  visualization: boolean,
+  ac_id: number
 }
 export type OutputType = {
   processor_id: number,
@@ -29,9 +30,10 @@ export type ParameterType = {
   order?: number,
   type?: string,
   options?: string[],
-  filelist?: {file_name: string,file_id: number}[],
+  filelist?: {file_name: string, file_id: number}[],
   database?: {db_name: string, db_id: number}[],
-  description?: string
+  description?: string,
+  stage?: number,
 }
 //参数的完整格式
 export type ParametersType = {
@@ -46,8 +48,10 @@ export type ParametersType = {
   value: string,
   label: string,
   choices?: string[],
-  filelist?: {file_name: string,file_id: number}[],
+  filelist?: {file_name: string, file_id: number}[],
   database?: {db_name: string, db_id: number}[],
+  stage?: number,
+  belong_to ?: string,
 }
 
 export type SubmitType = {
@@ -64,7 +68,7 @@ export type ProcessorType ={
   loc_y?: number
 }
 export type FromToType={
-  processor_id:number,
+  processor_id: number,
   id: number,
   flow_id: number
 }
@@ -115,6 +119,48 @@ export type reRender_Nodes={
 }
 export type NodeStat = {
   processor_id: number,
-  status:number, //0:未执行,1:正在执行,2:执行错误,3:执行完成
-  flow_id:number
+  status: number, //0:未执行,1:正在执行,2:执行错误,3:执行完成
+  flow_id: number
+}
+
+export type DatabaseRequest1_Para = {
+  host: string,
+  port: string,
+  user: string,
+  password: string,
+  dbase: string
+}
+export type DatabaseRequest1 = {
+  ac_id: number;
+  db_id: number;
+  parameters: DatabaseRequest1_Para
+}
+
+export type DatabaseRequest2_Para = {
+  host: string,
+  port: string,
+  user: string,
+  password: string,
+  dbase: string,
+  tablelist:string
+}
+export type DatabaseRequest2 = {
+  ac_id: number;
+  db_id: number;
+  parameters: DatabaseRequest2_Para
+}
+
+export type DatabaseRequest3_Para = {
+  host: string,
+  port: string,
+  user: string,
+  password: string,
+  dbase: string,
+  table_name:string,
+  columnlist: string[]
+}
+export type DatabaseRequest3 = {
+  ac_id: number;
+  db_id: number;
+  parameters: DatabaseRequest2_Para
 }

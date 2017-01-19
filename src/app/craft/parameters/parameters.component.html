@@ -19,7 +19,7 @@
       <form *ngIf="selectedNode!=null" [formGroup]="form"
             class="form-horizontal">
         <app-df-question *ngFor="let question of questions" [question]="question"
-                         [form]="form" (change)="onSubmit()"></app-df-question>
+                         [form]="form" (change)="onSubmit(question)"></app-df-question>
       </form>
       <form *ngIf="selectedRelation!=null" (ngSubmit)="onSubmit()" [formGroup]="form"
             class="form-horizontal">
