@@ -41,6 +41,17 @@ export class SelectQuestion extends QuestionBase<string> {
     this.options = options['options'] || [];
   }
 }
+
+export class MultiSelectQuestion extends QuestionBase<string> {
+  controlType = 'multiselect';
+  options: string[] = [];
+
+  constructor(options: {} = {}) {
+    super(options);
+    this.options = options['options'] || [];
+  }
+}
+
 export class DatabaseQuestion extends QuestionBase<string> {
   controlType = 'database';
   options: {key: string, value: string}[] = [];
