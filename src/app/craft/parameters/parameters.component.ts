@@ -104,8 +104,8 @@ export class ParametersComponent implements OnInit {
     if (tempPara.stage < this.sql_stage) {
       this.selectedNode.nodetype.parameters = this.selectedNode.nodetype.parameters.filter((item) => item.stage <= tempPara.stage);
       this.parameters = this.selectedNode.nodetype.parameters;
-      console.warn(this.selectedNode.nodetype.parameters);
-      console.warn(this.parameters);
+      // console.warn(this.selectedNode.nodetype.parameters);
+      // console.warn(this.parameters);
       this.questions = this.qcs.toQuestions(this.parameters);
       // console.log(this.questions);
       this.form = this.qcs.toFormGroup(this.questions);
@@ -161,8 +161,8 @@ export class ParametersComponent implements OnInit {
 
         });
         // console.log(this.selectedNode.nodetype.parameters);
-        console.warn(this.selectedNode.nodetype.parameters);
-        console.warn(this.parameters);
+        // console.warn(this.selectedNode.nodetype.parameters);
+        // console.warn(this.parameters);
         this.questions = this.qcs.toQuestions(this.parameters);
         // console.log(this.questions);
         this.form = this.qcs.toFormGroup(this.questions);
@@ -223,7 +223,7 @@ export class ParametersComponent implements OnInit {
 
           this.craftService.onDatabaseAttrSet(content)
             .then(res => {
-              console.warn(res);
+              // console.warn(res);
               if(!res.table_list)
                 d3.select('#errorMessage').text(res);
               else{
