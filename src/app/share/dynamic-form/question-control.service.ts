@@ -35,10 +35,6 @@ export class QuestionControlService {
 
     });
     return questions.sort((a, b) => {
-      console.log(a);
-      console.log(a.order);
-      console.log(b);
-      console.log(b.order);
       return a.order - b.order
     });
   }

@@ -1,18 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {CraftService} from "../craft.service";
-import {WorkflowNode} from "../drawboard/internal/node-basic";
-import {Relation} from "../drawboard/internal/relation";
-import {mydebug} from "../../share/my-log";
-import {QuestionControlService} from "../../share/dynamic-form/question-control.service";
+import { Component, OnInit } from '@angular/core';
+import { CraftService } from "../craft.service";
+import { WorkflowNode } from "../drawboard/internal/node-basic";
+import { Relation } from "../drawboard/internal/relation";
+import { mydebug } from "../../share/my-log";
+import { QuestionControlService } from "../../share/dynamic-form/question-control.service";
 import { QuestionBase } from "../../share/dynamic-form/questions";
-import {FormGroup} from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import {
   ParameterType, ParametersType, DatabaseRequest1, DatabaseRequest1_Para,
   DatabaseRequest2_Para, DatabaseRequest2
 } from "../../share/json-types";
-import {ProcessorNode} from "../drawboard/internal/node-processor";
-import {handleError} from "../../share/my-handler";
-
+import { ProcessorNode } from "../drawboard/internal/node-processor";
+import { handleError } from "../../share/my-handler";
+import * as d3 from "d3";
 @Component({
   selector: 'app-parameters',
   templateUrl: './parameters.component.html',
@@ -44,6 +44,7 @@ export class ParametersComponent implements OnInit {
     dbase: null,
     tablelist: null
   }
+
   constructor(private craftService: CraftService,
               private qcs: QuestionControlService) {
     //订阅selectedNode和selectedRelation
@@ -88,18 +89,30 @@ export class ParametersComponent implements OnInit {
     //   });
 
     //单节点更新
-    if (node != null) {
-      let key = question.key;
-      let tempPara = node.nodetype.parameters.filter(parameter => parameter.key == key)[0];
-      tempPara.value = this.form.value[key];
-      // console.log(question.value);
-      question.value = tempPara.value;
-      // console.log(question.value);
+    // if (node != null) {
+    let key = question.key;
+    let tempPara = node.nodetype.parameters.filter(parameter => parameter.key == key)[0];
+    tempPara.value = this.form.value[key];
+    // console.log(question.value);
+    question.value = tempPara.value;
+    // console.log(question.value);
 
-    }
+    // }
     console.log("sql stage------------------------");
     console.log(this.sql_stage);
-    switch(this.sql_stage){
+    console.log(tempPara.stage);
+    if (tempPara.stage < this.sql_stage) {
+      this.selectedNode.nodetype.parameters = this.selectedNode.nodetype.parameters.filter((item) => item.stage <= tempPara.stage);
+      this.parameters = this.selectedNode.nodetype.parameters;
+      console.warn(this.selectedNode.nodetype.parameters);
+      console.warn(this.parameters);
+      this.questions = this.qcs.toQuestions(this.parameters);
+      // console.log(this.questions);
+      this.form = this.qcs.toFormGroup(this.questions);
+      // console.log(this.form);
+    }
+    console.log("--------excuse-------");
+    switch (tempPara.stage) {
       case 0:
         if (question.controlType == "database")
           this.onDatabaseParaSet(question);
@@ -148,6 +161,8 @@ export class ParametersComponent implements OnInit {
 
         });
         // console.log(this.selectedNode.nodetype.parameters);
+        console.warn(this.selectedNode.nodetype.parameters);
+        console.warn(this.parameters);
         this.questions = this.qcs.toQuestions(this.parameters);
         // console.log(this.questions);
         this.form = this.qcs.toFormGroup(this.questions);
@@ -178,7 +193,7 @@ export class ParametersComponent implements OnInit {
       let database_para = this.selectedNode.nodetype.parameters.filter(item => item.controlType == "database")[0];
       content['db_id'] = database_para.database.filter(item => item.db_name == this.selectDBName)[0].db_id;
       content['parameters'] = this.databaseRequestTable;
-      this.craftService.getDatabaseTable(this.selectDBName,this.selectedNode.nodetype.id)
+      this.craftService.getDatabaseTable(this.selectDBName, this.selectedNode.nodetype.id)
         .then(res => {
           console.log(res);
           // console.log(JSON.stringify(res));
@@ -207,20 +222,26 @@ export class ParametersComponent implements OnInit {
           });
 
           this.craftService.onDatabaseAttrSet(content)
-            .then(res=>{
-              console.log(newParamster);
-              newParamster.options = res.table_list;
-              // console.log(this.selectedNode.nodetype.parameters);
-              this.questions = this.qcs.toQuestions(this.parameters);
-              // console.log(this.questions);
-              this.form = this.qcs.toFormGroup(this.questions);
-              // console.log(this.form);
+            .then(res => {
+              console.warn(res);
+              if(!res.table_list)
+                d3.select('#errorMessage').text(res);
+              else{
+                d3.select('#errorMessage').text('');
+                console.log(newParamster);
+                newParamster.options = res.table_list;
+                // console.log(this.selectedNode.nodetype.parameters);
+                this.questions = this.qcs.toQuestions(this.parameters);
+                // console.log(this.questions);
+                this.form = this.qcs.toFormGroup(this.questions);
+                // console.log(this.form);
+              }
             });
         }).catch(handleError);
     }
   }
 
-  setTable(key: string, value: string){
+  setTable(key: string, value: string) {
     let newPatameter;
     this.databaseRequestColum[key] = value;
     console.log(JSON.stringify(this.databaseRequestTable));
@@ -231,7 +252,7 @@ export class ParametersComponent implements OnInit {
         tag = false;
     }
     console.log(this.databaseRequestTable);
-    if(tag){
+    if (tag) {
       let content: DatabaseRequest2 = {
         ac_id: null,
         db_id: null,
@@ -242,7 +263,7 @@ export class ParametersComponent implements OnInit {
       content['db_id'] = database_para.database.filter(item => item.db_name == this.selectDBName)[0].db_id;
       content['parameters'] = this.databaseRequestColum;
 
-      this.craftService.getDatabaseColum(this.selectDBName,this.selectedNode.nodetype.id)
+      this.craftService.getDatabaseColum(this.selectDBName, this.selectedNode.nodetype.id)
         .then(res => {
           console.log(res);
           console.log(JSON.stringify(res));
@@ -271,7 +292,7 @@ export class ParametersComponent implements OnInit {
           });
 
           this.craftService.onTableSelect(content)
-            .then(res=>{
+            .then(res => {
               console.log(res.col_list);
               newPatameter.options = res.col_list;
               console.log(this.selectedNode.nodetype.parameters);
