@@ -70,13 +70,12 @@
   </div>
 </form>
 
-<!--data-backdrop="static"禁用模态框点击空白处消失-->
-<div *ngIf="isShow==true">
+<!--data-backdrop="static"禁用模态框点击空白处消失
+<div *ngIf="isShow==false" data-dismiss="modal">
 <div  class="modal" id="uploadModal" tabindex="-1"
      role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
      style="top: 150px;z-index: 10000" data-backdrop="static">
     <div class="loader">upLoading...</div>
-
 </div>
-  <button  data-dismiss="modal" class="btn btn-secondary">取消</button>
 </div>
+-->
