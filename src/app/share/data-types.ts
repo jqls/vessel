@@ -11,6 +11,7 @@ export class Processor {
   parameters: ParameterType[];
   id: number;
   visualization: boolean;
+  ac_id: number;
 
   constructor(nodeType: NodeType) {
     this.category = nodeType.category;
@@ -18,6 +19,7 @@ export class Processor {
     this.name = nodeType.name;
     this.outputs = nodeType.outputs;
     this.id = nodeType.id;
+    this.ac_id = nodeType.ac_id;
     this.parameters = [];
     this.visualization = nodeType.visualization;
     nodeType.params.forEach((param: ParametersType) => {
@@ -29,6 +31,8 @@ export class Processor {
       newPara['required'] = param.required;
       newPara['options'] = param.choices;
       newPara['filelist'] = param.filelist;
+      newPara['database'] = param.database;
+      newPara['stage'] = param.stage;
       newPara['description'] = param.description;
       newPara['order'] = 1;
       mydebug(this.debug_location, "constructor", JSON.stringify(newPara));

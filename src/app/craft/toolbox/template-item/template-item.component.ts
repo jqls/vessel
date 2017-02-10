@@ -1,11 +1,11 @@
-import {Component, OnInit, Input, AfterViewInit} from '@angular/core';
-import {WorkflowNodeType} from "../../../share/data-types";
-import {CraftService} from "../../craft.service";
-import {ProcessorNode} from "../../drawboard/internal/node-processor";
-import {ELEMENT_WIDTH} from "../../drawboard/internal/node-basic";
-import {ELEMENT_HEIGHT} from "../../../etl/newtask/drawboard/internal/node";
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+import { WorkflowNodeType } from "../../../share/data-types";
+import { CraftService } from "../../craft.service";
+import { ProcessorNode } from "../../drawboard/internal/node-processor";
+import { ELEMENT_WIDTH } from "../../drawboard/internal/node-basic";
+import { ELEMENT_HEIGHT } from "../../../etl/newtask/drawboard/internal/node";
 import * as d3 from "d3";
-import {mydebug} from "../../../share/my-log";
+import { mydebug } from "../../../share/my-log";
 
 @Component({
   selector: 'app-template-item',
@@ -15,7 +15,7 @@ import {mydebug} from "../../../share/my-log";
 export class TemplateItemComponent implements OnInit, AfterViewInit {
   @Input() data;
   private selectedNodeType: WorkflowNodeType;
-  private debug_location:string = "TemplateItemComponent";
+  private debug_location: string = "TemplateItemComponent";
   private drawboard;
   private node;
 
@@ -28,23 +28,25 @@ export class TemplateItemComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
   }
+
   ngAfterViewInit(): void {
     let self = this;
     this.drawboard = this.craftService.drawboard;
-      // console.log(d3.select("#processor-"+this.data.id).node());
-      d3.select("#processor-"+this.data.id).call(
-        d3.behavior.drag()
-          .on("drag", () => {
-            self.dragHandler();
-          })
-          .on("dragstart", () => {
-            self.dragstartHandler();
-          })
-          .on("dragend", () => {
-            self.dragendHandler();
-          })
-      );
+    // console.log(d3.select("#processor-"+this.data.id).node());
+    d3.select("#processor-" + this.data.id).call(
+      d3.behavior.drag()
+        .on("drag", () => {
+          self.dragHandler();
+        })
+        .on("dragstart", () => {
+          self.dragstartHandler();
+        })
+        .on("dragend", () => {
+          self.dragendHandler();
+        })
+    );
   }
+
   private dragHandler() {
     let dragEvent = <d3.DragEvent> d3.event;
     this.node.setCenterPosition({
@@ -60,10 +62,10 @@ export class TemplateItemComponent implements OnInit, AfterViewInit {
     let gElement = this.drawboard.container.node();
     if (selectedNode != null) {
       let coord = d3.mouse(gElement);
-      let loc_x = coord[0]-ELEMENT_WIDTH/2;
-      let loc_y = coord[1]-ELEMENT_HEIGHT/2;
+      let loc_x = coord[0] - ELEMENT_WIDTH / 2;
+      let loc_y = coord[1] - ELEMENT_HEIGHT / 2;
       // console.log(loc_x + "------"+loc_y);
-      this.node = new ProcessorNode(this.drawboard.flowIDCounter,this.drawboard, {
+      this.node = new ProcessorNode(this.drawboard.flowIDCounter, this.drawboard, {
         'x': loc_x,
         'y': loc_y
       }, selectedNode);
@@ -77,14 +79,27 @@ export class TemplateItemComponent implements OnInit, AfterViewInit {
 
   private dragendHandler() {
     console.log("----------------drag end--------------");
+    // console.warn(this.node.cx);
+    // console.warn(this.node.cy);
+    let transform_val = this.drawboard.svg.select('g').node().getAttribute('transform').toString().match(/(\d*\.)?\d+/g);
     let svgH = this.drawboard.svg.node().height.baseVal.value;
     let svgD = this.drawboard.svg.node().width.baseVal.value;
-    if(this.node.cx>0 && this.node.cx < svgD && this.node.cy > 0 && this.node.cy < svgH){
+    // console.warn(transform_val);
+    let offset_x = transform_val[0];
+    let offset_y = transform_val[1];
+    // console.warn(svgH);
+    // console.warn(svgD);
+    let tem_x = svgD - offset_x;
+    let tem_y = svgH - offset_y;
+    // console.warn(tem_x);
+    // console.warn(tem_y);
+    if (this.node.cx > -offset_x && this.node.cx < tem_x && this.node.cy > -offset_y && this.node.cy < tem_y) {
       return
-    }else{
+    } else {
       (this.node.deleteNode())();
     }
   }
+
   itemClicked(item: WorkflowNodeType) {
     if (this.selectedNodeType == item) {
       this.craftService.setSelectedNodeType(null);

@@ -8,7 +8,7 @@ import {environment} from "../../environments/environment";
 import {handleError} from "../share/my-handler";
 import {GlobalService} from "../global.service";
 import {DrawboardComponent} from "./drawboard/drawboard.component";
-import {NodeStat} from "../share/json-types";
+import {NodeStat, DatabaseRequest1, DatabaseRequest2} from "../share/json-types";
 
 @Injectable()
 export class CraftService {
@@ -222,5 +222,47 @@ export class CraftService {
         alert("-----workflow_id 或 mission_id 为空-----");
       }
     }
+  }
+
+  getDatabasePara(value: any, id: number) {
+    console.log("--------------------getDatabasePara-------------------------");
+    console.log(environment.URL_Spark_SQL+"1/"+`?database=${value}`+`&processor_id=${id}`);
+    return this.http.get(environment.URL_Spark_SQL+"1/"+`?database=${value}`+`&processor_id=${id}`).toPromise().then(res=>{
+      return res.json().parameters;
+    }).catch(handleError);
+  }
+  getDatabaseTable(value: any, id: number){
+    console.log("--------------------getDatabaseTable-------------------------");
+    console.log(environment.URL_Spark_SQL+"2/"+`?database=${value}`+`&processor_id=${id}`);
+    return this.http.get(environment.URL_Spark_SQL+"2/"+`?database=${value}`+`&processor_id=${id}`).toPromise().then(res=>{
+      return res.json().parameters;
+    }).catch(handleError);
+  }
+  onDatabaseAttrSet(request: DatabaseRequest1) {
+    console.log("--------------------onDatabaseAttrSet-------------------------");
+    console.log(JSON.stringify(request));
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(environment.URL_Spark_SQL+"0/",JSON.stringify(request),{headers: headers, method: RequestMethod.Post})
+      .toPromise()
+      .then(res=>res.json());
+  }
+  getDatabaseColum(value: any, id: number){
+    console.log("--------------------getDatabaseColum-------------------------");
+    console.log(environment.URL_Spark_SQL+"3/"+`?database=${value}`+`&processor_id=${id}`);
+    return this.http.get(environment.URL_Spark_SQL+"3/"+`?database=${value}`+`&processor_id=${id}`).toPromise().then(res=>{
+      return res.json().parameters;
+    }).catch(handleError);
+  }
+  onTableSelect(request: DatabaseRequest2){
+    console.log("--------------------onTableSelect-------------------------");
+    console.log(JSON.stringify(request));
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    return this.http.post(environment.URL_Spark_SQL+"1/",JSON.stringify(request),{headers: headers, method: RequestMethod.Post})
+      .toPromise()
+      .then(res=>res.json());
   }
 }

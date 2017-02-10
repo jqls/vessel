@@ -19,16 +19,16 @@
       <form *ngIf="selectedNode!=null" [formGroup]="form"
             class="form-horizontal">
         <app-df-question *ngFor="let question of questions" [question]="question"
-                         [form]="form" (change)="onSubmit()"></app-df-question>
+                         [form]="form" (change)="onSubmit(question)"></app-df-question>
       </form>
       <form *ngIf="selectedRelation!=null" (ngSubmit)="onSubmit()" [formGroup]="form"
             class="form-horizontal">
         <!--todo: 若需要对连线进行参数设置，在此进行-->
       </form>
-
       <div *ngIf="selectedNode==null&&selectedRelation==null">
         <p>选中算法节点或连线来调节参数</p>
       </div>
+      <div id="errorMessage" style="color: red"></div>
     </div>
     <div  class="tab-pane" id="project" role="tabpanel">
       <app-log></app-log>
