@@ -7,6 +7,8 @@ import {nodePara,edgePara} from "./topologyPara";
 import {  Http } from "@angular/http";
 import {DataJSON} from "../data-types";
 import {GlobalService} from "../../../global.service";
+import {DataShowComponent} from "../data-show.component"
+import {DataShowService} from "../data-show.service";
 @Component({
   selector: 'topological-diagram',
   templateUrl: 'topology.component.html',
@@ -17,24 +19,27 @@ export class topologyComponent implements OnInit,OnDestroy{
   @Input() data: Promise<DataJSON[]>;
   dataJSON:DataJSON[];
   private workflow_id: number;
+  private datashow:DataShowComponent;
+  // private datashow=new DataShowComponent()
+
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
   // public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
-  //   "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","2,3,3,4,6","2,3,3,4,6","6,3,4,4,5"];
-  public dataSet=[];
-  constructor(private globalService: GlobalService,private http:Http){
-    this.globalService.book_workflowID((id) => {
+  //   "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","6,3,4,4,5"];
+  public dataSet=[];//正式运行时调用
+  constructor(private globalService: GlobalService,private http:Http,private dataShowService: DataShowService){
+    this.globalService.book_workflowID((id) => {//正式运行时调用
       this.workflow_id = id
     });
   }
   ngOnInit(){
     d3.select("#main").select(".plotly").remove();
-   this.getData();
-   //  this.data.then((response: DataJSON[]) => {
-   //    this.dataJSON = response;
-   //    this.initSvg();
-   //  }).catch(this.handleError);
-   // this.initSvg();
+   this.getData();//正式运行时调用
+    // this.data.then((response: DataJSON[]) => {
+    //   this.dataJSON = response;
+    //   this.initSvg();
+    // }).catch(this.handleError);
+    //this.initSvg();//测试时调用，使用本地数据
   }
   getData(){//获取数据
     let workflow_id = this.workflow_id;
@@ -42,7 +47,11 @@ export class topologyComponent implements OnInit,OnDestroy{
     let processor_id = this.globalService.processor_id;
     let flow_id = this.globalService.flow_id;
     let port_id = this.globalService.port_id;
-    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 50;
+    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
+    //测试用的dataUrlhttp://10.5.0.222:8080/dispatcher/visualization/9-90-25-0-21-0?getip=172.16.117.103&getlayer=1
+    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ 9 + '-' + 90 + '-' + 25 + '-' + 0 + '-' + 21 + '-' +0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
+    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/9-90-25-0-21-0?getip=172.16.117.103&getlayer=1"
+    console.log(dataUrl)
     return this.http.get(dataUrl).toPromise().then(response=>{
       //this.dataSet.push(response.json());
       this.dataSet=response.json();
@@ -53,8 +62,7 @@ export class topologyComponent implements OnInit,OnDestroy{
   }
 
   public initSvg(){
-    console.log("initSvg()");
-    console.log(this.dataSet);
+
     for(let data of this.dataSet){
       let[SIp,SPort,DIp,DPort,Pro]=data.split(",");
       this.nodeSet.push({"name": SIp, "sPort": SPort});
@@ -62,28 +70,13 @@ export class topologyComponent implements OnInit,OnDestroy{
       this.nodeSet=this.removeRepeat(this.nodeSet);
       this.edgeSet.push({"source":this.requireIndex(SIp),"target":this.requireIndex(DIp),"pro": Pro});
     }
-    console.log("-------------");
-//     //sort links by source, then target
-//     this.edgeSet.sort(function(a,b) {
-//       if (a.source > b.source) {return 1;}
-//       else if (a.source < b.source) {return -1;}
-//       else {
-//         if (a.target > b.target) {return 1;}
-//         if (a.target < b.target) {return -1;}
-//         else {return 0;}
-//       }
-//     });
-// // //any links with duplicate source and target get an incremented 'linknum'
-// //     for (var i=0; i<this.edgeSet.length; i++) {
-// //       if (i != 0 &&
-// //         this.edgeSet[i].source == this.edgeSet[i-1].source &&
-// //         this.edgeSet[i].target == this.edgeSet[i-1].target) {
-// //         this.edgeSet[i].linknum = this.edgeSet[i-1].linknum + 1;
-// //       }
-// //       else {this.edgeSet[i].linknum = 1;};
-// //     };
+    //确定节点直接的链接关系,相互链接的设置为true
+    var linkedByIndex = {};
+    this.edgeSet.forEach(function(d) {
+      linkedByIndex[d.source + "," + d.target] = true;
+    });
 
-    var width = 800;
+    var width = 1000;
     var height = 600;
     var margin = {top: -5, right: -5, bottom: -5, left: -5};
     var zoom = d3.behavior.zoom()
@@ -96,14 +89,16 @@ export class topologyComponent implements OnInit,OnDestroy{
       .on("dragend", dragended);
 
 
-    var svg = d3.select("#main").append("svg").attr("width",1000).attr("height",600)
+    var svg = d3.select("#main").append("svg")
+        .attr("width",width).attr("height",height)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
         .call(zoom)
       ;
     var rect = svg.append("rect")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("position","absolute")
+      .attr("width", "100%")
+      .attr("height", "100%")
       .style("fill", "none")
       .style("pointer-events", "all");
 
@@ -137,14 +132,7 @@ export class topologyComponent implements OnInit,OnDestroy{
       .linkDistance(100)	//指定连线长度
       .charge(-400)  //相互之间的作用力
       .start();	 //开始作用
-    //添加连线
 
-    // var svg_edges = svg.selectAll("line")
-    //   .data(this.edgeSet)
-    //   .enter()
-    //   .append("line")
-    //   .style("stroke","#ccc")
-    //   .style("stroke-width",1);
 
     //创建箭头标记
     container.append("svg:defs").selectAll("marker")
@@ -186,6 +174,113 @@ export class topologyComponent implements OnInit,OnDestroy{
       })
       .call(drag);	//使得节点能够拖动
 
+    //双击节点使其位于画面中心位置
+    svg_nodes.on("dblclick.zoom",function (d) {
+      event.stopPropagation();
+      var dcx = (width/2-(<any>d).x*zoom.scale());
+      var dcy = (height/2-(<any>d).y*zoom.scale());
+      zoom.translate([dcx,dcy]);
+      container.attr("transform", "translate("+ dcx + "," + dcy  + ")scale(" + zoom.scale() + ")");
+
+    })
+
+    var focus_node = null, highlight_node = null;
+    var highlight_color = "red";
+    var towhite = "stroke";
+    var default_link_color = "#888";
+    var highlight_trans = 0.1;
+    svg_nodes.on("mouseover", function(d) {
+      set_highlight(d);
+    })
+      .on("mousedown", function(d) {
+        event.stopPropagation();
+        focus_node = d;
+        set_focus(d)
+        if (highlight_node === null) set_highlight(d)
+
+      }	).on("mouseout", function(d) {
+           exit_highlight();
+    }	);
+
+    //当在元素上释放鼠标按钮时触发
+    d3.select(window).on("mouseup",
+      function() {
+        if (focus_node!==null)
+        {
+          focus_node = null;
+          // if (highlight_trans<1)
+          // {
+            svg_nodes.style("opacity", 1);
+            svg_texts.style("opacity", 1);
+            linktext.style("opacity", 1);
+            path.style("opacity", 1);
+          //}
+        }
+
+        if (highlight_node === null) exit_highlight();
+      });
+    //鼠标离开节点事件--正常显示
+    function exit_highlight()
+    {
+      highlight_node = null;
+      if (focus_node===null)
+      {
+        svg.style("cursor","move");
+        if (highlight_color!="white")
+        {
+          svg_nodes.style(towhite, "white");
+          svg_texts.style("font-weight", "normal");
+          linktext.style("font-weight", "normal")
+          path.style("stroke", function(o) {return "#ccc"});
+        }
+
+      }
+    }
+    //确定节点直接的链接关系,相互链接的return为true
+    function isConnected(a, b) {
+      return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+    }
+    //鼠标按下时的处理函数--设置相应的透明度，突出显示相应节点
+    function set_focus(d)
+    {
+      if (highlight_trans<1)  {
+        svg_nodes.style("opacity", function(o) {
+          return isConnected(d, o) ? 1 : highlight_trans;
+        });
+
+        svg_texts.style("opacity", function(o) {
+          return isConnected(d, o) ? 1 : highlight_trans;
+        });
+        linktext.style("opacity", function(o) {
+          return (<any>o.source).name == d.name|| (<any>o.target).name == d.name? 1 :  highlight_trans;
+        });
+        path.style("opacity", function(o) {
+          return (<any>o.source).name == d.name|| (<any>o.target).name == d.name? 1 :  highlight_trans;
+        });
+      }
+    }
+    //把相互关联的各节点高亮标出显示
+    function set_highlight(d)
+    {
+      svg.style("cursor","pointer");
+      if (focus_node!==null) d = focus_node;
+      highlight_node = d;
+
+      if (highlight_color!="white")
+      {
+        svg_nodes.style(towhite, function(o) {
+          return isConnected(d, o) ? highlight_color : "white";});
+        svg_texts.style("font-weight", function(o) {
+          return isConnected(d, o) ? "bold" : "normal";});
+        linktext.style("font-weight", function(o) {
+          return (<any>o.source).name == d.name|| (<any>o.target).name == d.name? "bold" : "normal";
+        });
+        path.style("stroke", function(o) {
+          return (<any>o.source).name == d.name|| (<any>o.target).name == d.name? highlight_color : default_link_color;
+
+        });
+      }
+    }
     //添加描述节点的文字
     var svg_texts = container.selectAll("text")
       .data(this.nodeSet)
@@ -215,12 +310,6 @@ export class topologyComponent implements OnInit,OnDestroy{
       });
 
     force.on("tick", function(){	//对于每一个时间间隔
-
-      //更新连线坐标
-      // svg_edges.attr("x1",function(d){ return (<any>d.source).x; })
-      //     .attr("y1",function(d){ return (<any>d.source).y; })
-      //     .attr("x2",function(d){ return (<any>d.target).x; })
-      //     .attr("y2",function(d){ return (<any>d.target).y; });
 
       //更新节点坐标
       svg_nodes.attr("cx",function(d){ return (<any>d).x; })

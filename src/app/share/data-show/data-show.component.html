@@ -17,7 +17,7 @@
       <div>
         <button class="btn" (click)="setType(1)">条形图</button>
         <button class="btn" (click)="setType(2)">饼图</button>
-        <button class="btn" (click)="setType(3)">拓扑图</button>
+        <button class="btn" (click)="modalShow()">拓扑图</button><!--modalShow()-->
       </div>
     </div>
     <div class="table-wrapper">
@@ -38,7 +38,7 @@
     <div id="main" style="height:600px;width: 1000px; margin-left: 10px;float: left;">
       <app-bar *ngSwitchCase="1" [data]="dataJSON"></app-bar>
       <app-pie *ngSwitchCase="2" [data]="dataJSON"></app-pie>
-      <topological-diagram *ngSwitchCase="3" [data]="dataJSON"></topological-diagram>
+      <topological-diagram *ngSwitchCase="3"></topological-diagram><!--[data]="dataJSON"-->
     </div>
   </div>
 
@@ -50,5 +50,36 @@
         <td *ngFor="let item of (data.table_value)">{{item}}</td>
       </tr>
     </table>
+  </div>
+</div>
+<!--拓扑图模态框-->
+
+<div  id="topologyModal" class="front-wrapper" *ngIf="topolopyShow">
+  <div class="custom-window" style="width: 100%; height: 100%;">
+  <div class="offset-sm-3 col-md-7" style="background-color: #eceeef;top: 100px;">
+    <div class="modal-header">
+      <button type="button" class="close" (click)="modalShow()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div>
+      <br><!--[(ngModel)]="topolopyShowIp" name="topologyIP" [(ngModel)]="topolopyShowNum" name="topolopyNum"-->
+      <label for="topolopyIP" class="col-md-3">目的IP：</label>
+      <input #input1 id="topolopyIP" [(ngModel)]="showIp" name="topologyIp"
+             autocomplete="off" placeholder="请输入目的IP">
+      <br>
+      <br>
+    </div>
+    <div>
+      <label for="topolopyNum" class="col-md-3">显示深度：</label>
+      <input #input2 id="topolopyNum" [(ngModel)]="showNum" name="topologyNum"
+             autocomplete="off" placeholder="请输入显示深度" >
+      <br>
+    </div>
+    <br>
+    <div class="modal-footer">
+      <button class="btn btn-primary" (click)="setNum();modalShow()">确定</button>
+    </div>
+  </div>
   </div>
 </div>
