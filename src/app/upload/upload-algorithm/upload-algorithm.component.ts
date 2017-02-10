@@ -148,8 +148,8 @@ export class UploadAlgorithmComponent implements OnInit {
       console.log(this.formData);
       xhr.onload = ()=> {
         if (xhr.status == 200) {
-          this.isShow=false;
           alert(xhr.responseText);
+           this.isShow=false;
         }
       }
   }

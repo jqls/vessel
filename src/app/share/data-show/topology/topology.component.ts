@@ -8,6 +8,7 @@ import {  Http } from "@angular/http";
 import {DataJSON} from "../data-types";
 import {GlobalService} from "../../../global.service";
 import {DataShowComponent} from "../data-show.component"
+import {DataShowService} from "../data-show.service";
 @Component({
   selector: 'topological-diagram',
   templateUrl: 'topology.component.html',
@@ -19,24 +20,26 @@ export class topologyComponent implements OnInit,OnDestroy{
   dataJSON:DataJSON[];
   private workflow_id: number;
   private datashow:DataShowComponent;
+  // private datashow=new DataShowComponent()
+
   public nodeSet:nodePara[]=[];
   public edgeSet:edgePara[]=[];
-  public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
-    "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","6,3,4,4,5"];
- // public dataSet=[];//正式运行时调用
-  constructor(private globalService: GlobalService,private http:Http){
-    // this.globalService.book_workflowID((id) => {//正式运行时调用
-    //   this.workflow_id = id
-    // });
+  // public dataSet=["1,3,2,4,5","2,3,3,4,5","3,3,4,4,5",
+  //   "4,3,3,4,5","3,3,5,4,5","6,3,5,4,5","6,3,4,4,5"];
+  public dataSet=[];//正式运行时调用
+  constructor(private globalService: GlobalService,private http:Http,private dataShowService: DataShowService){
+    this.globalService.book_workflowID((id) => {//正式运行时调用
+      this.workflow_id = id
+    });
   }
   ngOnInit(){
     d3.select("#main").select(".plotly").remove();
-   //this.getData();//正式运行时调用
-   //  this.data.then((response: DataJSON[]) => {
-   //    this.dataJSON = response;
-   //    this.initSvg();
-   //  }).catch(this.handleError);
-    this.initSvg();
+   this.getData();//正式运行时调用
+    // this.data.then((response: DataJSON[]) => {
+    //   this.dataJSON = response;
+    //   this.initSvg();
+    // }).catch(this.handleError);
+    //this.initSvg();//测试时调用，使用本地数据
   }
   getData(){//获取数据
     let workflow_id = this.workflow_id;
@@ -44,11 +47,10 @@ export class topologyComponent implements OnInit,OnDestroy{
     let processor_id = this.globalService.processor_id;
     let flow_id = this.globalService.flow_id;
     let port_id = this.globalService.port_id;
-    //需要显示的IP和对应的数量
-    let  showIp=this.datashow.topolopyShowIp;
-    let  showNum=this.datashow.topolopyShowNum;
-    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 50;
-    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' +showNum+ '-' +showIp;
+    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
+    //测试用的dataUrlhttp://10.5.0.222:8080/dispatcher/visualization/9-90-25-0-21-0?getip=172.16.117.103&getlayer=1
+    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ 9 + '-' + 90 + '-' + 25 + '-' + 0 + '-' + 21 + '-' +0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
+    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/9-90-25-0-21-0?getip=172.16.117.103&getlayer=1"
     console.log(dataUrl)
     return this.http.get(dataUrl).toPromise().then(response=>{
       //this.dataSet.push(response.json());
@@ -94,8 +96,9 @@ export class topologyComponent implements OnInit,OnDestroy{
         .call(zoom)
       ;
     var rect = svg.append("rect")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("position","absolute")
+      .attr("width", "100%")
+      .attr("height", "100%")
       .style("fill", "none")
       .style("pointer-events", "all");
 
@@ -170,7 +173,9 @@ export class topologyComponent implements OnInit,OnDestroy{
         return color(<any>i);
       })
       .call(drag);	//使得节点能够拖动
-    svg_nodes.on("dbclick.zoom",function (d) {
+
+    //双击节点使其位于画面中心位置
+    svg_nodes.on("dblclick.zoom",function (d) {
       event.stopPropagation();
       var dcx = (width/2-(<any>d).x*zoom.scale());
       var dcy = (height/2-(<any>d).y*zoom.scale());
@@ -205,7 +210,6 @@ export class topologyComponent implements OnInit,OnDestroy{
           focus_node = null;
           // if (highlight_trans<1)
           // {
-
             svg_nodes.style("opacity", 1);
             svg_texts.style("opacity", 1);
             linktext.style("opacity", 1);

@@ -4,15 +4,6 @@
       <li class="nav-item">
         <a class="nav-link active color" data-toggle="tab" href="#algorithmAttribute" role="tab" >算法属性</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link color" data-toggle="tab" href="#parameterAttribute" role="tab">参数属性</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link color" data-toggle="tab" href="#inputAttribute" role="tab">输入属性</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link color" data-toggle="tab" href="#outputAttribute" role="tab">输出属性</a>
-      </li>
     </ul>
   </div>
   <div class="container">
@@ -47,6 +38,7 @@
             </div>
 
           </div>
+          <!--
           <div class="form-group row">
             <label  class="col-xs-1 col-form-label" style="margin-left:200px;padding-left:10px">可视化：</label>
             <div class="col-xs-6">
@@ -56,115 +48,7 @@
               </select>
             </div>
           </div>
-          <!--</fieldset>-->
-        </div>
-        <!--********************parameterAttribute*****************************-->
-        <div class="tab-pane" id="parameterAttribute" role="tabpanel">
-          <div *ngFor="let i of parameterList ;  let ind=index;">
-
-            <fieldset>
-              <legend><h6>参数{{ind+1}}</h6></legend>
-              <div class="form-group row">
-                <label  class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
-                <div class="col-xs-6">
-                  <input  class="form-control" type="text" id="label-{{ind}}"
-                          [(ngModel)]="i.label" name="label-{{ind}}"
-                          placeholder="请输入名称" >
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
-                <div class="col-xs-6">
-                  <select #select class="form-control" [(ngModel)]="i.parameterType" name="type-{{ind}}" placeholder="请输入值类型">
-                    <option>selection</option>
-                    <option>text</option>
-                    <option>filelist</option>
-                  </select>
-                  <br>
-                  <input #input *ngIf='select.value=="selection"' class="form-control" type="text" id="choices-{{ind}}"
-                          (mouseleave)="inputSelect(input.value,ind)"  placeholder="请输入selection子选项" >
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputDescription" class="col-xs-1 col-form-label" style="margin-left:200px">描述：</label>
-                <div class="col-xs-6">
-                  <input class="form-control" type="text" id="inputDescription"  [(ngModel)]="i.description" name="description-{{ind}}"
-                         placeholder="请输入描述">
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <br>
-          <div class="offset-sm-9 col-sm-3">
-            <button type="button" class="btn btn-primary" (click)="addPara()"> 添加参数 </button>
-          </div>
-        </div>
-        <!--********************inputAttribute*****************************-->
-        <div class="tab-pane" id="inputAttribute" role="tabpanel">
-          <div *ngFor="let input of inputParameters; let i=index">
-            <fieldset>
-              <legend><h6>参数{{i+1}}</h6></legend>
-              <div class="form-group row">
-                <label for="inputname${ i }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
-                <div class="col-xs-6">
-                  <input  class="form-control" type="text" id="inputname${ i }"
-                          [(ngModel)]="input.name" name="inputname-{{i}}" placeholder="请输入名称" >
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label  class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
-                <div class="col-xs-6">
-                  <select class="form-control" [(ngModel)]="input.dataType" name="inputdataType-{{i}}"  placeholder="请选择值类型">
-                    <option value="1">all</option>
-                  </select>
-                </div>
-                <!--<div class="col-xs-6">
-                  <input  class="form-control" type="text" id="inputdataType${ i }"
-                          [(ngModel)]="input.dataType" name="inputdataType-{{i}}" placeholder="请输入参数类型" >
-                </div>
-                -->
-              </div>
-            </fieldset>
-          </div>
-          <br>
-          <div class="offset-sm-9 col-sm-3">
-            <button type="button" class="btn btn-primary" (click)="addInputPara()"> 添加参数 </button>
-          </div>
-        </div>
-        <!--********************outputAttribute*****************************-->
-        <div class="tab-pane" id="outputAttribute" role="tabpanel">
-          <div *ngFor="let output of outputParameters; let i=index">
-            <fieldset>
-              <legend><h6>参数{{i+1}}</h6></legend>
-              <div class="form-group row">
-                <label for="outputname${ i }" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
-                <div class="col-xs-6">
-                  <input  class="form-control" type="text" id="outputname${ i }"
-                          [(ngModel)]="output.name" name="outputname-{{i}}" placeholder="请输入名称" >
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label  class="col-xs-1 col-form-label" style="margin-left:200px">类型：</label>
-                <div class="col-xs-6">
-                  <select class="form-control" [(ngModel)]="output.dataType" name="outputdataType-{{i}}" placeholder="请选择值类型">
-                    <option value="1">all</option>
-                  </select>
-                </div>
-                <!--
-                <div class="col-xs-6">
-                  <input  class="form-control" type="text" id="outputdataType${ i }"
-                          [(ngModel)]="output.dataType" name="outputdataType-{{i}}" placeholder="请输入参数类型" >
-                </div>
-                -->
-              </div>
-            </fieldset>
-          </div>
-          <br>
-          <div class="offset-sm-9 col-sm-3">
-            <button type="button" class="btn btn-primary" (click)="addOutputPara()"> 添加参数 </button>
-          </div>
+          -->
         </div>
       </div>
       <br><br>
@@ -186,9 +70,13 @@
   </div>
 </form>
 
-<div *ngIf="isShow==true" class="modal" id="uploadModal" tabindex="-1"
+<!--data-backdrop="static"禁用模态框点击空白处消失-->
+<div *ngIf="isShow==true">
+<div  class="modal" id="uploadModal" tabindex="-1"
      role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-     style="top: 150px;z-index: 10000" data-backdrop="static"> <!--data-backdrop="static"禁用模态框点击空白处消失-->
+     style="top: 150px;z-index: 10000" data-backdrop="static">
     <div class="loader">upLoading...</div>
 
+</div>
+  <button  data-dismiss="modal" class="btn btn-secondary">取消</button>
 </div>

@@ -7,7 +7,8 @@ import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class DataShowService {
-
+  topologyIp:string
+  topologyNum:number;
   id: string;
   label: string;
   private workflow_id: number;

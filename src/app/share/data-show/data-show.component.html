@@ -17,7 +17,7 @@
       <div>
         <button class="btn" (click)="setType(1)">条形图</button>
         <button class="btn" (click)="setType(2)">饼图</button>
-        <button class="btn" (click)="modalShow()">拓扑图</button>
+        <button class="btn" (click)="modalShow()">拓扑图</button><!--modalShow()-->
       </div>
     </div>
     <div class="table-wrapper">
@@ -38,7 +38,7 @@
     <div id="main" style="height:600px;width: 1000px; margin-left: 10px;float: left;">
       <app-bar *ngSwitchCase="1" [data]="dataJSON"></app-bar>
       <app-pie *ngSwitchCase="2" [data]="dataJSON"></app-pie>
-      <topological-diagram *ngSwitchCase="3" [data]="dataJSON"></topological-diagram>
+      <topological-diagram *ngSwitchCase="3"></topological-diagram><!--[data]="dataJSON"-->
     </div>
   </div>
 
@@ -63,22 +63,22 @@
       </button>
     </div>
     <div>
-      <br>
+      <br><!--[(ngModel)]="topolopyShowIp" name="topologyIP" [(ngModel)]="topolopyShowNum" name="topolopyNum"-->
       <label for="topolopyIP" class="col-md-3">目的IP：</label>
-      <input id="topolopyIP"  [(ngModel)]="topolopyShowIp" name="topologyIP"
+      <input #input1 id="topolopyIP" [(ngModel)]="showIp" name="topologyIp"
              autocomplete="off" placeholder="请输入目的IP">
       <br>
       <br>
     </div>
     <div>
-      <label for="topolopyNum" class="col-md-3">显示数目：</label>
-      <input id="topolopyNum" [(ngModel)]="topolopyShowNum" name="topolopyNum"
-             autocomplete="off" placeholder="请输入显示数目" >
+      <label for="topolopyNum" class="col-md-3">显示深度：</label>
+      <input #input2 id="topolopyNum" [(ngModel)]="showNum" name="topologyNum"
+             autocomplete="off" placeholder="请输入显示深度" >
       <br>
     </div>
     <br>
     <div class="modal-footer">
-      <button class="btn btn-primary" (click)="setType(3);modalShow()">确定</button>
+      <button class="btn btn-primary" (click)="setNum();modalShow()">确定</button>
     </div>
   </div>
   </div>
