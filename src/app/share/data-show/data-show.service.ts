@@ -29,7 +29,7 @@ export class DataShowService {
     if (workflow_id==null || mission_id==null || processor_id==null || flow_id==null || port_id==null) {
       console.warn("error task! Visualise Parameter is not enough");
       if (!environment.isMock)
-        return null;
+        return Promise.reject("invalid parameters");
     }
 
     let URL = environment.isMock ?
