@@ -20,7 +20,7 @@ export class UploadAlgorithmComponent implements OnInit {
   nodeName:string;//保存树节点名字
   algorithmPara = new AlgorithmPara();
   formData = new FormData();
-  private isShow=false;//用于显示正在上传
+  show:boolean=false;
   public nodes: treeNode[] = [];
   // nodes = [//测试用数据
   //     {
@@ -75,7 +75,7 @@ export class UploadAlgorithmComponent implements OnInit {
   changeListener(event): void {
     this.postFile(event.target);
     if(event.target.value!=null){
-      this.isShow=true;
+      this.show=true;
     }
   }
 
@@ -148,8 +148,8 @@ export class UploadAlgorithmComponent implements OnInit {
       console.log(this.formData);
       xhr.onload = ()=> {
         if (xhr.status == 200) {
-          alert(xhr.responseText);
-           this.isShow=false;
+           alert(xhr.responseText);
+           this.show=false;
         }
       }
   }
