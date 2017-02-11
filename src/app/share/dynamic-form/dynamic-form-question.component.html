@@ -3,17 +3,28 @@
 
   <div [ngSwitch]="question.controlType">
 
-    <input *ngSwitchCase="'textbox'" [formControlName]="question.key"
+    <input *ngSwitchCase="'textbox'" #item [formControlName]="question.key"
            [id]="question.key" [type]="question.type">
+    <!--(change)="printV(item.value)"-->
 
     <select [id]="question.key" *ngSwitchCase="'select'" [formControlName]="question.key">
       <option *ngFor="let opt of question.options" [value]="opt">{{opt}}</option>
     </select>
+
     <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
       <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
     </select>
+
     <select [id]="question.key" *ngSwitchCase="'filelist'" [formControlName]="question.key">
       <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+    </select>
+
+    <select [id]="question.key" *ngSwitchCase="'database'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</option>
+    </select>
+
+    <select *ngSwitchCase="'multiselect'" multiple [id]="question.key" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt">{{opt}}</option>
     </select>
 
   </div>

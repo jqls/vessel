@@ -64,12 +64,4 @@ export class DataService {
     ).catch(handleError);
 
   }
-
-  getSocketAddress(taskName: string, flowID: string) {
-
-    return this.http.get(environment.URL_Spark_log + "taskName=" + taskName + "&flowID=" + flowID).toPromise().then(response => {
-      mydebug(this.debug_location, "getSocketAddress", JSON.stringify(response.json()));
-      return response.json();
-    });
-  }
 }

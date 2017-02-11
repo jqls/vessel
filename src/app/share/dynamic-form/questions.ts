@@ -41,6 +41,32 @@ export class SelectQuestion extends QuestionBase<string> {
     this.options = options['options'] || [];
   }
 }
+
+export class MultiSelectQuestion extends QuestionBase<string> {
+  controlType = 'multiselect';
+  options: string[] = [];
+
+  constructor(options: {} = {}) {
+    super(options);
+    this.options = options['options'] || [];
+  }
+}
+
+export class DatabaseQuestion extends QuestionBase<string> {
+  controlType = 'database';
+  options: {key: string, value: string}[] = [];
+
+  constructor(options: {} = {}) {
+    super(options);
+    console.log(options['database']);
+    this.options = options['database'].map(item=>{
+        return {
+          key: ""+item.db_id,
+          value: item.db_name
+        }
+      }) || [];
+  }
+}
 export class TextboxQuestion extends QuestionBase<string> {
   controlType = 'textbox';
   type: string;

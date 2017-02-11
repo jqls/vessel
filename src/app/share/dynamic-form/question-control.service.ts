@@ -1,8 +1,15 @@
-import {Injectable} from '@angular/core';
-import {QuestionBase, TextboxQuestion, DropdownQuestion, SelectQuestion, FilelistQuestion} from "./questions";
-import {FormControl, Validators, FormGroup} from "@angular/forms";
-import {ParameterType} from "../json-types";
-import {mydebug} from "../my-log";
+import { Injectable } from "@angular/core";
+import {
+  QuestionBase,
+  TextboxQuestion,
+  SelectQuestion,
+  FilelistQuestion,
+  DatabaseQuestion,
+  MultiSelectQuestion
+} from "./questions";
+import { FormControl, Validators, FormGroup } from "@angular/forms";
+import { ParameterType } from "../json-types";
+import { mydebug } from "../my-log";
 
 @Injectable()
 export class QuestionControlService {
@@ -18,18 +25,16 @@ export class QuestionControlService {
       mydebug(this.debug_location, "toQuestions", parameter.controlType);
       //todo:根据parameters的controltyoe构造对应Question类型,可根据需要添加
       questions.push(
-        parameter.controlType == "selection" ? new SelectQuestion(parameter) :
-        parameter.controlType == "text" ? new TextboxQuestion(parameter) :
-        parameter.controlType == "filelist" ? new FilelistQuestion(parameter) :
-        null
+        parameter.key == "columnlist" ? new MultiSelectQuestion(parameter) :
+          parameter.controlType == "selection" ? new SelectQuestion(parameter) :
+            parameter.controlType == "text" ? new TextboxQuestion(parameter) :
+              parameter.controlType == "filelist" ? new FilelistQuestion(parameter) :
+                parameter.controlType == "database" ? new DatabaseQuestion(parameter) :
+                  null
       );
 
     });
     return questions.sort((a, b) => {
-      console.log(a);
-      console.log(a.order);
-      console.log(b);
-      console.log(b.order);
       return a.order - b.order
     });
   }
