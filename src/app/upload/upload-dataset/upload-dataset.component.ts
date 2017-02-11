@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from "../../global.service";
 
 @Component({
   selector: 'app-upload-dataset',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadDatasetComponent implements OnInit {
 
-  constructor() { }
+  constructor(private globalService: GlobalService) {
+    this.globalService.isVisual = true;
+  }
 
   ngOnInit() {
   }

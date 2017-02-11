@@ -4,6 +4,7 @@ import { Headers, Http, RequestMethod } from "@angular/http";
 
 import {treeNode} from "../algorithmPara"
 import * as _ from 'lodash';
+import { GlobalService } from "../../global.service";
 
 const actionMapping:IActionMapping = {
   mouse: {
@@ -37,9 +38,9 @@ export class UploadManagementComponent implements OnInit {
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
   formData = new FormData();
-  constructor(private http: Http) {
+  constructor(private http: Http,private globalService: GlobalService) {
     this.getData();
-
+    this.globalService.isVisual = true;
   }
   ngOnInit(){
     console.log("OnInit-upload-management");
