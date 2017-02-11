@@ -2,7 +2,6 @@ import {Component, OnInit, Input} from '@angular/core';
 import {DataJSON} from "./data-types";
 import {DataShowService} from "./data-show.service";
 import {handleError} from "../my-handler";
-
 @Component({
   selector: 'app-data-show',
   templateUrl: './data-show.component.html',
@@ -10,7 +9,9 @@ import {handleError} from "../my-handler";
 })
 export class DataShowComponent implements OnInit {
   @Input() visualization:boolean;
-
+  topolopyShow:boolean=false;//控制拓扑图模态框的隐藏显示
+  showIp:string=null;
+  showNum:number=null;
   dataJSON: Promise<DataJSON[]>;
   datas: DataJSON[];
   type: number = null;
@@ -57,4 +58,18 @@ export class DataShowComponent implements OnInit {
     this.type = type;
     console.log("show:" + this.type);
   }
+
+  modalShow(){//控制拓扑图模态框的隐藏显示
+    if(this.topolopyShow==true)
+        this.topolopyShow=false;
+    else
+      this.topolopyShow=true;
+  }
+  setNum(){
+    //用于传递拓扑图需要显示的IP和深度值
+    this.dataShowService.topologyIp=this.showIp;
+    this.dataShowService.topologyNum=this.showNum;
+    this.setType(3);
+  }
+
 }

@@ -7,10 +7,10 @@ export class AlgorithmPara {
     ) { }
     public name: string;
     public category: string;
-    public is_visualization: string;
-    parameters:Parameters[];
-    inputs:InputParameters[];
-    outputs:OutputParameters[];
+    //public is_visualization: string;
+    //parameters:Parameters[];
+    //inputs:InputParameters[];
+    //outputs:OutputParameters[];
 }
 export type Parameters={
     label:string;
@@ -38,3 +38,4 @@ export type childrenNode={
     name:string;
     isHidden:boolean;
 }
+
