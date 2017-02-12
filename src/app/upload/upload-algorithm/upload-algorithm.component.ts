@@ -3,6 +3,7 @@ import { TreeComponent} from 'angular2-tree-component';
 import { Http } from "@angular/http";
 import { AlgorithmPara,Parameters,InputParameters,OutputParameters} from "../algorithmPara";
 import {treeNode} from "../algorithmPara";
+import { GlobalService } from "../../global.service";
 export type ParaJSON = {
   //算法上传时 POST的参数后把responce返回的参数解析成json格式获取ID
   algorithmID:string
@@ -57,9 +58,10 @@ export class UploadAlgorithmComponent implements OnInit {
   @ViewChild(TreeComponent)
   private tree: TreeComponent;
 
-  constructor(private http: Http) {
+  constructor(private http: Http,private globalService: GlobalService) {
     console.log("algorithm-up");
     this.getData();
+    this.globalService.isVisual = true;
   }
 
   ngOnInit() {

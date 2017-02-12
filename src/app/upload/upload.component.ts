@@ -10,6 +10,7 @@ export class UploadComponent implements OnInit {
 
   constructor(private globalService: GlobalService) {
     this.globalService.setNavpaneStat(true);
+    this.globalService.isVisual = true;
   }
 
   ngOnInit() {

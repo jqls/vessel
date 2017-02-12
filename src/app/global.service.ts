@@ -29,7 +29,7 @@ export class GlobalService {
     this.da_subscribers = Array<(active: boolean)=>void>();
     this.workflow_subscribers = Array<(id: number) => void>();
     this.hasRun = false;
-    this.isVisual = false;
+    this.isVisual = true;
   }
 
   setNodesttatHook(hook: ()=>void){
