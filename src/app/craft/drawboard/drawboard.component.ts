@@ -424,6 +424,7 @@ export class DrawboardComponent implements OnInit {
       console.log(over);
       console.log(error);
       if (over || error) {
+        console.log("------------------getNodeStat2-------------------------");
         clearInterval(this.interval);
       }
       this.setNodestat(res);
