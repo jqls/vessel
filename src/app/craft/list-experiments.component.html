@@ -1,33 +1,35 @@
-<h4 id="header">任务记录</h4>
+<div style="height: 500px;overflow-y: auto">
+  <h4 id="header">任务记录</h4>
 
-<table class="table table-hover">
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>任务名</th>
-    <th>提交时间</th>
-    <th>操作</th>
-  </tr>
-  </thead>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>任务名</th>
+      <th>提交时间</th>
+      <th>操作</th>
+    </tr>
+    </thead>
 
-  <tbody>
-  <tr *ngFor="let record of history">
-    <td>{{record.id}}</td>
-    <td>{{record.name}}</td>
-    <td>{{record.submitTime}}</td>
-    <!--<td>{{record.finish_time}}</td>-->
-    <td>
-      <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail(record)">查看</button>
-    </td>
-  </tr>
-  <tr>
-    <td>测试任务1</td>
-    <td>2016 - 10 - 23</td>
-    <td>正在执行</td>
-    <td>
-      <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail('测试任务1')">查看</button>
-    </td>
-  </tr>
-  </tbody>
+    <tbody>
+    <tr *ngFor="let record of history">
+      <td>{{record.id}}</td>
+      <td>{{record.name}}</td>
+      <td>{{record.submitTime}}</td>
+      <!--<td>{{record.finish_time}}</td>-->
+      <td>
+        <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail(record)">查看</button>
+      </td>
+    </tr>
+    <tr>
+      <td>测试任务1</td>
+      <td>2016 - 10 - 23</td>
+      <td>正在执行</td>
+      <td>
+        <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail('测试任务1')">查看</button>
+      </td>
+    </tr>
+    </tbody>
 
-</table>
+  </table>
+</div>
