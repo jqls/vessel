@@ -47,10 +47,8 @@ export class topologyComponent implements OnInit,OnDestroy{
     let processor_id = this.globalService.processor_id;
     let flow_id = this.globalService.flow_id;
     let port_id = this.globalService.port_id;
-    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
-    //测试用的dataUrlhttp://10.5.0.222:8080/dispatcher/visualization/9-90-25-0-21-0?getip=172.16.117.103&getlayer=1
-    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ 9 + '-' + 90 + '-' + 25 + '-' + 0 + '-' + 21 + '-' +0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
-    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/9-90-25-0-21-0?getip=172.16.117.103&getlayer=1"
+    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
+    //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ 9 + '-' + 90 + '-' + 25 + '-' + 0 + '-' + 21 + '-' +0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
     console.log(dataUrl)
     return this.http.get(dataUrl).toPromise().then(response=>{
       //this.dataSet.push(response.json());
