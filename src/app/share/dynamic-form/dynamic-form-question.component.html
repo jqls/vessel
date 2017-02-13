@@ -24,6 +24,7 @@
     </select>
 
     <select *ngSwitchCase="'multiselect'" #mult multiple [id]="question.key" [formControlName]="question.key" (change)="checkValue(mult)">
+      <option [value]="'*'">*</option>
       <option *ngFor="let opt of question.options" [value]="opt">{{opt}}</option>
     </select>
 
