@@ -61,7 +61,11 @@ export class DataShowComponent implements OnInit {
 
   modalShow(){//控制拓扑图模态框的隐藏显示
     if(this.topolopyShow==true)
-        this.topolopyShow=false;
+    {
+      this.topolopyShow=false;
+      this.setType(3);
+    }
+
     else
       this.topolopyShow=true;
   }
@@ -69,7 +73,7 @@ export class DataShowComponent implements OnInit {
     //用于传递拓扑图需要显示的IP和深度值
     this.dataShowService.topologyIp=this.showIp;
     this.dataShowService.topologyNum=this.showNum;
-    this.setType(3);
+    //this.setType(3);
   }
 
 }
