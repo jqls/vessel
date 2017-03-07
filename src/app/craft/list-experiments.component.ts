@@ -17,7 +17,7 @@ export class ListExperimentsComponent implements OnInit {
               private craftService: CraftService,
               private router: Router,
               private globalService:GlobalService) {
-
+    this.globalService.isVisual = true;
     this.dataService.getExperimentsList().then((response)=> {
       this.history = response.json();
       console.log(this.history);

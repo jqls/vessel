@@ -26,6 +26,7 @@ export class CraftComponent implements OnInit {
     });
     this.craftService.setVisualStat(false);
     this.globalService.hasRun = false;
+    this.globalService.isVisual = false;
   }
 
   ngOnInit() {

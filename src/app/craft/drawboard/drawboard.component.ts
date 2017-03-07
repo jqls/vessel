@@ -416,12 +416,15 @@ export class DrawboardComponent implements OnInit {
       let over = true;
       let error = false;
       res.forEach(item => {
-        if (item.status != 3)
-          over = false;
         if (item.status == 2)
           error = true;
+        else if (item.status != 3)
+          over = false;
       });
+      console.log(over);
+      console.log(error);
       if (over || error) {
+        console.log("------------------getNodeStat2-------------------------");
         clearInterval(this.interval);
       }
       this.setNodestat(res);
