@@ -33,7 +33,7 @@ export class UploadManagementComponent implements OnInit {
   public nodes:treeNode[]=[];
   public node;//node parameter
   public nodeId;
-  public  dataUrl="http://10.5.0.222:8080/workflow/category/";
+
   private removeUrl="http://10.5.0.222:8080/workflow/category_delete/"
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
@@ -96,6 +96,7 @@ export class UploadManagementComponent implements OnInit {
   }
 
   save(){//add node save function
+     let dataUrl ="http://10.5.0.222:8080/workflow/category/";
     if($("#nameId").val()==='') {
       alert("名称不能为空！！！");
     }
@@ -108,8 +109,8 @@ export class UploadManagementComponent implements OnInit {
       this.nodeId++;
      // if(this.nodeIsHidden){document.getElementById("treeSpan").style.color="#ff0000";console.log("clasname");}
       this.tree.treeModel.update();
-      this.dataUrl=this.dataUrl+JSON.stringify(this.nodes[0])+'/'
-      this.sendData(this.dataUrl);
+      dataUrl=dataUrl+JSON.stringify(this.nodes[0])+'/'
+      this.sendData(dataUrl);
 
       //$('#myModal').modal('hide');//model待完善
       // $('#myModal').on('hidden.bs.modal', function (e) {
@@ -185,9 +186,11 @@ export class UploadManagementComponent implements OnInit {
   }
 
   selectMaxId(node:treeNode){//获取数组中最大的id
-    let tempID=node.id;
+    let tempID:number=node.id+1;
+    console.log(tempID);
     let len=node.children.length;
-        if (len == 0) {
+        if (len == 0 && node.id===-1) {
+          console.log("root");
           return tempID;
         }
         else {
@@ -266,6 +269,7 @@ export class UploadManagementComponent implements OnInit {
     }
   }
   editSave(){
+    let dataUrl ="http://10.5.0.222:8080/workflow/category/";
     this.nodeEdit.data.name=$("#nameId").val();
     if($("input:radio:checked").val()=="是") {
       this.nodeEdit.data.isHidden=false;
@@ -274,7 +278,7 @@ export class UploadManagementComponent implements OnInit {
       this.nodeEdit.data.isHidden=true;
     }
 
-    this.sendData(this.dataUrl);
+    this.sendData(dataUrl);
   }
 
 }
