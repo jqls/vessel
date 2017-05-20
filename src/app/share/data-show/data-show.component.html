@@ -20,7 +20,6 @@
           <app-pie *ngSwitchCase="2" [data]="dataJSON"></app-pie>
           <!--<topological-diagram *ngSwitchCase="3"></topological-diagram>&lt;!&ndash;[data]="dataJSON"&ndash;&gt;-->
           <div *ngSwitchCase="4" class="chart-custom">
-            <div class="title">ID: {{title}}</div>
             <div class="info">
               <form class="file-upload">
                 <label class="custom-file">
@@ -30,7 +29,11 @@
                 <button type="submit" class="btn btn-primary" (click)="sendFile()">上传文件</button>
               </form>
             </div>
-            <img class="custom-img" *ngSwitchCase="4" [src]="imgURL"/>
+            <div class="note text-muted form-text">
+              <span class="note-title">REST API： </span>
+              <small class="note-content">请求数据地址：/dispatcher/resultPath/{{title}}/ <br> 请求图片存储地址：/dispatcher/savePath/{{title}}/</small>
+            </div>
+            <img class="custom-img" *ngSwitchCase="4" [src]="imgURL" *ngIf="imgURL!=null"/>
           </div>
         </div>
       </div>
