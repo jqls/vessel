@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DataJSON } from './data-types';
 import { DataShowService } from './data-show.service';
 import { handleError } from '../my-handler';
+import { environment } from "../../../environments/environment";
 @Component({
   selector: 'app-data-show',
   templateUrl: './data-show.component.html',
@@ -15,9 +16,15 @@ export class DataShowComponent implements OnInit {
   dataJSON: Promise<DataJSON[]>;
   datas: DataJSON[];
   type: number = null;
+  imgURL = 'http://10.5.0.222:8082/1-1-2-1-1.png';
+  title: string;
+
+  formData = new FormData();
 
   // 获取任务列表zhaoli
   constructor(private dataShowService: DataShowService) {
+    let info = dataShowService.getInfo();
+    this.title = info.flow_id + '-' + info.mission_id + '-' + info.processor_id + '-' + info.workflow_id + '-' + info.port_id;
   }
 
   ngOnInit() {
@@ -75,4 +82,29 @@ export class DataShowComponent implements OnInit {
     // this.setType(3);
   }
 
+  changeListener(event): void {
+    this.postFile(event.target);
+  }
+
+  postFile(inputValue: any): void {// 获取文件
+    this.formData.append('file', inputValue.files[0]);
+    console.log(inputValue.files[0]);
+    console.log(this.formData);
+  }
+
+  sendFile() {
+    let URL_File = environment.URL_VISUAL_CUSTOME + this.title + '/';
+    console.log(URL_File);
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', URL_File, true);
+    xhr.send(this.formData);
+    console.log(this.formData);
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        console.log(xhr.responseText);
+        let res = JSON.parse(xhr.responseText);
+        this.imgURL = res['picture'];
+      }
+    };
+  }
 }
