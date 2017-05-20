@@ -16,7 +16,7 @@ export class DataShowComponent implements OnInit {
   dataJSON: Promise<DataJSON[]>;
   datas: DataJSON[];
   type: number = null;
-  imgURL = 'http://10.5.0.222:8082/1-1-2-1-1.png';
+  imgURL: string = null; // = 'http://10.5.0.222:8082/1-1-2-1-1.png';
   title: string;
 
   formData = new FormData();
