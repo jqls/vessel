@@ -247,19 +247,19 @@ export class DrawboardComponent implements OnInit {
 
   private zoomHandler(): void {
     mydebug(this.debug_location, "zoomHandler", 'begin');
-    if ((<d3.ZoomEvent> d3.event).scale < 1) {
-      this.container.attr(
-        "transform",
-        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1)");
-    } else if ((<d3.ZoomEvent> d3.event).scale > 5) {
-      this.container.attr(
-        "transform",
-        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(5)");
-    } else {
-      this.container.attr(
-        "transform",
-        "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(" + (<d3.ZoomEvent> d3.event).scale + ")");
-    }
+    // if ((<d3.ZoomEvent> d3.event).scale < 1) {
+    //   this.container.attr(
+    //     "transform",
+    //     "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(1)");
+    // } else if ((<d3.ZoomEvent> d3.event).scale > 5) {
+    //   this.container.attr(
+    //     "transform",
+    //     "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(5)");
+    // } else {
+    //   this.container.attr(
+    //     "transform",
+    //     "translate(" + (<d3.ZoomEvent> d3.event).translate + ") scale(" + (<d3.ZoomEvent> d3.event).scale + ")");
+    // }
   }
 
   private zoomstartHandler(): void {
