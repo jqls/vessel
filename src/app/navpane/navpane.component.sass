@@ -40,7 +40,7 @@ li.nav-item
   margin: 0
   list-style-type: none
   position: relative
-  height: 50px
+  min-height: 50px
   cursor: pointer
   background-color: #71b1d1
 
@@ -93,3 +93,11 @@ li.nav-item
 
 .navpane-collasped
   width: 60px
+  .second-nav
+    display: none
+
+.link-other
+  a
+    &:focus
+      background-color: #71b1d1
+      color: #ffffff
