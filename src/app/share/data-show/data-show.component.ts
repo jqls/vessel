@@ -24,7 +24,7 @@ export class DataShowComponent implements OnInit {
   // 获取任务列表zhaoli
   constructor(private dataShowService: DataShowService) {
     let info = dataShowService.getInfo();
-    this.title = info.flow_id + '-' + info.mission_id + '-' + info.processor_id + '-' + info.workflow_id + '-' + info.port_id;
+    this.title = info.workflow_id + '-' + info.mission_id + '-' + info.processor_id + '-' + info.flow_id + '-' + info.port_id;
   }
 
   ngOnInit() {
