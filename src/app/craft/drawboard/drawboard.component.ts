@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {WorkflowNode} from "./internal/node-basic";
+import { Component, OnInit } from '@angular/core';
+import { WorkflowNode } from "./internal/node-basic";
 import * as d3 from "d3";
-import {Relation} from "./internal/relation";
-import {WorkflowNodeType, Processor} from "../../share/data-types";
-import {CraftService} from "../craft.service";
-import {mydebug} from "../../share/my-log";
-import {DataService} from "../../data.service";
+import { Relation } from "./internal/relation";
+import { WorkflowNodeType, Processor } from "../../share/data-types";
+import { CraftService } from "../craft.service";
+import { mydebug } from "../../share/my-log";
+import { DataService } from "../../data.service";
 import {
   SubmitType, Workflow_data_all, reRender_Parameter, reRender_Connections,
   reRender_Nodes, ConnectionType, OutputType, NodeStat, InputType
 } from "../../share/json-types";
-import {ProcessorNode} from "./internal/node-processor";
-import {GlobalService} from "../../global.service";
+import { ProcessorNode } from "./internal/node-processor";
+import { GlobalService } from "../../global.service";
+import { node } from "../../etl/newtask/nodes/node";
 
 @Component({
   selector: 'app-drawboard',
@@ -57,12 +58,12 @@ export class DrawboardComponent implements OnInit {
               private globalService: GlobalService,
               private dataService: DataService) {
     this.globalService.setNodesttatHook(() => {
-      this.workflowNodes.forEach(node=>{
+      this.workflowNodes.forEach(node => {
         node.groupContainer.select(".nodeStatus").select("image").attr("href", "../assets/images/icon-notstarted.svg");
       });
       this.interval = setInterval(() => {
         this.getNodeStat()
-      }, 5000);//5s一次
+      }, 1000);//5s一次
     });
     this.craftService.drawboard = this;
     this.craftService.bookSelectedNodeType((nodeType: WorkflowNodeType) => {
@@ -235,7 +236,7 @@ export class DrawboardComponent implements OnInit {
     //   this.craftService.setSelectedNode(newNode);
     // } else {
     // this.craftService.setSelectedNode(null);
-    this.container.selectAll("rect").classed("selectedalgorithm",false);
+    this.container.selectAll("rect").classed("selectedalgorithm", false);
     // }
   }
 
@@ -339,6 +340,7 @@ export class DrawboardComponent implements OnInit {
 
   reRender(reRenderData: Workflow_data_all): void {
     mydebug(this.debug_location, "reRender", "begin");
+    console.log(reRenderData);
     let processorNodes: ProcessorNode[] = reRenderData.processors.map(
       (data: reRender_Nodes) => {
         console.log("--------one node begin----");
@@ -356,11 +358,15 @@ export class DrawboardComponent implements OnInit {
     );
     console.log("-------------spark_data Over-------------------");
     reRenderData.parameters.forEach((item: reRender_Parameter) => {
+      console.log(item);
       let node = this.workflowNodes.filter(i => i.flowID == item.flow_id)[0];
       console.log(node);
-      let param = node.nodetype.parameters.filter(s => s.label === item.label)[0];
-      console.log(param);
-      param.value = item.val;
+      if (node != null){
+        let param = node.nodetype.parameters.filter(s => s.label == item.label)[0];
+        console.log(param);
+        if (param!=null)
+          param.value = item.val;
+      }
     });
 
     let paths: reRender_Connections[] = reRenderData.connections;
@@ -395,7 +401,7 @@ export class DrawboardComponent implements OnInit {
     return node.nodetype.outputs.filter(item => item.id == id)[0];
   }
 
-  setParam(Param: {processor_id: number; flow_id: number; port_id: number, visualization: boolean}) {
+  setParam(Param: { processor_id: number; flow_id: number; port_id: number, visualization: boolean }) {
     this.globalService.processor_id = Param.processor_id;
     this.globalService.flow_id = Param.flow_id;
     this.globalService.port_id = Param.port_id;
@@ -413,6 +419,8 @@ export class DrawboardComponent implements OnInit {
   getNodeStat() {
     this.craftService.getNodeStat().then(res => {
       console.log("------------------getNodeStat-------------------------");
+      console.log(res);
+      console.log(res.length);
       let over = true;
       let error = false;
       res.forEach(item => {
@@ -423,7 +431,7 @@ export class DrawboardComponent implements OnInit {
       });
       console.log(over);
       console.log(error);
-      if (over || error) {
+      if ((over && res.length === this.workflowNodes.length) || error) {
         console.log("------------------getNodeStat2-------------------------");
         clearInterval(this.interval);
       }
