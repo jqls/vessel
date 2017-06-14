@@ -18,7 +18,7 @@
       <div class="custom-window" style="width: 90%; height: 90%;">
         <div class="visual-closebtn" (click)="onVisualClose()"></div>
 
-        <app-data-show [visualization]="visualization"></app-data-show>
+        <app-data-show [visualization]="visualization" [option]="this.globalService.visualization_option"></app-data-show>
       </div>
     </div>
   </div>

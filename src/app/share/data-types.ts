@@ -1,5 +1,6 @@
-import {ParameterType, NodeType, InputType, OutputType, ParametersType} from "./json-types";
-import {mydebug} from "./my-log";
+import { ParameterType, NodeType, InputType, OutputType, ParametersType } from "./json-types";
+import { mydebug } from "./my-log";
+import { node } from "../etl/newtask/nodes/node";
 export type WorkflowNodeType = Processor;
 
 export class Processor {
@@ -13,6 +14,7 @@ export class Processor {
   id: number;
   visualization: boolean;
   ac_id: number;
+  visualization_category: string;
 
   constructor(nodeType: NodeType) {
     this.category = nodeType.category;
@@ -23,6 +25,7 @@ export class Processor {
     this.ac_id = nodeType.ac_id;
     this.parameters = [];
     this.visualization = nodeType.visualization;
+    this.visualization_category = nodeType.visualization_category;
     nodeType.params.forEach((param: ParametersType) => {
       let newPara = {};
       newPara['key'] = param.key;

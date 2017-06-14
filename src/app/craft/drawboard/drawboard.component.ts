@@ -404,11 +404,12 @@ export class DrawboardComponent implements OnInit {
     return node.nodetype.outputs.filter(item => item.id == id)[0];
   }
 
-  setParam(Param: { processor_id: number; flow_id: number; port_id: number, visualization: boolean }) {
+  setParam(Param: { processor_id: number; flow_id: number; port_id: number, visualization: boolean, option: string}) {
     this.globalService.processor_id = Param.processor_id;
     this.globalService.flow_id = Param.flow_id;
     this.globalService.port_id = Param.port_id;
     this.globalService.visualization = Param.visualization;
+    this.globalService.visualization_option = Param.option;
   }
 
   setVisualise(visualise_func: () => void) {

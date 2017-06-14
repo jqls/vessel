@@ -2,8 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DataJSON } from './data-types';
 import { DataShowService } from './data-show.service';
 import { handleError } from '../my-handler';
-import { environment } from "../../../environments/environment";
-import { Http } from "@angular/http";
+import { environment } from '../../../environments/environment';
+import { Http } from '@angular/http';
+
+import * as d3 from 'd3';
 @Component({
   selector: 'app-data-show',
   templateUrl: './data-show.component.html',
@@ -11,6 +13,7 @@ import { Http } from "@angular/http";
 })
 export class DataShowComponent implements OnInit {
   @Input() visualization: boolean;
+  @Input() option: string;
   topolopyShow = false; // 控制拓扑图模态框的隐藏显示
   showIp: string = null;
   showNum: number = null;
@@ -29,6 +32,10 @@ export class DataShowComponent implements OnInit {
   }
 
   ngOnInit() {
+    let res = this.option.split(',');
+    res.forEach(id => {
+      d3.select('#picture-' + id).attr('disabled', false);
+    });
     // if (this.visualization) {
     //   this.dataJSON = this.dataShowService.requireData().then((response: String[]) => {
     //     console.log(response);

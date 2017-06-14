@@ -110,32 +110,33 @@ export class ProcessorNode extends BasicDrawboardNode {
           processor_id: this.nodetype.id,
           flow_id: this.flowID,
           port_id: output.id,
-          visualization: this.nodetype.visualization
+          visualization: this.nodetype.visualization,
+          option: this.nodetype.visualization_category,
         };
         this.board.setParam(Param);
         this.board.gotoVisulise();
       });
       outputMenu.addClickMenu(circle);
 
-      this.menu.addItem2({
-        key: "Output-" + count, // +output.id
-        type: "dir",
-        value: [{
-          key: "可视化",
-          type: "item",
-          event: () => {
-            console.log("可视化");
-            let Param = {
-              processor_id: this.nodetype.id,
-              flow_id: this.flowID,
-              port_id: output.id,
-              visualization: this.nodetype.visualization
-            };
-            this.board.setParam(Param);
-            this.board.gotoVisulise();
-          }
-        }]
-      });
+      // this.menu.addItem2({
+      //   key: "Output-" + count, // +output.id
+      //   type: "dir",
+      //   value: [{
+      //     key: "可视化",
+      //     type: "item",
+      //     event: () => {
+      //       console.log("可视化");
+      //       let Param = {
+      //         processor_id: this.nodetype.id,
+      //         flow_id: this.flowID,
+      //         port_id: output.id,
+      //         visualization: this.nodetype.visualization
+      //       };
+      //       this.board.setParam(Param);
+      //       this.board.gotoVisulise();
+      //     }
+      //   }]
+      // });
     });
 
     this.groupContainer.append("svg")

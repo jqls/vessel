@@ -17,11 +17,13 @@ export class GlobalService {
   private workflow_subscribers: Array<(id: number) => void>;
   private getNodestat_hook: ()=>void;
   private workflow_id: number;
+
   mission_id: number;
   processor_id: number;
   flow_id: number;
   port_id: number;
   visualization: boolean;
+  visualization_option: string;
   hasRun: boolean;
   isVisual: boolean;
   constructor(private http: Http) {
