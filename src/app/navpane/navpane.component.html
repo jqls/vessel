@@ -7,7 +7,7 @@
           <li id="nav-data-analysis" class="nav-item nav-item-top1">
             <a *ngIf="isExpended">
               <i class="sidebar-icon fa fa-database fa-fw fa-2x" aria-hidden="true"></i>
-              <span class="sidebar-btn-text">数据分析平台</span>
+              <span class="sidebar-btn-text">数据分析模块</span>
             </a>
             <a *ngIf="!isExpended" class="nav-link" [routerLink]="['/ExperimentList']" [routerLinkActive]="['active']"
                [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
@@ -31,13 +31,13 @@
           <li class="nav-item link-other">
             <a class="nav-link" href="http://10.5.0.222:9990/db_manager/dbmanager/index.do" target="_blank">
               <i class="sidebar-icon fa fa-cube fa-fw fa-2x" aria-hidden="true"></i>
-              <span class="sidebar-btn-text" *ngIf="isExpended">数据管理平台</span>
+              <span class="sidebar-btn-text" *ngIf="isExpended">数据管理模块</span>
             </a>
           </li>
           <li class="nav-item link-other">
             <a class="nav-link" href="http://10.5.0.222:10000/lvm/index.cgi" target="_blank">
               <i class="sidebar-icon fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>
-              <span class="sidebar-btn-text" *ngIf="isExpended">存储管理平台</span>
+              <span class="sidebar-btn-text" *ngIf="isExpended">存储管理模块</span>
             </a>
           </li>
         </ul>

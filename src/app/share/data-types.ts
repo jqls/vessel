@@ -9,6 +9,7 @@ export class Processor {
   name: string;
   outputs: OutputType[];
   parameters: ParameterType[];
+  reRender_param = [];
   id: number;
   visualization: boolean;
   ac_id: number;

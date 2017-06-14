@@ -21,11 +21,11 @@ export class QuestionControlService {
   toQuestions(parameters: ParameterType[]): QuestionBase<any>[] {
     let questions: QuestionBase<any>[] = [];
     parameters.forEach((parameter: ParameterType) => {
-      mydebug(this.debug_location, "toQuestions", parameter.key);
+      mydebug(this.debug_location, "toQuestions", parameter.description);
       mydebug(this.debug_location, "toQuestions", parameter.controlType);
       //todo:根据parameters的controltyoe构造对应Question类型,可根据需要添加
       questions.push(
-        parameter.key == "columnlist" ? new MultiSelectQuestion(parameter) :
+        parameter.description == "columnlist" ? new MultiSelectQuestion(parameter) :
           parameter.controlType == "selection" ? new SelectQuestion(parameter) :
             parameter.controlType == "text" ? new TextboxQuestion(parameter) :
               parameter.controlType == "filelist" ? new FilelistQuestion(parameter) :

@@ -362,10 +362,13 @@ export class DrawboardComponent implements OnInit {
       let node = this.workflowNodes.filter(i => i.flowID == item.flow_id)[0];
       console.log(node);
       if (node != null){
-        let param = node.nodetype.parameters.filter(s => s.label == item.label)[0];
-        console.log(param);
-        if (param!=null)
-          param.value = item.val;
+        // let param = node.nodetype.parameters.filter(s => s.label == item.label)[0];
+        // console.log(param);
+        // if (param!=null)
+        //   param.value = item.val;
+
+        //todo: reRender Param
+        // node.nodetype.reRender_param.push(item.);
       }
     });
 

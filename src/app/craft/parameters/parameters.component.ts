@@ -27,23 +27,9 @@ export class ParametersComponent implements OnInit {
   form: FormGroup;
   private selectDBName: string;
   private sql_stage: number = 0;
-  private databaseRequestTable: DatabaseRequest1_Para =
-    {
-      host: null,
-      port: null,
-      user: null,
-      password: null,
-      dbase: null
-    };
+  private databaseRequestTable = {};
 
-  private databaseRequestColum: DatabaseRequest2_Para = {
-    host: null,
-    port: null,
-    user: null,
-    password: null,
-    dbase: null,
-    tablelist: null
-  }
+  private databaseRequestColum = {};
 
   constructor(private craftService: CraftService,
               private qcs: QuestionControlService) {
@@ -55,6 +41,7 @@ export class ParametersComponent implements OnInit {
       //   [];
       this.parameters = node instanceof ProcessorNode ?
         (<ProcessorNode>this.selectedNode).nodetype.parameters :
+        // node.
         [];
       console.log(this.parameters);
       if (this.parameters == null)
@@ -140,10 +127,15 @@ export class ParametersComponent implements OnInit {
         // console.log(JSON.stringify(res));
         return res as ParametersType[];
       })
-      .then(res => {
+      .then((res:ParametersType[]) => {
+        this.databaseRequestTable={};
+        this.databaseRequestColum={};
+        console.log(this.databaseRequestTable);
         res.map(param => {
           let newPara = {};
           newPara['key'] = param.key;
+          this.databaseRequestTable[param.key]='';
+          this.databaseRequestColum[param.key]='';
           newPara['label'] = param.label;
           newPara['value'] = param.value;
           newPara['controlType'] = param.controlType;
@@ -164,7 +156,8 @@ export class ParametersComponent implements OnInit {
         // console.warn(this.selectedNode.nodetype.parameters);
         // console.warn(this.parameters);
         this.questions = this.qcs.toQuestions(this.parameters);
-        // console.log(this.questions);
+        console.log(this.databaseRequestTable);
+        console.log(JSON.stringify(this.databaseRequestTable));
         this.form = this.qcs.toFormGroup(this.questions);
         // console.log(this.form);
       }).catch(handleError);
@@ -174,17 +167,17 @@ export class ParametersComponent implements OnInit {
     let newParamster;
     this.databaseRequestTable[key] = value;
     this.databaseRequestColum[key] = value;
-    // console.log(JSON.stringify(this.databaseRequestTable));
+    console.log(JSON.stringify(this.databaseRequestTable));
     let tag = true;
     for (let item in this.databaseRequestTable) {
       // console.log(item);
-      if (this.databaseRequestTable[item] == null)
+      if (this.databaseRequestTable[item] == '')
         tag = false;
     }
     console.log(this.databaseRequestTable);
     // console.log(tag);
     if (tag) {
-      let content: DatabaseRequest1 = {
+      let content = {
         ac_id: null,
         db_id: null,
         parameters: null
@@ -199,10 +192,11 @@ export class ParametersComponent implements OnInit {
           // console.log(JSON.stringify(res));
           return res as ParametersType[];
         })
-        .then(res => {
+        .then((res:ParametersType[]) => {
           res.map(param => {
             let newPara = {};
             newPara['key'] = param.key;
+            this.databaseRequestColum[param.key]='';
             newPara['label'] = param.label;
             newPara['value'] = param.value;
             newPara['controlType'] = param.controlType;
@@ -220,7 +214,6 @@ export class ParametersComponent implements OnInit {
 
             newParamster = newPara;
           });
-
           this.craftService.onDatabaseAttrSet(content)
             .then(res => {
               // console.warn(res);
@@ -253,7 +246,7 @@ export class ParametersComponent implements OnInit {
     }
     console.log(this.databaseRequestTable);
     if (tag) {
-      let content: DatabaseRequest2 = {
+      let content = {
         ac_id: null,
         db_id: null,
         parameters: null
@@ -269,7 +262,7 @@ export class ParametersComponent implements OnInit {
           console.log(JSON.stringify(res));
           return res as ParametersType[];
         })
-        .then(res => {
+        .then((res:ParametersType[]) => {
           res.map(param => {
             let newPara = {};
             newPara['key'] = param.key;
