@@ -6,6 +6,7 @@ export type WorkflowNodeType = Processor;
 export class Processor {
   private debug_location: string = "Processor";
   category: string;
+  category_id: string;
   inputs: InputType[];
   name: string;
   outputs: OutputType[];
@@ -18,6 +19,7 @@ export class Processor {
 
   constructor(nodeType: NodeType) {
     this.category = nodeType.category;
+    this.category_id = nodeType.category_id;
     this.inputs = nodeType.inputs;
     this.name = nodeType.name;
     this.outputs = nodeType.outputs;

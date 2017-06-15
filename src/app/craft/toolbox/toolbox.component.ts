@@ -27,8 +27,14 @@ export class ToolboxComponent implements OnInit {
       this.processors = processors;
       this.processors.forEach((item) => {
         let string = item.category;
+        let ids = item.category_id;
         let str = string.split('>');
+        let id  = ids.split('>');
         let last = str[str.length-1];
+        let needrefactor = [];
+        for (let i = 0; i < str.length; i++) {
+          needrefactor.push({name: str[i], id: id[i]});
+        }
         // console.log(str);
 
         // object版，留念
@@ -46,15 +52,17 @@ export class ToolboxComponent implements OnInit {
          */
         // console.log("---------------------------1-----------------------------");
         let temp = this.tree;
-        str.forEach(s => {
+        needrefactor.forEach(s => {
           let obj;
-          obj = temp[0]?temp.filter(a=>{return (a['key']===s)})[0]:null;
+          obj = temp[0]?temp.filter(a=>{return (a['key']===s.name)})[0]:null;
           // console.log(obj);
           if(obj==null){
             obj={};
-            obj['key'] = s;
+            obj['key'] = s.name;
             obj['value']=[];
             obj['type']='dir';
+            obj['id']=s.id;
+            console.log(obj);
             temp.push(obj);
             // console.log(temp);
           }

@@ -1,5 +1,5 @@
-<div id="toolbox-list-{{data['key']}}" class="minimized list-category">
-  <div class="list-category-header" (click)="changeStat('toolbox-list-'+data['key'])">
+<div id="toolbox-list-{{data['key']}}-{{data['id']}}" class="minimized list-category">
+  <div class="list-category-header" (click)="changeStat('toolbox-list-'+data['key']+'-'+data['id'])">
     <div class="icon-expand"></div>
     <span class="category-header-icon icon-data_set"><i></i></span>
     <div class="category-header-title">

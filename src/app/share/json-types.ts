@@ -1,5 +1,6 @@
 export type NodeType = {
   category: string,
+  category_id: string,
   inputs: InputType[],
   name: string,
   outputs: OutputType[],
