@@ -22,4 +22,5 @@ export const environment = {
   URL_Spark_SQL: 'http://10.5.0.222:8080/workflow/sql/',
   // 新增自定义图表显示
   URL_VISUAL_CUSTOME: 'http://10.5.0.222:8080/dispatcher/custom_visualization/', // workflowId-missionID-processorID-flowID-portID
+  URL_Spark_log: 'http://10.5.0.222:8080/dispatcher/log/',
 };

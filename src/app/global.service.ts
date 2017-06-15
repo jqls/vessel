@@ -16,7 +16,8 @@ export class GlobalService {
   private selectedNode: WorkflowNode;
   private workflow_subscribers: Array<(id: number) => void>;
   private getNodestat_hook: ()=>void;
-  private workflow_id: number;
+  workflow_id: number;
+  private log_hook: ()=>void;
 
   mission_id: number;
   processor_id: number;
@@ -33,7 +34,13 @@ export class GlobalService {
     this.hasRun = false;
     this.isVisual = true;
   }
+  setLog(hook: () => void) {
+    this.log_hook = hook;
+  }
 
+  gotoLog() {
+    this.log_hook();
+  }
   setNodesttatHook(hook: ()=>void){
     this.getNodestat_hook = hook;
   }

@@ -1,27 +1,28 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from "@angular/http";
-import {environment} from "../environments/environment";
-import {NodeType, Workflow_data_all} from "./share/json-types";
-import {mydebug} from "./share/my-log";
-import {Processor} from "./share/data-types";
-import {handleError} from "./share/my-handler";
+import { Injectable } from '@angular/core';
+import { Http, Response } from "@angular/http";
+import { environment } from "../environments/environment";
+import { NodeType, Workflow_data_all } from "./share/json-types";
+import { mydebug } from "./share/my-log";
+import { Processor } from "./share/data-types";
+import { handleError } from "./share/my-handler";
 
 @Injectable()
 export class DataService {
   get spark_data(): NodeType[] {
     return this._spark_data;
   }
+
   private debug_location: string = "DataService";
   private spark_data_URL: string;
   private spark_data_new: Promise<NodeType[]>;
-  private _spark_data:NodeType[];
+  private _spark_data: NodeType[];
 
   constructor(private http: Http) {
     this.spark_data_URL = environment.isMock ? environment.URL_Spark_mock : environment.URL_Spark;
     mydebug(this.debug_location, "constructor", this.spark_data_URL);
   }
 
-  getNodeInfo():Promise<Processor[]>{
+  getNodeInfo(): Promise<Processor[]> {
     //三元运算符
     this.spark_data_new = environment.isMock ?
       this.http.get(this.spark_data_URL).toPromise().then(response => {
@@ -40,18 +41,20 @@ export class DataService {
     })
       .catch(handleError);
   }
+
   getExperimentsList(): Promise<Response> {
     return this.http.get(environment.URL_Spark_Workflow_History).toPromise();
   }
+
   getMissionsList(workflow_id: number): Promise<Response> {
-    return this.http.get(environment.URL_Spark_RUN_HISTORY+workflow_id).toPromise();
+    return this.http.get(environment.URL_Spark_RUN_HISTORY + workflow_id).toPromise();
   }
 
   getDataByFlowID(workflow_id: number): Promise<Workflow_data_all> {
 
     console.log("workflow_id: " + workflow_id);
-    if(environment.isMock){
-      return this.http.get(environment.URL_Spark_redraw_mock).toPromise().then(res=>{
+    if (environment.isMock) {
+      return this.http.get(environment.URL_Spark_redraw_mock).toPromise().then(res => {
         mydebug(this.debug_location, "getDataByFlowID", JSON.stringify(res.json().data));
         return res.json().data as Workflow_data_all;
       }).catch(handleError);
@@ -63,5 +66,14 @@ export class DataService {
       }
     ).catch(handleError);
 
+  }
+
+  getLog(param: { workflow_id: number; mission_id: number; processor_id: number; flow_id: number; }) {
+    let add = param.workflow_id + '-' + param.mission_id + '-' + param.processor_id + '-' + param.flow_id + '/';
+    return this.http.get(environment.URL_Spark_log + add).toPromise().then(
+      response => {
+        return response.json().log;
+      }
+    )
   }
 }

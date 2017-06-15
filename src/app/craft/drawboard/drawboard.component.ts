@@ -52,6 +52,7 @@ export class DrawboardComponent implements OnInit {
   flowIDCounter: number;
   private workflow_id: number;
   private visualise_func: () => void;
+  private log_func: () => void;
   private interval;
 
   constructor(private craftService: CraftService,
@@ -404,7 +405,7 @@ export class DrawboardComponent implements OnInit {
     return node.nodetype.outputs.filter(item => item.id == id)[0];
   }
 
-  setParam(Param: { processor_id: number; flow_id: number; port_id: number, visualization: boolean, option: string}) {
+  setParam(Param: { processor_id: number; flow_id: number; port_id?: number, visualization: boolean, option: string}) {
     this.globalService.processor_id = Param.processor_id;
     this.globalService.flow_id = Param.flow_id;
     this.globalService.port_id = Param.port_id;
@@ -420,6 +421,13 @@ export class DrawboardComponent implements OnInit {
     this.visualise_func();
   }
 
+  setLog(log_func: () => void) {
+    this.log_func = log_func;
+  }
+
+  gotoLog() {
+    this.log_func();
+  }
   getNodeStat() {
     this.craftService.getNodeStat().then(res => {
       console.log("------------------getNodeStat-------------------------");
