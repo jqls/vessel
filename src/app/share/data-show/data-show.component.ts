@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { DataJSON } from './data-types';
 import { DataShowService } from './data-show.service';
 import { handleError } from '../my-handler';
@@ -11,7 +11,7 @@ import * as d3 from 'd3';
   templateUrl: './data-show.component.html',
   styleUrls: ['./data-show.component.sass']
 })
-export class DataShowComponent implements OnInit {
+export class DataShowComponent implements OnInit, AfterViewInit {
   @Input() visualization: boolean;
   @Input() option: string;
   topolopyShow = false; // 控制拓扑图模态框的隐藏显示
@@ -30,12 +30,15 @@ export class DataShowComponent implements OnInit {
     let info = dataShowService.getInfo();
     this.title = info.workflow_id + '-' + info.mission_id + '-' + info.processor_id + '-' + info.flow_id + '-' + info.port_id;
   }
-
-  ngOnInit() {
+  ngAfterViewInit() {
+    console.log(this.option);
     let res = this.option.split(',');
     res.forEach(id => {
-      d3.select('#picture-' + id).attr('disabled', false);
+      d3.select(('#picture-' + id)).attr('disabled', null);
     });
+  }
+  ngOnInit() {
+
     // if (this.visualization) {
     //   this.dataJSON = this.dataShowService.requireData().then((response: String[]) => {
     //     console.log(response);
