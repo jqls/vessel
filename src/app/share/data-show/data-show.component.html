@@ -1,4 +1,4 @@
-<div id="data-show" *ngIf="visualization">
+<div id="data-show">
 
   <div class="main-wrapper">
     <!--<header class="title">{{title}}</header>-->
@@ -69,9 +69,9 @@
     <!-- start：表格 -->
     <div id="table-show" *ngIf="!visualization">
       <div class="table-wrapper">
-        <table>
-          <tr *ngFor="let data of datas">
-            <td *ngFor="let item of (data.table_value)">{{item}}</td>
+        <table class="table">
+          <tr *ngFor="let data of data4table">
+            <td *ngFor="let item of data['line']">{{item}}</td>
           </tr>
         </table>
       </div>

@@ -14,6 +14,7 @@ import * as d3 from 'd3';
 export class DataShowComponent implements OnInit, AfterViewInit {
   @Input() visualization: boolean;
   @Input() option: string;
+  data4table: {}[];
   topolopyShow = false; // 控制拓扑图模态框的隐藏显示
   showIp: string = null;
   showNum: number = null;
@@ -68,6 +69,23 @@ export class DataShowComponent implements OnInit, AfterViewInit {
     //     return dataJSON;
     //   }).catch(handleError);
     // }
+
+    if (!this.visualization) {
+      this.dataShowService.requireData().then((response: String[]) => {
+        console.log('-------');
+        console.log(response);
+        let dataJSON = response.map(item => {
+          let str = item.split(',');
+          let data = {};
+          let len = str.length;
+             data['line'] = str;
+          return data;
+        });
+        this.data4table = dataJSON;
+        console.log(dataJSON);
+        return dataJSON;
+      }).catch(handleError);
+    }
 
   }
 

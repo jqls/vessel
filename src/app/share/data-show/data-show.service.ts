@@ -49,7 +49,8 @@ export class DataShowService {
     return this.http.get(URL)
       .toPromise()
       .then(response => {
-          return environment.isMock ? response.json().data as string[] : response.json() as string[];
+        console.log(response);
+          return environment.isMock ? response.json().data as string[] : response.json().data as string[];
         }
       ).catch(handleError);
   }
