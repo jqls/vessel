@@ -5,6 +5,7 @@ import { Headers, Http, RequestMethod } from "@angular/http";
 import {treeNode} from "../algorithmPara"
 import * as _ from 'lodash';
 import { GlobalService } from "../../global.service";
+import {environment} from "../../../environments/environment";
 
 const actionMapping:IActionMapping = {
   mouse: {
@@ -34,7 +35,7 @@ export class UploadManagementComponent implements OnInit {
   public node;//node parameter
   public nodeId;
 
-  private removeUrl="http://10.5.0.222:8080/workflow/category_delete/"
+  private removeUrl=environment.URL_Upload_remove;
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
   formData = new FormData();
@@ -96,7 +97,7 @@ export class UploadManagementComponent implements OnInit {
   }
 
   save(){//add node save function
-     let dataUrl ="http://10.5.0.222:8080/workflow/category/";
+     let dataUrl = environment.URL_Upload_save;
     if($("#nameId").val()==='') {
       alert("名称不能为空！！！");
     }
@@ -174,7 +175,7 @@ export class UploadManagementComponent implements OnInit {
   }
 
   getData(){//获取数据
-    let dataUrl1="http://10.5.0.222:8080/workflow/category/0/";
+    let dataUrl1=environment.URL_Upload_getdata;
     return this.http.get(dataUrl1).toPromise().then(response=>{
       this.nodes.push(response.json());
       this.tree.treeModel.update();
@@ -269,7 +270,7 @@ export class UploadManagementComponent implements OnInit {
     }
   }
   editSave(){
-    let dataUrl ="http://10.5.0.222:8080/workflow/category/";
+    let dataUrl =environment.URL_Upload_save;
     this.nodeEdit.data.name=$("#nameId").val();
     if($("input:radio:checked").val()=="是") {
       this.nodeEdit.data.isHidden=false;

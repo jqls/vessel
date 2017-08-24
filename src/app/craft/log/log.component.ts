@@ -3,6 +3,7 @@ import {WorkflowNode} from "../drawboard/internal/node-basic";
 import {CraftService} from "../craft.service";
 import {mydebug} from "../../share/my-log";
 import {GlobalService} from "../../global.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-log',
@@ -38,7 +39,7 @@ export class LogComponent implements OnInit {
     if (this.craftService.hasRun) {
       // this.dataService.getSocketAddress(this.taskName, "" + this.selectedNode.flowID).then(response => {
       // let workflow_id = this.globalService.book_workflowID();
-      let url = "ws://10.5.0.222:8080/?id=2-43-13";//response.url;workflow_id,mission_id,flow_id
+      let url = environment.URL_Spark_socketlog;//response.url;workflow_id,mission_id,flow_id
       mydebug(this.debug_location, "request", url);
       var fileSocket = new WebSocket(url);
       fileSocket.onerror = (evt) => {

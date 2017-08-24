@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class InputFormService{
@@ -8,7 +9,7 @@ export class InputFormService{
     // private webUrl_tableColumn = 'app/tables_columns';
     // private webUrl_hdfsAddr = 'app/hdfs_add';
     // private webUrl_hdfsDir = 'app/hdfs_dir';
-    private BASE_URL = 'http://10.5.0.223:8090/TomcatTest';
+    private BASE_URL = environment.URL_ETL_BASE;
     private SUBMIT_URL = this.BASE_URL + '/submit-task';
 
     constructor(private http:Http){}

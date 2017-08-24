@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import {environment} from "../../../../environments/environment";
 
 @Injectable()
 export class ParameterService{
     private headers = new Headers({'Content-Type': 'text/json'});
-    private webUrl_rdbLogin = 'http://10.5.0.223:8090/TomcatTest/rdb';
+    private webUrl_rdbLogin = environment.URL_ETL_newtask_rdb;
     // private webUrl_tableColumn = 'app/tables_columns';
     // private webUrl_hdfsAddr = 'app/hdfs_add';
-    private webUrl_hdfsDir = 'http://10.5.0.223:8090/TomcatTest/hdfs-dir';
+    private webUrl_hdfsDir = environment.URL_ETL_newtask_hdfs;
     // private webUrl_result = 'app/result';
 
     constructor(private http:Http){}
