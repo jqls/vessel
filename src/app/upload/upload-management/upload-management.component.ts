@@ -1,3 +1,5 @@
+import { NgLocalization } from '@angular/common';
+
 import {  TreeComponent,TreeNode, TREE_ACTIONS, KEYS, IActionMapping} from 'angular2-tree-component';
 import {Component, ViewChild,OnInit} from '@angular/core';
 import { Headers, Http, RequestMethod } from "@angular/http";
@@ -34,6 +36,10 @@ export class UploadManagementComponent implements OnInit {
   public nodes:treeNode[]=[];
   public node;//node parameter
   public nodeId;
+  public selectNode;
+  public message:string='';
+  public baseNum:number=1000;
+  public algorithm:treeNode[]=[];
 
   private removeUrl=environment.URL_Upload_remove;
   public nodeEdit:TreeNode;//暂存编辑节点的数据
@@ -127,6 +133,31 @@ export class UploadManagementComponent implements OnInit {
     this.isEdit=false;
   }
 
+  onSelect(id:number){/////////////////////////////////////////////
+        let selectNode=this.tree.treeModel.getNodeById(id);
+        console.log(selectNode);
+        if(selectNode.data.flag!==undefined){
+             this.message=`
+            名字:              ${selectNode.data.name}
+                          `    ;
+             console.log(selectNode.data.data.category);
+             this.message+=`
+            目录:              ${selectNode.data.data.category}
+                           `   ;
+             this.message+=`
+            参数类型:          ${selectNode.data.data.params[0].parameterType}
+                           `   ;
+             this.message+=`
+            关键字:            ${selectNode.data.data.params[0].key}
+                           `   ;
+        }
+        else{
+             console.log(selectNode.flag+"ooooooooooooo");
+             this.message='';
+        }
+
+    }
+
   addNode(id:any){
     this.isEdit=false;
     $("#nameId").val("");//set input is null
@@ -175,11 +206,20 @@ export class UploadManagementComponent implements OnInit {
   }
 
   getData(){//获取数据
+    var baseNum=1000;
     let dataUrl1=environment.URL_Upload_getdata;
     return this.http.get(dataUrl1).toPromise().then(response=>{
-      this.nodes.push(response.json());
+      var newjson=response.json();
+      console.log(newjson);
+
+      for( let i of newjson.children){
+        for(let j of i.algorithms)
+          i.children.push({"id":baseNum++,"name":j.name,"data":j,"flag":1});
+      }
+      console.log(newjson);
+      this.nodes.push(newjson);
       this.tree.treeModel.update();
-      console.log(this.selectMaxId(this.nodes[0]));
+    //cole.log(this.selectMaxId(this.nodes[0]));
       console.log("getData");
       console.log(this.nodes);
     })
