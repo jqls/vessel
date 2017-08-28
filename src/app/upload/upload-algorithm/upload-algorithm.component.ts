@@ -1,12 +1,12 @@
-import {Component, OnInit, ViewChild, NgZone} from '@angular/core';
-import { TreeComponent} from 'angular2-tree-component';
-import { Http } from "@angular/http";
-import { AlgorithmPara,Parameters,InputParameters,OutputParameters} from "../algorithmPara";
-import {treeNode} from "../algorithmPara";
-import { GlobalService } from "../../global.service";
+import {Component, OnInit, ViewChild} from "@angular/core";
+import {TreeComponent} from "angular2-tree-component";
+import {Http} from "@angular/http";
+import {AlgorithmPara, treeNode} from "../algorithmPara";
+import {GlobalService} from "../../global.service";
+import {environment} from "../../../environments/environment";
 export type ParaJSON = {
   //算法上传时 POST的参数后把responce返回的参数解析成json格式获取ID
-  algorithmID:string
+  algorithmID: string
 };
 
 @Component({
@@ -18,10 +18,10 @@ export class UploadAlgorithmComponent implements OnInit {
   paraJSON: ParaJSON;
   n = 1;
   submitted = true;
-  nodeName:string;//保存树节点名字
+  nodeName: string;//保存树节点名字
   algorithmPara = new AlgorithmPara();
   formData = new FormData();
-  show:boolean=false;
+  show: boolean = false;
   public nodes: treeNode[] = [];
   // nodes = [//测试用数据
   //     {
@@ -53,12 +53,12 @@ export class UploadAlgorithmComponent implements OnInit {
   // ];
   //inputParameters: InputParameters[] = [{"name": "", "dataType": ""}];
   //outputParameters: OutputParameters[] = [{"name": "", "dataType": ""}];
- // parameterList: Parameters[] = [{"label": "", "parameterType": "", "description": ""}];
+  // parameterList: Parameters[] = [{"label": "", "parameterType": "", "description": ""}];
   nodePath: number[] = [];
   @ViewChild(TreeComponent)
   private tree: TreeComponent;
 
-  constructor(private http: Http,private globalService: GlobalService) {
+  constructor(private http: Http, private globalService: GlobalService) {
     console.log("algorithm-up");
     this.getData();
     this.globalService.isVisual = true;
@@ -76,8 +76,8 @@ export class UploadAlgorithmComponent implements OnInit {
 
   changeListener(event): void {
     this.postFile(event.target);
-    if(event.target.value!=null){
-      this.show=true;
+    if (event.target.value != null) {
+      this.show = true;
     }
   }
 
@@ -110,17 +110,17 @@ export class UploadAlgorithmComponent implements OnInit {
   onEvent = ($event) => {//获取树状结构所选的值
     this.submitted = true;
     var nameList = '';
-    this.nodeName='';
+    this.nodeName = '';
     this.nodePath = $event.node.path;
     for (let i = this.nodePath.length - 1; i >= 0; i--) {
       let nodeName = this.tree.treeModel.getNodeById(this.nodePath[i]);
       if (i == this.nodePath.length - 1) {
         nameList = nodeName.data.id + nameList;//绑定到数组，传递id到后台
-        this.nodeName=nodeName.data.name + this.nodeName;//只绑定到前端显示
+        this.nodeName = nodeName.data.name + this.nodeName;//只绑定到前端显示
       }
       else {
         nameList = nodeName.data.id + ">" + nameList;
-        this.nodeName=nodeName.data.name + ">" + this.nodeName;
+        this.nodeName = nodeName.data.name + ">" + this.nodeName;
       }
     }
     this.algorithmPara.category = nameList;
@@ -133,7 +133,7 @@ export class UploadAlgorithmComponent implements OnInit {
 
   getData() {//获取数据
     console.log("up-algo getdata()")
-    let dataUrl = "http://10.5.0.222:8080/workflow/category/0/";
+    let dataUrl = environment.URL_Upload_getdata;
     return this.http.get(dataUrl).toPromise().then(response => {
       this.nodes.push(response.json());
       this.tree.treeModel.update();
@@ -141,19 +141,20 @@ export class UploadAlgorithmComponent implements OnInit {
     })
       .catch(this.handleError);
   }
+
   sendFile() {
-    var URL_File = `http://10.5.0.222:8080/workflow/processor/${this.diagnostic}/`;
+    var URL_File = environment.URL_Upload_File + `${this.diagnostic}/`;
     console.log(URL_File);
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", URL_File, true);
-      xhr.send(this.formData);
-      console.log(this.formData);
-      xhr.onload = ()=> {
-        if (xhr.status == 200) {
-           alert(xhr.responseText);
-           this.show=false;
-        }
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", URL_File, true);
+    xhr.send(this.formData);
+    console.log(this.formData);
+    xhr.onload = ()=> {
+      if (xhr.status == 200) {
+        alert(xhr.responseText);
+        this.show = false;
       }
+    }
   }
 
 

@@ -18,7 +18,7 @@
   </style>
 </head>
 <br><br>
-<div class="treediv">
+<div class="treediv col-md-2">
   <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)">
     <template #treeNodeTemplate let-node let-index="index">
       <div>
@@ -26,7 +26,7 @@
                     <div class="node-content-wrapper">
                       <i *ngIf="node.hasChildren==true" class="glyphicon glyphicon-folder-open"></i>
                       <i *ngIf="node.hasChildren==false" class="glyphicon glyphicon-file"></i>
-                      <span style="font-size: 18px">{{ node.data.name }}</span>
+                      <span style="font-size: 28px" (click)="onSelect(node.data.id)">{{ node.data.name }}</span>
                           <i data-toggle="modal" data-target="#myModal"
                              (click)="addNode(node.data.id)" class="glyphicon glyphicon-plus"></i>
                           <i (click)="remove(node.data.id)" class="glyphicon glyphicon-minus"></i>
@@ -39,6 +39,11 @@
     </template>
   </Tree>
 </div>
+
+<div class="simulate-textarea"  ng-model="view.text" contenteditable="false" placeholder="请输入内容">
+   <div style="font-size: 28px;margin-bottom: 30px;margin-left:400px" >算法详情</div>
+   <div style="font-size: 28px"><pre style="font-size: 28px;width:920px;height:600px">{{message}}</pre></div>
+ </div>
 
 <form [hidden]="false"
       class="modal" id="myModal" tabindex="-1" role="dialog"
@@ -89,5 +94,3 @@
     </div>
   </div>
 </form>
-
-

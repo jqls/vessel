@@ -9,6 +9,7 @@ import {DataJSON} from "../data-types";
 import {GlobalService} from "../../../global.service";
 import {DataShowComponent} from "../data-show.component"
 import {DataShowService} from "../data-show.service";
+import {environment} from "../../../../environments/environment";
 @Component({
   selector: 'topological-diagram',
   templateUrl: 'topology.component.html',
@@ -47,7 +48,7 @@ export class topologyComponent implements OnInit,OnDestroy{
     let processor_id = this.globalService.processor_id;
     let flow_id = this.globalService.flow_id;
     let port_id = this.globalService.port_id;
-    let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
+    let dataUrl=environment.URL_Spark_visualisation+ workflow_id + '-' + mission_id + '-' + processor_id + '-' + flow_id + '-' + port_id + '-' + 0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
     //let dataUrl="http://10.5.0.222:8080/dispatcher/visualization/"+ 9 + '-' + 90 + '-' + 25 + '-' + 0 + '-' + 21 + '-' +0+"?getip="+this.dataShowService.topologyIp+"&"+"getlayer="+this.dataShowService.topologyNum;
     console.log(dataUrl)
     return this.http.get(dataUrl).toPromise().then(response=>{

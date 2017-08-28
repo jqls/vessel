@@ -1,3 +1,5 @@
+import { NgLocalization } from '@angular/common';
+
 import {  TreeComponent,TreeNode, TREE_ACTIONS, KEYS, IActionMapping} from 'angular2-tree-component';
 import {Component, ViewChild,OnInit} from '@angular/core';
 import { Headers, Http, RequestMethod } from "@angular/http";
@@ -5,6 +7,7 @@ import { Headers, Http, RequestMethod } from "@angular/http";
 import {treeNode} from "../algorithmPara"
 import * as _ from 'lodash';
 import { GlobalService } from "../../global.service";
+import {environment} from "../../../environments/environment";
 
 const actionMapping:IActionMapping = {
   mouse: {
@@ -33,8 +36,12 @@ export class UploadManagementComponent implements OnInit {
   public nodes:treeNode[]=[];
   public node;//node parameter
   public nodeId;
+  public selectNode;
+  public message:string='';
+  public baseNum:number=1000;
+  public algorithm:treeNode[]=[];
 
-  private removeUrl="http://10.5.0.222:8080/workflow/category_delete/"
+  private removeUrl=environment.URL_Upload_remove;
   public nodeEdit:TreeNode;//暂存编辑节点的数据
   public isEdit:boolean=false;
   formData = new FormData();
@@ -96,7 +103,7 @@ export class UploadManagementComponent implements OnInit {
   }
 
   save(){//add node save function
-     let dataUrl ="http://10.5.0.222:8080/workflow/category/";
+     let dataUrl = environment.URL_Upload_save;
     if($("#nameId").val()==='') {
       alert("名称不能为空！！！");
     }
@@ -125,6 +132,31 @@ export class UploadManagementComponent implements OnInit {
   cancel(){ //add node form cancel function
     this.isEdit=false;
   }
+
+  onSelect(id:number){/////////////////////////////////////////////
+        let selectNode=this.tree.treeModel.getNodeById(id);
+        console.log(selectNode);
+        if(selectNode.data.flag!==undefined){
+             this.message=`
+            名字:              ${selectNode.data.name}
+                          `    ;
+             console.log(selectNode.data.data.category);
+             this.message+=`
+            目录:              ${selectNode.data.data.category}
+                           `   ;
+             this.message+=`
+            参数类型:          ${selectNode.data.data.params[0].parameterType}
+                           `   ;
+             this.message+=`
+            关键字:            ${selectNode.data.data.params[0].key}
+                           `   ;
+        }
+        else{
+             console.log(selectNode.flag+"ooooooooooooo");
+             this.message='';
+        }
+
+    }
 
   addNode(id:any){
     this.isEdit=false;
@@ -174,11 +206,20 @@ export class UploadManagementComponent implements OnInit {
   }
 
   getData(){//获取数据
-    let dataUrl1="http://10.5.0.222:8080/workflow/category/0/";
+    var baseNum=1000;
+    let dataUrl1=environment.URL_Upload_getdata;
     return this.http.get(dataUrl1).toPromise().then(response=>{
-      this.nodes.push(response.json());
+      var newjson=response.json();
+      console.log(newjson);
+
+      for( let i of newjson.children){
+        for(let j of i.algorithms)
+          i.children.push({"id":baseNum++,"name":j.name,"data":j,"flag":1});
+      }
+      console.log(newjson);
+      this.nodes.push(newjson);
       this.tree.treeModel.update();
-      console.log(this.selectMaxId(this.nodes[0]));
+    //cole.log(this.selectMaxId(this.nodes[0]));
       console.log("getData");
       console.log(this.nodes);
     })
@@ -269,7 +310,7 @@ export class UploadManagementComponent implements OnInit {
     }
   }
   editSave(){
-    let dataUrl ="http://10.5.0.222:8080/workflow/category/";
+    let dataUrl =environment.URL_Upload_save;
     this.nodeEdit.data.name=$("#nameId").val();
     if($("input:radio:checked").val()=="是") {
       this.nodeEdit.data.isHidden=false;

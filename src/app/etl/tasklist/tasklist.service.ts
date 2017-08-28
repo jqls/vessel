@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class TaskListService{
     private headers = new Headers({'Content-Type': 'application/json'});
-    private BASE_URL = 'http://10.5.0.223:8090/TomcatTest';
+    private BASE_URL = environment.URL_ETL_BASE;
     private TASKLIST_URL = this.BASE_URL + '/tasklist';
     private DELETETASK_URL = this.BASE_URL + '/delete-task';
 

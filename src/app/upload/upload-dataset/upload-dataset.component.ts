@@ -27,7 +27,7 @@ export class UploadDatasetComponent implements OnInit {
     console.log(this.formData);
   }
   sendFile() {
-    var URL_File = "http://10.5.0.222:8080/workflow/documents/"+JSON.stringify(this.fileinfo)+"/";
+    var URL_File = +JSON.stringify(this.fileinfo)+"/";
     console.log(URL_File);
     var xhr = new XMLHttpRequest();
     xhr.open("POST", URL_File, true);
