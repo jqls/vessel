@@ -135,6 +135,26 @@ export class DataShowComponent implements OnInit, AfterViewInit {
             }
           ).catch(handleError);
         break;
+      case 9:
+        let URL5 = environment.URL_Spark_visualisation + this.title + '-5/';
+        this.http.get(URL4)
+          .toPromise()
+          .then(response => {
+              this.imgURL = (response.json())['picture'];
+              console.log('img url = ' + this.imgURL);
+            }
+          ).catch(handleError);
+        break;
+      case 10:
+        let URL6 = environment.URL_Spark_visualisation + this.title + '-6/';
+        this.http.get(URL4)
+          .toPromise()
+          .then(response => {
+              this.imgURL = (response.json())['picture'];
+              console.log('img url = ' + this.imgURL);
+            }
+          ).catch(handleError);
+        break;
     }
   }
 
