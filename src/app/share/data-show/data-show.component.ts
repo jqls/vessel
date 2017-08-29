@@ -137,7 +137,7 @@ export class DataShowComponent implements OnInit, AfterViewInit {
         break;
       case 9:
         let URL5 = environment.URL_Spark_visualisation + this.title + '-5/';
-        this.http.get(URL4)
+        this.http.get(URL5)
           .toPromise()
           .then(response => {
               this.imgURL = (response.json())['picture'];
@@ -147,7 +147,7 @@ export class DataShowComponent implements OnInit, AfterViewInit {
         break;
       case 10:
         let URL6 = environment.URL_Spark_visualisation + this.title + '-6/';
-        this.http.get(URL4)
+        this.http.get(URL6)
           .toPromise()
           .then(response => {
               this.imgURL = (response.json())['picture'];
