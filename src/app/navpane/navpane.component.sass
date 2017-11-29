@@ -1,0 +1,103 @@
+@media (min-width: 0px)
+  #navpane
+    position: fixed
+    bottom: 60px
+    top: 50px !important
+    left: 0
+    margin-left: 0
+    z-index: 1
+    overflow: hidden
+    -webkit-transition: 0.3s
+    -moz-transition: 0.3s
+    -ms-transition: 0.3s
+    -o-transition: 0.3s
+    transition: 0.3s
+/*border-right: 1px solid #71b1d1*/
+
+#navpane1
+  position: absolute
+  top: 0
+  bottom: 0
+  background-color: #71b1d1
+  border-right: 1px solid #cecece
+
+/*侧边导航栏*/
+.nav-sidebar
+  margin: 0px
+  border: 0 none rgb(50, 50, 50)
+  position: absolute
+  top: 0px
+  right: 0px
+  bottom: 0px
+  left: 0px
+  float: none
+  max-height: none
+  overflow-x: hidden
+  overflow-y: auto
+
+li.nav-item
+  padding: 0
+  margin: 0
+  list-style-type: none
+  position: relative
+  min-height: 50px
+  cursor: pointer
+  background-color: #71b1d1
+
+.nav-item-top1
+  margin-top: 25px !important
+
+.nav-item a:hover
+  background-color: #7cc1de
+
+.nav-item a:focus
+  color: #000
+  background-color: #fff
+
+.nav-item a.active
+  color: #000
+  background-color: #fff
+
+.nav-item a
+  color: #fff
+  display: block
+  height: 50px
+  margin: 0
+  padding: 0
+  border-radius: 0
+
+.nav-sidebar li
+  border-bottom: solid 1px #71b1d1
+
+.sidebar-icon
+  position: absolute
+  left: 10px
+  width: 40px
+  top: 9px
+  height: 40px
+  overflow: hidden
+
+.sidebar-btn-text
+  font-size: 14px
+  position: absolute
+  top: 12px
+  left: 60px
+  right: 0px
+  overflow: hidden
+  font-weight: bold
+  text-transform: uppercase
+  white-space: nowrap
+
+.navpane-expanded
+  width: 180px
+
+.navpane-collasped
+  width: 60px
+  .second-nav
+    display: none
+
+.link-other
+  a
+    &:focus
+      background-color: #71b1d1
+      color: #ffffff

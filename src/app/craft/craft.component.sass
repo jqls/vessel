@@ -1,0 +1,129 @@
+.experiment-container
+  position: fixed
+  right: 0
+  top: 50px
+  left: 60px
+  bottom: 60px
+  height: auto
+  float: left
+
+.left
+  width: 36px
+  float: left
+  height: 100%
+  padding-left: 15px
+  padding-right: 15px
+  background-color: #fff
+  border-right: solid 1px #ededed
+  position: relative
+  -webkit-transition: 0.3s
+  -moz-transition: 0.3s
+  -ms-transition: 0.3s
+  -o-transition: 0.3s
+  transition: 0.3s
+  i
+    height: 20px
+    width: 20px
+    margin-top: 10px
+
+.right
+  width: 36px
+  height: 100%
+  float: right
+  overflow: hidden
+  background-color: #fff
+  position: relative
+  padding-left: 15px
+  padding-right: 15px
+  border-left: solid 1px #ededed
+  -webkit-transition: 0.3s
+  -moz-transition: 0.3s
+  -o-transition: 0.3s
+  transition: 0.3s
+  i
+    margin-top: 10px
+    margin-right: 10px
+    height: 20px
+    width: 20px
+.col-l
+  width: 254px
+  height: 100%
+  float: left
+  border-right: solid 1px #ededed
+  overflow: hidden
+  -webkit-transition: 0.3s
+  -moz-transition: 0.3s
+  -ms-transition: 0.3s
+  -o-transition: 0.3s
+  transition: 0.3s
+.col-c
+  position: relative
+  height: 100%
+  float: left
+  -webkit-transition: 0.3s
+  -moz-transition: 0.3s
+  -ms-transition: 0.3s
+  -o-transition: 0.3s
+  transition: 0.3s
+.col-r
+  width: 254px
+  height: 100%
+  float: right
+  border-left: solid 1px #ededed
+  overflow-y: auto
+  overflow-x: hidden
+  -webkit-transition: 0.3s
+  -moz-transition: 0.3s
+  -ms-transition: 0.3s
+  -o-transition: 0.3s
+  transition: 0.3s
+.col-1
+  width: calc(100% - 36px * 2)
+
+.col-2
+  width: calc(100% - 254px - 36px)
+
+.col-3
+  width: calc(100% - 254px * 2)
+.transition-width
+  transition-property: width
+  -moz-transition-property: width
+  -webkit-transition-property: width
+
+#visualization
+  width: 100%
+  position: absolute
+  background: rgba(0,0,0,.4)
+  min-height: 100%
+
+.front-wrapper
+  z-index: 2000
+  visibility: visible
+.custom-window
+  margin: auto
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  left: 0
+  background: #fff
+  .visual-closebtn
+    background-image: url("../assets/images/icon-close.png")
+    position: fixed
+    right: 5%
+    z-index: 9999
+    height: 20px
+    width: 20px
+    margin: 10px 10px 5px auto
+    float: right
+    background-size: 20px 20px
+    opacity: 1
+    font-size: 21px
+    font-weight: bold
+    line-height: 1
+    color: #000
+    text-shadow: 0 1px 0 #fff
+  .visual-closebtn:hover
+    color: #000
+    text-decoration: none
+    cursor: pointer

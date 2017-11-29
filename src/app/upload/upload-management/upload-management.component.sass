@@ -1,0 +1,89 @@
+fieldset
+  /*padding:.35em .625em .75em*/
+  margin: 0 2px
+  border: 1px solid silver
+  background-color: #eceeef
+  border-radius: 10px
+
+
+
+legend
+ background-color: #eceeef
+
+.center
+  padding-top: 20px
+  text-align: center
+
+
+
+.treediv
+  background-color: #eceeef
+  border: 1px solid #7cc1de
+  position: relative
+  width: 800px
+  height: 800px
+  margin-left: auto
+  margin-right: auto
+  padding-left: 150px
+  padding-top: 20px
+  overflow : scroll
+
+
+.treeColor
+ color: red
+
+.node-content-wrapper, .tree-children
+  position: relative
+  padding-left: 40px !important
+
+.node-content-wrapper::before, .tree-children::after
+  content: ""
+  position: absolute
+
+
+.node-content-wrapper::before
+  border-bottom: 1px dashed lightgrey
+  border-left: 1px dashed lightgrey
+  height: 34px
+  top: -23px
+  width: 17px
+  left: -32px
+
+
+.tree-node-leaf > .node-wrapper > .node-content-wrapper::before
+  width: 25px
+
+
+.tree-children::after
+  border-left: 1px solid lightgrey
+  height: 100%
+  top: -15px
+  left: -15px
+
+
+treenode:last-child > .tree-node > .tree-children::after
+  border-left: none
+
+
+.glyphicon
+  font-style: italic
+
+.glyphicon-file
+  color: lightslategray
+
+.glyphicon-folder-open
+  padding-right: 4px
+
+.toggle-children
+  z-index: 1
+.simulate-textarea
+  background-color: #eceeef
+  border: 1px solid #7cc1de
+  position: relative
+  width: 1200px
+  height: 800px
+  margin-left: 50px
+  margin-right: 10px
+  padding-left: 150px
+  padding-top: 20px
+  overflow : scroll

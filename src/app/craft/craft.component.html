@@ -1,0 +1,26 @@
+<div class="experiment-container">
+  <div style="position: relative;height: 100%;">
+    <div class="transition-width" [ngClass]="{'left': !isOpenLeftPane, 'col-l': isOpenLeftPane}">
+      <app-toolbox #toolbox [hidden]="!isOpenLeftPane"></app-toolbox>
+      <i [hidden]="isOpenLeftPane" class="fa fa-angle-double-right" aria-hidden="true" (click)="openLeft()"></i>
+    </div>
+    <div class="col-c"
+         [ngClass]="{'col-1': !isOpenRightPane && !isOpenLeftPane,'col-2': (!isOpenRightPane && isOpenLeftPane)||(isOpenRightPane && !isOpenLeftPane), 'col-3': isOpenRightPane&&isOpenLeftPane}">
+      <app-drawboard></app-drawboard>
+    </div>
+    <div class="transition-width" [ngClass]="{'col-r':isOpenRightPane, 'right':!isOpenRightPane}">
+      <app-parameters [hidden]="!isOpenRightPane"></app-parameters>
+      <i [hidden]="isOpenRightPane" class="fa fa-angle-double-left" aria-hidden="true" (click)="openRight()"></i>
+    </div>
+
+    <!--可视化层-->
+    <div id="visualization" class="front-wrapper" *ngIf="show_visual">
+      <div class="custom-window" style="width: 90%; height: 90%;">
+        <div class="visual-closebtn" (click)="onVisualClose()"></div>
+
+        <app-data-show [visualization]="visualization"
+                       [option]="this.globalService.visualization_option"></app-data-show>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<form name="fileinfo" enctype="multipart/form-data" id="form" #uploadForm="ngForm"(ngSubmit)="sendFile();">
+  <div><!--uploadForm.reset() (ngSubmit)="sendFile();" -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active color" data-toggle="tab" href="#algorithmAttribute" role="tab" >算法属性</a>
+      </li>
+    </ul>
+  </div>
+  <div class="container">
+    <div class="leaderboard">
+      <!--********************algorithmAttribute*****************************-->
+      <div class="tab-content">
+
+        <div class="tab-pane active" id="algorithmAttribute" role="tabpanel">
+          <!-- <fieldset>
+             <legend>算法属性</legend>-->
+          <div class="form-group row">
+            <label for="algorithmName" class="col-xs-1 col-form-label" style="margin-left:200px">名称：</label>
+            <div class="col-xs-6">
+              <input class="form-control" type="text" id="algorithmName"  [(ngModel)]="algorithmPara.name" name="name"
+                     placeholder="请输入算法名称" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="category" class="col-xs-1 col-form-label" style="margin-left:200px">种类：</label>
+            <div class="col-xs-6">
+              <input class="form-control" type="text" id="category" (click)="treeShow()" readonly="readonly" autocomplete="off"
+                      [(ngModel)]="nodeName" name="category" placeholder="请选择">
+<!-- algorithmPara.category-->
+
+              <div class="row" id="tree"  [hidden]="submitted"
+                   style="background-color: #eceeef;margin: 0px;padding-left: 10px;border: 1px solid #eceeef">
+                <Tree  [nodes]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)" ></Tree>
+                <template #treeNodeTemplate let-node>
+                  <span *ngIf="node.data.isHidden==false">{{node.data.name}}</span>
+                </template>
+              </div>
+            </div>
+
+          </div>
+          <!--
+          <div class="form-group row">
+            <label  class="col-xs-1 col-form-label" style="margin-left:200px;padding-left:10px">可视化：</label>
+            <div class="col-xs-6">
+              <select class="form-control" [(ngModel)]="algorithmPara.is_visualization" name="is_visualization" placeholder="请输入值类型">
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select>
+            </div>
+          </div>
+          -->
+        </div>
+      </div>
+      <br><br>
+      <div style="padding-top: 30px">
+        <div class="tab-pane " >
+          <label for="InputFile" style="margin-left:20px">选择上传的算法文件：</label>
+          <input type="file" (change)="changeListener($event)" class="form-control-file" id="InputFile" name="file" aria-describedby="fileHelp"
+                 style="margin-left:20px" required>
+          <br>
+          <div class="offset-sm-9 col-sm-3">
+            <button type="submit" class="btn btn-primary"
+                    data-toggle="modal" data-target="#uploadModal">算法上传</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</form>
+
+<!--data-backdrop="static"禁用模态框点击空白处消失-->
+<div  *ngIf="show" class="modal" id="uploadModal" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="top: 150px;z-index: 10000" data-backdrop="false">
+    <div class="loader">upLoading...</div>
+</div>
+

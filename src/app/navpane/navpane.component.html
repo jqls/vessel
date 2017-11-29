@@ -1,0 +1,101 @@
+<div id="navpane" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
+  <div id="navpane1" [ngClass]="{'navpane-expanded': isExpended, 'navpane-collasped': !isExpended }">
+    <div id="navpane1-items" class="nav-sidebar">
+      <nav>
+        <!-- start: 新版： 折叠目录 -->
+        <ul class="nav">
+          <li id="nav-data-analysis" class="nav-item nav-item-top1">
+            <a *ngIf="isExpended">
+              <i class="sidebar-icon fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text">数据分析模块</span>
+            </a>
+            <a *ngIf="!isExpended" class="nav-link" [routerLink]="['/ExperimentList']" [routerLinkActive]="['active']"
+               [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+              <i class="sidebar-icon fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>
+            </a>
+            <ul class="nav second-nav">
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/ExperimentList']" [routerLinkActive]="['active']"
+                   [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+                  <span class="sidebar-btn-text" *ngIf="isExpended">数据分析</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/upload-management']" [routerLinkActive]="['active']"
+                   [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+                  <span class="sidebar-btn-text" *ngIf="isExpended">算法上传</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item link-other">
+            <a class="nav-link" href="{{url_data_manager}}" target="_blank">
+              <i class="sidebar-icon fa fa-database fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended">数据管理模块</span>
+            </a>
+          </li>
+          <li class="nav-item link-other">
+            <a class="nav-link" href="{{url_data_storage}}" target="_blank">
+              <i class="sidebar-icon fa fa-cubes fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended">存储管理模块</span>
+            </a>
+          </li>
+          <li class="nav-item link-other">
+            <a class="nav-link">
+              <i class="sidebar-icon fa fa-dashboard fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended"></span>
+            </a>
+          </li>
+          <li class="nav-item link-other">
+            <a class="nav-link">
+              <i class="sidebar-icon fa fa-cog fa-fw fa-2x" aria-hidden="true"></i>
+              <span class="sidebar-btn-text" *ngIf="isExpended"></span>
+            </a>
+          </li>
+        </ul>
+        <!-- end: 新版： 折叠目录 -->
+
+        <!-- start: 原版使用 -->
+        <!--<ul class="nav">-->
+        <!--<li class="nav-item nav-item-top1">-->
+        <!--<a class="nav-link" [routerLink]="['/ExperimentList']" [routerLinkActive]="['active']"-->
+        <!--[routerLinkActiveOptions]="{exact:true}" (click)="onClick()">-->
+        <!--<i class="sidebar-icon fa fa-database fa-fw fa-2x" aria-hidden="true"></i>-->
+        <!--<span class="sidebar-btn-text" *ngIf="isExpended">数据分析</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item">
+          <a class="nav-link" [routerLink]="['/data-analysis']" [routerLinkActive]="['active']"
+             [routerLinkActiveOptions]="{exact:true}" (click)="onClick()">
+            <i class="sidebar-icon fa fa-hourglass-half fa-fw fa-2x" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">SQL分析</span>
+          </a>
+        </li>-->
+        <!--<li class="nav-item">
+          <a class="nav-link" [routerLink]="['/etl/tasklist']" [routerLinkActive]="['active']"
+             [routerLinkActiveOptions]="{exact:true}"(click)="onClick()">
+            <i class="sidebar-icon fa fa-flask fa-fw fa-2x" aria-hidden="true"></i>
+            <span class="sidebar-btn-text" *ngIf="isExpended">数据抽取</span>
+          </a>
+        </li>-->
+        <!--<li class="nav-item">-->
+        <!--<a class="nav-link" [routerLink]="['/upload-dataset']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">-->
+        <!--<i class="sidebar-icon fa fa-cubes fa-fw fa-2x" aria-hidden="true"></i>-->
+        <!--<span class="sidebar-btn-text" *ngIf="isExpended">文件上传</span>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li class="nav-item">-->
+        <!--<a class="nav-link" [routerLink]="['/upload-management']" [routerLinkActive]="['active']"-->
+        <!--[routerLinkActiveOptions]="{exact:true}" (click)="onClick()">-->
+        <!--<i class="sidebar-icon fa fa-cube fa-fw fa-2x" aria-hidden="true"></i>-->
+        <!--<span class="sidebar-btn-text" *ngIf="isExpended">算法上传</span>-->
+        <!--</a>-->
+        <!--</li>-->
+
+        <!--</ul>-->
+        <!-- end: 原版使用 -->
+      </nav>
+    </div>
+  </div>
+</div>
+

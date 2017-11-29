@@ -1,0 +1,191 @@
+<!--
+<div id="content">
+<div id="top">
+	<div id="top_left"><span>任务名称:</span></div>
+	<div id="top_right">
+		<input type="text" required
+		[(ngModel)]="task_name" name="task_name" #task="ngModel">
+	</div>
+</div>
+<div id="input">
+	<div id="left" class="form-group">
+		<div id="left_title">关系数据库</div>
+		<div id="db_login">
+
+			<div class="input_list">
+				<div class="input_list_left"><span>数据库地址:</span></div>
+				<div class="input_list_right">
+					<input type="text" id="rdb_address" required
+					[(ngModel)]="rdb_addr" name="rdb_address" #input_rdb_addr="ngModel">
+					<span style="padding:15px 0; float:right; border:0;" class="alert alert-danger" [hidden]="input_rdb_addr.valid || input_rdb_addr.pristine">*</span>
+				</div>
+		  	</div>
+
+			<div class="input_list">
+				<div class="input_list_left"><span>用户名:</span></div>
+				<div class="input_list_right">
+				<input  type="text" required
+					[(ngModel)]="user_name" name="user_name" #name="ngModel">
+					<span style="padding:15px 0; float:right; border:0;" class="alert alert-danger" [hidden]="name.valid || name.pristine">*</span>
+				</div>
+			</div>
+
+			<div class="input_list">
+				<div class="input_list_left"><span>密码:</span></div>
+				<div class="input_list_right">
+					<input type="password" required
+					[(ngModel)]="pswd" name="password" #input_pswd="ngModel">
+					<span style="padding:15px 0; float:right; border:0;" class="alert alert-danger" [hidden]="input_pswd.valid || input_pswd.pristine">*</span>
+				</div>
+			</div>
+		<button id="db_button" (click)="connect_rdb_three(input_rdb_addr.value,name.value,input_pswd.value)" [disabled]='!input_rdb_addr.valid || !name.valid || !input_pswd.valid'>
+						连接</button>
+		</div>
+
+		<div id="table">
+			<div id="table_list_container">
+				<div id="table_list_left"><span>数据库表:</span></div>
+				<div id="table_list_right">
+					<!--下一行一定要标注name属性,不然有问题
+					<select id="table_list" (click)="select_table()"
+						[(ngModel)]="table_onList" name="table_onList" >
+    					<option *ngFor="let item of table_list" [value]="item" style="border-bottom:1px solid black; ">
+      						{{item}}
+    					</option>
+  					</select>
+				</div>
+			</div>
+			<div id="column_list_container">
+				<div id="column_list_left"><span>字段:</span></div>
+				<div id="column_list_right">
+					<ng-select
+					[options]="columnList_of_index.slice(0)"
+					[multiple]="true"
+					placeholder="Select multiple"
+        			(selected)="onMultipleSelected($event)"
+        			(deselected)="onMultipleDeselected($event)">
+					</ng-select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  	<div id="middle">
+		&rarr;
+	</div>
+	<div id="right">
+		<div id="right_title">非关系数据库</div>
+
+		<div id="right_nav">
+			<span class="nav" (click)="this.cur_nosql='hdfs'">HDFS</span>
+			<span class="nav" (click)="this.cur_nosql='hbase'">HBASE</span>
+		</div>
+
+		<div id="right_content">
+			<div id="hdfs" *ngIf="this.cur_nosql=='hdfs'">
+				<div id="out_dir">
+					<div id="out_dir_left"><span>输出目录:</span></div>
+					<div id="out_dir_right">
+						<input type="text" required
+						[(ngModel)]="out_dir" [disabled]=true name="out_dir">
+					</div>
+				</div>
+
+<div id="tree">
+	<ul>
+	<li *ngFor="let level0 of hdfs_dir"  [ngClass]="{closed:!level0['closed']}">
+      <div >
+        <span class="glyphicon" (click)="level0['closed']=!level0['closed']" [ngClass]="level0['closed']?'glyphicon-plus':'glyphicon-minus'">{{level0['closed']?'+':'-'}}</span>
+		<span (click)="out_dir=level0['name']">{{level0['name']}}</span>
+      </div>
+	  <ul [hidden]="level0['closed']">
+        <li *ngFor="let level1 of level0['content']" [ngClass]="{closed:!level1['closed']}">
+          <div >
+			<span class="glyphicon" (click)="level1['closed']=!level1['closed']">{{level1['closed']?'+':'-'}}</span>
+			<span (click)="out_dir=level0['name']+'/'+level1['name']">{{level1['name']}}</span>
+          </div>
+          <ul [hidden]= "level1['closed']">
+            <li *ngFor="let level2 of level1['content']" [ngClass]="{closed:!level2['closed']}">
+				<div >
+					<span class="glyphicon" (click)="level2['closed']=!level2['closed']">{{level2['closed']?'+':'-'}}</span>
+					<span (click)="out_dir=level0['name']+'/'+level1['name']+'/'+level2['name']">{{level2['name']}}</span>
+          		</div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+    </li>
+	</ul>
+</div>
+				<div class="select_container">
+					<div class="select_left"><span>输出格式:</span></div>
+					<div class="select_right">
+						<select required [(ngModel)]="out_form" name="out_fromat">
+   	 						<option *ngFor="let format of out_formats" [value]="format">{{format}}</option>
+  						</select>
+					</div>
+				</div>
+				<div class="select_container">
+					<div class="select_left"><span>是否压缩:</span></div>
+					<div class="select_right">
+						<select required [(ngModel)]="is_comp" name="to_compress" #to_comp="ngModel" >
+							<option *ngFor="let to_compress of to_compress" [value]="to_compress">{{to_compress}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="select_container">
+					<div class="select_left"><span>压缩类型:</span></div>
+					<div class="select_right">
+						<select required [(ngModel)]="comp_type" name="compression_type">
+							<option *ngFor="let com_type of compression_type" [value]="com_type" >{{com_type}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div id="hbase" *ngIf="this.cur_nosql=='hbase'">
+				hbase
+			</div>
+		</div>
+	</div>
+	<div id="submit_container">
+		<button id="submit" (click)="onSubmit()" >提交运行</button>
+	</div>
+</div>
+
+<div id='log_container'>
+	<div id = 'log_title'>
+		<span>执行状态:</span>
+	</div>
+	<div id="log">
+		<p *ngFor='let log of log_content'>{{log}}</p>
+	</div>
+</div>
+
+</div>
+-->
+
+<div class="row">
+  <div class="col-md-2 tool-box">
+		<etl-toolbox></etl-toolbox>
+  </div>
+
+  <div class="col-md-10">
+    <div class=row>
+      <div class="col-md-7 svg-container">
+        <etl-drawboard></etl-drawboard>
+      </div>
+
+      <div class="col-md-5">
+		<etl-parameters></etl-parameters>
+      </div>
+    </div>
+	
+	
+  </div>
+    
+  
+</div>
+
+
+

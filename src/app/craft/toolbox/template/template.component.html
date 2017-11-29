@@ -1,0 +1,15 @@
+<div id="toolbox-list-{{data['key']}}-{{data['id']}}" class="minimized list-category">
+  <div class="list-category-header" (click)="changeStat('toolbox-list-'+data['key']+'-'+data['id'])">
+    <div class="icon-expand"></div>
+    <span class="category-header-icon icon-data_set"><i></i></span>
+    <div class="category-header-title">
+      {{data['key']}}
+    </div>
+  </div>
+  <div class="list-category-content">
+    <div  *ngFor="let item of (data['value'])">
+      <app-template *ngIf="data['type']==='dir'" [data]="item"></app-template>
+      <app-template-item *ngIf="data['type']==='item'" [data]="item"></app-template-item>
+    </div>
+  </div>
+</div>

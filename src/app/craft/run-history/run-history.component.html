@@ -1,0 +1,34 @@
+<h4 id="header">任务记录</h4>
+
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>任务名称</th>
+    <th>提交时间</th>
+    <th>完成时间</th>
+    <th>执行状态</th>
+    <th>操作</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let record of history">
+    <td>{{record.workflow_name}}</td>
+    <td>{{record.submit_time}}</td>
+    <td>{{record.finish_time}}</td>
+    <td>{{record.missionStatus==3?"完成":"未完成"}}</td>
+    <td>
+      <button class="btn btn-outline-primary btn-sm" (click)="gotoDetail(record)">查看</button>
+    </td>
+  </tr>
+  <!--<tr>-->
+    <!--<td>测试任务1</td>-->
+    <!--<td>2016 - 10 - 23</td>-->
+    <!--<td>正在执行</td>-->
+    <!--<td>-->
+      <!--<button class="btn btn-outline-primary btn-sm" (click)="gotoDetail('测试任务1')">查看</button>-->
+    <!--</td>-->
+  <!--</tr>-->
+  </tbody>
+
+</table>

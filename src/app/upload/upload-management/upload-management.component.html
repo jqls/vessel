@@ -1,0 +1,96 @@
+<!--<div class="center">
+    <h3> <span class="tag tag-default" style="margin-left:600px">算法管理</span></h3>
+    <br>
+    <br>
+</div>
+-->
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script
+    src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <style>
+    .toggle-children {
+      z-index: 1 !important;
+    }
+  </style>
+</head>
+<br><br>
+<div class="treediv col-md-2">
+  <Tree  #tree [(nodes)]="nodes" [options]="treeOptions" (onActivate)="onEvent($event)">
+    <template #treeNodeTemplate let-node let-index="index">
+      <div>
+                  <div class="node-wrapper">
+                    <div class="node-content-wrapper">
+                      <i *ngIf="node.hasChildren==true" class="glyphicon glyphicon-folder-open"></i>
+                      <i *ngIf="node.hasChildren==false" class="glyphicon glyphicon-file"></i>
+                      <span style="font-size: 28px" (click)="onSelect(node.data.id)">{{ node.data.name }}</span>
+                          <i data-toggle="modal" data-target="#myModal"
+                             (click)="addNode(node.data.id)" class="glyphicon glyphicon-plus"></i>
+                          <i (click)="remove(node.data.id)" class="glyphicon glyphicon-minus"></i>
+                          <i data-toggle="modal" data-target="#myModal"
+                             (click)="editNode(node)" class="glyphicon glyphicon-pencil"></i>
+                    </div>
+                  </div>
+
+      </div>
+    </template>
+  </Tree>
+</div>
+
+<div class="simulate-textarea"  ng-model="view.text" contenteditable="false" placeholder="请输入内容">
+   <div style="font-size: 28px;margin-bottom: 30px;margin-left:400px" >算法详情</div>
+   <div style="font-size: 28px"><pre style="font-size: 28px;width:920px;height:600px">{{message}}</pre></div>
+ </div>
+
+<form [hidden]="false"
+      class="modal" id="myModal" tabindex="-1" role="dialog"
+      aria-labelledby="myModalLabel" aria-hidden="true"
+      style="top: 150px;" data-backdrop="static">
+  <div class="modal-content" >
+    <div class="col-md-7 offset-sm-3 " >
+      <fieldset>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+          </button>
+          <h4 class="modal-title text-lg-center">
+            节点属性
+          </h4>
+        </div>
+
+        <div class="offset-sm-3 ">
+          <div>
+            <br>
+            <label class="col-md-3">名称：</label>
+            <input id="nameId" placeholder="请输入名称" [(ngModel)]="nodeName" name="nameId" autocomplete="off">
+            <br>
+            <br>
+          </div>
+          <div>
+            <label class="col-md-3">是否显示：</label>
+            <input id="yes" type="radio" name="show" value="是" checked (click)="selected()"> 是
+            <input id="no" type="radio" name="show" value="否" (click)="selected()"> 否
+            <br>
+          </div>
+          <br>
+          <div>
+            <label class="col-md-3">图标上传：</label>
+            <input type="file" name="image" (change)="changeListener($event)">
+            <br>
+          </div>
+          <br>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="isEdit==false" (click)="save()" data-dismiss="modal" class="btn btn-primary">保存</button>
+          <button *ngIf="isEdit==true" (click)="editSave()" data-dismiss="modal" class="btn btn-primary">保存修改</button>
+          <button (click)="cancel()"  data-dismiss="modal" class="btn btn-secondary">取消</button>
+        </div>
+        <br><br>
+
+      </fieldset>
+    </div>
+  </div>
+</form>

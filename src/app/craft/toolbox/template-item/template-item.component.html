@@ -1,0 +1,5 @@
+<div id="processor-{{data.id}}" class="list-category-item dragable"  [class.active]="selectedNodeType===data"
+     (click)="itemClicked(data)" title={{data.description}}>
+  <span class="list-category-item-text">{{data.name}}</span>
+  <div class="list-category-item-icon"></div>
+</div>

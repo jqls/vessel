@@ -1,0 +1,31 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" role="tab">选择数据库节点</a>
+  </li>
+</ul>
+
+<ul class="list-group">
+      <li class="list-group-item menu_level_0" data-toggle="collapse"
+          data-target="#sql" aria-expanded="false" aria-controls="sql" (click)="changeCollapse('sql')">
+          <i id="sql-tag" class="fa fa-caret-right fa-fw" aria-hidden="true"></i>&nbsp;关系数据库
+      </li>
+      <div class="collapse" id="sql">
+        <ul class="list-group">
+          <li class="list-group-item xe-paletteItemText" *ngFor="let sql_item of toolbox_list.SqlList"
+              (click)="itemClick($event, sql_item)" [class.active]="selectedNodeType == sql_item">{{sql_item.label}}</li>
+        </ul>
+      </div>
+
+      <li class="list-group-item menu_level_0" data-toggle="collapse"
+          data-target="#nosql" aria-expanded="false" aria-controls="nosql" (click)="changeCollapse('nosql')">
+          <i id="nosql-tag" class="fa fa-caret-right fa-fw" aria-hidden="true"></i>&nbsp;非关系数据库
+      </li>
+      <div class="collapse" id="nosql">
+        <ul class="list-group">
+          <li class="list-group-item xe-paletteItemText" *ngFor="let nosql_item of toolbox_list.NosqlList"
+             [class.active]="selectedNodeType == nosql_item" 
+             (click)="itemClick($event, nosql_item)" >{{nosql_item.label}}
+          </li>
+        </ul>
+      </div>
+</ul>

@@ -1,0 +1,124 @@
+<div id="data-show">
+
+  <div class="main-wrapper">
+    <!--<header class="title">{{title}}</header>-->
+    <!-- start：图 -->
+    <div class="chart-wrapper" *ngIf="visualization">
+      <div class="chart-choice">
+        <div class="title">选择图表类型：</div>
+        <div class="choices">
+          <!--<button class="btn" (click)="setType(1)">条形图</button>-->
+          <!--<button class="btn" (click)="setType(2)">饼形图</button>-->
+          <!--<button class="btn" (click)="modalShow()">拓扑图</button>-->
+
+          <button id="picture-1" class="btn" (click)="setType(5)" disabled>图1</button>
+          <button id="picture-2" class="btn" (click)="setType(6)" disabled>图2</button>
+          <button id="picture-3" class="btn" (click)="setType(7)" disabled>图3</button>
+          <button id="picture-4" class="btn" (click)="setType(8)" disabled>图4</button>
+          <button id="picture-5" class="btn" (click)="setType(9)" disabled>图5</button>
+          <button id="picture-6" class="btn" (click)="setType(10)" disabled>图6</button>
+          <button class="btn" (click)="setType(4)">自定义</button>
+        </div>
+      </div>
+      <hr style="border-top:2px solid rgba(0, 0, 0, 0.1)"/>
+      <div class="chart-container">
+        <div id="main" style="height:600px;width: 1000px; margin: auto;" [ngSwitch]="type">
+          <app-bar *ngSwitchCase="1" [data]="dataJSON"></app-bar>
+          <app-pie *ngSwitchCase="2" [data]="dataJSON"></app-pie>
+          <!--<topological-diagram *ngSwitchCase="3"></topological-diagram>&lt;!&ndash;[data]="dataJSON"&ndash;&gt;-->
+          <div *ngSwitchCase="4" class="chart-custom">
+            <div class="info">
+              <form class="file-upload">
+                <label class="custom-file">
+                  <input type="file" id="file" class="custom-file-input" (change)="changeListener($event)"  name="file" required>
+                  <span class="custom-file-control"></span>
+                </label>
+                <button type="submit" class="btn btn-primary" (click)="sendFile()">上传文件</button>
+              </form>
+            </div>
+            <div class="note text-muted form-text">
+              <span class="note-title">REST API： </span>
+              <small class="note-content">请求数据地址：/dispatcher/resultPath/{{title}}/ <br> 请求图片存储地址：/dispatcher/savePath/{{title}}/</small>
+            </div>
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" *ngSwitchCase="4" [src]="imgURL"/>
+            </div>
+          </div>
+          <div *ngSwitchCase="5" class="chart-custom">
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" [src]="imgURL"/>
+            </div>
+          </div>
+          <div *ngSwitchCase="6" class="chart-custom">
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" [src]="imgURL"/>
+            </div>
+          </div>
+          <div *ngSwitchCase="7" class="chart-custom">
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" [src]="imgURL"/>
+            </div>
+          </div>
+          <div *ngSwitchCase="8" class="chart-custom">
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" [src]="imgURL"/>
+            </div>
+          </div>
+          <div *ngSwitchCase="9" class="chart-custom">
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" [src]="imgURL"/>
+            </div>
+          </div>
+          <div *ngSwitchCase="10" class="chart-custom">
+            <div *ngIf="imgURL!=null">
+              <img class="custom-img" [src]="imgURL"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- end：图 -->
+
+    <!-- start：表格 -->
+    <div id="table-show" *ngIf="!visualization">
+      <div class="table-wrapper">
+        <table class="table">
+          <tr *ngFor="let data of data4table">
+            <td *ngFor="let item of data['line']">{{item}}</td>
+          </tr>
+        </table>
+      </div>
+    </div><!-- end：表格 -->
+  </div>
+
+  <!-- start：拓扑图模态框 -->
+  <div id="topologyModal" class="front-wrapper" *ngIf="topolopyShow">
+    <div class="custom-window" style="width: 100%; height: 100%;">
+      <div class="offset-sm-3 col-md-7" style="background-color: #eceeef;top: 100px;">
+
+        <div class="modal-header">
+          <button type="button" class="close" (click)="modalShow()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div>
+          <br><!--[(ngModel)]="topolopyShowIp" name="topologyIP" [(ngModel)]="topolopyShowNum" name="topolopyNum"-->
+          <label for="topolopyIP" class="col-md-3">目的IP：</label>
+          <input #input1 id="topolopyIP" [(ngModel)]="showIp" name="topologyIp"
+                 autocomplete="off" placeholder="请输入目的IP">
+          <br>
+          <br>
+        </div>
+        <div>
+          <label for="topolopyNum" class="col-md-3">显示深度：</label>
+          <input #input2 id="topolopyNum" [(ngModel)]="showNum" name="topologyNum"
+                 autocomplete="off" placeholder="请输入显示深度">
+          <br>
+        </div>
+        <br>
+        <div class="modal-footer">
+          <button class="btn btn-primary" (click)="setNum();modalShow()">确定</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- end：拓扑图模态框 -->
+</div>

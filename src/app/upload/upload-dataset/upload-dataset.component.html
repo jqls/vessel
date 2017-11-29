@@ -1,0 +1,21 @@
+
+<div id="fileUpload">
+<div>
+  <label for="i_fileName" class="col-xs-1 col-form-label" style="margin-left:200px;">名称：</label>
+  <div class="col-xs-6">
+    <input class="form-control" type="text" id="i_fileName" [(ngModel)]="fileinfo.name" name="name"
+           placeholder="请输入文件名称" required>
+  </div>
+</div>
+  <br>
+  <br>
+  <br>
+  <div class="col-md-offset-1" style="padding-top: 30px;margin-left: 200px">
+      <label  style="margin-left:20px">选择上传的文件：</label>
+      <input type="file" (change)="changeListener($event)"  name="document" style="margin-left:20px" required>
+      <br>
+      <div class="offset-sm-7 col-sm-3">
+        <button type="submit" class="btn btn-primary" (click)="sendFile()">上传文件</button>
+      </div>
+  </div>
+</div>

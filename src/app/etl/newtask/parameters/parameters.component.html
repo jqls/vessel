@@ -1,0 +1,158 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link" href="#parameters" data-toggle="tab" role="tab" (click)="tab='para'">参数配置</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#log" data-toggle="tab" role="tab" (click)="tab='log'">运行日志</a>
+  </li>
+</ul>
+
+<!--
+<ul id="myTab" class="nav nav-tabs">
+	<li class="active">
+		<a href="#log" data-toggle="tab">
+			log
+		</a>
+	</li>
+	<li><a href="#parameters" data-toggle="tab">para</a></li>
+	<li class="dropdown">
+		<a href="#" id="myTabDrop1" class="dropdown-toggle" 
+		   data-toggle="dropdown">Java 
+			<b class="caret"></b>
+		</a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
+			<li><a href="#jmeter" tabindex="-1" data-toggle="tab">jmeter</a></li>
+			<li><a href="#ejb" tabindex="-1" data-toggle="tab">ejb</a></li>
+		</ul>
+	</li>
+</ul>
+-->
+
+<div class="tab-content">
+<div class="tab-pane" id="parameters" *ngIf="(tab=='para')">
+  <div *ngIf="isSql">
+  <form (ngSubmit)="connect_rdb(inputForm.value)" #inputForm="ngForm">
+  <ul class="list-group">
+      <li class="list-group-item form-group">
+        <div class="row">
+          <div class="col-md-4 nav-link input-label">
+            {{general_parameters[0].label}}:
+          </div>
+          <div class="col-md-8">
+            <input *ngIf="general_parameters[0].controlType=='text'" type="text" class="form-control" [placeholder]="general_parameters[0].label" aria-describedby="basic-addon1" 
+              [(ngModel)]="general_parameters[0].val" name="host_addr" required>
+						<select class="form-control" *ngIf="general_parameters[0].controlType=='select'" required [(ngModel)]="general_parameters[0].val" name="host_addr">
+							<option *ngFor="let option of general_parameters[0].selectOptions" [value]="option">{{option}}</option>
+						</select>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item form-group">
+        <div class="row">
+          <div class="col-md-4 nav-link input-label">
+            {{general_parameters[1].label}}:
+          </div>
+          <div class="col-md-8">
+            <input *ngIf="general_parameters[0].controlType=='text'" type="text" class="form-control" [placeholder]="general_parameters[1].label" aria-describedby="basic-addon1" 
+              [(ngModel)]="general_parameters[1].val" name="user_name" required>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item form-group">
+        <div class="row">
+          <div class="col-md-4 nav-link input-label">
+            {{general_parameters[2].label}}:
+          </div>
+          <div class="col-md-8">
+            <input *ngIf="general_parameters[0].controlType=='text'" type="password" class="form-control" [placeholder]="general_parameters[2].label" aria-describedby="basic-addon1" 
+              [(ngModel)]="general_parameters[2].val" name="pswd" required>
+          </div>
+        </div>
+      </li>
+  </ul>
+  
+    <div class="row" *ngIf="isSql">
+      <button type="submit" class="btn btn-info" [disabled]="!inputForm.form.valid" >连接数据库</button>
+    </div>
+  </form>
+  </div>
+
+  <div *ngIf="isNosql">   
+  <ul class="list-group">
+      <li class="list-group-item form-group" *ngFor="let para of general_parameters">
+        <div class="row">
+          <div class="col-md-4 nav-link input-label">
+            {{para.label}}:
+          </div>
+          <div class="col-md-8">
+            <input *ngIf="para.controlType=='text'" type="text" class="form-control" [placeholder]="para.label" aria-describedby="basic-addon1" 
+              [(ngModel)]="para.val" required>
+						<select class="form-control" *ngIf="para.controlType=='select'" required [(ngModel)]="para.val">
+							<option *ngFor="let option of para.selectOptions" [value]="option">{{option}}</option>
+						</select>
+          </div>
+        </div>
+      </li>
+  </ul>
+    <div class="row">
+      <button class="btn btn-info" (click)="nosql_confirm()">确定</button>
+    </div>
+  </div>
+  
+  <ul class="list-group" *ngIf="expand_parameters">
+      <li class="list-group-item" *ngFor="let para of expand_parameters.slice(0,1)">
+        <div class="row">
+          <div class="col-md-4 nav-link input-label">{{para.label}}:</div>
+          <div class="col-md-8">
+            <select  *ngIf="para.label=='数据库表'" placeholder="选择表" required [(ngModel)]="para.val" (click)="select_table()"> 
+							<option *ngFor="let option of para.selectOptions" [value]="option">{{option}}</option>
+						</select>
+            
+            <div class="dropdown open" *ngIf="para.controlType=='multilayer-select'">
+              <div class="btn btn-secondary dropdown-toggle" id="table-select" type="button" data-toggle="collapse" data-target="#table_column" aria-expanded="false" aria-controls="collapseExample">
+                  选择数据库表和列
+              </div>
+              <div class="collapse" id="table_column">
+                <div *ngIf="rdb_connected">
+                <ul class="list-group" *ngFor="let table_column_object of para.multiSelectOptions">
+                  <li class="list-group-item table_level">
+                    <i class="fa fa-table" aria-hidden="true"></i>
+                    {{table_column_object['table_name']}}                    
+                  </li>
+                  <ul class="list-group">
+                      <li class="list-group-item column_level" *ngFor="let col of table_column_object['col_list']"
+                       (click)="col_select($event, para, table_column_object.table_name,col)" 
+                       [class.active]="this.exist_in_array(para.val_expand[para.multiSelectOptions.indexOf(table_column_object)]['col_list'], col)">
+                        {{col}}
+                      </li>
+                  </ul>
+                </ul>
+                </div>
+                <div *ngIf="!rdb_connected" style="color: silver; font-family: 'Segoe UI'; padding-left: 10px">未连接数据库</div>
+              </div>
+              
+            </div>
+            <!--
+            <ng-select *ngIf="para.label=='列'"
+					    [options]="columnList_of_index.slice(0)"
+					    [multiple]="true"
+					    placeholder="Select multiple"
+        			(selected)="onMultipleSelected($event)"
+        			(deselected)="onMultipleDeselected($event)">
+				  	</ng-select>
+
+            <select  *ngIf="para.label=='分区列'" required [(ngModel)]="para.val"> 
+							<option *ngFor="let option of para.selectOptions" [value]="option">{{option}}</option>
+						</select>
+            -->
+          </div>
+        </div>
+      </li>
+  </ul>
+
+</div>
+
+<div class="tab-pane" id="log" *ngIf="tab=='log'">
+  {{log}}
+</div>
+</div>
