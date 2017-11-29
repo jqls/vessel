@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { GlobalService } from "../global.service";
 
 import * as $ from 'jquery';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-navpane',
@@ -9,7 +10,8 @@ import * as $ from 'jquery';
   styleUrls: ['./navpane.component.sass']
 })
 export class NavpaneComponent implements OnInit, AfterViewInit {
-
+  private url_data_manager = environment.dataManager;
+  private url_data_storage = environment.dataStorage;
   private isExpended: boolean;
   private clicked = false;
 
