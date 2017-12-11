@@ -5,7 +5,7 @@ import {
   SelectQuestion,
   FilelistQuestion,
   DatabaseQuestion,
-  MultiSelectQuestion
+  MultiSelectQuestion, DirListQuestion
 } from "./questions";
 import { FormControl, Validators, FormGroup } from "@angular/forms";
 import { ParameterType } from "../json-types";
@@ -30,7 +30,8 @@ export class QuestionControlService {
             parameter.controlType == "text" ? new TextboxQuestion(parameter) :
               parameter.controlType == "filelist" ? new FilelistQuestion(parameter) :
                 parameter.controlType == "database" ? new DatabaseQuestion(parameter) :
-                  null
+                  parameter.controlType == "directorylist"? new DirListQuestion(parameter) :
+                    null
       );
 
     });

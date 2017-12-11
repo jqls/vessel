@@ -127,15 +127,15 @@ export class ParametersComponent implements OnInit {
         // console.log(JSON.stringify(res));
         return res as ParametersType[];
       })
-      .then((res:ParametersType[]) => {
-        this.databaseRequestTable={};
-        this.databaseRequestColum={};
+      .then((res: ParametersType[]) => {
+        this.databaseRequestTable = {};
+        this.databaseRequestColum = {};
         console.log(this.databaseRequestTable);
         res.map(param => {
           let newPara = {};
           newPara['key'] = param.key;
-          this.databaseRequestTable[param.key]='';
-          this.databaseRequestColum[param.key]='';
+          this.databaseRequestTable[param.key] = '';
+          this.databaseRequestColum[param.key] = '';
           newPara['label'] = param.label;
           newPara['value'] = param.value;
           newPara['controlType'] = param.controlType;
@@ -192,11 +192,11 @@ export class ParametersComponent implements OnInit {
           // console.log(JSON.stringify(res));
           return res as ParametersType[];
         })
-        .then((res:ParametersType[]) => {
+        .then((res: ParametersType[]) => {
           res.map(param => {
             let newPara = {};
             newPara['key'] = param.key;
-            this.databaseRequestColum[param.key]='';
+            this.databaseRequestColum[param.key] = '';
             newPara['label'] = param.label;
             newPara['value'] = param.value;
             newPara['controlType'] = param.controlType;
@@ -217,9 +217,9 @@ export class ParametersComponent implements OnInit {
           this.craftService.onDatabaseAttrSet(content)
             .then(res => {
               // console.warn(res);
-              if(!res.table_list)
+              if (!res.table_list)
                 d3.select('#errorMessage').text(res);
-              else{
+              else {
                 d3.select('#errorMessage').text('');
                 console.log(newParamster);
                 newParamster.options = res.table_list;
@@ -262,7 +262,7 @@ export class ParametersComponent implements OnInit {
           console.log(JSON.stringify(res));
           return res as ParametersType[];
         })
-        .then((res:ParametersType[]) => {
+        .then((res: ParametersType[]) => {
           res.map(param => {
             let newPara = {};
             newPara['key'] = param.key;

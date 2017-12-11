@@ -23,10 +23,19 @@
       <option *ngFor="let opt of question.options" [value]="opt.value">{{opt.value}}</option>
     </select>
 
-    <select *ngSwitchCase="'multiselect'" #mult multiple [id]="question.key" [formControlName]="question.key" (change)="checkValue(mult)">
+    <select *ngSwitchCase="'multiselect'" #mult multiple [id]="question.key" [formControlName]="question.key"
+            (change)="checkValue(mult)">
       <option [value]="'*'">*</option>
       <option *ngFor="let opt of question.options" [value]="opt">{{opt}}</option>
     </select>
+
+    <div class="input-group" *ngSwitchCase="'directorylist'">
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-primary" (click)="onClick()">Open Dirs/Files</button>
+      </span>
+      <input type="hidden" class="form-control" [id]="question.key" [formControlName]="question.key"
+             [value]="question.value">
+    </div>
 
   </div>
 
@@ -39,3 +48,36 @@ Copyright 2016 Google Inc. All Rights Reserved.
 Use of this source code is governed by an MIT-style license that
 can be found in the LICENSE file at http://angular.io/license
 -->
+<!-- Modal -->
+<div class="modal" id="myModal" *ngIf="this.showModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{dir_data.prefix}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label>
+            <span (click)="onClick(dir_data.prefix+'/..')" style="cursor: pointer;" *ngIf="dir_data.prefix!='/'">返回上级菜单</span>
+          </label>
+        </div>
+        <div *ngFor="let item of dir_data.dir">
+          <label>
+            <input type="checkbox" [(ngModel)]="item.selected" (change)="checkboxChange(item, $event)">
+            <span *ngIf="item.type==='FILE'" class="fa fa-file">{{item.name}}</span>
+            <span *ngIf="item.type==='DIRECTORY'" class="fa fa-folder" (click)="onClick(dir_data.prefix+'/'+item.name)"
+                  style="cursor: pointer;">{{item.name}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSave()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end：Modal -->

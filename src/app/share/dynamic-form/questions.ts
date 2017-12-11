@@ -91,7 +91,13 @@ export class FilelistQuestion extends QuestionBase<string> {
       }) || [];
   }
 }
+export class DirListQuestion extends QuestionBase<string> {
+  controlType = 'directorylist';
 
+  constructor(options: {} = {}) {
+    super(options);
+  }
+}
 
 // export class PasswordQuestion extends QuestionBase<string> {
 //   controlType = 'password';
