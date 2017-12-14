@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { WorkflowNode } from "./internal/node-basic";
 import * as d3 from "d3";
 import { Relation } from "./internal/relation";
@@ -55,6 +55,10 @@ export class DrawboardComponent implements OnInit {
   private log_func: () => void;
   private interval;
 
+  private inter;
+  private startTime;
+  private timerRunner;
+  private showTime = false;
   constructor(private craftService: CraftService,
               private globalService: GlobalService,
               private dataService: DataService) {
@@ -93,7 +97,7 @@ export class DrawboardComponent implements OnInit {
 
     this.globalService.book_workflowID((id: number) => {
       this.workflow_id = id;
-    })
+    });
     //设置用于reRender的钩子函数
     this.craftService.setReRenderHook(() => {
       this.dataService.getDataByFlowID(this.workflow_id).then(
@@ -103,6 +107,22 @@ export class DrawboardComponent implements OnInit {
           this.reRender(reRenderData);
         }
       );
+    });
+
+    this.globalService.bookRuuning((bool: boolean)=>{
+      if(bool){
+        this.startTime = Date.now();
+        this.showTime = true;
+        this.inter = setInterval(()=>{
+          this.timerRunner = Date.now() - this.startTime - 8*3600000;
+        }, 50)
+      }else {
+        if(this.showTime){
+          clearInterval(this.inter);
+          let time = document.getElementById("time");
+          alert("分析成功，消耗时间" + time.innerHTML)
+        }
+      }
     });
   }
 
@@ -429,6 +449,8 @@ export class DrawboardComponent implements OnInit {
     this.log_func();
   }
   getNodeStat() {
+    if(!this.globalService.getRunning())
+      this.globalService.setRuuning(true);
     this.craftService.getNodeStat().then(res => {
       console.log("------------------getNodeStat-------------------------");
       console.log(res);
@@ -445,6 +467,7 @@ export class DrawboardComponent implements OnInit {
       console.log(error);
       if ((over && res.length === this.workflowNodes.length) || error) {
         console.log("------------------getNodeStat2-------------------------");
+        this.globalService.setRuuning(false);
         clearInterval(this.interval);
       }
       this.setNodestat(res);

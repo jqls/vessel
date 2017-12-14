@@ -33,4 +33,5 @@ export const environment = {
   URL_REST_API: 'http://10.5.0.222:8080/docs/',
   dataManager: 'http://10.5.0.222:9990/db_manager/dbmanager/index.do',
   dataStorage: 'http://10.5.0.222:10000/lvm/index.cgi',
+  URL_GET_DIR: 'http://10.5.0.223:8081/workflow/get_directory_info/',
 };

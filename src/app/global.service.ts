@@ -27,12 +27,28 @@ export class GlobalService {
   visualization_option: string;
   hasRun: boolean;
   isVisual: boolean;
+  private isRunning: boolean = false;
+  private running_hooks: Array<(bool: boolean)=>void>;
+
   constructor(private http: Http) {
     this.navepane_subscribers = Array<(stat: boolean) => void>();
     this.da_subscribers = Array<(active: boolean)=>void>();
     this.workflow_subscribers = Array<(id: number) => void>();
+    this.running_hooks = [];
     this.hasRun = false;
     this.isVisual = true;
+  }
+
+  bookRuuning(hook: (bool)=>void) {
+    this.running_hooks.push(hook);
+    this.running_hooks.forEach(func=>func(this.isRunning));
+  }
+  setRuuning(bool: boolean) {
+    this.isRunning = bool;
+    this.running_hooks.forEach(func=>func(this.isRunning));
+  }
+  getRunning(){
+    return this.isRunning
   }
   setLog(hook: () => void) {
     this.log_hook = hook;

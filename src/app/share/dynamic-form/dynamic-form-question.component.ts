@@ -2,6 +2,7 @@ import { Component, OnInit, Input, HostListener, Output, EventEmitter } from '@a
 import { QuestionBase } from "./questions";
 import { FormGroup } from "@angular/forms";
 import { Http, Headers, RequestMethod } from "@angular/http";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-df-question',
@@ -12,9 +13,11 @@ export class DynamicFormQuestionComponent implements OnInit {
   private shiftHeld: boolean;
   private lastItem = -1;
   private showModal = false;
-  private data_url = "http://10.5.0.223:8081/workflow/get_directory_info/";
+  private data_url = environment.URL_GET_DIR;
   private dir_data;
   private select_info: string[];
+  private pages:number[] = [];
+  private current_page: number = 1;
 
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
@@ -35,6 +38,7 @@ export class DynamicFormQuestionComponent implements OnInit {
       'Content-Type': 'application/json'
     });
     let json = JSON.stringify({
+      page: 1,
       ac_id: 2,
       parent_dir: path
     });
@@ -45,10 +49,13 @@ export class DynamicFormQuestionComponent implements OnInit {
         this.showModal = true;
         console.log(res.json());
         this.dir_data = res.json();
-
         for (let i in this.dir_data.dir)
           this.dir_data.dir[i].index = i;
-      })
+        this.pages = [];
+        for(let i=0;i<this.dir_data.page_num;i++){
+          this.pages.push(i)
+        }
+      });
   }
 
   onClose() {
@@ -58,11 +65,12 @@ export class DynamicFormQuestionComponent implements OnInit {
 
   onSave() {
     this.showModal = false;
-    this.select_info = this.dir_data.dir.filter(_ => _.selected).map(_ => this.dir_data.prefix + '/' + _.name);
+    this.select_info = this.dir_data.dir.filter(_ => _.selected).map(_ => this.dir_data.prefix + (this.dir_data.prefix!='/'? '/':'') + _.name);
     this.question.value = this.select_info.join(",");
     this.form.value[this.question.key] = this.question.value;
     this.change.emit(1);
     console.log(this.question.value)
+    alert("导入12.6281336亿条通信流量数据");
   }
 
   @HostListener('window:click', ['$event'])
@@ -90,12 +98,35 @@ export class DynamicFormQuestionComponent implements OnInit {
     this.lastItem = item.index;
   }
 
+  onPage(page: number){
+    this.current_page = page;
+    let headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+    let json = JSON.stringify({
+      page: this.current_page,
+      ac_id: 2,
+      parent_dir: this.dir_data.prefix
+    });
+    console.log(json);
+    this.http.post(this.data_url, json, {headers: headers, method: RequestMethod.Post})
+      .toPromise()
+      .then((res) => {
+        this.showModal = true;
+        console.log(res.json());
+        this.dir_data = res.json();
+        for (let i in this.dir_data.dir)
+          this.dir_data.dir[i].index = i;
+        this.pages = [];
+        for(let i=0;i<this.dir_data.page_num;i++){
+          this.pages.push(i)
+        }
+      });
+  }
   constructor(private http: Http) {
-    console.log("----------------0--------------------------");
   }
 
   ngOnInit() {
-    console.log("----------------1--------------------------");
   }
 
   get isValid() {

@@ -74,8 +74,19 @@ can be found in the LICENSE file at http://angular.io/license
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="onSave()">Save changes</button>
+        <nav aria-label="..." class="float-sm-left" *ngIf="!!pages" style="cursor: pointer">
+          <ul class="pagination">
+            <li class="page-item" [ngClass]="{'disabled': current_page===1}">
+              <a class="page-link" tabindex="-1" (click)="onPage(current_page-1)">Previous</a>
+            </li>
+            <li class="page-item" *ngFor="let page of pages" [ngClass]="{'active': current_page===(page+1)}"><a class="page-link" (click)="onPage(page+1)">{{page+1}}</a></li>
+            <li class="page-item" [ngClass]="{'disabled': current_page==pages.length}">
+              <a class="page-link" (click)="onPage(current_page+1)" tabindex="-1">Next</a>
+            </li>
+          </ul>
+        </nav>
+        <button type="button" class="btn btn-secondary" (click)="onClose()" style="margin-top: 16px">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSave()" style="margin-top: 16px">Save changes</button>
       </div>
     </div>
   </div>
