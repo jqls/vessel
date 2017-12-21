@@ -64,7 +64,7 @@ export class DrawboardComponent implements OnInit {
               private dataService: DataService) {
     this.globalService.setNodesttatHook(() => {
       this.workflowNodes.forEach(node => {
-        node.groupContainer.select(".nodeStatus").select("image").attr("href", "../assets/images/icon-notstarted.svg");
+        node.groupContainer.select(".nodeStatus").select("image").attr("href", "assets/images/icon-notstarted.svg");
       });
       this.interval = setInterval(() => {
         this.getNodeStat()
@@ -480,16 +480,16 @@ export class DrawboardComponent implements OnInit {
       console.log(temp.node());
       switch (item.status) {
         case 0:
-          temp.attr("href", "../assets/images/icon-notstarted.svg");
+          temp.attr("href", "assets/images/icon-notstarted.svg");
           break;
         case 1:
-          temp.attr("href", "../assets/images/Processing.gif");
+          temp.attr("href", "assets/images/Processing.gif");
           break;
         case 2:
-          temp.attr("href", "../assets/images/icon-error.png");
+          temp.attr("href", "assets/images/icon-error.png");
           break;
         case 3:
-          temp.attr("href", "../assets/images/icon-complete.svg");
+          temp.attr("href", "assets/images/icon-complete.svg");
           break;
 
       }

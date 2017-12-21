@@ -154,7 +154,7 @@ export class ProcessorNode extends BasicDrawboardNode {
       .append("image")
       .attr("height",16)
       .attr("width",16)
-      .attr("href","../assets/images/icon-none.svg");
+      .attr("href","assets/images/icon-none.svg");
   }
 
   mousedownHandler(): void {

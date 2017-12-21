@@ -79,7 +79,7 @@ can be found in the LICENSE file at http://angular.io/license
             <li class="page-item" [ngClass]="{'disabled': current_page===1}">
               <a class="page-link" tabindex="-1" (click)="onPage(current_page-1)">Previous</a>
             </li>
-            <li class="page-item" *ngFor="let page of pages" [ngClass]="{'active': current_page===(page+1)}"><a class="page-link" (click)="onPage(page+1)">{{page+1}}</a></li>
+            <li class="page-item" *ngFor="let page of pages | slice:page_start:page_end" [ngClass]="{'active': current_page===(page+1)}"><a class="page-link" (click)="onPage(page+1)">{{page+1}}</a></li>
             <li class="page-item" [ngClass]="{'disabled': current_page==pages.length}">
               <a class="page-link" (click)="onPage(current_page+1)" tabindex="-1">Next</a>
             </li>

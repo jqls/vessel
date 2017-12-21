@@ -18,6 +18,8 @@ export class DynamicFormQuestionComponent implements OnInit {
   private select_info: string[];
   private pages:number[] = [];
   private current_page: number = 1;
+  private page_start: number = 0;
+  private page_end: number = 4;
 
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
@@ -100,6 +102,18 @@ export class DynamicFormQuestionComponent implements OnInit {
 
   onPage(page: number){
     this.current_page = page;
+    if(this.current_page == this.page_end){
+      this.page_start += 2;
+      this.page_end += 2;
+    }
+    if(this.current_page == this.page_start+1){
+      this.page_start -= 2;
+      this.page_end -= 2;
+      if(this.page_start<0){
+        this.page_start = 0;
+        this.page_end = 4;
+      }
+    }
     let headers = new Headers({
       'Content-Type': 'application/json'
     });
